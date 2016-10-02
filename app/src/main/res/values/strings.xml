@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">3PMStore</string>
+
+    <!-- Dialog message -->
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_setting">Settings</string>
+    <string name="please_wait">Please wait &#8230;</string>
+    <string name="no_internet_msg">This feature requires internet connection. Please check your internet settings and try again.</string>
+    <string name="no_internet_msg_main">This Application required internet connection. Please check your internet setting and try again.</string>
+    <string name="no_internet_title">No internet</string>
+
+    <string name="access_code">Access Code</string>
+
+    <!--shankar-->
+    <string name="time_left_caps">TIME LEFT </string>
+    <string name="time_hour">13</string>
+    <string name="time_hour_h">H</string>
+    <string name="time_minutes">:06</string>
+    <string name="time_sec">:52</string>
+    <string name="time_minutes_m">M</string>
+    <string name="time_sec_s">S</string>
+    <string name="icon_menu">&#xf0c9;</string>
+    <string name="icon_settings">&#xf142;</string>
+    <string name="right_icon">&#xf054;</string>
+    <string name="left_icon">&#xf053;</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="review_order">Review Your Order</string>
+    <string name="apparel">APPAREL</string>
+    <string name="youtube_key">AIzaSyALGzDleq01s5UtvSfawNogNDUkmKEUoPQ</string>
+
+</resources>

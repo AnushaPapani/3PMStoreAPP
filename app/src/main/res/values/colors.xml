@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="colorPrimary">#FF952B</color>-->
+    <!--<color name="colorPrimaryDark">#303F9F</color>-->
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="Login">#FF7700</color>
+    <color name="titlbar">#FF9100</color>
+    <color name="divider">#000000</color>
+    <color name="clicked">#538291</color>
+    <drawable name="white">#ffffff</drawable>
+    <drawable name="black">#000000</drawable>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="bg_gradient_start">#EB5038</color>
+    <color name="bg_gradient_end">#CA3822</color>
+    <color name="bg_button_login">#A92815</color>
+
+
+    <color name="survey_toplist_item">#EFEDEC</color>
+    <color name="survey_alternate_color">#EBE7E6</color>
+    <color name="grey">#ffffff</color>
+    <color name="itemselected">#EDEDED</color>
+    <color name="login_hover">#E5F5FA</color>
+    <color name="sign_out_color">#e84040</color>
+
+    <color name="button_pressed">#1da9da</color>
+    <color name="button_focused">#1da9da</color>
+    <color name="button_default">#1c76bb</color>
+
+    <color name="colorPrimary">#125688</color>
+    <color name="colorPrimaryDark">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#c8e8ff</color>
+
+    <color name="dark_gray_color">#3f3f3f</color>
+    <color name="txt_hint_color">#c0c0c0</color>
+    <color name="txt_unselected_color">#bdc7d8</color>
+
+</resources>

@@ -1,0 +1,320 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="Bond-James Bond T-shirt"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/linear_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_name"
+            >
+
+            <TextView
+                android:id="@+id/txt_left_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:layout_marginStart="@dimen/_20dp"
+                android:text="@string/left_icon"
+                android:textSize="@dimen/sp_size_thirty" />
+
+            <ImageView
+                android:id="@+id/img_highlighted"
+                android:layout_width="180dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:id="@+id/txt_right_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="@dimen/_20dp"
+                android:layout_marginRight="@dimen/_20dp"
+                android:text="@string/right_icon"
+                android:textSize="@dimen/sp_size_thirty" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linear_img"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <ImageButton
+                android:id="@+id/img_first"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_select"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/img_second"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_unselect"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/img_third"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_unselect"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/img_four"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_unselect"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageButton
+                android:id="@+id/img_five"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_2dp"
+                android:layout_weight="1"
+                android:background="@drawable/border_unselect"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_below="@+id/ll2"
+            android:layout_margin="@dimen/_10dp"
+            android:background="@color/clicked" />
+
+        <RelativeLayout
+            android:id="@+id/rl_ll3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view">
+
+            <TextView
+                android:id="@+id/txt_name_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/txt_mrp"
+                android:paddingLeft="15dp"
+                android:paddingStart="15dp"
+                android:text="Cotton James Bond T-shirt"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_mrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_toLeftOf="@+id/txt_strike"
+                android:gravity="center"
+                android:text="MRP"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_strike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_5dp"
+                android:layout_marginRight="@dimen/_15dp"
+                android:gravity="center"
+                android:text="600"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ll4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/rl_ll3"
+            android:layout_marginBottom="@dimen/_10dp">
+
+            <TextView
+                android:id="@+id/txt_free"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:text="Free Shipping"
+                android:textColor="#7fbf4d"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/txt_deli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/txt_free"
+                android:layout_marginLeft="15dp"
+                android:text="Delivered in 5-9 Days"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/txt_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:background="#7fbf4d"
+                android:padding="@dimen/_10dp"
+                android:text="BUY for 299"
+                android:textColor="#fff"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_spinners"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll4"
+            android:orientation="vertical"
+            >
+
+            <Spinner
+                android:id="@+id/spin_one"
+                style="@style/spinner_style_shape"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spin_two"
+                style="@style/spinner_style_shape"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spin_three"
+                style="@style/spinner_style_shape"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/spin_four"
+                style="@style/spinner_style_shape"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"></Spinner>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_spinners">
+
+            <ImageView
+                android:id="@+id/image_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180dp"
+                android:layout_margin="@dimen/_5dp"
+                android:contentDescription="@string/app_name"
+                android:src="@color/black" />
+
+            <ImageView
+                android:id="@+id/img_VideoPreviewPlayButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/video_play"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_video"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:paddingTop="5dp">
+
+            <Button
+                android:id="@+id/btn_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15dp"
+                android:background="@color/black"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Description"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15dp"
+                android:layout_toRightOf="@id/btn_desc"
+                android:background="#55C6D2"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Specifications"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/text_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_desc"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_10dp"
+            android:text="@string/access_code"
+            android:textSize="@dimen/sp_size_sixteen" />
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
