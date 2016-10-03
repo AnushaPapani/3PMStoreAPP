@@ -26,6 +26,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -34,7 +35,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -183,7 +187,7 @@ public class Utility {
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity httpEntity = response.getEntity();
             int statusCode = response.getStatusLine().getStatusCode();
-            Utility.showLog("statusCode", "statusCode" + statusCode);
+            showLog("statusCode", "statusCode" + statusCode);
             if (statusCode == 204) {
                 result = null;
             }
@@ -264,5 +268,17 @@ public class Utility {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static List<NameValuePair> getParams(LinkedHashMap<String, String> paramMap) {
+        if (paramMap == null) {
+            return null;
+        }
+
+        List<NameValuePair> paramsList = new ArrayList<NameValuePair>();
+        for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+            paramsList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+        }
+        return paramsList;
     }
 }

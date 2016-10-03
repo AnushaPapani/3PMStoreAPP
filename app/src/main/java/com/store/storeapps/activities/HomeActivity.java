@@ -2,6 +2,7 @@ package com.store.storeapps.activities;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -44,13 +45,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public DrawerLayout mDrawerLayout;
     public RelativeLayout cart_layout;
-    public Button cart_layout_button_set_text;
+    public static Button cart_layout_button_set_text;
     public ImageView cart_icon;
 
     public static ArrayList<ItemDetails> mProductItemsList;
     private ArrayList<LeftMenuModel> leftMenuList;
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
+    public static int mCartValue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +181,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (!Utility.isValueNullOrEmpty(mCartId)) {
+                if (Utility.isValueNullOrEmpty(mCartId)) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 } else {
                     Utility.showToastMessage(this, "Added at least on item to cart");
@@ -291,6 +293,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry backEntry = getSupportFragmentManager()
+                    .getBackStackEntryAt(
+                            getSupportFragmentManager()
+                                    .getBackStackEntryCount() - 1);
+            String tagName = backEntry.getName();
+            if (tagName.equals(HomeFragment.TAG)) {
+                finishAffinity();
+            } else if (tagName.equals(ReviewOrderFragment.TAG)) {
+                initUI();
             }
         }
     }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -77,9 +79,39 @@ public class ReviewOrderAdapter extends BaseAdapter {
         Picasso.with(mContext).load(getFullFilledImage(reviewOrderModel.getP_Image())).placeholder(Utility.getDrawable(mContext, R.drawable.refresh))
                 .into(mReviewOrderItemHolder.img_order);
         mReviewOrderItemHolder.txt_product_name.setText(reviewOrderModel.getP_Name());
-        mReviewOrderItemHolder.txt_price.setText(""+reviewOrderModel.getP_Cost());
+        mReviewOrderItemHolder.txt_price.setText("" + reviewOrderModel.getP_Cost());
 
-        //mReviewOrderItemHolder.spin_qty.
+        ArrayList<String> spinnerArray = new ArrayList<>();
+        for (int i = 0; i < reviewOrderModel.getMax_Quantity(); i++) {
+            spinnerArray.add("" + (i + 1));
+        }
+        ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(mContext,
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerArray);
+        mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
+        mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
+        mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+
+        mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mReviewOrderItemHolder.img_remove.setId(position);
+        mReviewOrderItemHolder.img_remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = view.getId();
+                Utility.showToastMessage(mContext, "Waiting for service");
+            }
+        });
 
         return convertView;
     }

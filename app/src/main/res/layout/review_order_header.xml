@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <TextView
@@ -8,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_15dp"
+        android:layout_marginBottom="@dimen/_15dp"
         android:gravity="center"
         android:text="@string/review_order"
         android:textSize="@dimen/sp_size_thirty" />

@@ -85,6 +85,7 @@ public class ReviewOrderFragment extends Fragment {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
                 result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
+                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152538");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
