@@ -19,7 +19,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1dp"
-        android:layout_marginTop="-4dp"
+        android:layout_marginTop="-10dp"
         android:background="@color/clicked" />
 
     <android.support.v4.view.ViewPager

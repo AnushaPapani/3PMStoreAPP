@@ -27,7 +27,6 @@ import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.YoutubeVideoActivity;
 import com.store.storeapps.utility.ApiConstants;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -492,12 +491,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 paramsList.put("P_ID", HomeActivity.mProductItemsList.get(mPosition).getP_id());
                 paramsList.put("cartValue ", "");
                 paramsList.put("P_Name", HomeActivity.mProductItemsList.get(mPosition).getP_Name());
-                paramsList.put("P_Cost", ""+HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
-                paramsList.put("P_Qty", "");
-                paramsList.put("gender", "");
-                paramsList.put("customattribute", "");
-                paramsList.put("color", "");
-                paramsList.put("size", "");
+                paramsList.put("P_Cost", "" + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                //paramsList.put("P_Qty", getSelectedSpinner("Quantity"));
+                paramsList.put("P_Qty", "1");
+                paramsList.put("gender", getSelectedSpinner("Gender"));
+                paramsList.put("customattribute", getSelectedSpinner("Custom"));
+                paramsList.put("color", getSelectedSpinner("Color"));
+                paramsList.put("size", getSelectedSpinner("Size"));
+                paramsList.put("cartId", HomeActivity.mCartId);
 
                 result = Utility.httpPostRequestToServer(ApiConstants.INSERT_CHECK_PRODUCTS, paramsList);
             } catch (Exception exception) {
@@ -513,11 +514,30 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
+                    HomeActivity.mCartId = jsonobject.optString("cartId");
+                    Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String getSelectedSpinner(String mSelectedName) {
+        String mSelectedThing = "";
+        if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().contains(mSelectedName)) {
+            int position = HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().indexOf(mSelectedName);
+            if (position == 0) {
+                mSelectedThing = spin_one.getSelectedItem().toString();
+            } else if (position == 1) {
+                mSelectedThing = spin_two.getSelectedItem().toString();
+            } else if (position == 2) {
+                mSelectedThing = spin_three.getSelectedItem().toString();
+            } else if (position == 3) {
+                mSelectedThing = spin_four.getSelectedItem().toString();
+            }
+        }
+        return mSelectedThing;
     }
 }

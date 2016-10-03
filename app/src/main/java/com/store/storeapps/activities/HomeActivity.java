@@ -7,6 +7,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -42,10 +44,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public DrawerLayout mDrawerLayout;
     public RelativeLayout cart_layout;
+    public Button cart_layout_button_set_text;
+    public ImageView cart_icon;
 
     public static ArrayList<ItemDetails> mProductItemsList;
     private ArrayList<LeftMenuModel> leftMenuList;
     public static ArrayList<CartItemModel> mCartItemsList;
+    public static String mCartId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
         cart_layout = (RelativeLayout) findViewById(R.id.cart_layout);
+        cart_layout_button_set_text = (Button) findViewById(R.id.cart_layout_button_set_text);
+        cart_icon = (ImageView) findViewById(R.id.cart_icon);
 
         txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
         txt_settings_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
@@ -77,6 +84,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         getProductsList();
 
         cart_layout.setOnClickListener(this);
+        cart_layout_button_set_text.setOnClickListener(this);
+        cart_icon.setOnClickListener(this);
     }
 
     private void setLeftMenuData() {
@@ -168,7 +177,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cart_layout:
-                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+            case R.id.cart_layout_button_set_text:
+            case R.id.cart_icon:
+                if (!Utility.isValueNullOrEmpty(mCartId)) {
+                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                } else {
+                    Utility.showToastMessage(this, "Added at least on item to cart");
+                }
                 break;
         }
     }

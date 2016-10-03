@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
@@ -83,7 +84,7 @@ public class ReviewOrderFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW+"?cartId=CT152525");
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

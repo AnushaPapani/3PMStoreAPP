@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/ll_layout_footer"
             android:layout_below="@+id/container_toolbar"
-            android:layout_marginTop="-4dp">
+            android:layout_marginTop="-10dp">
 
             <FrameLayout
                 android:id="@+id/content_frame"
