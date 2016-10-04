@@ -18,4 +18,22 @@ public class Constants {
     public static final String APP_PREF = "Store_Pref";
     public static final String CHARACTER_SET_ISO_8859_1 = "iso-8859-1";
     public static final String CHARACTER_SET_UTF_8 = "UTF-8";
+    public static final String Name ="";
+    public static final String Emailid ="";
+
+    public String getName() {
+        return Name;
+    }
+
+    public String getEmailid() {
+        return Emailid;
+    }
+
+//    public void setName(String name) {
+//        Name = name;
+//    }
+//
+//    public void setEmailid(String emailid) {
+//        Emailid = emailid;
+//    }
 }

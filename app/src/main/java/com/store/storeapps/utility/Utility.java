@@ -256,6 +256,14 @@ public class Utility {
         appInstallInfoEditor.putBoolean(key, value);
         appInstallInfoEditor.commit();
     }
+    public static void setSharedpreferences(Context context, String key, boolean value){
+        SharedPreferences appInstallInfoSharedPref = context.getSharedPreferences(Constants.APP_PREF,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor appInfoEditor = appInstallInfoSharedPref.edit();
+        appInfoEditor.putBoolean(key, value);
+        appInfoEditor.commit();
+
+    }
 
     public static void showToastMessage(Context context, String message) {
         try {

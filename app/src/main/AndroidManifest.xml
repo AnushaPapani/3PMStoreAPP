@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
+        android:name=".utility.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,6 +30,8 @@
         </activity>
 
         <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
+        <activity android:name="com.store.storeapps.activities.Login"></activity>
+
         <activity android:name="com.store.storeapps.activities.YoutubeVideoActivity"></activity>
 
     </application>
