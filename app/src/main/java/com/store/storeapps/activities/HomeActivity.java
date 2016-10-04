@@ -1,5 +1,6 @@
 package com.store.storeapps.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,8 @@ import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
+import com.store.storeapps.utility.AppController;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.utility.ApiConstants;
@@ -42,7 +45,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView txt_home_left_drawer_icon;
     private TextView txt_settings_icon;
-
+    AppController globalVariable;
     public DrawerLayout mDrawerLayout;
     public RelativeLayout cart_layout;
     public static Button cart_layout_button_set_text;
@@ -60,6 +63,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
         initUI();
+        globalVariable = (AppController) getApplicationContext();
     }
 
     private void initUI() {
@@ -181,10 +185,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (!Utility.isValueNullOrEmpty(mCartId)) {
+                if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() != null)) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                } else {
-                    Utility.showToastMessage(this, "Added at least on item to cart");
+                }else if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() == null)){
+                    Intent i=new Intent(HomeActivity.this,Login.class);
+                    startActivity(i);
+                }
+                else {
+                    Utility.showToastMessage(this, "Add at least one item to cart");
                 }
                 break;
         }
