@@ -1,5 +1,6 @@
 <application>
   <component name="IntentionManagerSettings">
     <ignoreAction name="Java/Declaration/Split Declaration" />
+    <ignoreAction name="Java/Refactorings/Introduce local variable" />
   </component>
 </application>
