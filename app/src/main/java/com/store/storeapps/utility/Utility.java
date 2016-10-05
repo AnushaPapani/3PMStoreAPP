@@ -1,6 +1,8 @@
 package com.store.storeapps.utility;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -13,7 +15,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.store.storeapps.R;
@@ -303,5 +309,25 @@ public class Utility {
             paramsList.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
         return paramsList;
+    }
+
+    public static void showOKOnlyDialog(Context context, String msg,
+                                        String title) {
+        SpannableString s = new SpannableString(msg);
+        Linkify.addLinks(s, Linkify.ALL);
+
+        AlertDialog d = new AlertDialog.Builder(context)
+                .setMessage(s)
+                .setTitle(title)
+                .setPositiveButton(R.string.alert_dialog_ok,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        }).show();
+
+        ((TextView) d.findViewById(android.R.id.message))
+                .setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
