@@ -1,7 +1,6 @@
 package com.store.storeapps.fragments;
 
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -78,58 +77,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void loginDataToServer() {
-            new PostLoginData().execute();
+
     }
 
-    private class PostLoginData extends AsyncTask<String, String, String> {
-        private CustomProgressDialog mCustomProgressDialog;
-        private String cartid;
-        public PostLoginData() {
-            mCustomProgressDialog = new CustomProgressDialog(getActivity());
-        }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String result = null;
-            try {
-                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                paramsList.put("email",edt_email.getText().toString());
-                paramsList.put("password",edt_password.getText().toString());
-                paramsList.put("cartId",HomeActivity.mCartId);
-
-                result = Utility.httpPostRequestToServer(ApiConstants.INSERT_CHECK_PRODUCTS,  Utility.getParams(paramsList));
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            super.onPostExecute(response);
-            try {
-                if (response != null) {
-                    JSONObject jsonobject = new JSONObject(response);
-                    HomeActivity.mCartId = jsonobject.optString("cartId");
-                    HomeActivity.mCartValue = jsonobject.optInt("cartCount");
-                    HomeActivity.cart_layout_button_set_text.setText(""+HomeActivity.mCartValue);
-                    Utility.showToastMessage(getActivity(), "Login done Successfully");
-                    cartid =HomeActivity.mCartId;
-
-                }
-                mCustomProgressDialog.dismissProgress();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private boolean isValidFields() {
         boolean isValidate = false;
