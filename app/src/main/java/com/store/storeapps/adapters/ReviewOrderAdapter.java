@@ -1,6 +1,7 @@
 package com.store.storeapps.adapters;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,20 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.customviews.CustomProgressDialog;
+import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.models.ReviewOrderModel;
+import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 /**
@@ -86,7 +97,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             spinnerArray.add("" + (i + 1));
         }
         ArrayAdapter spinnerArrayAdapter = new ArrayAdapter(mContext,
-                android.R.layout.simple_spinner_dropdown_item,
+                R.layout.spinner_item,
                 spinnerArray);
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
@@ -109,11 +120,20 @@ public class ReviewOrderAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 int position = view.getId();
-                Utility.showToastMessage(mContext, "Waiting for service");
+                //removeReviewOrderDetails("CT152622", "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                removeReviewOrderDetails(HomeActivity.mCartId, "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
             }
         });
 
         return convertView;
+    }
+
+    private void removeReviewOrderDetails(String cartId, String cartValue, String pid, String CartProdId, int position) {
+        if (Utility.isNetworkAvailable(mContext)) {
+            new DeleteCartAsyncTask(cartId, cartValue, pid, CartProdId, position).execute();
+        } else {
+            DialogClass.createDAlertDialog(mContext, "The Internet connection appears to be offline.");
+        }
     }
 
     private String getFullFilledImage(String image) {
@@ -130,5 +150,65 @@ public class ReviewOrderAdapter extends BaseAdapter {
         private TextView txt_subtotal;
         private TextView txt_price_two;
         private ImageView img_remove;
+    }
+
+    class DeleteCartAsyncTask extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String cartId;
+        private String cartValue;
+        private String pid;
+        private String CartProdId;
+        private int position;
+
+        public DeleteCartAsyncTask(String cartId, String cartValue, String pid, String CartProdId, int position) {
+            mCustomProgressDialog = new CustomProgressDialog(mContext);
+            this.cartId = cartId;
+            this.cartValue = cartValue;
+            this.pid = pid;
+            this.CartProdId = CartProdId;
+            this.position = position;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(mContext, R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("cartId", cartId);
+                paramsList.put("cartValue", cartValue);
+                paramsList.put("pid ", pid);
+                paramsList.put("CartProdId", CartProdId);
+                result = Utility.httpPostRequestToServer(ApiConstants.DELETE_FROM_CART, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        Utility.showToastMessage(mContext, "Successfully Deleted");
+                        mReviewOrderModels.remove(position);
+                        notifyDataSetChanged();
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

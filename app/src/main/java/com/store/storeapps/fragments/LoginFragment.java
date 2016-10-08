@@ -12,16 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.store.storeapps.R;
-import com.store.storeapps.activities.HomeActivity;
-import com.store.storeapps.customviews.CustomProgressDialog;
-import com.store.storeapps.utility.ApiConstants;
-import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.LinkedHashMap;
 
 /**
  * Created by Shankar.
