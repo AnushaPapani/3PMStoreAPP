@@ -286,6 +286,20 @@ public class Utility {
 
     }
 
+    public static void setSharedPrefStringData(Context context, String key, String value) {
+        try {
+            if (context != null) {
+                SharedPreferences appInstallInfoSharedPref = context.getSharedPreferences(Constants.APP_PREF,
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor appInstallInfoEditor = appInstallInfoSharedPref.edit();
+                appInstallInfoEditor.putString(key, value);
+                appInstallInfoEditor.commit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void showToastMessage(Context context, String message) {
         try {
             if (!isValueNullOrEmpty(message) && context != null) {

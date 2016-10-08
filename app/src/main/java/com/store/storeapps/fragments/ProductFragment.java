@@ -123,19 +123,6 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             spin_one.setVisibility(View.GONE);
         }
 
-        spin_one.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int item = parent.getSelectedItemPosition();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-
         spin_two = (Spinner) rootView.findViewById(R.id.spin_two);
         ArrayList<String> secondArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 1) {
