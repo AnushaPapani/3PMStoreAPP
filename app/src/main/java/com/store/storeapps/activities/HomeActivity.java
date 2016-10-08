@@ -185,12 +185,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() != null)) {
+                if (!Utility.isValueNullOrEmpty(mCartId)) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                }else if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() == null)){
-                    Intent i=new Intent(HomeActivity.this,Login.class);
-                    startActivity(i);
                 }
+//                else if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() == null)){
+//                    Intent i=new Intent(HomeActivity.this,Login.class);
+//                    startActivity(i);
+//                }
                 else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
