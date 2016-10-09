@@ -14,6 +14,6 @@ public class ApiConstants {
     public static final String CHECKOUT_NEW = BASE_URL + "checkout_new.php";
     public static final String MY_ORDERS = BASE_URL + "my_orders.php";
     public static final String DELETE_FROM_CART = BASE_URL + "DeleteFromCart.php";
-
+    public static final String LOGIN_USER = BASE_URL + "loginuser.php";
 
 }

@@ -136,14 +136,27 @@ public class Mul extends Activity {
                 TextView textView = (TextView) layoutView.findViewById(R.id.order_id);
                 LinearLayout ll_items = (LinearLayout) layoutView.findViewById(R.id.ll_items);
                 textView.setText("" + modelArray.getOrderId());
-
+                //ll_items.setId(l);
                 for (int m = 0; m < modelArray.getMovies().size(); m++) {
                     Movie mMovie = myOrdersModel.getMovies().get(l).getMovies().get(m);
                     View inneritem = mInflater.inflate(R.layout.layout_item_inner, null);
                     TextView txt_item_name = (TextView) inneritem.findViewById(R.id.txt_item_name);
+                    inneritem.setTag(""+m+"&&&"+l);
                     txt_item_name.setText("" + mMovie.getP_Name());
+
+                    inneritem.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String position = (String) view.getTag();
+                            Utility.showToastMessage(Mul.this, "" +position);
+                        }
+                    });
+
                     ll_items.addView(inneritem);
                 }
+
+
+
 
                 myOrderslinearLayout.addView(layoutView);
             }

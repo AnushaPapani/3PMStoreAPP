@@ -121,7 +121,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             public void onClick(View view) {
                 int position = view.getId();
                 //removeReviewOrderDetails("CT152622", "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
-                removeReviewOrderDetails(HomeActivity.mCartId, "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                removeReviewOrderDetails(HomeActivity.mCartId, "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
             }
         });
 

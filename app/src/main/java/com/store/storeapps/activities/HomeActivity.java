@@ -151,6 +151,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /*This method is used  for setting header for navigation drawer*/
     private void setHeader(ListView list_home_left_drawer) {
         LinearLayout layout_list_header = (LinearLayout) getLayoutInflater().inflate(R.layout.
                 navigation_drawer_header_layout, null);

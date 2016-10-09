@@ -12,7 +12,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.customviews.CustomProgressDialog;
+import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
 
 
 /**
@@ -58,8 +68,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.btn_login:
                 if (isValidFields()) {
-                    loginDataToServer();
-
+                    loginDataToServer(edt_email.getText().toString(), edt_password.getText().toString());
                 }
                 break;
             case R.id.btn_sign_up:
@@ -68,11 +77,66 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void loginDataToServer() {
-
+    private void loginDataToServer(String username, String password) {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new PostLoginAsyncTask(username, password).execute();
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
     }
 
 
+    class PostLoginAsyncTask extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String username;
+        private String password;
+
+        public PostLoginAsyncTask(String username, String password) {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            this.username = username;
+            this.password = password;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("email", username);
+                paramsList.put("password", password);
+                paramsList.put("cartId", HomeActivity.mCartId);
+                result = Utility.httpPostRequestToServer(ApiConstants.LOGIN_USER, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+
+
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private boolean isValidFields() {
         boolean isValidate = false;
