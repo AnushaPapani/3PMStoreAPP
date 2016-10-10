@@ -43,6 +43,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import static com.store.storeapps.fragments.LoginFragment.EMAILID;
+import static com.store.storeapps.fragments.LoginFragment.IsUid;
+import static com.store.storeapps.fragments.LoginFragment.UID;
+import static com.store.storeapps.fragments.LoginFragment.USERNAME;
+
 
 /**
  * Created by Shankar.
@@ -140,7 +145,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
                 break;
             case 3:
-
+                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
 
@@ -159,12 +164,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setHeader(ListView list_home_left_drawer) {
         LinearLayout layout_list_header = (LinearLayout) getLayoutInflater().inflate(R.layout.
-                navigation_drawer_header_layout, null);
+        navigation_drawer_header_layout, null);
         TextView loginNameTextViews = (TextView) layout_list_header.findViewById(R.id.loginNameTextViews);
         TextView emails = (TextView) layout_list_header.findViewById(R.id.emails);
         TextView cashs = (TextView) layout_list_header.findViewById(R.id.cashs);
         TextView div = (TextView) layout_list_header.findViewById(R.id.div);
-
+        emails.setText(Utility.getSharedPrefStringData(getApplicationContext(),EMAILID));
+        loginNameTextViews.setText(Utility.getSharedPrefStringData(getApplicationContext(),USERNAME));
+        System.out.println("username "+loginNameTextViews);
+        System.out.println("uid "+Utility.getSharedPrefStringData(getApplicationContext(),UID));
+        System.out.println("email "+emails);
         /*if (globalVariable.getUserid().toString() == null) {
            loginNameTextViews.setText("Welcome Guest");
         } else {
