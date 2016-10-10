@@ -46,8 +46,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="7dp"
-            android:layout_toLeftOf="@+id/txt_home_right_drawer_icon">
+            android:layout_marginRight="@dimen/dimen_ten"
+            android:layout_alignParentRight="true"
+            >
 
             <ImageView
                 android:id="@+id/cart_icon"
@@ -69,15 +70,6 @@
                 android:textSize="@dimen/sp_size_ten" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txt_home_right_drawer_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dimen_ten"
-            android:text="@string/icon_settings"
-            android:textColor="@color/dark_gray_color"
-            android:textSize="@dimen/sp_size_thirty_five" />
+
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
