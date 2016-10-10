@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle" >
+
+    <solid android:color="@color/mk_button_bg_pressed" />
+
+    <stroke
+        android:width="4dp"
+        android:color="@color/mk_button_bg_normal" />
+
+</shape><!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/drawable/mk_button_pressed_new.xml -->
