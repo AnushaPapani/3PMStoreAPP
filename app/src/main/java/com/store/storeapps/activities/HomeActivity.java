@@ -20,6 +20,8 @@ import com.store.storeapps.R;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.HomeFragment;
+import com.store.storeapps.fragments.LoginFragment;
+import com.store.storeapps.fragments.Previous_ProductsFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
@@ -130,7 +132,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case 0:
 
             case 1:
-
+//                Utility.navigateDashBoardFragment(new Previous_ProductsFragment(), Previous_ProductsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 2:
 
@@ -157,7 +159,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         TextView emails = (TextView) layout_list_header.findViewById(R.id.emails);
         TextView cashs = (TextView) layout_list_header.findViewById(R.id.cashs);
         TextView div = (TextView) layout_list_header.findViewById(R.id.div);
-
+        emails.setText(LoginFragment.Emailid);
+        loginNameTextViews.setText(LoginFragment.Username);
         /*if (globalVariable.getUserid().toString() == null) {
            loginNameTextViews.setText("Welcome Guest");
         } else {
