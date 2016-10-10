@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import com.store.storeapps.R;
 
-
 /*
 Created by Anusha
  */
-public class AboutusFragment extends Fragment {
+public class TestimonialsFragment extends Fragment {
     public static final String TAG = "AboutusFragment";
     private View rootView;
     String Aboutus="About Us";

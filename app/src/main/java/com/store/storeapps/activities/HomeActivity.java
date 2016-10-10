@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.customviews.CustomProgressDialog;
@@ -93,6 +96,26 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_layout.setOnClickListener(this);
         cart_layout_button_set_text.setOnClickListener(this);
         cart_icon.setOnClickListener(this);
+/*BabuRao*/
+        txt_settings_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Creating the instance of PopupMenu
+                PopupMenu popup = new PopupMenu(HomeActivity.this, txt_settings_icon);
+                //Inflating the Popup using xml file
+                popup.getMenuInflater().inflate(R.menu.main, popup.getMenu());
+
+                //registering popup with OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(HomeActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                popup.show();//showing popup menu
+            }
+        });
     }
 
     private void setLeftMenuData() {
@@ -196,6 +219,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
+                break;
+            case R.id.txt_home_right_drawer_icon:
                 break;
         }
     }

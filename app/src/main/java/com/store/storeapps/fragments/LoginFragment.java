@@ -112,7 +112,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 paramsList.put("email", username);
                 paramsList.put("password", password);
                 paramsList.put("cartId", HomeActivity.mCartId);
-                result = Utility.httpPostRequestToServer(ApiConstants.LOGIN_USER, Utility.getParams(paramsList));
+                result = Utility.httpPostRequestToServer(ApiConstants.LOGIN, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
