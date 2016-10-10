@@ -1,6 +1,7 @@
 package com.store.storeapps.fragments;
 
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -32,9 +33,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "HomeFragment";
     private View rootView;
-
-    private TextView txt_login;
-    private TextView txt_email_id;
+    public static String UID;
+    public static String USERNAME;
+    public static String EMAILID;
+    public static boolean IsUid;
+    public static boolean IsUsername;
+    public static boolean IsEmailid;
+//    private TextView txt_login;
+//    private TextView txt_email_id;
     private TextView txt_password;
     private TextView txt_register_link;
     public static String Emailid, Username;
@@ -53,10 +59,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
-        txt_login = (TextView) rootView.findViewById(R.id.txt_login);
-        txt_email_id = (TextView) rootView.findViewById(R.id.txt_email_id);
-        txt_password = (TextView) rootView.findViewById(R.id.txt_password);
-        txt_register_link = (TextView) rootView.findViewById(R.id.txt_register_link);
+//        txt_login = (TextView) rootView.findViewById(R.id.txt_login);
+//        txt_email_id = (TextView) rootView.findViewById(R.id.txt_email_id);
+        txt_password = (TextView) rootView.findViewById(R.id.forgotpasswordlink);
+        txt_register_link = (TextView) rootView.findViewById(R.id.registerlink);
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
@@ -133,6 +139,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Username = user.getString("fullname");
                         Emailid = user.getString("email");
                         String adcount =jObj.getString("count");
+                        Utility.setSharedpreferences(getContext(),UID,IsUid);
+                        Utility.setSharedpreferences(getContext(),USERNAME,IsUsername);
+                        Utility.setSharedpreferences(getContext(),EMAILID,IsUid);
+
+                        System.out.println("loguser "+Utility.getSharedPrefStringData(getContext(),USERNAME));
 
                     }
                 }
