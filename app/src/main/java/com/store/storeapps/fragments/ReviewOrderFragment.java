@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
-import com.store.storeapps.activities.Login;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;

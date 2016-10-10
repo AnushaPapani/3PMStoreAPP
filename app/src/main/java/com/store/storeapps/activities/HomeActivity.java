@@ -24,7 +24,9 @@ import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.AboutusFragment;
 import com.store.storeapps.fragments.HomeFragment;
+import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
+import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -48,25 +50,26 @@ import java.util.LinkedHashMap;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txt_home_left_drawer_icon;
-    private TextView txt_settings_icon;
     AppController globalVariable;
     public DrawerLayout mDrawerLayout;
     public RelativeLayout cart_layout;
     public static Button cart_layout_button_set_text;
     public ImageView cart_icon;
-
+    boolean IsLogged=false;
     public static ArrayList<ItemDetails> mProductItemsList;
     private ArrayList<LeftMenuModel> leftMenuList;
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
     public static int mCartValue = 0;
-
+    boolean showMenu =true;
+    PopupMenu popup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
         initUI();
+
         globalVariable = (AppController) getApplicationContext();
     }
 
@@ -74,7 +77,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         mCartItemsList = new ArrayList<>();
      /*DRAWER ICON*/
         txt_home_left_drawer_icon = (TextView) findViewById(R.id.txt_home_left_drawer_icon);
-        txt_settings_icon = (TextView) findViewById(R.id.txt_home_right_drawer_icon);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
         cart_layout = (RelativeLayout) findViewById(R.id.cart_layout);
@@ -82,7 +84,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_icon = (ImageView) findViewById(R.id.cart_icon);
 
         txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
-        txt_settings_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
         txt_home_left_drawer_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,26 +97,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_layout.setOnClickListener(this);
         cart_layout_button_set_text.setOnClickListener(this);
         cart_icon.setOnClickListener(this);
-/*BabuRao*/
-        txt_settings_icon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(HomeActivity.this, txt_settings_icon);
-                //Inflating the Popup using xml file
-                popup.getMenuInflater().inflate(R.menu.main, popup.getMenu());
 
-                //registering popup with OnMenuItemClickListener
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(HomeActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                });
-
-                popup.show();//showing popup menu
-            }
-        });
     }
 
     private void setLeftMenuData() {
@@ -155,7 +137,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
                 break;
             case 2:
-                Utility.navigateDashBoardFragment(new AboutusFragment(), AboutusFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
                 break;
             case 3:
 
@@ -213,15 +195,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() != null)) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 }else if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() == null)){
-                    Intent i=new Intent(HomeActivity.this,Login.class);
+                    Intent i=new Intent(HomeActivity.this,LoginFragment.class);
                     startActivity(i);
                 }
                 else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
                 break;
-            case R.id.txt_home_right_drawer_icon:
-                break;
+
         }
     }
 

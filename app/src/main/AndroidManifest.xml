@@ -30,7 +30,6 @@
         </activity>
 
         <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
-        <activity android:name="com.store.storeapps.activities.Login"></activity>
 
         <activity android:name="com.store.storeapps.activities.YoutubeVideoActivity"></activity>
 

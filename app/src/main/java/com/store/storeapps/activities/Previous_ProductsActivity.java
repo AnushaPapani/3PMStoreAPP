@@ -74,7 +74,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         mCartItemsList = new ArrayList<>();
      /*DRAWER ICON*/
         txt_home_left_drawer_icon = (TextView) findViewById(R.id.txt_home_left_drawer_icon);
-        txt_settings_icon = (TextView) findViewById(R.id.txt_home_right_drawer_icon);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
         cart_layout = (RelativeLayout) findViewById(R.id.cart_layout);
