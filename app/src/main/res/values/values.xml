@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string-array name="months">
+        <item>Month</item>
+        <item name="1">01</item>
+        <item name="2">02</item>
+        <item name="3">03</item>
+        <item name="4">04</item>
+        <item name="5">05</item>
+        <item name="6">06</item>
+        <item name="7">07</item>
+        <item name="8">08</item>
+        <item name="9">09</item>
+        <item name="10">10</item>
+        <item name="11">11</item>
+        <item name="12">12</item>
+    </string-array>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/colors.xml -->
+    <eat-comment/>
+    <color name="mk_button_bg_normal">#0099DD</color>
+    <color name="mk_button_bg_pressed">#00638F</color>
+    <color name="mk_text_color">#000000</color>
+    <color name="mk_uic_bg">#f2f1f1</color>
+    <color name="mk_uic_btn_bg">#ffffff</color>
+    <color name="mk_uic_btn_disable">#c2c1c1</color>
+    <color name="mk_uic_btn_pressed">#4d4e4e</color>
+    <color name="mk_uic_btn_selected">#4d4e4e</color>
+    <color name="mk_uic_btn_selected_dull">#fdfdfd</color>
+    <color name="mk_uic_btn_txt_normal">#b0b0b0</color>
+    <color name="mk_uic_btn_txt_selected">#ffffff</color>
+    <color name="mk_uic_header_bg">#01b7c2</color>
+    <color name="mk_uic_red">#FF3333</color>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/dimens.xml -->
+    <eat-comment/>
+   <!--  <dimen name="activity_horizontal_margin">16dp</dimen> -->
+    <dimen name="activity_padding">16dp</dimen>
+ <!--    <dimen name="activity_vertical_margin">16dp</dimen> -->
+    <dimen name="button_margin_top">16dp</dimen>
+    <dimen name="center_container_margin_top">16dp</dimen>
+    <dimen name="center_container_padding_bottom">20dp</dimen>
+    <dimen name="center_container_padding_left">20dp</dimen>
+    <dimen name="center_container_padding_right">20dp</dimen>
+    <dimen name="center_container_padding_top">25dp</dimen>
+    <dimen name="fields_margin_top">12dp</dimen>
+    <dimen name="logo_margin_left">8dp</dimen>
+    <dimen name="padding_main">12dp</dimen>
+    <dimen name="padding_white_container">8dp</dimen>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="action_settings">Settings</string>
+    <string name="add_money_wallet">Pay Rs. @payamt@ to @mm@ via MobiKwik wallet</string>
+    <string name="add_money_wallet_partial">Add Rs. @addamt@ in your MobiKwik wallet to pay Rs. @payamt@ to @mm@</string>
+   	
+    <string name="card_page_payto_msg">Adding Rs. @payamt@ to your MobiKwik wallet</string>
+    <string name="card_page_payto_msg_pg">Pay Rs. @@rr@@ to @@nn@@</string>
+    <string name="drawerHeading">Payment Options</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="otp_login_msg">Welcome @@ee@@\n\nPlease enter @@mm@@</string>
+    <string name="title_activity_mkauth">Wallet Login</string>
+    <string name="title_activity_pgweb_view">Secure Payment Gateway</string>
+    <string name="wallet_balance_msg">Dear @@ee@@,\n\nYour Wallet Balance is Rs. @@rr@@</string>
+    <string name="wallet_footer">* MobiKwik is RBI approved secure prepaid wallet. For any questions, refer to the <b>FAQs</b></string>
+    <string name="wallet_pay_amount_msg">You are going to pay Rs. @@rr@@ to @@nn@@</string>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="MKSDKTheme" parent="MKThemeParent">
+        <item name="android:textColorSecondaryInverse">@android:color/secondary_text_light</item>
+    </style>
+    <style name="MKSDKTransparent" parent="MKSDKTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="MKThemeParent" parent="android:Theme.Light"/>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/txn_handler_th_style.xml -->
+    <eat-comment/>
+    <style name="TxnHandlerStyle">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <!-- From: file:/home/chandrakesh/WKS/Mobikwik-SDK/mobile/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="body_new">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@color/mk_uic_bg</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:fillViewport">true</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="full_layout">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="main_container">
+        <item name="android:background">@color/mk_uic_bg</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+    <style name="new_button" parent="android:style/Widget.Button">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <!-- <item name="android:textAppearance">?android:attr/textAppearanceMediumInverse</item> -->
+        <item name="android:layout_marginTop">@dimen/button_margin_top</item>
+
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="new_layout_container">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">@dimen/center_container_padding_left</item>
+        <item name="android:paddingRight">@dimen/center_container_padding_right</item>
+        <item name="android:paddingTop">@dimen/center_container_padding_top</item>
+        <item name="android:paddingBottom">@dimen/center_container_padding_bottom</item>
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="new_secondary_button" parent="android:style/Widget.Button">
+
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+        <!-- <item name="android:textAppearance">?android:attr/textAppearanceMediumInverse</item> -->
+        <item name="android:layout_marginTop">@dimen/button_margin_top</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingLeft">32dp</item>
+        <item name="android:paddingRight">32dp</item>
+        <item name="android:minHeight">40dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+    <style name="text" parent="android:style/Widget.TextView">
+
+        <!-- <item name="android:background">#ffffff</item> -->
+        <!-- <item name="android:padding">2dp</item> -->
+        <!-- <item name="android:layout_margin">1dp</item> -->
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!-- <item name="android:textAppearance">?android:attr/textAppearanceMedium</item> -->
+        <item name="android:textColor">@color/mk_text_color</item>
+    </style>
+    <style name="textBlueHeading">
+
+        <!-- <item name="android:textColor">#fff</item> -->
+        <item name="android:textSize">17sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/mk_uic_header_bg</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="text_tableCell" parent="@style/text">
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="wallet_textbox" parent="android:style/Widget.EditText">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@drawable/mk_edit_text_bg</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="wallet_textbox_cvv" parent="android:style/Widget.EditText">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:background">@drawable/mk_cvv_text_bg</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">numberPassword</item>
+    </style>
+    <style name="white_container">
+        <item name="android:background">@drawable/mk_s_container</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <!-- <item name="android:layout_marginTop">@dimen/fields_margin_top</item> -->
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+</resources>
