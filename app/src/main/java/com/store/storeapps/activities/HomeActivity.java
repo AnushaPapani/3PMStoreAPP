@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.store.storeapps.R;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.AboutusFragment;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.models.CartItemModel;
@@ -127,13 +128,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void navigateSideMenuClick(int position) {
         switch (position) {
-            case 0:
-
             case 1:
-
+                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
                 break;
             case 2:
-
+                Utility.navigateDashBoardFragment(new AboutusFragment(), AboutusFragment.TAG, null, HomeActivity.this);
                 break;
             case 3:
 
@@ -145,6 +144,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 6:
+
+                break;
+            case 7:
 
                 break;
         }
