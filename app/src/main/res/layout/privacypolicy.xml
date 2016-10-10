@@ -1,0 +1,150 @@
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rtimer"
+        android:background="#FFF" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/query1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/privacypolicyLayout3"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="How does 3pmstore protect customer information?"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/privacypolicyLayout4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/query1"
+                android:layout_below="@+id/query1"
+                android:layout_marginTop="12dp" >
+
+                <TextView
+                    android:id="@+id/privacypolicy4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="When you place orders it is through a secure server. The secure server software (SSL) encrypts all information you input including your debit/ credit card number, before it is sent to us. This makes it unreadable as it travels across the Internet. Furthermore, all of the customer data we collect is protected against unauthorized access."
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/query2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/privacypolicyLayout4"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Will 3pmstore disclose the information it collects to outside parties?"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/privacypolicyLayout5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/query2"
+                android:layout_below="@+id/query2"
+                android:layout_marginTop="12dp" >
+
+                <TextView
+                    android:id="@+id/privacypolicy5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3pmstore does not sell, trade, or rent your personal information to others. By using our web site, you consent to the collection and use of this information by 3pmstore. If we decide to change our privacy policy, we will post those changes on this page so that you are always aware of what information we collect, how we use it, and under what circumstances we disclose it."
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/privacypolicyLayout2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/privacypolicytext"
+                android:layout_marginTop="115dp" >
+
+                <TextView
+                    android:id="@+id/privacypolicy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="5dp"
+                    android:text="When you order, we need to know your name, e-mail address, mailing address, credit/ debit card information (optional). This allows us to process and fulfil your order. This will use only for the service you have sought and would not be under any circumstances passed on for any other commercial purpose. 3pmstore will not disclose any of your personally identifiable information except when we have your permission or under special circumstances, such as when we believe in good faith that the law requires it."
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/privacypolicyLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/privacypolicytext"
+                android:layout_marginTop="20dp" >
+
+                <TextView
+                    android:id="@+id/privacypolicy1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="3pmstore is committed to safeguarding your privacy online. We recognize your need for reasonable control of personally identifiable information that you share with 3pmstore."
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/privacypolicyLayout3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/privacypolicyLayout2"
+                android:layout_marginTop="11dp" >
+
+                <TextView
+                    android:id="@+id/privacypolicy3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Although we track the total number of visitors to each of sites in an aggregate form to allow us to update an improve our sites, personally identifiable information is not extracted in this process. Any cookie technology (where our servers deposit special codes on a visitor&apos;s computer) will only be used to track non-personal information such as type of browser, operating system, and domain names to improve our visitor&apos;s online experience."
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/privacypolicytext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="Privacy Policy"
+                android:textSize="25dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
