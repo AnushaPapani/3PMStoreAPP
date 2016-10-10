@@ -12,6 +12,7 @@ public class ReviewOrderModel {
     private String P_ID;
     private String P_Image;
     private String P_Name;
+    private String Cart_Prod_ID;
     private int P_Cost;
     private int P_Qty;
     private ArrayList<String> Attribute_Type;
@@ -79,5 +80,13 @@ public class ReviewOrderModel {
 
     public void setAttribute_Value(ArrayList<String> attribute_Value) {
         Attribute_Value = attribute_Value;
+    }
+
+    public String getCart_Prod_ID() {
+        return Cart_Prod_ID;
+    }
+
+    public void setCart_Prod_ID(String cart_Prod_ID) {
+        Cart_Prod_ID = cart_Prod_ID;
     }
 }

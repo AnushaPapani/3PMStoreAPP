@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.Login;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
@@ -84,9 +85,8 @@ public class ReviewOrderFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + Login.mCartId);
-
-                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152538");
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
+                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152622");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -111,6 +111,7 @@ public class ReviewOrderFragment extends Fragment {
                             reviewOrderModel.setP_Qty(jsonObject.optInt("P_Qty"));
                             reviewOrderModel.setP_Name(jsonObject.getString("P_Name"));
                             reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
+                            reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
 
                             JSONArray attrType = jsonObject.optJSONArray("Attribute_Type");
                             ArrayList<String> attrValuesArray = new ArrayList<>();

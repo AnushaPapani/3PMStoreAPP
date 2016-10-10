@@ -47,8 +47,8 @@
 
         <Spinner
             android:id="@+id/spin_qty"
-            android:layout_width="60dp"
-            android:layout_height="@dimen/_20dp"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:layout_below="@id/txt_product_name"
             android:layout_marginLeft="@dimen/_20dp"
             android:layout_marginTop="@dimen/_5dp"
