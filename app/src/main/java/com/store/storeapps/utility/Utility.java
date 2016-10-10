@@ -247,7 +247,7 @@ public class Utility {
 
     /*SIDE MENU_ITEMS NAMES*/
     public static String[] getSideMenuItemsListName() {
-        return new String[]{"Home", "Profile", "Workouts", "Wearables", "Contact", "Leaderboard", "Settings"};
+        return new String[]{"Home", "About Us", "Workouts", "Wearables", "Contact", "Leaderboard", "Settings"};
     }
 
     /*SIDE MENU_ITEMS ICONS*/
