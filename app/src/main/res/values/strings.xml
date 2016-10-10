@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">3PMStore</string>
-
     <!-- Dialog message -->
     <string name="alert_dialog_ok">OK</string>
     <string name="alert_dialog_cancel">Cancel</string>
@@ -9,7 +7,7 @@
     <string name="no_internet_msg">This feature requires internet connection. Please check your internet settings and try again.</string>
     <string name="no_internet_msg_main">This Application required internet connection. Please check your internet setting and try again.</string>
     <string name="no_internet_title">No internet</string>
-
+    <string name="rs">\u20B9</string>
     <string name="access_code">Access Code</string>
 
     <!--shankar-->
@@ -38,4 +36,87 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="sign_up_with_3pmstore">Sign up with 3PMstore</string>
 
+    <!--Babu Rao-->
+    <string-array name="quantity_array">
+        <item>Home</item>
+        <item>3PMstore Cash</item>
+        <item>My Orders</item>
+        <item>Testimonials</item>
+        <item>Blog</item>
+        <item>Invite Friends</item>
+        <item>Contact Us</item>
+        <!--<item>Sell On 3pm</item>-->
+        <!-- <item>Submit An Idea</item> -->
+    </string-array>
+    <string-array name="icons">
+
+        <item>@drawable/home</item>
+        <item>@drawable/wallet</item>
+        <item>@drawable/trackorder</item>
+        <item>@drawable/testimonials</item>
+        <item>@drawable/blog</item>
+        <!-- <item>@drawable/q</item> -->
+        <item>@drawable/share</item>
+        <item>@drawable/telephone</item>
+
+    </string-array>
+
+    <string name="app_name">3PMstore</string>
+    <!-- <string name="hello_world">Hello world!</string> -->
+    <!-- <string name="action_settings">Settings</string> -->
+    <string name="font">mont.ttf</string>
+    <string name="email_hint" border="#000">Email ID</string>
+
+    <string name="selectdate" border="#000">Select Date</string>
+    <string name="open_drawer">Drawer Open</string>
+    <string name="close_drawer">Drawer Close</string>
+    <string name="spinner_title">Select Category</string>
+    <string name="line"> Not crossed <strike> crossed </strike></string>
+    <string name="tracker">Track Order <a href="http://gojavas.com/docket_details.php">http://gojavas.com/docket_details.php</a></string>
+    <string name="app_not_available">Sorry, there\'s no web browser available</string>
+
+    <string name="pay_button">Pay</string>
+    <string name="merchant_id">Merchant Id</string>
+    <string name="currency">Currency</string>
+    <string name="amount">Amount</string>
+    <string name="redirect_url">Redirect Url</string>
+    <string name="cancel_url">Cancel Url</string>
+    <string name="rsa_url">RSA Key Url</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Push Notifications</string>
+    <string name="error_config">Please set the %1$s constant and recompile the app.</string>
+    <string name="already_registered">Device is already registered on server.</string>
+    <string name="gcm_registered">From GCM: device successfully registered!</string>
+    <string name="gcm_unregistered">From GCM: device successfully unregistered!</string>
+    <string name="gcm_message">From GCM: you got message!</string>
+    <string name="gcm_error">From GCM: error (%1$s).</string>
+    <string name="gcm_recoverable_error">From GCM: recoverable error (%1$s).</string>
+    <string name="gcm_deleted">From GCM: server deleted %1$d pending messages!</string>
+    <string name="server_registering">Trying (attempt %1$d/%2$d) to register device on Demo Server.</string>
+    <string name="server_registered">From Demo Server: successfully added device!</string>
+    <string name="server_unregistered">From Demo Server: successfully removed device!</string>
+    <string name="server_register_error">Could not register device on Demo Server after %1$d attempts.</string>
+    <string name="server_unregister_error">Could not unregister device on Demo Server (%1$s).</string>
+    <string name="options_register">Register</string>
+    <string name="options_unregister">Unregister</string>
+    <string name="options_clear">Clear</string>
+    <string name="options_exit">Exit</string>
+    <string name="selectReason">Select Reason for Cancellation</string>
+
+    <string name="track"><![CDATA[<u>Track</u>]]></string>
+    <string name="my_text"><![CDATA[<u>Facebook Wall.</u>]]></string>
+    <string name="app_id">1667274583560911</string>
+    <string name="request">Request!</string>
+    <string name="hello">Hello World!</string>
+    <string name="upload">Upload Photo</string>
+    <string name="post">Wall Post!</string>
+    <string name="delete">Delete Post</string>
+    <string name="welcome">GCM Greeting App</string>
+    <string name="email">Email Address</string>
+
+    <string name="signup">Don\'t have account? Sign Up</string>
+    <string name="defaultmsg">Message sent by server will appear here.</string>
+    <string name="msg_title">Message</string>
+    <string name="user_title">Hello User</string>
+    <string name="prompt">Choose an item</string>
 </resources>

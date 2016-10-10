@@ -37,7 +37,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private TextView txt_email_id;
     private TextView txt_password;
     private TextView txt_register_link;
-
+    public static String Emailid, Username;
     private EditText edt_email;
     private EditText edt_password;
 
@@ -127,7 +127,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
-
+                        JSONObject jObj = new JSONObject(response);
+                        String uids = jObj.getString("ID");
+                        JSONObject user = jObj.getJSONObject("user");
+                        Username = user.getString("fullname");
+                        Emailid = user.getString("email");
+                        String adcount =jObj.getString("count");
 
                     }
                 }
