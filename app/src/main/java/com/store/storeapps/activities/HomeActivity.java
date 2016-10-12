@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.View;
@@ -43,7 +44,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by Shankar.
  */
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private TextView txt_home_left_drawer_icon;
     public DrawerLayout mDrawerLayout;
@@ -58,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static String mCartId = "";
     public static int mCartValue = 0;
     public boolean isLogged = false;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_layout = (RelativeLayout) findViewById(R.id.cart_layout);
         cart_layout_button_set_text = (Button) findViewById(R.id.cart_layout_button_set_text);
         cart_icon = (ImageView) findViewById(R.id.cart_icon);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
         txt_home_left_drawer_icon.setOnClickListener(new View.OnClickListener() {
@@ -243,6 +248,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        getProductsList();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
         }
     }
 

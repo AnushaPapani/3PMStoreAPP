@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment {
     private void initUI() {
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(0);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
@@ -131,7 +133,7 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(adapter);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
+    class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
 
@@ -151,6 +153,11 @@ public class HomeFragment extends Fragment {
         @Override
         public int getCount() {
             return mFragmentList.size();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            return POSITION_NONE;
         }
 
         public void addFrag(Fragment fragment, String title) {

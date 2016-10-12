@@ -22,8 +22,7 @@
             android:id="@+id/linear_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/text_name"
-            >
+            android:layout_below="@+id/text_name">
 
             <TextView
                 android:id="@+id/txt_left_icon"
@@ -38,9 +37,12 @@
 
             <ImageView
                 android:id="@+id/img_highlighted"
-                android:layout_width="180dp"
-                android:layout_height="200dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_toLeftOf="@+id/txt_right_icon"
+                android:layout_toRightOf="@+id/txt_left_icon"
+                android:minHeight="@dimen/_200dp"
                 android:src="@drawable/ic_launcher" />
 
             <TextView
@@ -219,8 +221,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll4"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <Spinner
                 android:id="@+id/spin_one"
