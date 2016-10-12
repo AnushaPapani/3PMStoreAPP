@@ -268,12 +268,12 @@ public class Utility {
                 R.drawable.wallet,
                 R.drawable.logout_icon,
                 R.drawable.register,
+                R.drawable.trackorder,
+                R.drawable.testimonials,
                 R.drawable.blog,
-                R.drawable.telephone,
-                R.drawable.trackorder,
-                R.drawable.trackorder,
-                R.drawable.trackorder,
-                R.drawable.trackorder,
+                R.drawable.share,
+                R.drawable.arrowback,
+                R.drawable.purchase_order,
                 R.drawable.logout_icon
         };
     }
