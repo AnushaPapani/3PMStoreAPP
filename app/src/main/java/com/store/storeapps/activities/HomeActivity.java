@@ -1,6 +1,5 @@
 package com.store.storeapps.activities;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +7,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,12 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.store.storeapps.R;
+import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
-import com.store.storeapps.fragments.AboutusFragment;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
@@ -30,11 +27,10 @@ import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
+import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.AppController;
 import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
-import com.store.storeapps.adapters.LeftMenuAdapter;
-import com.store.storeapps.utility.ApiConstants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,11 +39,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import static com.store.storeapps.fragments.LoginFragment.EMAILID;
-import static com.store.storeapps.fragments.LoginFragment.IsUid;
-import static com.store.storeapps.fragments.LoginFragment.UID;
-import static com.store.storeapps.fragments.LoginFragment.USERNAME;
-
 
 /**
  * Created by Shankar.
@@ -55,27 +46,24 @@ import static com.store.storeapps.fragments.LoginFragment.USERNAME;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txt_home_left_drawer_icon;
-    AppController globalVariable;
     public DrawerLayout mDrawerLayout;
     public RelativeLayout cart_layout;
     public static Button cart_layout_button_set_text;
+    public static TextView txt_user_name;
+    public static TextView txt_email;
     public ImageView cart_icon;
-    boolean IsLogged=false;
     public static ArrayList<ItemDetails> mProductItemsList;
     private ArrayList<LeftMenuModel> leftMenuList;
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
     public static int mCartValue = 0;
-    boolean showMenu =true;
-    PopupMenu popup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
         initUI();
-
-        globalVariable = (AppController) getApplicationContext();
     }
 
     private void initUI() {
@@ -139,12 +127,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void navigateSideMenuClick(int position) {
         switch (position) {
             case 1:
-                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
                 break;
             case 3:
+                Bundle bundle = new Bundle();
+                bundle.putString("from","HomeActivity");
                 Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
@@ -164,22 +154,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setHeader(ListView list_home_left_drawer) {
         LinearLayout layout_list_header = (LinearLayout) getLayoutInflater().inflate(R.layout.
-        navigation_drawer_header_layout, null);
-        TextView loginNameTextViews = (TextView) layout_list_header.findViewById(R.id.loginNameTextViews);
-        TextView emails = (TextView) layout_list_header.findViewById(R.id.emails);
+                navigation_drawer_header_layout, null);
+        txt_user_name = (TextView) layout_list_header.findViewById(R.id.loginNameTextViews);
+        txt_email = (TextView) layout_list_header.findViewById(R.id.emails);
         TextView cashs = (TextView) layout_list_header.findViewById(R.id.cashs);
         TextView div = (TextView) layout_list_header.findViewById(R.id.div);
-        emails.setText(Utility.getSharedPrefStringData(getApplicationContext(),EMAILID));
-        loginNameTextViews.setText(Utility.getSharedPrefStringData(getApplicationContext(),USERNAME));
-        System.out.println("username "+loginNameTextViews);
-        System.out.println("uid "+Utility.getSharedPrefStringData(getApplicationContext(),UID));
-        System.out.println("email "+emails);
-        /*if (globalVariable.getUserid().toString() == null) {
-           loginNameTextViews.setText("Welcome Guest");
+
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
+            txt_user_name.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
+            txt_email.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
         } else {
-            loginNameTextViews.setText(globalVariable.getName().toString());
-            emails.setText("" + globalVariable.getUserid().toString());
-        }*/
+            txt_user_name.setText("WelCome");
+        }
+
         list_home_left_drawer.addHeaderView(layout_list_header);
     }
 
@@ -201,13 +188,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() != null)) {
-                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                }else if (!Utility.isValueNullOrEmpty(mCartId) && (globalVariable.getUserid() == null)){
-                    Intent i=new Intent(HomeActivity.this,LoginFragment.class);
-                    startActivity(i);
-                }
-                else {
+                if (!Utility.isValueNullOrEmpty(mCartId)) {
+                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
+                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("from", "cart");
+                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
+                    }
+                } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
                 break;
@@ -332,8 +321,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             String tagName = backEntry.getName();
             if (tagName.equals(HomeFragment.TAG)) {
                 finishAffinity();
-            } else if (tagName.equals(ReviewOrderFragment.TAG)) {
-                initUI();
+            } else  {
+                super.onBackPressed();
             }
         }
     }

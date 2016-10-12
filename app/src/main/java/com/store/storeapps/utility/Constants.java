@@ -23,4 +23,8 @@ public class Constants {
     public static final String USER_EMAIL_ID = "USER_EMAIL_ID";
     public static final String USER_NAME = "USER_NAME";
     public static final String USER_PASSWORD = "USER_PASSWORD";
+    public static final String USER_ID = "USER_ID";
+    public static final String USER_LOGIN_COUNT = "USER_LOGIN_COUNT";
+    public static final String USER_CASH = "USER_CASH";
+    public static final String USER_FB_ID = "USER_FB_ID";
 }

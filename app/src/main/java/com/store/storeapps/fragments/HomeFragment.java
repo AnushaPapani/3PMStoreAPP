@@ -31,6 +31,9 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (rootView != null) {
+            return rootView;
+        }
         rootView = inflater.inflate(R.layout.fragment_home, container, false);
         initUI();
         return rootView;
@@ -140,7 +143,7 @@ public class HomeFragment extends Fragment {
         public Fragment getItem(int position) {
             Fragment fragment = mFragmentList.get(position);
             Bundle bundle = new Bundle();
-            bundle.putInt("position",position);
+            bundle.putInt("position", position);
             fragment.setArguments(bundle);
             return fragment;
         }

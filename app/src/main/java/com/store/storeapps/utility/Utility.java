@@ -247,14 +247,35 @@ public class Utility {
 
     /*SIDE MENU_ITEMS NAMES*/
     public static String[] getSideMenuItemsListName() {
-        return new String[]{"Home", "3PMstore Cash", "Login","Register","My Orders", "Testimonials", "Blog", "Invite Friends", "Previous Products",
-        "Terms & Conditions","Logout"};
+        return new String[]{
+                "Home",
+                "3PMstore Cash",
+                "Login",
+                "Register",
+                "My Orders",
+                "Testimonials",
+                "Blog",
+                "Invite Friends",
+                "Previous Products",
+                "Terms & Conditions",
+                "Logout"};
     }
 
     /*SIDE MENU_ITEMS ICONS*/
     public static int[] getSideMenuItemsListIcons() {
-        return new int[]{R.drawable.home, R.drawable.wallet, R.drawable.logout_icon, R.drawable.register, R.drawable.blog, R.drawable.telephone, R.drawable.trackorder,
-                R.drawable.trackorder,R.drawable.logout_icon};
+        return new int[]{
+                R.drawable.home,
+                R.drawable.wallet,
+                R.drawable.logout_icon,
+                R.drawable.register,
+                R.drawable.blog,
+                R.drawable.telephone,
+                R.drawable.trackorder,
+                R.drawable.trackorder,
+                R.drawable.trackorder,
+                R.drawable.trackorder,
+                R.drawable.logout_icon
+        };
     }
 
     public static void setSharedPrefBooleanData(Context context, String key, boolean value) {

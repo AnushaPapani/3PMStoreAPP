@@ -1,7 +1,6 @@
 package com.store.storeapps.fragments;
 
 
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,9 +16,9 @@ import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,16 +30,9 @@ import java.util.LinkedHashMap;
  */
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
-    public static final String TAG = "HomeFragment";
+    public static final String TAG = "LoginFragment";
+    private HomeActivity mParent;
     private View rootView;
-    public static String UID;
-    public static String USERNAME;
-    public static String EMAILID;
-    public static boolean IsUid;
-    public static boolean IsUsername;
-    public static boolean IsEmailid;
-//    private TextView txt_login;
-//    private TextView txt_email_id;
     private TextView txt_password;
     private TextView txt_register_link;
     public static String Emailid, Username;
@@ -49,6 +41,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private Button btn_login;
     private Button btn_sign_up;
+
+    private String mFrom = "";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+        if (getArguments() != null) {
+            mFrom = getArguments().getString("from");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,14 +62,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
-//        txt_login = (TextView) rootView.findViewById(R.id.txt_login);
-//        txt_email_id = (TextView) rootView.findViewById(R.id.txt_email_id);
         txt_password = (TextView) rootView.findViewById(R.id.forgotpasswordlink);
         txt_register_link = (TextView) rootView.findViewById(R.id.registerlink);
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
         btn_sign_up = (Button) rootView.findViewById(R.id.btn_sign_up);
+        btn_login.setOnClickListener(this);
+        btn_sign_up.setOnClickListener(this);
     }
 
     @Override
@@ -132,19 +135,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    if (jsonobject != null) {
-                        JSONObject jObj = new JSONObject(response);
-                        String uids = jObj.getString("ID");
-                        JSONObject user = jObj.getJSONObject("user");
-                        Username = user.getString("fullname");
-                        Emailid = user.getString("email");
-                        String adcount =jObj.getString("count");
-                        Utility.setSharedpreferences(getContext(),UID,IsUid);
-                        Utility.setSharedpreferences(getContext(),USERNAME,IsUsername);
-                        Utility.setSharedpreferences(getContext(),EMAILID,IsUid);
-
-                        System.out.println("loguser "+Utility.getSharedPrefStringData(getContext(),USERNAME));
-
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
+                        JSONObject userjsonobject = jsonobject.optJSONObject("user");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_NAME, userjsonobject.optString("fullname"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID, userjsonobject.optString("email"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
+                        HomeActivity.txt_email.setText(userjsonobject.optString("email"));
+                        HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
+                        if (!mFrom.equalsIgnoreCase("cart")){
+                            mParent.onBackPressed();
+                        }
+                    } else {
+                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -169,4 +174,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             return true;
         }
     }
+
+
 }
