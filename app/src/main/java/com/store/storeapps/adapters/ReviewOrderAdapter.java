@@ -280,6 +280,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
+                        for (int i = 0; i < mReviewOrderModels.size(); i++) {
+                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
+                                ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
+                                reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
+                                mReviewOrderModels.set(i, reviewOrderModel);
+                                ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
+                            }
+                        }
                         notifyDataSetChanged();
                     }
                 }

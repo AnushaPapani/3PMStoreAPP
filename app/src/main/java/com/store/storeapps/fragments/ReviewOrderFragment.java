@@ -36,7 +36,7 @@ public class ReviewOrderFragment extends Fragment {
     private ListView listView_selected_orders;
     private RelativeLayout ll_header;
     private TextView txt_review_your_order;
-    public ArrayList<ReviewOrderModel> reviewOrderModels;
+    public static ArrayList<ReviewOrderModel> reviewOrderModels;
     private ReviewOrderAdapter reviewOrderAdapter;
 
     @Override
@@ -84,8 +84,8 @@ public class ReviewOrderFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
-                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152672");
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
+                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152672");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
