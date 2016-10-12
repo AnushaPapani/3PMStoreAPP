@@ -13,7 +13,10 @@ public class ApiConstants {
     public static final String INSERT_CHECK_PRODUCTS = BASE_URL + "insert_check_products.php";
     public static final String CHECKOUT_NEW = BASE_URL + "checkout_new.php";
     public static final String LOGIN = BASE_URL + "loginuser.php";
+    public static final String REGISTER = BASE_URL + "create_user.php";
     public static final String PREVIOUS_PRODUCTS = BASE_URL + "previousproducts.php";
+
+
 
 
 }
