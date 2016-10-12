@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
     public static int mCartValue = 0;
+    public boolean isLogged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,18 +97,21 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setLeftMenuData() {
         leftMenuList = new ArrayList<>();
-        for (int i = 0; i < Utility.getSideMenuItemsListName().length; i++) {
+        for (int i = 0; i < Utility.getSideMenuItemsListName(this).length; i++) {
             LeftMenuModel leftMenuModel = new LeftMenuModel();
-            leftMenuModel.setmName(Utility.getSideMenuItemsListName()[i]);
-            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons()[i]);
-                        if (Utility.getSharedPrefStringData(this, Constants.USER_NAME) != ""){
-                if (i == 3){
-                    leftMenuList.remove(3);
-                }
-            }
+            leftMenuModel.setmName(Utility.getSideMenuItemsListName(this)[i]);
+            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons(this)[i]);
             leftMenuList.add(leftMenuModel);
         }
 
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME)))
+        {
+            isLogged = true;
+        }
+        else
+        {
+            isLogged = false;
+        }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
         ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
@@ -120,7 +124,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        navigateSideMenuClick(position);
+                        if(isLogged) {
+                            navigateSideMenuClickAfterLogin(position);
+                        }
+                        else {
+                            navigateSideMenuClickBeforeLogin(position);
+                        }
+
                     }
                 }, 300);
 
@@ -130,7 +140,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setHeader(list_home_left_drawer);
     }
 
-    private void navigateSideMenuClick(int position) {
+    private void navigateSideMenuClickBeforeLogin(int position) {
+        switch (position) {
+            case 1:
+                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                break;
+            case 2:
+                Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
+                break;
+            case 3:
+                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 7:
+
+                break;
+        }
+    }
+
+    private void navigateSideMenuClickAfterLogin(int position) {
         switch (position) {
             case 1:
                 Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);

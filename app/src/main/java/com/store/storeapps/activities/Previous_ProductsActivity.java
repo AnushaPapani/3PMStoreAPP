@@ -20,7 +20,10 @@ import com.store.storeapps.R;
 import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.HomeFragment;
+import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.Previous_ProductsFragment;
+import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -60,6 +63,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     public static String mCartId = "";
     public static int mCartValue = 0;
     public static JSONObject products;
+    public boolean isLogged = false;
 //    private List<DataConstants> datalist = new ArrayList<DataConstants>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +104,10 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
     private void setLeftMenuData() {
         leftMenuList = new ArrayList<>();
-        for (int i = 0; i < Utility.getSideMenuItemsListName().length; i++) {
+        for (int i = 0; i < Utility.getSideMenuItemsListName(this).length; i++) {
             LeftMenuModel leftMenuModel = new LeftMenuModel();
-            leftMenuModel.setmName(Utility.getSideMenuItemsListName()[i]);
-            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons()[i]);
+            leftMenuModel.setmName(Utility.getSideMenuItemsListName(this)[i]);
+            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons(this)[i]);
             leftMenuList.add(leftMenuModel);
         }
 
@@ -118,7 +122,12 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        navigateSideMenuClick(position);
+                        if(isLogged) {
+                            navigateSideMenuClickAfterLogin(position);
+                        }
+                        else {
+                            navigateSideMenuClickBeforeLogin(position);
+                        }
                     }
                 }, 300);
 
@@ -128,19 +137,16 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 //        setHeader(list_home_left_drawer);
     }
 
-    private void navigateSideMenuClick(int position) {
+    private void navigateSideMenuClickBeforeLogin(int position) {
         switch (position) {
-            case 0:
-                Intent i=new Intent(Previous_ProductsActivity.this,HomeActivity.class);
-                startActivity(i);
             case 1:
-
+                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 2:
-
+                Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 3:
-
+                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
 
@@ -149,6 +155,37 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
                 break;
             case 6:
+
+                break;
+            case 7:
+
+                break;
+        }
+    }
+
+    private void navigateSideMenuClickAfterLogin(int position) {
+        switch (position) {
+            case 1:
+                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 2:
+                Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 3:
+                Bundle bundle = new Bundle();
+                bundle.putString("from","HomeActivity");
+                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                break;
+            case 7:
 
                 break;
         }
