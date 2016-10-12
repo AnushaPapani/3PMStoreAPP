@@ -16,6 +16,7 @@ public class ApiConstants {
     public static final String REGISTER = BASE_URL + "create_user.php";
     public static final String PREVIOUS_PRODUCTS = BASE_URL + "previousproducts.php";
     public static final String UPDATE_QTY = BASE_URL + "updateQty.php";
+    public static final String CAPTURE_USER_APP_VERSION = BASE_URL + "CaptureUserAppVersion.php";
 
 
 
