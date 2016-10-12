@@ -80,6 +80,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         txt_home_left_drawer_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
@@ -99,6 +100,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             LeftMenuModel leftMenuModel = new LeftMenuModel();
             leftMenuModel.setmName(Utility.getSideMenuItemsListName()[i]);
             leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons()[i]);
+                        if (Utility.getSharedPrefStringData(this, Constants.USER_NAME) != ""){
+                if (i == 3){
+                    leftMenuList.remove(3);
+                }
+            }
             leftMenuList.add(leftMenuModel);
         }
 
