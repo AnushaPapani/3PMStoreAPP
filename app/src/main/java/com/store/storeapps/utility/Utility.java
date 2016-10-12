@@ -246,36 +246,60 @@ public class Utility {
     }
 
     /*SIDE MENU_ITEMS NAMES*/
-    public static String[] getSideMenuItemsListName() {
-        return new String[]{
-                "Home",
-                "3PMstore Cash",
-                "Login",
-                "Register",
-                "My Orders",
-                "Testimonials",
-                "Blog",
-                "Invite Friends",
-                "Previous Products",
-                "Terms & Conditions",
-                "Logout"};
+    public static String[] getSideMenuItemsListName(Context context) {
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(context, Constants.USER_NAME))) {
+            return new String[]{
+                    "Home",
+                    "3PMstore Cash",
+                    "My Orders",
+                    "Testimonials",
+                    "Blog",
+                    "Invite Friends",
+                    "Previous Products",
+                    "Terms & Conditions",
+                    "Logout"};
+        } else {
+            return new String[]{
+                    "Home",
+                    "3PMstore Cash",
+                    "Login",
+                    "Register",
+                    "Testimonials",
+                    "Blog",
+                    "Invite Friends",
+                    "Previous Products",
+                    "Terms & Conditions"};
+        }
     }
 
     /*SIDE MENU_ITEMS ICONS*/
-    public static int[] getSideMenuItemsListIcons() {
-        return new int[]{
-                R.drawable.home,
-                R.drawable.wallet,
-                R.drawable.logout_icon,
-                R.drawable.register,
-                R.drawable.trackorder,
-                R.drawable.testimonials,
-                R.drawable.blog,
-                R.drawable.share,
-                R.drawable.arrowback,
-                R.drawable.purchase_order,
-                R.drawable.logout_icon
-        };
+    public static int[] getSideMenuItemsListIcons(Context context) {
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(context, Constants.USER_NAME))) {
+            return new int[]{
+                    R.drawable.home,
+                    R.drawable.wallet,
+                    R.drawable.trackorder,
+                    R.drawable.testimonials,
+                    R.drawable.blog,
+                    R.drawable.share,
+                    R.drawable.arrowback,
+                    R.drawable.purchase_order,
+                    R.drawable.logout_icon
+            };
+        }
+        else {
+            return new int[]{
+                    R.drawable.home,
+                    R.drawable.wallet,
+                    R.drawable.register,
+                    R.drawable.trackorder,
+                    R.drawable.testimonials,
+                    R.drawable.blog,
+                    R.drawable.share,
+                    R.drawable.arrowback,
+                    R.drawable.purchase_order
+            };
+        }
     }
 
     public static void setSharedPrefBooleanData(Context context, String key, boolean value) {
