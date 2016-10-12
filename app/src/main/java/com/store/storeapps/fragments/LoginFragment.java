@@ -1,6 +1,7 @@
 package com.store.storeapps.fragments;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,14 +63,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initUI() {
-        txt_password = (TextView) rootView.findViewById(R.id.forgotpasswordlink);
-        txt_register_link = (TextView) rootView.findViewById(R.id.registerlink);
+        txt_password = (TextView) rootView.findViewById(R.id.txt_forgot_password);
+        txt_register_link = (TextView)rootView.findViewById(R.id.register_link);
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
         btn_sign_up = (Button) rootView.findViewById(R.id.btn_sign_up);
         btn_login.setOnClickListener(this);
         btn_sign_up.setOnClickListener(this);
+        txt_register_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, getActivity());
+            }
+        });
     }
 
     @Override
