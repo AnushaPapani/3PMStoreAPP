@@ -143,6 +143,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Utility.setSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT, jsonobject.optString("count"));
                         Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
                         Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
                         Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
@@ -155,12 +156,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         if (!mFrom.equalsIgnoreCase("cart")){
                             mParent.onBackPressed();
                         }
+//                        Intent i=new Intent(getActivity(),HomeActivity.class);
+//                        startActivity(i);
+                        Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, getActivity());
+
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e){
                 e.printStackTrace();
             }
         }

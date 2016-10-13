@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addresscolorlayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/addressborder"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:focusable="false" >
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp" >
+
+            <com.store.storeapps.activities.BoldCustomTextView
+                android:id="@+id/addressesname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout"
+            android:layout_below="@+id/addresseslayout" >
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/addressesline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Addressline"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout1"
+            android:layout_below="@+id/addresseslayout1" >
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/addressescity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="city"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout3"
+            android:layout_below="@+id/addresseslayout3" >
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/addressespincode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address Pincode"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout2"
+            android:layout_below="@+id/addresseslayout2" >
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/addressesstate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AddressState"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout4"
+            android:layout_below="@+id/addresseslayout4" >
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/addressesmobile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address Mobile"
+                android:textSize="15dp" />
+        </RelativeLayout>
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/addresseslayout"
+            android:layout_marginRight="24dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/relativeLayout1" >
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/buttonorange"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_marginLeft="6dp"/>
+
+        <Button
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/delete"
+            android:background="@drawable/buttonorange"
+            android:text=" Edit "
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:button="@drawable/custom_checkbox"
+            android:choiceMode="singleChoice"
+
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            />
+
+        <ImageView
+            android:id="@+id/imageViewCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/checkBox1"
+            android:layout_alignTop="@+id/checkBox1"
+            android:background="@drawable/tickboxone"
+            android:paddingLeft="5dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="0.1dp"
+        android:layout_height="0.1dp"
+        android:layout_above="@+id/options"
+        android:layout_marginLeft="15dp"
+        android:text="" />
+
+</RelativeLayout>

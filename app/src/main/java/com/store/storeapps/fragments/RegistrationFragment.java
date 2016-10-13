@@ -1,8 +1,13 @@
 package com.store.storeapps.fragments;
 
 
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
+import android.app.FragmentManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -22,19 +28,24 @@ import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
+import com.store.storeapps.utility.DatePickerFragment;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
+import java.util.Locale;
+
+import static java.util.Calendar.DAY_OF_MONTH;
 
 
 /**
  * Created by Shankar.
  */
-public class RegistrationFragment extends Fragment implements View.OnClickListener {
+public class RegistrationFragment extends Fragment {
 
     public static final String TAG = "RegistrationFragment";
     private HomeActivity mParent;
@@ -48,7 +59,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private EditText et;
     private Button btnRegisterUser;
     private Button btn_sign_up;
-    private Calendar cal;
+    Calendar cal;
     private int day;
     private int month;
     private int year;
@@ -57,7 +68,8 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
     private View toastRoot;
     private View toastRoot2;
     private Toast toast;
-    private RadioButton selectRadio;
+    RadioButton selectRadio;
+    String getGender;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +90,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         return rootView;
     }
 
+
     private void initUI() {
         inputName = (EditText) rootView.findViewById(R.id.inputName);
         inputEmail = (EditText) rootView.findViewById(R.id.inputEmail);
@@ -86,36 +99,109 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         inputFemale = (RadioButton) rootView.findViewById(R.id.inputFemale);
         gender = (RadioGroup) rootView.findViewById(R.id.gender);
         cal = Calendar.getInstance();
-        day = cal.get(Calendar.DAY_OF_MONTH);
+        day = cal.get(DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
-        et = (EditText) rootView.findViewById(R.id.editText);
+        et = (EditText)rootView.findViewById(R.id.editText);
         btnRegisterUser = (Button) rootView.findViewById(R.id.btnRegisterUser);
         custom_toast = (TextView) toastRoot.findViewById(R.id.errortoast);
-        et.setOnClickListener(this);
+//        et.setOnClickListener(this);
         selectRadio = (RadioButton)rootView.findViewById(gender
                 .getCheckedRadioButtonId());
-    }
+        et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
+            }
+        });
+            gender.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int checkedRadioButton = gender.getCheckedRadioButtonId();
+                    boolean checked = ((RadioButton) rootView).isChecked();
+                    // find the radiobutton by returned id
+                    RadioButton radioButton = (RadioButton) rootView.findViewById(checkedRadioButton);
+                    getGender = radioButton.getText().toString();
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnRegisterUser:
-                if (isValidFields()) {
-                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString(),
-                            selectRadio.getText().toString());
-//                    (edt_email.getText().toString(), edt_password.getText().toString());
                 }
-                break;
-            case R.id.btn_sign_up:
+            });
 
-                break;
-        }
+//        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+//        {
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                // checkedId is the RadioButton selected
+//
+//                switch(checkedId) {
+//                    case R.id.inputMale:
+//                        // switch to fragment 1
+//                        break;
+//                    case R.id.inputFemale:
+//                        // Fragment 2
+//                        break;
+//
+//                }
+//            }
+//        });
+
+        btnRegisterUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isValidFields()) {
+                    isValidFields();
+//                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString(),
+//                            selectRadio.getText().toString());
+//                    Toast.makeText(getActivity(),"Clicked",Toast.LENGTH_SHORT).show();
+                }else {
+                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString()
+                            );
+                }
+            }
+        });
+
     }
 
-    private void CreateNewUser(String name, String emailid, String password, String gender) {
+    private void showDatePicker() {
+        DatePickerFragment date = new DatePickerFragment ();
+        /**
+         * Set Up Current Date Into dialog
+         */
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date.setArguments(args);
+        /**
+         * Set Call back to capture selected date
+         */
+        date.setCallBack(ondate);
+
+        date.show(getActivity().getSupportFragmentManager(), "Date Picker");
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            et.setText(dayOfMonth + " / " + (monthOfYear + 1) + " / "
+                    + year);
+        }
+    };
+
+
+
+//    @Override
+//    public void onClick(View view) {
+//        switch (view.getId()) {
+//            case R.id.btn_sign_up:
+//
+//                break;
+//        }
+//    }
+
+    private void CreateNewUser(String name, String emailid, String password) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new PostRegisternAsyncTask(name, emailid, password, gender).execute();
+            new PostRegisternAsyncTask(name, emailid, password).execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -127,14 +213,15 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
         private String name;
         private String password;
         private String emailid;
-        private String gender;
+        RadioGroup gender;
+        String genderString;
 
-        public PostRegisternAsyncTask(String name, String emailid, String password, String gender) {
+        public PostRegisternAsyncTask(String name, String emailid, String password) {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
             this.name = name;
             this.emailid = emailid;
             this.password = password;
-            this.gender = gender;
+
         }
 
         @Override
@@ -152,7 +239,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
                 paramsList.put("email", emailid);
                 paramsList.put("fullname", name);
                 paramsList.put("password", password);
-                paramsList.put("gender", gender);
+                paramsList.put("gender", getGender);
                 paramsList.put("cartId", HomeActivity.mCartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.REGISTER, Utility.getParams(paramsList));
             } catch (Exception exception) {
@@ -254,4 +341,7 @@ public class RegistrationFragment extends Fragment implements View.OnClickListen
 
         return isValidate;
     }
+
+
+
 }

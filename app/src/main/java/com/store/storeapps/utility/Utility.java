@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -346,6 +347,22 @@ public class Utility {
             e.printStackTrace();
         }
     }
+    public static void deleteSharedPrefStringData(Context context, String key, String value) {
+        try {
+            if (context != null) {
+                SharedPreferences appInstallInfoSharedPref = context.getSharedPreferences(Constants.APP_PREF,
+                        Context.MODE_PRIVATE);
+                SharedPreferences.Editor appInstallInfoEditor = appInstallInfoSharedPref.edit();
+                appInstallInfoEditor.putString(key, value);
+                appInstallInfoEditor.clear();
+                appInstallInfoEditor.commit();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void showToastMessage(Context context, String message) {
         try {
@@ -391,4 +408,6 @@ public class Utility {
         ((TextView) d.findViewById(android.R.id.message))
                 .setMovementMethod(LinkMovementMethod.getInstance());
     }
+
+
 }

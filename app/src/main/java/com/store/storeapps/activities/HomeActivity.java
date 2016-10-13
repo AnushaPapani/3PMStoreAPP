@@ -1,5 +1,7 @@
 package com.store.storeapps.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -21,10 +23,16 @@ import com.store.storeapps.R;
 import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.AddAddressFragment;
+import com.store.storeapps.fragments.Blog;
+import com.store.storeapps.fragments.ContactUsFragment;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
+import com.store.storeapps.fragments.MyAddressFragment;
+import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.StoreCashFragment;
+import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -157,16 +165,36 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-
+                Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-
+                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
 
                 break;
             case 7:
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                break;
+            case 8:
+                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
+                break;
+            case 9:
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                //
+                share.putExtra(Intent.EXTRA_SUBJECT, "Welcome to 3PMstore");
+                share.putExtra(Intent.EXTRA_TEXT, "Have you checked out the fastest shopping experience yet? Click on the link below and download the https://play.google.com/store/apps/details?id=com.three.pmstore app in just 3 seconds!");
+                //
+                startActivity(Intent.createChooser(share, "Share !"));
+//                Utility.setSharedPrefStringData(this, Constants.USER_NAME, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_ID, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "null");
+                break;
+            case 10:
 
+                Utility.navigateDashBoardFragment(new ContactUsFragment(), Blog.TAG, null, HomeActivity.this);
                 break;
         }
     }
@@ -196,6 +224,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case 7:
 
                 break;
+            case 8:
+
+                break;
+            case 9:
+                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, HomeActivity.this);
+//                Utility.setSharedPrefStringData(this, Constants.USER_NAME, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_ID, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "null");
+                break;
         }
     }
 
@@ -211,7 +248,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             txt_user_name.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
             txt_email.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
         } else {
-            txt_user_name.setText("WelCome");
+            txt_user_name.setText("Welcome");
         }
 
         list_home_left_drawer.addHeaderView(layout_list_header);
