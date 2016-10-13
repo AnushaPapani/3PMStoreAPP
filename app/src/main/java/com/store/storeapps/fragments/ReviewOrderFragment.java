@@ -4,13 +4,16 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
@@ -41,10 +44,18 @@ public class ReviewOrderFragment extends Fragment {
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     private ReviewOrderAdapter reviewOrderAdapter;
     private Button proceedtopay;
+    private EditText Promocode;
+    private TextView promotext;
+    private TextView applypromocode;
+    View toastRoot;
+    View toastRoot2;
+    Toast toast;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_review_order, container, false);
+        toastRoot = inflater.inflate(R.layout.toast, null);
+        toastRoot2 = inflater.inflate(R.layout.error_toast, null);
         initUI();
         return rootView;
     }
@@ -52,6 +63,9 @@ public class ReviewOrderFragment extends Fragment {
     private void initUI() {
         proceedtopay =(Button)rootView.findViewById(R.id.proceedtopay);
         listView_selected_orders = (ListView) rootView.findViewById(R.id.listView_selected_orders);
+        Promocode =(EditText)rootView.findViewById(R.id.editText1);
+        promotext =(TextView)rootView.findViewById(R.id.promotext);
+        applypromocode =(TextView)rootView.findViewById(R.id.applypromo);
         ll_header = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 review_order_header, null);
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
@@ -64,6 +78,39 @@ public class ReviewOrderFragment extends Fragment {
         txt_review_your_order = (TextView) ll_header.findViewById(R.id.txt_review_your_order);
         txt_review_your_order.setPaintFlags(txt_review_your_order.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         getReviewOrderDetails();
+
+
+        applypromocode.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                if (applypromocode.getText().equals("Apply")&& Promocode.getText().toString().length()>1) {
+                    applypromocode.setText("Cancel");
+                    promotext.setVisibility(View.VISIBLE);
+                    Promocode.setEnabled(false);
+//                    new Promocode().execute();
+                }else if(applypromocode.getText().equals("Cancel")){
+
+//                    new Cancelpromocode().execute();
+                    applypromocode.setText("Apply");
+                    Promocode.setText("");
+                    promotext.setVisibility(View.GONE);
+                    Promocode.setEnabled(true);
+                    Promocode.setText("");
+                }
+                else {
+                    TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+                    t.setText("Please enter Promo code");
+                    toast.setView(toastRoot);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+                    toast.setDuration(20000);
+                    toast.show();
+
+                }
+
+            }
+        });
     }
 
     private void getReviewOrderDetails() {
