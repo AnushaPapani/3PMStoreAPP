@@ -119,4 +119,9 @@
     <string name="msg_title">Message</string>
     <string name="user_title">Hello User</string>
     <string name="prompt">Choose an item</string>
+    <string-array name="bankType">
+    <item>Select AccountType</item>
+    <item>Savings</item>
+    <item>Current</item>
+    </string-array>
 </resources>
