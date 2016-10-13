@@ -2,5 +2,6 @@
   <component name="IntentionManagerSettings">
     <ignoreAction name="Java/Declaration/Split Declaration" />
     <ignoreAction name="Java/Refactorings/Introduce local variable" />
+    <ignoreAction name="Java/Imports/Add On Demand Static Import" />
   </component>
 </application>
