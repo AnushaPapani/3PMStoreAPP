@@ -47,7 +47,6 @@ public class Previous_ProductsFragment extends Fragment {
         setupViewPager(viewPager);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-//        date1 = getdates.getDates().get(1);
 
         setupTabIcons();
     }
@@ -61,7 +60,6 @@ public class Previous_ProductsFragment extends Fragment {
                             String date1 =Previous_ProductsActivity.dates.getString(i);
                             System.out.println("loopdate1 "+date1);
                             JSONArray product1=Previous_ProductsActivity.products.getJSONArray(date1.toString());
-//                            System.out.println("pname1 "+product1);
                             LinearLayout tabOne = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.previousproducts_custom_tab, null);
                             TextView textview = (TextView) tabOne.findViewById(R.id.txt_image);
                             ImageView img_icon = (ImageView) tabOne.findViewById(R.id.img_icon);

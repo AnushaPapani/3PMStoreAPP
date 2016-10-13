@@ -242,14 +242,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
     private void updateUI(int mPosition, int selectedPosition) {
         if (selectedPosition == 0 && HomeActivity.mProductItemsList.get(mPosition).getImages().size() == 1) {
-            txt_left_icon.setVisibility(View.GONE);
-            txt_right_icon.setVisibility(View.GONE);
+            txt_left_icon.setVisibility(View.INVISIBLE);
+            txt_right_icon.setVisibility(View.INVISIBLE);
         } else if (selectedPosition == 0) {
-            txt_left_icon.setVisibility(View.GONE);
+            txt_left_icon.setVisibility(View.INVISIBLE);
             txt_right_icon.setVisibility(View.VISIBLE);
         } else if (selectedPosition == HomeActivity.mProductItemsList.get(mPosition).getImages().size() - 1) {
             txt_left_icon.setVisibility(View.VISIBLE);
-            txt_right_icon.setVisibility(View.GONE);
+            txt_right_icon.setVisibility(View.INVISIBLE);
         } else {
             txt_left_icon.setVisibility(View.VISIBLE);
             txt_right_icon.setVisibility(View.VISIBLE);

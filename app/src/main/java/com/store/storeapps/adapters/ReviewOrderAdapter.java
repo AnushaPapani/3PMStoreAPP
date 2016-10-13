@@ -85,7 +85,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             mReviewOrderItemHolder = (ReviewOrderItemHolder) convertView.getTag();
         }
 
-        ReviewOrderModel reviewOrderModel = (ReviewOrderModel) getItem(position);
+        final ReviewOrderModel reviewOrderModel = (ReviewOrderModel) getItem(position);
 
         Picasso.with(mContext).load(getFullFilledImage(reviewOrderModel.getP_Image())).placeholder(Utility.getDrawable(mContext, R.drawable.refresh))
                 .into(mReviewOrderItemHolder.img_order);
@@ -103,10 +103,15 @@ public class ReviewOrderAdapter extends BaseAdapter {
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
         mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
 
+        mReviewOrderItemHolder.spin_qty.setTag(position);
         mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                int position = (int) adapterView.getTag();
+                if (reviewOrderModel.getP_Qty() != Integer.parseInt(adapterView.getItemAtPosition(i).toString())) {
+                    updateAPI(mReviewOrderModels.get(position).getP_Name(), HomeActivity.mCartId, adapterView.getItemAtPosition(i).toString(),
+                            "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                }
             }
 
             @Override
@@ -126,6 +131,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
         });
 
         return convertView;
+    }
+
+    private void updateAPI(String name, String cartId, String update_quantity, String cartValue, String pid, String CartProdId, int position) {
+        if (Utility.isNetworkAvailable(mContext)) {
+            new UpdateCartAsyncTask(name, cartId, update_quantity, cartValue, pid, CartProdId, position).execute();
+        } else {
+            DialogClass.createDAlertDialog(mContext, "The Internet connection appears to be offline.");
+        }
     }
 
     private void removeReviewOrderDetails(String cartId, String cartValue, String pid, String CartProdId, int position) {
@@ -202,6 +215,79 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         mReviewOrderModels.remove(position);
+                        notifyDataSetChanged();
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    class UpdateCartAsyncTask extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String update_name;
+        private String update_cartId;
+        private String update_quantity;
+        private String update_cartValue;
+        private String update_pid;
+        private String update_CartProdId;
+        private int position;
+
+        public UpdateCartAsyncTask(String name, String cartId, String update_quantity, String cartValue, String pid, String CartProdId, int position) {
+            mCustomProgressDialog = new CustomProgressDialog(mContext);
+            this.update_name = name;
+            this.update_cartId = cartId;
+            this.update_quantity = update_quantity;
+            this.update_cartValue = cartValue;
+            this.update_pid = pid;
+            this.update_CartProdId = CartProdId;
+            this.position = position;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(mContext, R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("name", update_name);
+                paramsList.put("cartId", update_cartId);
+                paramsList.put("quantity", update_quantity);
+                paramsList.put("cost", update_cartValue);
+                paramsList.put("pid ", update_pid);
+                paramsList.put("CartProdId", update_CartProdId);
+                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_QTY, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        for (int i = 0; i < mReviewOrderModels.size(); i++) {
+                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
+                                ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
+                                reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
+                                mReviewOrderModels.set(i, reviewOrderModel);
+                                ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
+                            }
+                        }
                         notifyDataSetChanged();
                     }
                 }
