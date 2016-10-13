@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E4E4E4"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Order Cancel form"
+        android:textSize="25dp" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textV"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/border" >
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/relative2"
+            android:layout_marginTop="5dp" >
+
+            <TextView
+                    android:id="@+id/ordername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="ORDER- "
+                    android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/order"
+                android:layout_alignBottom="@+id/order"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:text="Total" />
+
+            <TextView
+                android:id="@+id/rupee1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/total"
+                android:text="@string/rs" />
+
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ordername"
+                android:text="Order ID"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relative2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addresseslayout"
+            android:background="@drawable/border"
+            android:paddingBottom="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="3dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="5dp" >
+
+            <ImageView
+                android:id="@+id/orderImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/cart_icon" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/addresseslayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pname"
+            android:layout_below="@+id/pname"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/ppimage" >
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order status"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/addresseslayout1"
+            android:layout_below="@+id/addresseslayout1"
+            android:paddingTop="5dp"
+            android:text="PlacedOn : " />
+
+        <TextView
+            android:id="@+id/pname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/relative2"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@+id/relative2"
+            android:text="Product Name"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/placedOn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/textView1"
+            android:text="PlacedOn"
+            android:textSize="13dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border" >
+
+        <Spinner
+            android:id="@+id/issueSpinner"
+            style="@style/spinner_stylenew"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp" 
+            android:layout_below="@+id/TextView01"/>
+
+        <EditText
+            android:id="@+id/cancelCommentsET"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/issueSpinner"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/border"
+            android:paddingBottom="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="20dp" >
+        </EditText>
+
+        <Button
+            android:id="@+id/cancelProduct"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cancelCommentsET"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/buttonorange"
+            android:gravity="center"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:orientation="horizontal"
+            android:text="Confirm Cancellation"
+            android:textColor="@color/grey"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/issueSpinner"
+            android:layout_alignParentTop="true"
+            android:text="Reason for cancellation"
+            android:textSize="15dp" 
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/commentAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cancelCommentsET"
+            android:layout_centerHorizontal="true"
+            android:text="Please explain the reason" 
+            android:textColor="#FF0000"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/issueAlert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/issueSpinner"
+            android:layout_centerHorizontal="true"
+            android:text="Please select reason for cancelation" 
+            android:textColor="#FF0000"
+            android:visibility="gone"/>
+
+        <TextView
+            android:text="Comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/issueAlert"
+            android:layout_marginLeft="14dp"
+            android:id="@+id/textView27"
+            android:layout_marginTop="@dimen/_10dp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

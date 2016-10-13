@@ -5,20 +5,277 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/order_id"
+        android:id="@+id/order_id2"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/black"
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20dp" />
+        android:textSize="@dimen/_20dp"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:id="@+id/orderbg"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/orderborder"
+        >
+
+        <TextView
+            android:id="@+id/ordername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:text="ORDER -"
+            android:textColor="#414141"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/ordername"
+            android:text="ORDER ID"
+            android:textColor="#414141"
+            android:textSize="18dp" />
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/ll_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"></LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cartlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_items"
+        android:background="#ffffff">
+
+
+        <RelativeLayout
+            android:id="@+id/cartdivider"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_centerHorizontal="true"
+
+            android:background="#A8A8A8">
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/cartsumary"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cartdivider"
+            android:layout_marginTop="10dp">
+
+
+            <TextView
+                android:id="@+id/cartheading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="30dp"
+                android:text="Cart Summary"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/totalvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/cartheading"
+                android:layout_marginLeft="34dp"
+                android:text="Total Order Value"
+                android:textSize="15dp"/>
+
+
+            <TextView
+                android:id="@+id/totalcost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/cartheading"
+                android:layout_marginRight="34dp"
+                android:text="599"
+                android:textSize="15dp"
+                />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView35"
+                android:layout_alignStart="@+id/textView35"
+                android:layout_below="@+id/textView35"
+                android:layout_marginRight="1dp"
+                android:text="@string/rs"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/textView43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView38"
+                android:layout_alignStart="@+id/textView38"
+                android:layout_below="@+id/textView38"
+                android:layout_marginRight="1dp"
+                android:text="@string/rs"
+                android:textSize="15dp"/>
+
+            <RelativeLayout
+                android:id="@+id/granddivider"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/textView39"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="#A8A8A8">
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/grandTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView39"
+                android:layout_alignStart="@+id/textView39"
+                android:layout_below="@+id/granddivider"
+                android:layout_marginTop="5dp"
+                android:text="Grand Total"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:id="@+id/grandtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/grandTotal"
+
+                android:text="1200"
+                android:textSize="15dp"
+                android:layout_alignTop="@+id/grandTotal"
+                android:layout_alignRight="@+id/codcharges"
+                android:layout_alignEnd="@+id/codcharges" />
+
+            <TextView
+                android:id="@+id/textView47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/grandtotal"
+                android:layout_alignBottom="@+id/grandtotal"
+                android:text="@string/rs"
+                android:textSize="15dp"
+                android:layout_alignLeft="@+id/textView43"
+                android:layout_alignStart="@+id/textView43"
+                android:layout_toLeftOf="@+id/totalcost"
+                android:layout_toStartOf="@+id/totalcost" />
+
+            <TextView
+                android:id="@+id/codcharges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="75"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@+id/textView43"
+                android:layout_alignBottom="@+id/textView43"
+                android:layout_below="@+id/pmcashused"
+                android:layout_alignRight="@+id/pmcashused"
+                android:layout_alignEnd="@+id/pmcashused"
+                />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rs"
+                android:textSize="15dp"
+                android:layout_below="@+id/textView29"
+                android:layout_alignLeft="@+id/textView29"
+                android:layout_alignStart="@+id/textView29" />
+
+            <TextView
+                android:id="@+id/pmcashused"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@+id/textView35"
+                android:layout_alignBottom="@+id/textView35"
+                android:layout_alignRight="@+id/totalcost"
+                android:layout_alignEnd="@+id/totalcost" />
+
+            <TextView
+                android:id="@+id/textView39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COD Charges"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@+id/textView43"
+                android:layout_alignBottom="@+id/textView43"
+                android:layout_alignLeft="@+id/promocodediscount"
+                android:layout_alignStart="@+id/promocodediscount" />
+
+            <TextView
+                android:id="@+id/promocodediscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Promo Code Discount"
+                android:textSize="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignLeft="@+id/pmcash"
+                android:layout_alignStart="@+id/pmcash"
+                android:layout_below="@+id/pmcash"/>
+
+            <TextView
+                android:id="@+id/pmcash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3PMstorecash Used"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@+id/textView35"
+                android:layout_alignBottom="@+id/textView35"
+                android:layout_alignLeft="@+id/totalvalue"
+                android:layout_alignStart="@+id/totalvalue" />
+
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="14dp"
+                android:text="@string/rs"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@+id/totalcost"
+                android:layout_alignBottom="@+id/totalcost"
+                android:layout_toLeftOf="@+id/totalcost"
+                android:layout_toStartOf="@+id/totalcost"
+                android:layout_marginEnd="25dp" />
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textSize="15dp"
+                android:layout_below="@+id/pmcashused"
+                android:layout_alignRight="@+id/pmcashused"
+                android:layout_alignEnd="@+id/pmcashused" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/id_return"
@@ -28,5 +285,6 @@
         android:gravity="center"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="@dimen/_20dp" />
+        android:textSize="@dimen/_20dp"
+        android:visibility="gone"/>
 </LinearLayout>

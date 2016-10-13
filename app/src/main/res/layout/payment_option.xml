@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+<ScrollView
+        android:id="@+id/srs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rtimer"
+        android:layout_alignParentTop="true" >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/sublayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/scr"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Payment Summary"
+                    android:textSize="25dp"  />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/headborder"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/scr"
+                android:background="#A8A8A8"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                >
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headborder"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/totalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pricetext"
+                    android:layout_alignBottom="@+id/pricetext"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="0"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/pmstorecash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pmcheck"
+                    android:layout_alignBottom="@+id/pmcheck"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/pmcheck"
+                    android:text="3PM Store Cash :"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pmstorecashamount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pmstorecash"
+                    android:layout_alignBottom="@+id/pmstorecash"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text=" -0"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/amountpaycash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/amountpay"
+                    android:layout_alignBottom="@+id/amountpay"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/amountpay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/currentcash"
+                    android:layout_below="@+id/codchargesHead"
+                    android:layout_marginTop="10dp"
+                    android:text="Amount Payable "
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/currentcashbal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/currentcash"
+                    android:layout_alignBottom="@+id/currentcash"
+                    android:layout_toRightOf="@+id/currentcash"
+                    android:text=" 0"
+                    android:textSize="10dp" />
+
+                <CheckBox
+                    android:id="@+id/pmcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/pricetext"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/custom_checkbox"
+                    android:text="  3PMstore Cash "
+                    android:textSize="15dp"
+                    />
+
+                <TextView
+                    android:id="@+id/currentcash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/pmcheck"
+                    android:layout_below="@+id/pmcheck"
+                    android:layout_marginTop="10dp"
+                    android:text="(Your Current Balance is Rs. "
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/codchargesHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountpay"
+                    android:layout_below="@+id/currentcash"
+                    android:layout_marginTop="10dp"
+                    android:text="COD Charges "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/codchargesValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/amountpay"
+                    android:layout_alignLeft="@+id/amountpaycash"
+                    android:text="0"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/pricetext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/pmcheck"
+                    android:layout_alignParentTop="true"
+                    android:text="Total Price "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView19"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignBaseline="@+id/totalprice"
+                    android:layout_alignBottom="@+id/totalprice"
+                    android:layout_toLeftOf="@+id/totalprice"
+                    />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView20"
+                    android:layout_alignBaseline="@+id/pmstorecashamount"
+                    android:layout_alignBottom="@+id/pmstorecashamount"
+                    android:layout_alignLeft="@+id/textView19"
+                    android:layout_alignStart="@+id/textView19" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/codchargesQuote"
+                    android:layout_alignBaseline="@+id/codchargesValue"
+                    android:layout_alignBottom="@+id/codchargesValue"
+                    android:layout_alignLeft="@+id/textView20"
+                    android:layout_alignStart="@+id/textView20" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView24"
+                    android:layout_alignTop="@+id/amountpay"
+                    android:layout_alignLeft="@+id/codchargesQuote"
+                    android:layout_alignStart="@+id/codchargesQuote" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#A8A8A8"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/relativeLayout1"/>
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/botom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmorders"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Select Payment Options"
+            android:textSize="25dp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp"
+            android:background="#f3f3f3" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/rexpand"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <RelativeLayout
+                android:id="@+id/expand1"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentData1"
+                    android:text="Credit/Debit/NetBanking"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentImage1"
+                    android:background="@drawable/cart_icon"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/childexpand1"
+                android:layout_below="@+id/expand1"
+                android:layout_width="fill_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/paymentborder"
+                android:visibility="gone">
+
+                <Button
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/childpaysecurely1"
+                    android:background="@drawable/buttonorange"
+                    android:textColor="@color/grey"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/expand2"
+                android:layout_below="@+id/childexpand1"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentData2"
+                    android:text="Paytm"
+                    android:textSize="@dimen/_20dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentImage2"
+                    android:background="@drawable/paytm"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/childexpand2"
+                android:layout_below="@+id/expand2"
+                android:layout_width="fill_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/paymentborder"
+                android:visibility="gone">
+                <Button
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/childpaysecurely2"
+                    android:background="@drawable/buttonorange"
+                    android:textColor="@color/grey"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/expand3"
+                android:layout_below="@+id/childexpand2"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentData3"
+                    android:text="Mobikwik"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentImage3"
+                    android:background="@drawable/mobi"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/childexpand3"
+                android:layout_below="@+id/expand3"
+                android:layout_width="fill_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/paymentborder"
+                android:visibility="gone">
+
+                <Button
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/childpaysecurely3"
+                    android:background="@drawable/buttonorange"
+                    android:textColor="@color/grey"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/expand4"
+                android:layout_below="@+id/childexpand3"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentData4"
+                    android:text="payumoney"
+                    android:textSize="@dimen/_20dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentImage4"
+                    android:background="@drawable/payumoney"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/childexpand4"
+                android:layout_below="@+id/expand4"
+                android:layout_width="fill_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/paymentborder"
+                android:visibility="gone">
+                <Button
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/childpaysecurely4"
+                    android:background="@drawable/buttonorange"
+                    android:textColor="@color/grey"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/expand5"
+                android:layout_below="@+id/childexpand4"
+                android:layout_marginTop="@dimen/_10dp"
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentData5"
+                    android:text="Cash On Delivery"
+                    android:textSize="16dp"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="@dimen/_10dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/parentImage5"
+                    android:background="@drawable/cart_icon"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:visibility="gone"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/childexpand5"
+                android:layout_below="@+id/expand5"
+                android:layout_width="fill_parent"
+                android:layout_height="85dp"
+                android:background="@drawable/paymentborder"
+                android:visibility="gone">
+                <Button
+                    android:layout_width="@dimen/_150dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/sendOTP"
+                    android:background="@drawable/buttonorange"
+
+                    android:textColor="@color/grey"
+                    android:textSize="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:src="#80e6e6e7"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/confirmorders"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/sublayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <Button
+            android:id="@+id/confirmorder"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/buttonorange"
+            android:orientation="horizontal"
+            android:text="Confirm Order"
+            android:textColor="@color/grey"
+            android:textSize="18dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>

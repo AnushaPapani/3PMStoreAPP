@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#E4E4E4"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Call Me Form"
+        android:textSize="25dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/textView1"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayout">
+
+        <RelativeLayout
+            android:id="@+id/orderlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/primaryMobile"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/primaryMobile"
+            android:layout_marginTop="5dp" >
+
+            <TextView
+                android:id="@+id/ordername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="ORDER- "
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/order"
+                android:layout_alignBottom="@+id/order"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="2dp"
+                android:text="Total" />
+
+            <TextView
+                android:id="@+id/rupee1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/total"
+                android:text="@string/rs" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/order"
+                android:background="#f3f3f3" />
+
+            <TextView
+                android:id="@+id/order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ordername"
+                android:layout_alignBottom="@+id/ordername"
+                android:layout_toRightOf="@+id/ordername"
+                android:text="Order ID"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/primaryMobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView23"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="10dp" />
+
+        <EditText
+            android:id="@+id/secondaryMobile"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView25"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/border"
+            android:ems="10"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:paddingTop="10dp" >
+        </EditText>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondaryText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/buttonorange"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="SUBMIT"
+            android:textColor="@color/grey"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/secondaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondaryMobile"
+            android:layout_centerHorizontal="true"
+            android:text="Please provide alternate Contact number"
+            android:textColor="#FF0000"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/primaryText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/primaryMobile"
+            android:layout_centerHorizontal="true"
+            android:text="Please enter your Contact number"
+            android:textColor="#FF0000"
+            android:visibility="gone" />
+
+        <TextView
+            android:text="Your Primary Phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/orderlayout"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/textView23" />
+
+        <TextView
+            android:text="Provide Alternate Phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/primaryText"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="11dp"
+            android:id="@+id/textView25" />
+
+        <!--<TextView-->
+            <!--android:text="Provide Alternate Number"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_marginRight="14dp"-->
+            <!--android:layout_marginEnd="14dp"-->
+            <!--android:layout_marginTop="18dp"-->
+            <!--android:visibility="gone"-->
+            <!--android:id="@+id/textView26" />-->
+    </RelativeLayout>
+
+</RelativeLayout>
