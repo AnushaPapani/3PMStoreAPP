@@ -29,8 +29,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.store.storeapps.activities.Previous_ProductsActivity"></activity>
         <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
-
+        <activity android:name="com.store.storeapps.activities.ReturnFormNew"></activity>
         <activity android:name="com.store.storeapps.activities.YoutubeVideoActivity"></activity>
 
     </application>

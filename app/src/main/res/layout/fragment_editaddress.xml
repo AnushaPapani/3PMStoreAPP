@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/rtimer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="#414141"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="TIME LEFT"
+                    android:textColor="#ff9900"
+                    android:textSize="10dp"
+                    android:layout_marginBottom="-3dp"
+                    android:layout_marginTop="-3dp"/>
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-12dp"
+                    android:layout_marginBottom="-8dp">
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/th"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/textView33"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/m"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tsec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/seco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/srs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/rtimer"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/newaddresstext"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Edit Address"
+                android:textSize="20dp"
+                />
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/newaddresstext"
+                android:layout_below="@+id/newaddresstext"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="22dp" >
+
+                <TextView
+                    android:id="@+id/addname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name:"
+                    android:textColor="#000000"
+                    android:visibility="gone"/>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addname"
+                    android:layout_below="@+id/addname"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/addressname"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:enabled="false"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout"
+                android:layout_below="@+id/addaddresslayout"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addmobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mobile Number:"
+                    android:textColor="#000000" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addmobile"
+                    android:layout_below="@+id/addmobile"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/addressmobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:inputType="phone"
+                        android:maxLength="10" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout1"
+                android:layout_below="@+id/addaddresslayout1"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addaddress1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Line 1:"
+                    android:textColor="#000000" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addaddress1"
+                    android:layout_below="@+id/addaddress1"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/address1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout2"
+                android:layout_below="@+id/addaddresslayout2"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addaddress2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address Line 2:"
+                    android:textColor="#000000" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addaddress2"
+                    android:layout_below="@+id/addaddress2"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/address2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout3"
+                android:layout_below="@+id/addaddresslayout3"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addcity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City:"
+                    android:textColor="#000000" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addcity"
+                    android:layout_below="@+id/addcity"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/addresscity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout4"
+                android:layout_below="@+id/addaddresslayout4"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp" >
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addstate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="State:"
+                    android:textColor="#000000" />
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/addstate"
+                    android:layout_below="@+id/addstate"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/addressstate"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/addaddresslayout6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addaddresslayout5"
+                android:layout_below="@+id/addaddresslayout5"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="8dp" >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignLeft="@+id/addpincode"
+                    android:layout_below="@+id/addpincode"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/adresbg" >
+
+                    <EditText
+                        android:id="@+id/addresspincode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:ems="10"
+                        android:inputType="number"
+                        android:maxLength="6" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/addpincode"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/buttonorange"
+                    android:text="Save"
+                    android:textColor="@color/grey" />
+
+                <com.store.storeapps.activities.CustomTextView
+                    android:id="@+id/addpincode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pincode:"
+                    android:textColor="#000000"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/editadd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Edit Address"
+                android:textSize="25dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
