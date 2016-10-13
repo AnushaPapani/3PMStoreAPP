@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -38,7 +40,7 @@ public class ReviewOrderFragment extends Fragment {
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     private ReviewOrderAdapter reviewOrderAdapter;
-
+    private Button proceedtopay;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,9 +50,17 @@ public class ReviewOrderFragment extends Fragment {
     }
 
     private void initUI() {
+        proceedtopay =(Button)rootView.findViewById(R.id.proceedtopay);
         listView_selected_orders = (ListView) rootView.findViewById(R.id.listView_selected_orders);
         ll_header = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 review_order_header, null);
+        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
+            proceedtopay.setText("Checkout");
+        } else {
+//            Bundle bundle = new Bundle();
+//            bundle.putString("from", "cart");
+//            Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
+        }
         txt_review_your_order = (TextView) ll_header.findViewById(R.id.txt_review_your_order);
         txt_review_your_order.setPaintFlags(txt_review_your_order.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         getReviewOrderDetails();

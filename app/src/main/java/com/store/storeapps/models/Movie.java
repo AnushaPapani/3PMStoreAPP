@@ -12,7 +12,7 @@ public class Movie {
     private  String P_Cost;
     private ArrayList<String> Attribute_Type;
     private ArrayList<String> Attribute_Value;
-
+    private String Id;
 //    private  String Attribute_Type;
 //    private  String Attribute_Value;
     private  String Shipping_Carrier;
@@ -82,6 +82,14 @@ public class Movie {
     String bline;
     String bcity;
     String bstate;
+
+    public String getId() {
+        return Id;
+    }
+
+    public void setId(String id) {
+        Id = id;
+    }
 
     public String getBpincode() {
         return bpincode;

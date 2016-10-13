@@ -256,7 +256,8 @@ public class RegistrationFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     Log.d("Create Response", jsonobject.toString());
-//                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        String regadcount =jsonobject.getString("count");
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
@@ -269,9 +270,9 @@ public class RegistrationFragment extends Fragment {
 //                        if (!mFrom.equalsIgnoreCase("cart")) {
 //                            mParent.onBackPressed();
 //                        }
-//                    } else {
-//                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
-//                    }
+                    } else {
+                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                    }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
