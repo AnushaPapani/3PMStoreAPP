@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.store.storeapps.R;
-import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.models.AddressesModel;
 import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
@@ -44,6 +44,7 @@ public class ReviewOrderFragment extends Fragment {
     private LinearLayout ll_fottor;
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
+    private static ArrayList<AddressesModel> addressesModels;
     private ReviewOrderAdapter reviewOrderAdapter;
     private Button proceedtopay;
     private EditText Promocode;
@@ -92,8 +93,10 @@ public class ReviewOrderFragment extends Fragment {
         txt_mobile = (TextView) ll_fottor.findViewById(R.id.txt_mobile);
         txt_choose_another = (TextView) ll_fottor.findViewById(R.id.txt_choose_another);
 
-        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))){
-
+        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))>0){
+            ll_address_layout.setVisibility(View.VISIBLE);
+        } else {
+            ll_address_layout.setVisibility(View.GONE);
         }
 
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
@@ -163,8 +166,8 @@ public class ReviewOrderFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
-                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152672");
+                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152665");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -214,7 +217,8 @@ public class ReviewOrderFragment extends Fragment {
                         reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels);
                         listView_selected_orders.setAdapter(reviewOrderAdapter);
                         listView_selected_orders.addHeaderView(ll_header);
-                        listView_selected_orders.addFooterView(ll_fottor);
+                        //listView_selected_orders.addFooterView(ll_fottor);
+                        getAddress();
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -224,4 +228,79 @@ public class ReviewOrderFragment extends Fragment {
         }
     }
 
+    private void getAddress() {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new GetCheckout_AddressAsyncTask().execute();
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
+    }
+
+
+    class GetCheckout_AddressAsyncTask extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+
+        public GetCheckout_AddressAsyncTask() {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            addressesModels = new ArrayList<>();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_ADDRESS + "?U_id="+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        JSONArray tbl_addresses = jsonobject.optJSONArray("tbl_addresses");
+                        for (int i = 0; i < tbl_addresses.length(); i++) {
+                            JSONObject jsonTblAddresses = tbl_addresses.optJSONObject(i);
+                            AddressesModel mAddressesModel = new AddressesModel();
+                            mAddressesModel.setID(jsonTblAddresses.optString("ID"));
+                            mAddressesModel.setUser_ID(jsonTblAddresses.optString("User_ID"));
+                            mAddressesModel.setUsername(jsonTblAddresses.optString("username"));
+                            mAddressesModel.setBline(jsonTblAddresses.optString("bline"));
+                            mAddressesModel.setBcity(jsonTblAddresses.optString("bcity"));
+                            mAddressesModel.setBstate(jsonTblAddresses.optString("bstate"));
+                            mAddressesModel.setBpincode(jsonTblAddresses.optString("bpincode"));
+                            mAddressesModel.setBmobile(jsonTblAddresses.optString("bmobile"));
+                            addressesModels.add(mAddressesModel);
+                        }
+                        setAddressData();
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setAddressData() {
+        txt_name.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getUsername()));
+        txt_address_line.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getBline()));
+        txt_city.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getBcity()));
+        txt_address_state.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getBstate()));
+        txt_pin_code.setText(addressesModels.get(0).getBpincode());
+        txt_mobile.setText(addressesModels.get(0).getBmobile());
+        listView_selected_orders.addFooterView(ll_fottor);
+    }
 }
