@@ -274,4 +274,6 @@ public class Previous_ProductsFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+
 }

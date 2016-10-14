@@ -64,7 +64,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private void initUI() {
         txt_password = (TextView) rootView.findViewById(R.id.txt_forgot_password);
-        txt_register_link = (TextView)rootView.findViewById(R.id.register_link);
+        txt_register_link = (TextView) rootView.findViewById(R.id.register_link);
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
@@ -153,12 +153,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
                         HomeActivity.txt_email.setText(userjsonobject.optString("email"));
                         HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
-                        if (!mFrom.equalsIgnoreCase("cart")){
+                        if (!mFrom.equalsIgnoreCase("cart")) {
                             mParent.onBackPressed();
                         }
 //                        Intent i=new Intent(getActivity(),HomeActivity.class);
 //                        startActivity(i);
-                        Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, getActivity());
+
+                        /*If Address is Zero*/
+                        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))) {
+                            Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, getActivity());
+                        } else {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                        }
+
 
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
@@ -167,7 +174,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         }
