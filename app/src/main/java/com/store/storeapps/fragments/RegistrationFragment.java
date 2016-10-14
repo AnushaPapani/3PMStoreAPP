@@ -70,6 +70,7 @@ public class RegistrationFragment extends Fragment {
     private Toast toast;
     RadioButton selectRadio;
     String getGender;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,7 @@ public class RegistrationFragment extends Fragment {
         // Call toast.xml file for toast layout
         toastRoot = inflater.inflate(R.layout.toast, null);
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
+        toast = new Toast(getActivity());
         initUI();
         return rootView;
     }
@@ -102,11 +104,11 @@ public class RegistrationFragment extends Fragment {
         day = cal.get(DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
-        et = (EditText)rootView.findViewById(R.id.editText);
+        et = (EditText) rootView.findViewById(R.id.editText);
         btnRegisterUser = (Button) rootView.findViewById(R.id.btnRegisterUser);
         custom_toast = (TextView) toastRoot.findViewById(R.id.errortoast);
 //        et.setOnClickListener(this);
-        selectRadio = (RadioButton)rootView.findViewById(gender
+        selectRadio = (RadioButton) rootView.findViewById(gender
                 .getCheckedRadioButtonId());
         et.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,17 +116,17 @@ public class RegistrationFragment extends Fragment {
                 showDatePicker();
             }
         });
-            gender.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int checkedRadioButton = gender.getCheckedRadioButtonId();
-                    boolean checked = ((RadioButton) rootView).isChecked();
-                    // find the radiobutton by returned id
-                    RadioButton radioButton = (RadioButton) rootView.findViewById(checkedRadioButton);
-                    getGender = radioButton.getText().toString();
+        gender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int checkedRadioButton = gender.getCheckedRadioButtonId();
+//                    boolean checked = ((RadioButton) rootView).isChecked();
+                // find the radiobutton by returned id
+                RadioButton radioButton = (RadioButton) rootView.findViewById(checkedRadioButton);
+                getGender = radioButton.getText().toString();
 
-                }
-            });
+            }
+        });
 
 //        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
 //        {
@@ -151,9 +153,9 @@ public class RegistrationFragment extends Fragment {
 //                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString(),
 //                            selectRadio.getText().toString());
 //                    Toast.makeText(getActivity(),"Clicked",Toast.LENGTH_SHORT).show();
-                }else {
-                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString()
-                            );
+                } else {
+                    CreateNewUser(inputName.getText().toString(), inputEmail.getText().toString(), inputPassword.getText().toString()
+                    );
                 }
             }
         });
@@ -161,7 +163,7 @@ public class RegistrationFragment extends Fragment {
     }
 
     private void showDatePicker() {
-        DatePickerFragment date = new DatePickerFragment ();
+        DatePickerFragment date = new DatePickerFragment();
         /**
          * Set Up Current Date Into dialog
          */
@@ -187,7 +189,6 @@ public class RegistrationFragment extends Fragment {
                     + year);
         }
     };
-
 
 
 //    @Override
@@ -257,21 +258,39 @@ public class RegistrationFragment extends Fragment {
                     JSONObject jsonobject = new JSONObject(response);
                     Log.d("Create Response", jsonobject.toString());
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
-                        String regadcount =jsonobject.getString("count");
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
-//                        JSONObject userjsonobject = jsonobject.optJSONObject("user");
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_NAME, userjsonobject.optString("fullname"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID, userjsonobject.optString("email"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
-//                        HomeActivity.txt_email.setText(userjsonobject.optString("email"));
-//                        HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
-//                        if (!mFrom.equalsIgnoreCase("cart")) {
-//                            mParent.onBackPressed();
-//                        }
+                        Utility.setSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT, jsonobject.optString("count"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
+                        JSONObject userjsonobject = jsonobject.optJSONObject("user");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_NAME, userjsonobject.optString("fullname"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID, userjsonobject.optString("email"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
+                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                        t.setText("Registration Successfull");
+                        toast.setView(toastRoot2);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
+                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
+
+                        if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
+                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
+                        } else {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                        }
+
+                    }
+                    if (jsonobject.optString("success").equalsIgnoreCase("0")) {
+                        //				Toast.makeText(getApplicationContext(), "Email ID Already Exists", 9000).show();
+                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
+                        t.setText("Email ID Already Exists");
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
                     } else {
-                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                        Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, getActivity());
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -335,14 +354,13 @@ public class RegistrationFragment extends Fragment {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        }else {
+        } else {
 
         }
 
 
         return isValidate;
     }
-
 
 
 }

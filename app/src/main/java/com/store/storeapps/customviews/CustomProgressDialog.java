@@ -33,7 +33,7 @@ public class CustomProgressDialog {
 		//mProgressBar = (ProgressBar) mDialog.findViewById(R.id.progress_bar);
 	}
 
-	public void showProgress(String message) {
+	public boolean showProgress(String message) {
 		if(Utility.isValueNullOrEmpty(message))	{
 			mTxtMessage.setVisibility(View.GONE);
 		}
@@ -44,6 +44,7 @@ public class CustomProgressDialog {
 		if(mDialog != null) {
 			mDialog.show();
 		}
+		return false;
 	}
 
 	public void dismissProgress() {

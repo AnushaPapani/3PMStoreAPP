@@ -161,8 +161,8 @@
             android:layout_marginLeft="16dp"
             android:button="@drawable/custom_checkbox"
             android:choiceMode="singleChoice"
-
             android:focusable="false"
+            android:visibility="gone"
             android:focusableInTouchMode="false"
             android:clickable="true"
             />
@@ -173,9 +173,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/checkBox1"
             android:layout_alignTop="@+id/checkBox1"
-            android:background="@drawable/tickboxone"
-            android:paddingLeft="5dp"
-            android:visibility="gone"/>
+            android:background="@drawable/ticktwo"
+            android:layout_marginLeft="5dp"
+            android:visibility="visible"/>
 
     </RelativeLayout>
 
