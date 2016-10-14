@@ -326,6 +326,7 @@ public class Utility {
                     .getSharedPreferences(Constants.APP_PREF,
                             Context.MODE_PRIVATE);
             return userAcountPreference.getString(key, "");
+
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();

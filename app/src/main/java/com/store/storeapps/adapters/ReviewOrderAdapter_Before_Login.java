@@ -18,11 +18,12 @@ import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.ReviewOrderFragment;
+import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.models.ReviewOrderModel;
+import com.store.storeapps.models.ReviewOrderModel_Before_Login;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,14 +35,14 @@ import java.util.LinkedHashMap;
  * Created by shankar on 10/1/2016.
  */
 
-public class ReviewOrderAdapter extends BaseAdapter {
+public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private ArrayList<ReviewOrderModel> mReviewOrderModels;
+    private ArrayList<ReviewOrderModel_Before_Login> mReviewOrderModels;
 
 
-    public ReviewOrderAdapter(Context context, ArrayList<ReviewOrderModel> mReviewOrderModels) {
+    public ReviewOrderAdapter_Before_Login(Context context, ArrayList<ReviewOrderModel_Before_Login> mReviewOrderModels) {
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mReviewOrderModels = mReviewOrderModels;
@@ -85,7 +86,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             mReviewOrderItemHolder = (ReviewOrderItemHolder) convertView.getTag();
         }
 
-        final ReviewOrderModel reviewOrderModel = (ReviewOrderModel) getItem(position);
+        final ReviewOrderModel_Before_Login reviewOrderModel = (ReviewOrderModel_Before_Login) getItem(position);
 
         Picasso.with(mContext).load(getFullFilledImage(reviewOrderModel.getP_Image())).placeholder(Utility.getDrawable(mContext, R.drawable.refresh))
                 .into(mReviewOrderItemHolder.img_order);
@@ -282,12 +283,10 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
-                                ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
+                                ReviewOrderModel_Before_Login reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
-//                                reviewOrderModel
                                 mReviewOrderModels.set(i, reviewOrderModel);
-                                ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
-
+                                ReviewOrderFragment_Before_Login.reviewOrderModels.set(i, reviewOrderModel);
                             }
                         }
                         notifyDataSetChanged();

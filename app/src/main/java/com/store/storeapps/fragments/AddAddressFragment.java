@@ -42,7 +42,7 @@ import static java.util.Calendar.DAY_OF_MONTH;
  */
 public class AddAddressFragment extends Fragment {
 
-    public static final String TAG = "RegistrationFragment";
+    public static final String TAG = "AddAddressFragment";
     private HomeActivity mParent;
     private View rootView;
     EditText inputAddName;
@@ -176,7 +176,8 @@ public class AddAddressFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     Log.d("Create Response", jsonobject.toString());
-//                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
 //                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
@@ -189,9 +190,9 @@ public class AddAddressFragment extends Fragment {
 //                        if (!mFrom.equalsIgnoreCase("cart")) {
 //                            mParent.onBackPressed();
 //                        }
-//                    } else {
+                    } else {
 //                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
-//                    }
+                    }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {

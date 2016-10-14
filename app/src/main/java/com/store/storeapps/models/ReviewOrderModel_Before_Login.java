@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by shankar on 10/1/2016.
  */
 
-public class ReviewOrderModel {
+public class ReviewOrderModel_Before_Login {
 
     private int Max_Quantity;
     private String P_ID;
@@ -15,17 +15,8 @@ public class ReviewOrderModel {
     private String Cart_Prod_ID;
     private int P_Cost;
     private int P_Qty;
-    private String cartValue;
     private ArrayList<String> Attribute_Type;
     private ArrayList<String> Attribute_Value;
-
-    public String getCartValue() {
-        return cartValue;
-    }
-
-    public void setCartValue(String cartValue) {
-        this.cartValue = cartValue;
-    }
 
     public int getMax_Quantity() {
         return Max_Quantity;

@@ -158,13 +158,27 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         }
 //                        Intent i=new Intent(getActivity(),HomeActivity.class);
 //                        startActivity(i);
+                        if ((Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)))) {
+                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
+                        }
+                        else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)){
+                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
+                        }
+                        else {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                        }
 
-                        /*If Address is Zero*/
+//                        }else if ((!Utility.isValueNullOrEmpty(HomeActivity.mCartId)&&
+//                                (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))))){
+//                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+//                        }
+
+                        /*If Address is Zero*//*
                         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))) {
                             Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, getActivity());
                         } else {
                             Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-                        }
+                        }*/
 
 
                     } else {

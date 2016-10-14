@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     private TabLayout tabLayout;
     private View rootView;
     private ViewPager viewPager;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    public static SwipeRefreshLayout swipeRefreshLayout;
     private HomeActivity mParent;
 
 
@@ -190,8 +190,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         mParent.getProductsList();
         if (swipeRefreshLayout.isRefreshing()) {
+
             swipeRefreshLayout.setRefreshing(false);
         }
+
+
     }
 
 }
