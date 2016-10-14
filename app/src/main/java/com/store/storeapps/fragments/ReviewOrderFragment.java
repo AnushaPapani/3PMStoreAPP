@@ -90,7 +90,7 @@ public class ReviewOrderFragment extends Fragment {
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
-        Grand_total =(TextView)ll_fottor.findViewById(R.id.grandtotal);
+        Grand_total =(TextView)ll_fottor.findViewById(R.id.txt_total_price);
 
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
         txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);

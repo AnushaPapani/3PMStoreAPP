@@ -215,6 +215,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         mReviewOrderModels.remove(position);
+
                         notifyDataSetChanged();
                     }
                 }

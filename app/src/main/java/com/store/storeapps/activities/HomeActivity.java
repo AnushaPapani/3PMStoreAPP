@@ -265,22 +265,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))) {
+                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
-//                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
-//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-//                    } else {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("from", "cart");
-//                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
-//                    }
-                }
-                else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))){
+                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
+                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("from", "cart");
+                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
+                    }
+                } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                }
-
-
-                else {
+                } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
                 break;
@@ -416,7 +412,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
 
-        Intent i= new Intent(getApplicationContext(),HomeActivity.class);
+        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(i);
 
 
