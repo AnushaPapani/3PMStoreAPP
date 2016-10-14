@@ -264,8 +264,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                /*if (!Utility.isValueNullOrEmpty(mCartId)) {
+                if (!Utility.isValueNullOrEmpty(mCartId)) {
                     if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
                         Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                     } else {
@@ -275,7 +274,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
-                }*/
+                }
                 break;
 
         }
