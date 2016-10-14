@@ -113,6 +113,13 @@
     <string name="delete">Delete Post</string>
     <string name="welcome">GCM Greeting App</string>
     <string name="email">Email Address</string>
+    <string name="name">Name</string>
+    <string name="address_line">Address Line</string>
+    <string name="city">City</string>
+    <string name="address_state">Address State</string>
+    <string name="pin_code">Pin Code</string>
+    <string name="mobile">Mobile</string>
+    <string name="choose_another_address">Choose another address</string>
 
     <string name="signup">Don\'t have account? Sign Up</string>
     <string name="defaultmsg">Message sent by server will appear here.</string>

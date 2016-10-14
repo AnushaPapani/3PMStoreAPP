@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +26,12 @@ import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
-import org.apache.http.NameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by Shankar.
@@ -56,6 +53,15 @@ public class ReviewOrderFragment extends Fragment {
     View toastRoot2;
     Toast toast;
 
+    private LinearLayout ll_address_layout;
+    private TextView txt_name;
+    private TextView txt_address_line;
+    private TextView txt_city;
+    private TextView txt_address_state;
+    private TextView txt_pin_code;
+    private TextView txt_mobile;
+    private TextView txt_choose_another;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,11 +76,25 @@ public class ReviewOrderFragment extends Fragment {
         listView_selected_orders = (ListView) rootView.findViewById(R.id.listView_selected_orders);
         ll_header = (RelativeLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 review_order_header, null);
+
         ll_fottor = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 footer_revieworder, null);
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
+
+        ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
+        txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);
+        txt_address_line = (TextView) ll_fottor.findViewById(R.id.txt_address_line);
+        txt_city = (TextView) ll_fottor.findViewById(R.id.txt_city);
+        txt_address_state = (TextView) ll_fottor.findViewById(R.id.txt_address_state);
+        txt_pin_code = (TextView) ll_fottor.findViewById(R.id.txt_pin_code);
+        txt_mobile = (TextView) ll_fottor.findViewById(R.id.txt_mobile);
+        txt_choose_another = (TextView) ll_fottor.findViewById(R.id.txt_choose_another);
+
+        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))){
+
+        }
 
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
             proceedtopay.setText("Checkout");

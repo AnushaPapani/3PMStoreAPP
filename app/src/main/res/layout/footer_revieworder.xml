@@ -2,7 +2,81 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_address_layout"
+        android:background="@color/background_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:padding="@dimen/_10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_twenty" />
+
+        <TextView
+            android:id="@+id/txt_address_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/address_line"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_sixteen" />
+
+        <TextView
+            android:id="@+id/txt_city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/city"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_sixteen" />
+
+        <TextView
+            android:id="@+id/txt_address_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/address_state"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_sixteen" />
+
+        <TextView
+            android:id="@+id/txt_pin_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/pin_code"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_sixteen" />
+
+        <TextView
+            android:id="@+id/txt_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:text="@string/mobile"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_size_sixteen" />
+
+        <TextView
+            android:id="@+id/txt_choose_another"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5dp"
+            android:gravity="right"
+            android:text="@string/choose_another_address"
+            android:textColor="@color/Login"
+            android:textSize="@dimen/sp_size_sixteen" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/relativeLayout4"
