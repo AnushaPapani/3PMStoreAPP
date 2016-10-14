@@ -30,7 +30,7 @@ public class PaymentOptionFrgament extends Fragment {
             childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
     Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely4,
             sendOTP, confirmorder, confirmOTP;
-    String updatedValue, updatedValue1, updatedValue2;
+    String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
     String P_Cost,Quantity;
     String ProductId,P_Name, codcharge,  amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId ,pmcash;
@@ -99,6 +99,13 @@ public class PaymentOptionFrgament extends Fragment {
         amounttotal.setText(amountPayable);
         cashtext.setText(pmcash);
         codchargesValue.setText(codcharge);
+////        if(pmcheckbutton.isChecked()) {
+//            expand1.setEnabled(false);
+//            expand2.setEnabled(false);
+//            expand3.setEnabled(false);
+//            expand4.setEnabled(false);
+//            expand5.setEnabled(false);
+////        }
 
         codchargesHead = (TextView)  rootView.findViewById(R.id.codchargesHead);
         codchargesQuote = (TextView)  rootView.findViewById(R.id.codchargesQuote);
@@ -128,15 +135,10 @@ public class PaymentOptionFrgament extends Fragment {
             {
                 amounttotal.setText(""+(Integer.parseInt(amountPayable) - Integer.parseInt(pmcash)));
                 int i = Integer.parseInt(amountPayable) - Integer.parseInt(pmcash);
-                updatedValue = Integer.toString(i);
+//                updatedValue = Integer.toString(i);
                 pmamount.setText(""+pmcash);
                 cashtext.setText(""+0+")");
                 confirmorder.setVisibility(View.GONE);
-
-                if(codchargesValue.getVisibility()==View.VISIBLE  && codchargesHead.getVisibility()==View.VISIBLE)
-                {
-                    amounttotal.setText(""+(Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
-                }
 
                 expand1.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -339,7 +341,7 @@ public class PaymentOptionFrgament extends Fragment {
                             expand4.setBackgroundResource(R.drawable.border);
                             expand5.setBackgroundResource(R.drawable.border);
 
-                            amounttotal.setText(""+(Integer.parseInt(updatedValue)));
+                            amounttotal.setText(""+(Integer.parseInt(amountPayable)));
 
                         }
                         else {
@@ -360,7 +362,7 @@ public class PaymentOptionFrgament extends Fragment {
                             expand4.setBackgroundResource(R.drawable.border);
                             expand5.setBackgroundResource(R.drawable.paymentparentbackground);
 
-                            amounttotal.setText(""+(Integer.parseInt(updatedValue) + Integer.parseInt(codcharge)));
+                            amounttotal.setText(""+(Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
 
                         }
                     }
@@ -374,7 +376,6 @@ public class PaymentOptionFrgament extends Fragment {
                 cashtext.setText(""+pmcash+")");
                 pmamount.setText(""+0);
                 confirmorder.setVisibility(View.GONE);
-
 
 
             }
@@ -621,6 +622,7 @@ public class PaymentOptionFrgament extends Fragment {
                 pmcheckbutton.setChecked(true);
                 int intpmcash = Integer.parseInt(pmcash);
                 String pmcashused = Integer.toString(intpmcash);
+                System.out.println("SET PM CASH11111111"+intpmcash);
                 codchargesHead.setVisibility(View.GONE);
                 codchargesQuote.setVisibility(View.GONE);
                 codchargesValue.setVisibility(View.GONE);
@@ -683,17 +685,6 @@ public class PaymentOptionFrgament extends Fragment {
                         expand4.setEnabled(true);
                         expand5.setEnabled(true);
 
-
-//                        if(codchargesValue.getVisibility()==View.VISIBLE  && codchargesHead.getVisibility()==View.VISIBLE)
-//                        {
-//                            if (pmcheckbutton.isChecked())
-//                            {
-//                                amounttotal.setText(""+(Integer.parseInt(amountPayable) - Integer.parseInt(pmcash)+ Integer.parseInt(codcharge)));
-//                                int i = Integer.parseInt(amountPayable) - Integer.parseInt(pmcash);
-//                                updatedValue1 = Integer.toString(i);
-//                            }
-//
-//                        }
                         expand1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -895,7 +886,7 @@ public class PaymentOptionFrgament extends Fragment {
                                     expand4.setBackgroundResource(R.drawable.border);
                                     expand5.setBackgroundResource(R.drawable.border);
 
-                                    amounttotal.setText(""+(Integer.parseInt(updatedValue1)));
+                                    amounttotal.setText(""+(Integer.parseInt(amountPayable)));
 
                                 }
                                 else {
@@ -916,16 +907,13 @@ public class PaymentOptionFrgament extends Fragment {
                                     expand4.setBackgroundResource(R.drawable.border);
                                     expand5.setBackgroundResource(R.drawable.paymentparentbackground);
 
-                                    amounttotal.setText(""+(Integer.parseInt(updatedValue1) + Integer.parseInt(codcharge)));
+                                    amounttotal.setText(""+(Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
 
                                 }
                             }
                         });
 
-
-
                     }
-
                 } 	else {
                     amounttotal.setText(""+amountPayable);
                     cashtext.setText(""+pmcash+")");
@@ -936,12 +924,6 @@ public class PaymentOptionFrgament extends Fragment {
                     expand3.setEnabled(true);
                     expand4.setEnabled(true);
                     expand5.setEnabled(true);
-
-                    if(codchargesValue.getVisibility()==View.VISIBLE  && codchargesHead.getVisibility()==View.VISIBLE)
-                    {
-                        amounttotal.setText(""+(Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
-                    }
-
 
 
 
