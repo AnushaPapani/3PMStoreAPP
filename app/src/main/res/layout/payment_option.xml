@@ -158,13 +158,17 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/codchargesValue"
+                    android:id="@+id/codchargesValueoldd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/amountpay"
-                    android:layout_alignLeft="@+id/amountpaycash"
                     android:text="0"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:layout_below="@+id/currentcash"
+                    android:layout_alignLeft="@+id/pmstorecashamount"
+                    android:layout_alignStart="@+id/pmstorecashamount"
+                    android:layout_alignRight="@+id/amountpaycash"
+                    android:layout_alignEnd="@+id/amountpaycash"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/pricetext"
@@ -201,20 +205,32 @@
                     android:text=":"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/codchargesQuote"
-                    android:layout_alignBaseline="@+id/codchargesValue"
-                    android:layout_alignBottom="@+id/codchargesValue"
-                    android:layout_alignLeft="@+id/textView20"
-                    android:layout_alignStart="@+id/textView20" />
+                    android:id="@+id/textView24"
+                    android:layout_alignTop="@+id/amountpay"
+                    android:layout_alignLeft="@+id/codchargesQuote"
+                    android:layout_alignStart="@+id/codchargesQuote" />
 
                 <TextView
                     android:text=":"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/textView24"
-                    android:layout_alignTop="@+id/amountpay"
-                    android:layout_alignLeft="@+id/codchargesQuote"
-                    android:layout_alignStart="@+id/codchargesQuote" />
+                    android:id="@+id/codchargesQuote"
+                    android:layout_alignBaseline="@+id/codchargesHead"
+                    android:layout_alignBottom="@+id/codchargesHead"
+                    android:layout_alignLeft="@+id/textView20"
+                    android:layout_alignStart="@+id/textView20"
+                    android:layout_alignRight="@+id/textView20"
+                    android:layout_alignEnd="@+id/textView20" />
+
+                <TextView
+                    android:text="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/codchargesValue"
+                    android:layout_alignBaseline="@+id/codchargesQuote"
+                    android:layout_alignBottom="@+id/codchargesQuote"
+                    android:layout_alignRight="@+id/amountpaycash"
+                    android:layout_alignEnd="@+id/amountpaycash" />
 
             </RelativeLayout>
             <TextView
