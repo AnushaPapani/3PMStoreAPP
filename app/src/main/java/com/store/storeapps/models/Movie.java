@@ -1,5 +1,7 @@
 package com.store.storeapps.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by shankar on 10/8/2016.
  */
@@ -8,8 +10,11 @@ public class Movie {
     private  String P_Name;
     private  String P_Qty;
     private  String P_Cost;
-    private  String Attribute_Type;
-    private  String Attribute_Value;
+    private ArrayList<String> Attribute_Type;
+    private ArrayList<String> Attribute_Value;
+
+//    private  String Attribute_Type;
+//    private  String Attribute_Value;
     private  String Shipping_Carrier;
     private  String Cart_Prod_ID;
     private  String Cart_ID;
@@ -19,70 +24,71 @@ public class Movie {
     private  String Order_Date;
     private  String Status;
     private  String Payment_Type;
-    private String id,username,bline,bcity,bstate,bpincode,bmobile,bemail,payment;
-    private String GrandTotal,Size,Color,Discount,COD_Charges,P_Image,TrackingId;
-    private String PMCashUsed;
-    private String ID,Orderid;
-    private String ppname,ppcost,ppid,Ppimage;
-    private String CancelStatus,CancelIssubmit;
-    private String callmestatus;
-    private String reviewStatus;
-    private String refundStatus;
-    private String exchangeStatus;
-    private String trackenabledate;
-    private String returndisabledate;
-    private String Refund_Status;
-    private String Return_RefundType;
-    private String Return_ExchangeType;
-    private String Preparation_in_progress;
-    private String Order_Held;
-    private String Packed_Ready;
-    private String Dispatched;
-    private String Delivered;
-    private String Pre_dispatch_Cancellation;
-    private String ReturnRequestReceived;
-    private String Exchange_done_Successfully;
-    private String Return_process_initiated;
-    private String Reverse_pick_up_done;
-    private String Next_product_dispatched;
-    private String Canceled;
-    private String Post_dispatch_Cancellation;
-    private String Returnprocessinitiated;
-    private String Reversepick_updone;
-    private String RefunddoneSuccessfully;
-    private String Return_Request_Received;
-    private String Gender;
+    private String TrackingId,
+    PMCashUsed,
+    Discount,
+    TotalCost,
+    COD_Charges,
+    P_Image,Total,
+    GrandTotal,
+    Trackurl,
+    Cancel_OrderId,
+    RefundReferenceID,
+    Cancel_Issue,
+    Cancel_Comments,
+    Cancel_Date,
+    CancelStatus,
+    Cancel_Issubmit,
+    Order_Held,
+    Preparation_in_progressDATE,
+    PackedReadyDATE,
+    CanceledDATE,
+    DispatchedDATE,
+    DeliveredDATE,
+    Pre_dispatch_CancellationDATE,
+    Post_dispatch_CancellationDATE,
+    DonothingDATE,
+    Refund_Status,
+    Return_RefundType,
+    Refund_IsSubmit,
+    Refund_R_ID,
+    Refund_PaymentType,
+    ReturnRequestReceivedDATE,
+    ReturnprocessinitiatedDATE,
+    Reversepick_updoneDATE,
+    RefunddoneSuccessfullyDATE,
+    DoNothingDATE,
+    Exchange_Status,
+    Return_ExchangeType,
+    Exchange_IsSubmit,
+    Exchange_R_ID,
+    Exchange_PaymentType,
+    Return_Request_ReceivedDATE,
+    Return_process_initiatedDATE,
+    Reverse_pick_up_doneDATE,
+    Next_product_dispatchedDATE,
+    Exchange_done_SuccessfullyDATE,
+    Do_NothingDATE,
+    Review_Issubmit,
+    Callmeback_IsSubmit,
+    bmobile,
+    bemail,
+    CustomerName,
+    currentdate,
+    trackenabledate,
+    returndisabledate;
 
-    public String getId() {
-        return id;
+    String username;
+    String bline;
+    String bcity;
+    String bstate;
+
+    public String getBpincode() {
+        return bpincode;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getBline() {
-        return bline;
-    }
-
-    public void setBline(String bline) {
-        this.bline = bline;
-    }
-
-    public String getBcity() {
-        return bcity;
-    }
-
-    public void setBcity(String bcity) {
-        this.bcity = bcity;
+    public void setBpincode(String bpincode) {
+        this.bpincode = bpincode;
     }
 
     public String getBstate() {
@@ -93,60 +99,47 @@ public class Movie {
         this.bstate = bstate;
     }
 
-    public String getBpincode() {
-        return bpincode;
+    public String getBcity() {
+        return bcity;
     }
 
-    public void setBpincode(String bpincode) {
-        this.bpincode = bpincode;
+    public void setBcity(String bcity) {
+        this.bcity = bcity;
     }
 
-    public String getBmobile() {
-        return bmobile;
+    public String getBline() {
+        return bline;
     }
 
-    public void setBmobile(String bmobile) {
-        this.bmobile = bmobile;
+    public void setBline(String bline) {
+        this.bline = bline;
     }
 
-    public String getBemail() {
-        return bemail;
+    public String getUsername() {
+        return username;
     }
 
-    public void setBemail(String bemail) {
-        this.bemail = bemail;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPayment() {
-        return payment;
+    String bpincode;
+
+
+    public String getTrackingId() {
+        return TrackingId;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public void setTrackingId(String trackingId) {
+        TrackingId = trackingId;
     }
 
-    public String getGrandTotal() {
-        return GrandTotal;
+    public String getPMCashUsed() {
+        return PMCashUsed;
     }
 
-    public void setGrandTotal(String grandTotal) {
-        GrandTotal = grandTotal;
-    }
-
-    public String getSize() {
-        return Size;
-    }
-
-    public void setSize(String size) {
-        Size = size;
-    }
-
-    public String getColor() {
-        return Color;
-    }
-
-    public void setColor(String color) {
-        Color = color;
+    public void setPMCashUsed(String PMCashUsed) {
+        this.PMCashUsed = PMCashUsed;
     }
 
     public String getDiscount() {
@@ -155,6 +148,14 @@ public class Movie {
 
     public void setDiscount(String discount) {
         Discount = discount;
+    }
+
+    public String getTotalCost() {
+        return TotalCost;
+    }
+
+    public void setTotalCost(String totalCost) {
+        TotalCost = totalCost;
     }
 
     public String getCOD_Charges() {
@@ -173,68 +174,68 @@ public class Movie {
         P_Image = p_Image;
     }
 
-    public String getTrackingId() {
-        return TrackingId;
+    public String getTotal() {
+        return Total;
     }
 
-    public void setTrackingId(String trackingId) {
-        TrackingId = trackingId;
+    public void setTotal(String total) {
+        Total = total;
     }
 
-    public String getPMCashUsed() {
-        return PMCashUsed;
+    public String getGrandTotal() {
+        return GrandTotal;
     }
 
-    public void setPMCashUsed(String PMCashUsed) {
-        this.PMCashUsed = PMCashUsed;
+    public void setGrandTotal(String grandTotal) {
+        GrandTotal = grandTotal;
     }
 
-    public String getID() {
-        return ID;
+    public String getTrackurl() {
+        return Trackurl;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
+    public void setTrackurl(String trackurl) {
+        Trackurl = trackurl;
     }
 
-    public String getOrderid() {
-        return Orderid;
+    public String getCancel_OrderId() {
+        return Cancel_OrderId;
     }
 
-    public void setOrderid(String orderid) {
-        Orderid = orderid;
+    public void setCancel_OrderId(String cancel_OrderId) {
+        Cancel_OrderId = cancel_OrderId;
     }
 
-    public String getPpname() {
-        return ppname;
+    public String getRefundReferenceID() {
+        return RefundReferenceID;
     }
 
-    public void setPpname(String ppname) {
-        this.ppname = ppname;
+    public void setRefundReferenceID(String refundReferenceID) {
+        RefundReferenceID = refundReferenceID;
     }
 
-    public String getPpcost() {
-        return ppcost;
+    public String getCancel_Issue() {
+        return Cancel_Issue;
     }
 
-    public void setPpcost(String ppcost) {
-        this.ppcost = ppcost;
+    public void setCancel_Issue(String cancel_Issue) {
+        Cancel_Issue = cancel_Issue;
     }
 
-    public String getPpid() {
-        return ppid;
+    public String getCancel_Comments() {
+        return Cancel_Comments;
     }
 
-    public void setPpid(String ppid) {
-        this.ppid = ppid;
+    public void setCancel_Comments(String cancel_Comments) {
+        Cancel_Comments = cancel_Comments;
     }
 
-    public String getPpimage() {
-        return Ppimage;
+    public String getCancel_Date() {
+        return Cancel_Date;
     }
 
-    public void setPpimage(String ppimage) {
-        Ppimage = ppimage;
+    public void setCancel_Date(String cancel_Date) {
+        Cancel_Date = cancel_Date;
     }
 
     public String getCancelStatus() {
@@ -245,60 +246,84 @@ public class Movie {
         CancelStatus = cancelStatus;
     }
 
-    public String getCancelIssubmit() {
-        return CancelIssubmit;
+    public String getCancel_Issubmit() {
+        return Cancel_Issubmit;
     }
 
-    public void setCancelIssubmit(String cancelIssubmit) {
-        CancelIssubmit = cancelIssubmit;
+    public void setCancel_Issubmit(String cancel_Issubmit) {
+        Cancel_Issubmit = cancel_Issubmit;
     }
 
-    public String getCallmestatus() {
-        return callmestatus;
+    public String getOrder_Held() {
+        return Order_Held;
     }
 
-    public void setCallmestatus(String callmestatus) {
-        this.callmestatus = callmestatus;
+    public void setOrder_Held(String order_Held) {
+        Order_Held = order_Held;
     }
 
-    public String getReviewStatus() {
-        return reviewStatus;
+    public String getPreparation_in_progressDATE() {
+        return Preparation_in_progressDATE;
     }
 
-    public void setReviewStatus(String reviewStatus) {
-        this.reviewStatus = reviewStatus;
+    public void setPreparation_in_progressDATE(String preparation_in_progressDATE) {
+        Preparation_in_progressDATE = preparation_in_progressDATE;
     }
 
-    public String getRefundStatus() {
-        return refundStatus;
+    public String getPackedReadyDATE() {
+        return PackedReadyDATE;
     }
 
-    public void setRefundStatus(String refundStatus) {
-        this.refundStatus = refundStatus;
+    public void setPackedReadyDATE(String packedReadyDATE) {
+        PackedReadyDATE = packedReadyDATE;
     }
 
-    public String getExchangeStatus() {
-        return exchangeStatus;
+    public String getCanceledDATE() {
+        return CanceledDATE;
     }
 
-    public void setExchangeStatus(String exchangeStatus) {
-        this.exchangeStatus = exchangeStatus;
+    public void setCanceledDATE(String canceledDATE) {
+        CanceledDATE = canceledDATE;
     }
 
-    public String getTrackenabledate() {
-        return trackenabledate;
+    public String getDispatchedDATE() {
+        return DispatchedDATE;
     }
 
-    public void setTrackenabledate(String trackenabledate) {
-        this.trackenabledate = trackenabledate;
+    public void setDispatchedDATE(String dispatchedDATE) {
+        DispatchedDATE = dispatchedDATE;
     }
 
-    public String getReturndisabledate() {
-        return returndisabledate;
+    public String getDeliveredDATE() {
+        return DeliveredDATE;
     }
 
-    public void setReturndisabledate(String returndisabledate) {
-        this.returndisabledate = returndisabledate;
+    public void setDeliveredDATE(String deliveredDATE) {
+        DeliveredDATE = deliveredDATE;
+    }
+
+    public String getPre_dispatch_CancellationDATE() {
+        return Pre_dispatch_CancellationDATE;
+    }
+
+    public void setPre_dispatch_CancellationDATE(String pre_dispatch_CancellationDATE) {
+        Pre_dispatch_CancellationDATE = pre_dispatch_CancellationDATE;
+    }
+
+    public String getPost_dispatch_CancellationDATE() {
+        return Post_dispatch_CancellationDATE;
+    }
+
+    public void setPost_dispatch_CancellationDATE(String post_dispatch_CancellationDATE) {
+        Post_dispatch_CancellationDATE = post_dispatch_CancellationDATE;
+    }
+
+    public String getDonothingDATE() {
+        return DonothingDATE;
+    }
+
+    public void setDonothingDATE(String donothingDATE) {
+        DonothingDATE = donothingDATE;
     }
 
     public String getRefund_Status() {
@@ -317,6 +342,78 @@ public class Movie {
         Return_RefundType = return_RefundType;
     }
 
+    public String getRefund_IsSubmit() {
+        return Refund_IsSubmit;
+    }
+
+    public void setRefund_IsSubmit(String refund_IsSubmit) {
+        Refund_IsSubmit = refund_IsSubmit;
+    }
+
+    public String getRefund_R_ID() {
+        return Refund_R_ID;
+    }
+
+    public void setRefund_R_ID(String refund_R_ID) {
+        Refund_R_ID = refund_R_ID;
+    }
+
+    public String getRefund_PaymentType() {
+        return Refund_PaymentType;
+    }
+
+    public void setRefund_PaymentType(String refund_PaymentType) {
+        Refund_PaymentType = refund_PaymentType;
+    }
+
+    public String getReturnRequestReceivedDATE() {
+        return ReturnRequestReceivedDATE;
+    }
+
+    public void setReturnRequestReceivedDATE(String returnRequestReceivedDATE) {
+        ReturnRequestReceivedDATE = returnRequestReceivedDATE;
+    }
+
+    public String getReturnprocessinitiatedDATE() {
+        return ReturnprocessinitiatedDATE;
+    }
+
+    public void setReturnprocessinitiatedDATE(String returnprocessinitiatedDATE) {
+        ReturnprocessinitiatedDATE = returnprocessinitiatedDATE;
+    }
+
+    public String getReversepick_updoneDATE() {
+        return Reversepick_updoneDATE;
+    }
+
+    public void setReversepick_updoneDATE(String reversepick_updoneDATE) {
+        Reversepick_updoneDATE = reversepick_updoneDATE;
+    }
+
+    public String getRefunddoneSuccessfullyDATE() {
+        return RefunddoneSuccessfullyDATE;
+    }
+
+    public void setRefunddoneSuccessfullyDATE(String refunddoneSuccessfullyDATE) {
+        RefunddoneSuccessfullyDATE = refunddoneSuccessfullyDATE;
+    }
+
+    public String getDoNothingDATE() {
+        return DoNothingDATE;
+    }
+
+    public void setDoNothingDATE(String doNothingDATE) {
+        DoNothingDATE = doNothingDATE;
+    }
+
+    public String getExchange_Status() {
+        return Exchange_Status;
+    }
+
+    public void setExchange_Status(String exchange_Status) {
+        Exchange_Status = exchange_Status;
+    }
+
     public String getReturn_ExchangeType() {
         return Return_ExchangeType;
     }
@@ -325,148 +422,140 @@ public class Movie {
         Return_ExchangeType = return_ExchangeType;
     }
 
-    public String getPreparation_in_progress() {
-        return Preparation_in_progress;
+    public String getExchange_IsSubmit() {
+        return Exchange_IsSubmit;
     }
 
-    public void setPreparation_in_progress(String preparation_in_progress) {
-        Preparation_in_progress = preparation_in_progress;
+    public void setExchange_IsSubmit(String exchange_IsSubmit) {
+        Exchange_IsSubmit = exchange_IsSubmit;
     }
 
-    public String getOrder_Held() {
-        return Order_Held;
+    public String getExchange_R_ID() {
+        return Exchange_R_ID;
     }
 
-    public void setOrder_Held(String order_Held) {
-        Order_Held = order_Held;
+    public void setExchange_R_ID(String exchange_R_ID) {
+        Exchange_R_ID = exchange_R_ID;
     }
 
-    public String getPacked_Ready() {
-        return Packed_Ready;
+    public String getExchange_PaymentType() {
+        return Exchange_PaymentType;
     }
 
-    public void setPacked_Ready(String packed_Ready) {
-        Packed_Ready = packed_Ready;
+    public void setExchange_PaymentType(String exchange_PaymentType) {
+        Exchange_PaymentType = exchange_PaymentType;
     }
 
-    public String getDispatched() {
-        return Dispatched;
+    public String getReturn_Request_ReceivedDATE() {
+        return Return_Request_ReceivedDATE;
     }
 
-    public void setDispatched(String dispatched) {
-        Dispatched = dispatched;
+    public void setReturn_Request_ReceivedDATE(String return_Request_ReceivedDATE) {
+        Return_Request_ReceivedDATE = return_Request_ReceivedDATE;
     }
 
-    public String getDelivered() {
-        return Delivered;
+    public String getReturn_process_initiatedDATE() {
+        return Return_process_initiatedDATE;
     }
 
-    public void setDelivered(String delivered) {
-        Delivered = delivered;
+    public void setReturn_process_initiatedDATE(String return_process_initiatedDATE) {
+        Return_process_initiatedDATE = return_process_initiatedDATE;
     }
 
-    public String getPre_dispatch_Cancellation() {
-        return Pre_dispatch_Cancellation;
+    public String getReverse_pick_up_doneDATE() {
+        return Reverse_pick_up_doneDATE;
     }
 
-    public void setPre_dispatch_Cancellation(String pre_dispatch_Cancellation) {
-        Pre_dispatch_Cancellation = pre_dispatch_Cancellation;
+    public void setReverse_pick_up_doneDATE(String reverse_pick_up_doneDATE) {
+        Reverse_pick_up_doneDATE = reverse_pick_up_doneDATE;
     }
 
-    public String getReturnRequestReceived() {
-        return ReturnRequestReceived;
+    public String getNext_product_dispatchedDATE() {
+        return Next_product_dispatchedDATE;
     }
 
-    public void setReturnRequestReceived(String returnRequestReceived) {
-        ReturnRequestReceived = returnRequestReceived;
+    public void setNext_product_dispatchedDATE(String next_product_dispatchedDATE) {
+        Next_product_dispatchedDATE = next_product_dispatchedDATE;
     }
 
-    public String getExchange_done_Successfully() {
-        return Exchange_done_Successfully;
+    public String getExchange_done_SuccessfullyDATE() {
+        return Exchange_done_SuccessfullyDATE;
     }
 
-    public void setExchange_done_Successfully(String exchange_done_Successfully) {
-        Exchange_done_Successfully = exchange_done_Successfully;
+    public void setExchange_done_SuccessfullyDATE(String exchange_done_SuccessfullyDATE) {
+        Exchange_done_SuccessfullyDATE = exchange_done_SuccessfullyDATE;
     }
 
-    public String getReturn_process_initiated() {
-        return Return_process_initiated;
+    public String getDo_NothingDATE() {
+        return Do_NothingDATE;
     }
 
-    public void setReturn_process_initiated(String return_process_initiated) {
-        Return_process_initiated = return_process_initiated;
+    public void setDo_NothingDATE(String do_NothingDATE) {
+        Do_NothingDATE = do_NothingDATE;
     }
 
-    public String getReverse_pick_up_done() {
-        return Reverse_pick_up_done;
+    public String getReview_Issubmit() {
+        return Review_Issubmit;
     }
 
-    public void setReverse_pick_up_done(String reverse_pick_up_done) {
-        Reverse_pick_up_done = reverse_pick_up_done;
+    public void setReview_Issubmit(String review_Issubmit) {
+        Review_Issubmit = review_Issubmit;
     }
 
-    public String getNext_product_dispatched() {
-        return Next_product_dispatched;
+    public String getCallmeback_IsSubmit() {
+        return Callmeback_IsSubmit;
     }
 
-    public void setNext_product_dispatched(String next_product_dispatched) {
-        Next_product_dispatched = next_product_dispatched;
+    public void setCallmeback_IsSubmit(String callmeback_IsSubmit) {
+        Callmeback_IsSubmit = callmeback_IsSubmit;
     }
 
-    public String getCanceled() {
-        return Canceled;
+    public String getBmobile() {
+        return bmobile;
     }
 
-    public void setCanceled(String canceled) {
-        Canceled = canceled;
+    public void setBmobile(String bmobile) {
+        this.bmobile = bmobile;
     }
 
-    public String getPost_dispatch_Cancellation() {
-        return Post_dispatch_Cancellation;
+    public String getBemail() {
+        return bemail;
     }
 
-    public void setPost_dispatch_Cancellation(String post_dispatch_Cancellation) {
-        Post_dispatch_Cancellation = post_dispatch_Cancellation;
+    public void setBemail(String bemail) {
+        this.bemail = bemail;
     }
 
-    public String getReturnprocessinitiated() {
-        return Returnprocessinitiated;
+    public String getCustomerName() {
+        return CustomerName;
     }
 
-    public void setReturnprocessinitiated(String returnprocessinitiated) {
-        Returnprocessinitiated = returnprocessinitiated;
+    public void setCustomerName(String customerName) {
+        CustomerName = customerName;
     }
 
-    public String getReversepick_updone() {
-        return Reversepick_updone;
+    public String getCurrentdate() {
+        return currentdate;
     }
 
-    public void setReversepick_updone(String reversepick_updone) {
-        Reversepick_updone = reversepick_updone;
+    public void setCurrentdate(String currentdate) {
+        this.currentdate = currentdate;
     }
 
-    public String getRefunddoneSuccessfully() {
-        return RefunddoneSuccessfully;
+    public String getTrackenabledate() {
+        return trackenabledate;
     }
 
-    public void setRefunddoneSuccessfully(String refunddoneSuccessfully) {
-        RefunddoneSuccessfully = refunddoneSuccessfully;
+    public void setTrackenabledate(String trackenabledate) {
+        this.trackenabledate = trackenabledate;
     }
 
-    public String getReturn_Request_Received() {
-        return Return_Request_Received;
+    public String getReturndisabledate() {
+        return returndisabledate;
     }
 
-    public void setReturn_Request_Received(String return_Request_Received) {
-        Return_Request_Received = return_Request_Received;
-    }
-
-    public String getGender() {
-        return Gender;
-    }
-
-    public void setGender(String gender) {
-        Gender = gender;
+    public void setReturndisabledate(String returndisabledate) {
+        this.returndisabledate = returndisabledate;
     }
 
     public String getP_Name() {
@@ -493,19 +582,19 @@ public class Movie {
         P_Cost = p_Cost;
     }
 
-    public String getAttribute_Type() {
+    public ArrayList<String> getAttribute_Type() {
         return Attribute_Type;
     }
 
-    public void setAttribute_Type(String attribute_Type) {
+    public void setAttribute_Type(ArrayList<String> attribute_Type) {
         Attribute_Type = attribute_Type;
     }
 
-    public String getAttribute_Value() {
+    public ArrayList<String> getAttribute_Value() {
         return Attribute_Value;
     }
 
-    public void setAttribute_Value(String attribute_Value) {
+    public void setAttribute_Value(ArrayList<String> attribute_Value) {
         Attribute_Value = attribute_Value;
     }
 

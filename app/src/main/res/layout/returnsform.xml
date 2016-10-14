@@ -1,0 +1,621 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srs"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_alignParentTop="true"
+    android:background="#E4E4E4">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="Order Return Request"
+            android:textSize="25dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/textView1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/border" >
+
+            <RelativeLayout
+                android:id="@+id/orderlayout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/editText1"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp" >
+
+                <TextView
+                    android:id="@+id/ordername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="ORDER- "
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/order"
+                    android:layout_alignBottom="@+id/order"
+                    android:layout_marginLeft="2dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:text="Total" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/order"
+                    android:background="#f3f3f3" />
+
+                <TextView
+                    android:id="@+id/order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toRightOf="@+id/ordername"
+                    android:text="Order ID"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rupee1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rs"
+                    android:layout_above="@+id/view"
+                    android:layout_toLeftOf="@+id/total"
+                    android:layout_toStartOf="@+id/total" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/orderlayout" >
+
+                <Spinner
+                    android:id="@+id/returnIssueSpinner"
+                    style="@style/spinner_stylenew"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative"
+                android:layout_marginTop="17dp" >
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Issue Explaination*"
+                    />
+                <EditText
+                    android:id="@+id/issueExplainET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:layout_below="@+id/t1"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="20dp" />
+
+                <TextView
+                    android:id="@+id/textBelowissueET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/issueExplainET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Please explain the issue"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative5"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative2"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:text="We will pickup the product you wish to return from the delivered address in the next 2-3 working days."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="I Want"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/spinnerreturntype"
+                    style="@style/spinner_stylenew"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textView3" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relative3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relative5"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/textView33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:text="Please Specify details for exchange*"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/newProductET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textView33"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/border"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/textBelowProductET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newProductET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Please explain the datails for Exchange"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/newProductET"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="We will pickup the product you wish to Exchange from the delivered address in the next 2-3 working days."
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/relative3"
+                android:layout_below="@+id/relative3"
+                android:layout_marginTop="23dp"
+                android:visibility="gone"
+                android:weightSum="1" >
+
+                <RadioButton
+                    android:id="@+id/storeCash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="true"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="3PMstore Cash(1-2 days after product pickup)"
+                    android:textSize="18dp" />
+
+                <RadioButton
+                    android:id="@+id/bankAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_horizontal"
+                    android:checked="false"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="To My Bank Account(8-12 days after product pickup)"
+                    android:textSize="18dp" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:id="@+id/relativeBank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/radioGroup"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="Please Provide Bank Account details"
+                    android:textColor="#F07039"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nameHead"
+                    android:layout_below="@+id/textView11"
+                    android:layout_marginTop="10dp"
+                    android:text="Customer name* (as per bank records)"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp"
+                    />
+                <EditText
+                    android:id="@+id/nameET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/adresbg"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    android:ems="10"
+                    android:layout_below="@+id/nameHead"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelownameET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nameET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Please enter name as per Bank records"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/emailHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBelownameET"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:text="Email"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"
+
+                    />
+                <EditText
+                    android:id="@+id/emailET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/emailHead"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowemailET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/emailET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Please enter your email"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/branchHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBelowemailET"
+                    android:layout_marginTop="10dp"
+                    android:text="Branch Name*"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/branchET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/branchHead"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowbranchET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/branchET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Enter Bank branch name"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/bankHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBelowbranchET"
+                    android:layout_marginTop="10dp"
+                    android:text="Bank Name*"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp" />
+                <EditText
+                    android:id="@+id/banknameET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/bankHead"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowbankET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/banknameET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Enter Bank branch name"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/ifsccodeHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/textBelowbankET"
+                    android:layout_marginTop="10dp"
+                    android:text="Bank IFSC Code*"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                     />
+                <EditText
+                    android:id="@+id/ifsccodeET"
+                    android:layout_below="@+id/ifsccodeHead"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowifsccodeET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ifsccodeET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Enter IFSC code of your bank"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/accountnoHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBelowifsccodeET"
+                    android:layout_alignParentLeft="true"
+                    android:text="Account Number*"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <EditText
+                    android:id="@+id/accountnoET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_below="@+id/accountnoHead"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowaccountnoET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/accountnoET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Enter Your bank account number"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/reenterHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textBelowaccountnoET"
+                    android:text="Re-enter Account Number*"
+
+                    android:layout_marginTop="10dp"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="5dp"
+                    android:textSize="18dp" />
+
+                <EditText
+                    android:id="@+id/reenterAccountnoET"
+                    android:layout_width="fill_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/reenterHead"
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:textSize="18dp"
+                    android:paddingLeft="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/textBelowreenterAccountnoET"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/reenterAccountnoET"
+                    android:layout_centerHorizontal="true"
+                    android:text="Re-enter Your bank account number"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+                <Spinner
+                    android:id="@+id/spinnerAccount"
+                    style="@style/spinner_stylenew"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/textBelowreenterAccountnoET"
+                    android:layout_marginTop="22dp"
+                    android:entries="@array/bankType" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spinnerAccount"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:text="Select your bank account type"
+                    android:textColor="#FF0000" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/relativeBank"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/textAboveCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Please confirm that the product is unused"
+                    android:textColor="#FF0000"
+                    android:visibility="gone" />
+
+                <CheckBox
+                    android:id="@+id/confirmCheckBox"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textAboveCheckBox"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:text="I Confirm that the product is unused with original Packaging."
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/relativeLayout1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/confirmCheckBox"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:weightSum="2" >
+
+                    <Button
+                        android:id="@+id/cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/confirmBankBtn"
+                        android:layout_alignBottom="@+id/confirmBankBtn"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttonorange"
+                        android:gravity="center"
+                        android:text="Cancel"
+                        android:textColor="@color/grey"
+                        android:visibility="gone"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"/>
+
+                    <Button
+                        android:id="@+id/confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="2dp"
+                        android:layout_toRightOf="@+id/cancel"
+                        android:layout_weight="1"
+                        android:background="@drawable/buttonorange"
+                        android:gravity="center"
+                        android:text="Confirm"
+                        android:textColor="@color/grey"
+                        android:visibility="gone"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="5dp"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

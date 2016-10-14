@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff" >
+
+    <ScrollView
+        android:id="@+id/srs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rtimer"
+        android:layout_alignParentTop="true" >
+
+        <RelativeLayout
+            android:id="@+id/sublayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/scr"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <com.three.pmstore.CustomTextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="Payment Summary"
+                    android:textSize="25dp"  />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/headborder"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/scr"
+                android:background="#A8A8A8"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                >
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headborder"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/totalprice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pricetext"
+                    android:layout_alignBottom="@+id/pricetext"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="0"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/pmstorecash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pmcheck"
+                    android:layout_alignBottom="@+id/pmcheck"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/pmcheck"
+                    android:text="3PM Store Cash :"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pmstorecashamount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/pmstorecash"
+                    android:layout_alignBottom="@+id/pmstorecash"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text=" -0"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/amountpaycash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/amountpay"
+                    android:layout_alignBottom="@+id/amountpay"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="8dp"
+                    android:text="0"
+                    android:textStyle="bold"
+                    android:textSize="15dp" />
+
+                <com.three.pmstore.CustomTextView
+                    android:id="@+id/amountpay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/currentcash"
+                    android:layout_below="@+id/textView4"
+                    android:layout_marginTop="10dp"
+                    android:text="Amount Payable "
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/currentcashbal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/currentcash"
+                    android:layout_alignBottom="@+id/currentcash"
+                    android:layout_toRightOf="@+id/currentcash"
+                    android:text=" 0"
+                    android:textSize="10dp" />
+
+                <CheckBox
+                    android:id="@+id/pmcheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/pricetext"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:button="@drawable/custom_checkbox"
+                    android:text="  3PMstore Cash "
+                    android:textSize="15dp"
+                     />
+
+                <com.three.pmstore.CustomTextView
+                    android:id="@+id/currentcash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/pmcheck"
+                    android:layout_below="@+id/pmcheck"
+                    android:layout_marginTop="10dp"
+                    android:text="(Your Current Balance is Rs. "
+                    android:textSize="12dp" />
+
+                <com.three.pmstore.CustomTextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/amountpay"
+                    android:layout_below="@+id/currentcash"
+                    android:layout_marginTop="10dp"
+                    android:text="COD Charges "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/amountpay"
+                    android:layout_alignLeft="@+id/amountpaycash"
+                    android:text="0"
+                    android:textSize="15dp" />
+
+                <com.three.pmstore.CustomTextView
+                    android:id="@+id/pricetext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/pmcheck"
+                    android:layout_alignParentTop="true"
+                    android:text="Total Price "
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView19"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignBaseline="@+id/totalprice"
+                    android:layout_alignBottom="@+id/totalprice"
+                    android:layout_toLeftOf="@+id/totalprice"
+                     />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView20"
+                    android:layout_alignBaseline="@+id/pmstorecashamount"
+                    android:layout_alignBottom="@+id/pmstorecashamount"
+                    android:layout_alignLeft="@+id/textView19"
+                    android:layout_alignStart="@+id/textView19" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView21"
+                    android:layout_alignBaseline="@+id/textView5"
+                    android:layout_alignBottom="@+id/textView5"
+                    android:layout_alignLeft="@+id/textView20"
+                    android:layout_alignStart="@+id/textView20" />
+
+                <TextView
+                    android:text=":"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView24"
+                    android:layout_alignTop="@+id/amountpay"
+                    android:layout_alignLeft="@+id/textView21"
+                    android:layout_alignStart="@+id/textView21" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#A8A8A8"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_below="@+id/relativeLayout1"/>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/botom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/LinearLayout2"
+        android:layout_below="@+id/confirmorders"
+        android:layout_marginTop="5dp"
+        android:background="#ffffff" >
+
+        <com.three.pmstore.CustomTextView
+            android:id="@+id/textView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Select Payment Options"
+            android:textSize="25dp" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp"
+            android:background="#f3f3f3" >
+        </View>
+
+        <RelativeLayout
+            android:id="@+id/rexpand"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView2"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <ExpandableListView
+                android:id="@+id/expandableListView1"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:groupIndicator="@null"
+                >
+            </ExpandableListView>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_alignLeft="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:src="#80e6e6e7"
+            />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="#414141"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="TIME LEFT"
+                    android:textColor="#ff9900"
+                    android:textSize="10dp"
+                    android:layout_marginBottom="-3dp"
+                    android:layout_marginTop="-3dp"/>
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal" >
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="-12dp"
+                    android:layout_marginBottom="-8dp">
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/th"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/textView33"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/m"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text=":"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/tsec"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="40dp" />
+
+                    <TextView
+                        android:id="@+id/seco"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#ff9900"
+                        android:textSize="20dp" />
+                </LinearLayout>
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/confirmorders"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/srs"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <Button
+            android:id="@+id/confirmorder"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/buttonorange"
+            android:orientation="horizontal"
+            android:text="Confirm Order"
+            android:textColor="@color/grey"
+            android:textSize="18dp"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/credit"
+        android:layout_width="0.5dp"
+        android:layout_height="0.5dp"
+        />
+
+</RelativeLayout>
