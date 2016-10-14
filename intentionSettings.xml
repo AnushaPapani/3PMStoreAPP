@@ -3,5 +3,6 @@
     <ignoreAction name="Java/Declaration/Split Declaration" />
     <ignoreAction name="Java/Refactorings/Introduce local variable" />
     <ignoreAction name="Java/Imports/Add On Demand Static Import" />
+    <ignoreAction name="Java/Control Flow/Invert 'if' condition" />
   </component>
 </application>
