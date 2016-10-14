@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
@@ -301,6 +302,14 @@ public class ReviewOrderFragment extends Fragment {
         txt_address_state.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getBstate()));
         txt_pin_code.setText(addressesModels.get(0).getBpincode());
         txt_mobile.setText(addressesModels.get(0).getBmobile());
+        txt_choose_another.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("address_id",""+addressesModels.get(0).getID());
+                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, bundle, getActivity());
+            }
+        });
         listView_selected_orders.addFooterView(ll_fottor);
     }
 }
