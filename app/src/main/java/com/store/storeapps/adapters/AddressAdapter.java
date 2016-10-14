@@ -1,7 +1,7 @@
 package com.store.storeapps.adapters;
 
-import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +13,19 @@ import android.widget.TextView;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.fragments.EditAddressFragment;
 import com.store.storeapps.fragments.MyAddressFragment;
+import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.models.AddressesModel;
+import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -73,6 +81,7 @@ public class AddressAdapter extends BaseAdapter {
             mAddressItemHolder.bmobile = (TextView) convertView.findViewById(R.id.addressesmobile);
             mAddressItemHolder.addresscolorlayout = (RelativeLayout) convertView.findViewById(R.id.addresscolorlayout);
             mAddressItemHolder.edit = (Button) convertView.findViewById(R.id.edit);
+            mAddressItemHolder.delete = (Button) convertView.findViewById(R.id.delete);
             /*mAddressItemHolder.chkbox = (CheckBox) convertView.findViewById(R.id.checkBox1);*/
             mAddressItemHolder.imageViewCheck = (ImageView) convertView.findViewById(R.id.imageViewCheck);
             convertView.setTag(mAddressItemHolder);
@@ -105,8 +114,16 @@ public class AddressAdapter extends BaseAdapter {
                     mSelectedId = "-1";
                 } else {
                     mSelectedId = addressesModels.get(position).getID();
+                    ReviewOrderFragment.txt_name.setText(addressesModels.get(position).getUsername());
+                    ReviewOrderFragment.txt_address_line.setText(addressesModels.get(position).getBline());
+                    ReviewOrderFragment.txt_city.setText(addressesModels.get(position).getBcity());
+                    ReviewOrderFragment.txt_address_state.setText(addressesModels.get(position).getBstate());
+                    ReviewOrderFragment.txt_pin_code.setText(addressesModels.get(position).getBpincode());
+                    ReviewOrderFragment.txt_mobile.setText(addressesModels.get(position).getBmobile());
+                    mParent.onBackPressed();
                 }
                 notifyDataSetChanged();
+
             }
         });
 
@@ -127,6 +144,15 @@ public class AddressAdapter extends BaseAdapter {
             }
         });
 
+        mAddressItemHolder.delete.setTag(position);
+        mAddressItemHolder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = (int) view.getTag();
+                new DeleteAddress(addressesModels.get(position).getID()).execute();
+            }
+        });
+
         return convertView;
     }
 
@@ -141,5 +167,57 @@ public class AddressAdapter extends BaseAdapter {
         private RelativeLayout addresscolorlayout;
         private ImageView imageViewCheck;
         private Button edit;
+        private Button delete;
+    }
+
+    class DeleteAddress extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String id;
+
+        public DeleteAddress(String id) {
+            mCustomProgressDialog = new CustomProgressDialog(mContext);
+            this.id = id;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(mContext, R.string.please_wait));
+        }
+        protected String doInBackground(String... args) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("ID", id);
+                result = Utility.httpPostRequestToServer(ApiConstants.DELETE_ADDRESS, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+            return result;
+        }
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        int position = -1;
+                        for (int i = 0; i < addressesModels.size(); i++) {
+                            if (id.equalsIgnoreCase(addressesModels.get(i).getID())){
+                                position = i;
+                            }
+                        }
+                        addressesModels.remove(position);
+                        MyAddressFragment.addressesModels.remove(position);
+                        notifyDataSetChanged();
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }

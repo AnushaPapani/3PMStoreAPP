@@ -55,18 +55,21 @@ public class ReviewOrderFragment extends Fragment {
     View toastRoot2;
     Toast toast;
 
-    private LinearLayout ll_address_layout;
-    private TextView txt_name;
-    private TextView txt_address_line;
-    private TextView txt_city;
-    private TextView txt_address_state;
-    private TextView txt_pin_code;
-    private TextView txt_mobile;
-    private TextView txt_choose_another;
+    public LinearLayout ll_address_layout;
+    public static TextView txt_name;
+    public static TextView txt_address_line;
+    public static TextView txt_city;
+    public static TextView txt_address_state;
+    public static TextView txt_pin_code;
+    public static TextView txt_mobile;
+    public TextView txt_choose_another;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        if (rootView != null) {
+            return rootView;
+        }
         rootView = inflater.inflate(R.layout.fragment_review_order, container, false);
         toastRoot = inflater.inflate(R.layout.toast, null);
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
@@ -94,7 +97,7 @@ public class ReviewOrderFragment extends Fragment {
         txt_mobile = (TextView) ll_fottor.findViewById(R.id.txt_mobile);
         txt_choose_another = (TextView) ll_fottor.findViewById(R.id.txt_choose_another);
 
-        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))>0){
+        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)) > 0) {
             ll_address_layout.setVisibility(View.VISIBLE);
         } else {
             ll_address_layout.setVisibility(View.GONE);
@@ -256,7 +259,7 @@ public class ReviewOrderFragment extends Fragment {
         protected String doInBackground(String... params) {
             String result = null;
             try {
-                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_ADDRESS + "?U_id="+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_ADDRESS + "?U_id=" + Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -306,10 +309,12 @@ public class ReviewOrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("address_id",""+addressesModels.get(0).getID());
+                bundle.putString("address_id", "" + addressesModels.get(0).getID());
                 Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, bundle, getActivity());
             }
         });
         listView_selected_orders.addFooterView(ll_fottor);
     }
+
+
 }

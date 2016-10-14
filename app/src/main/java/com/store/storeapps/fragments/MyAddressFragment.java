@@ -35,7 +35,7 @@ public class MyAddressFragment extends Fragment {
     public static final String TAG = "MyAddressFragment";
     private View rootView;
     ListView list;
-    private static ArrayList<AddressesModel> addressesModels;
+    public static ArrayList<AddressesModel> addressesModels;
     private AddressAdapter addressAdapter;
     TextView addnew;
     View toastRoot;
