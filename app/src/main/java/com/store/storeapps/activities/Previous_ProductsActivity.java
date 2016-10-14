@@ -20,10 +20,15 @@ import com.store.storeapps.R;
 import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.AddAddressFragment;
+import com.store.storeapps.fragments.Blog;
+import com.store.storeapps.fragments.ContactUsFragment;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.Previous_ProductsFragment;
+import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.StoreCashFragment;
+import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -158,16 +163,36 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
-
+                Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
-
+                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 6:
 
                 break;
             case 7:
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 8:
+                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 9:
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                //
+                share.putExtra(Intent.EXTRA_SUBJECT, "Welcome to 3PMstore");
+                share.putExtra(Intent.EXTRA_TEXT, "Have you checked out the fastest shopping experience yet? Click on the link below and download the https://play.google.com/store/apps/details?id=com.three.pmstore app in just 3 seconds!");
+                //
+                startActivity(Intent.createChooser(share, "Share !"));
+//                Utility.setSharedPrefStringData(this, Constants.USER_NAME, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_ID, "null");
+//                Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "null");
+                break;
+            case 10:
 
+                Utility.navigateDashBoardFragment(new ContactUsFragment(), Blog.TAG, null, Previous_ProductsActivity.this);
                 break;
         }
     }
@@ -182,7 +207,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 break;
             case 3:
                 Bundle bundle = new Bundle();
-                bundle.putString("from","HomeActivity");
+                bundle.putString("from", "HomeActivity");
                 Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
@@ -195,6 +220,15 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
                 break;
             case 7:
+
+                break;
+            case 8:
+
+                break;
+            case 9:
+                signOut();
+//                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, HomeActivity.this);
+
 
                 break;
         }
@@ -314,5 +348,16 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 finishAffinity();
             }
         }
+    }
+
+    private void signOut() {
+        Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
+
+        Intent i= new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(i);
+
+
     }
 }

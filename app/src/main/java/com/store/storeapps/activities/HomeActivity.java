@@ -219,13 +219,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 9:
-                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, HomeActivity.this);
-//                Utility.setSharedPrefStringData(this, Constants.USER_NAME, "null");
-//                Utility.setSharedPrefStringData(this, Constants.USER_ID, "null");
-//                Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "null");
+                signOut();
+//                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, HomeActivity.this);
+
+
                 break;
         }
     }
+
 
     private void setHeader(ListView list_home_left_drawer) {
         LinearLayout layout_list_header = (LinearLayout) getLayoutInflater().inflate(R.layout.
@@ -399,5 +400,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 super.onBackPressed();
             }
         }
+    }
+
+    private void signOut() {
+        Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
+
+        Intent i= new Intent(getApplicationContext(),HomeActivity.class);
+        startActivity(i);
+
+
     }
 }
