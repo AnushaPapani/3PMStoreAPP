@@ -52,7 +52,7 @@ import java.util.LinkedHashMap;
 /**
  * Created by Shankar.
  */
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView txt_home_left_drawer_icon;
     public DrawerLayout mDrawerLayout;
@@ -67,7 +67,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static String mCartId = "";
     public static int mCartValue = 0;
     public boolean isLogged = false;
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,14 +86,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_layout_button_set_text = (Button) findViewById(R.id.cart_layout_button_set_text);
         cart_icon = (ImageView) findViewById(R.id.cart_icon);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
         txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
         txt_home_left_drawer_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
@@ -117,12 +112,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             leftMenuList.add(leftMenuModel);
         }
 
-        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME)))
-        {
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
             isLogged = true;
-        }
-        else
-        {
+        } else {
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
@@ -137,10 +129,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        if(isLogged) {
+                        if (isLogged) {
                             navigateSideMenuClickAfterLogin(position);
-                        }
-                        else {
+                        } else {
                             navigateSideMenuClickBeforeLogin(position);
                         }
 
@@ -209,7 +200,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 3:
                 Bundle bundle = new Bundle();
-                bundle.putString("from","HomeActivity");
+                bundle.putString("from", "HomeActivity");
                 Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
@@ -258,7 +249,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
     }
 
-    private void getProductsList() {
+    public void getProductsList() {
         if (Utility.isNetworkAvailable(this)) {
             new GetProductListAsyncTask().execute();
         } else {
@@ -287,15 +278,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
-    @Override
-    public void onRefresh() {
-        getProductsList();
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
 
     class GetProductListAsyncTask extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;
@@ -413,7 +395,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             String tagName = backEntry.getName();
             if (tagName.equals(HomeFragment.TAG)) {
                 finishAffinity();
-            } else  {
+            } else {
                 super.onBackPressed();
             }
         }

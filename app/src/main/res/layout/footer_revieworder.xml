@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="190dp"
+        android:layout_height="25dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/promo_border">
+
+        <TextView
+            android:id="@+id/applypromo"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/promo_applyborder"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="Apply"
+            android:textColor="@color/grey"
+            android:textSize="16dp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/applypromo"
+            android:layout_toStartOf="@+id/applypromo"
+            android:background="@null"
+            android:singleLine="true"
+            android:textSize="14dp">
+
+        </EditText>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/proceedtopay"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/buttonorange"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="Proceed to Pay"
+        android:textAllCaps="false"
+        android:textColor="@color/grey"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+</LinearLayout>

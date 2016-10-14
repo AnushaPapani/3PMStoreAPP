@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.store.storeapps.R;
+import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.utility.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +26,20 @@ import java.util.List;
 /**
  * Created by Shankar.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener  {
     public static final String TAG = "HomeFragment";
     private TabLayout tabLayout;
     private View rootView;
     private ViewPager viewPager;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private HomeActivity mParent;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +53,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void initUI() {
+
+        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(0);
@@ -170,4 +185,13 @@ public class HomeFragment extends Fragment {
             return mFragmentTitleList.get(position);
         }
     }
+
+    @Override
+    public void onRefresh() {
+        mParent.getProductsList();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
 }

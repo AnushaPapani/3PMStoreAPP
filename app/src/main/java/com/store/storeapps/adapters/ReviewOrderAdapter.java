@@ -198,7 +198,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 paramsList.put("cartValue", cartValue);
                 paramsList.put("pid ", pid);
                 paramsList.put("CartProdId", CartProdId);
-//                result = Utility.httpPostRequestToServer(ApiConstants.DELETE_FROM_CART, Utility.getParams(paramsList));
+                result = Utility.httpPostRequestToServer(ApiConstants.DELETE_FROM_CART, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
