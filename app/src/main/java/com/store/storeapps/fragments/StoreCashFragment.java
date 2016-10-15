@@ -28,16 +28,6 @@ public class StoreCashFragment extends Fragment {
     String Aboutus="3PMstore Cash";
     TextView storeHead;
     TextView tv;
-    Button buynowproductbutton;
-    TextView pmrp,pcost,shortdesc,textCounter,head,thour,tvHour,tminutes,tvMinute,tvSecond,s,info,descrip;
-    private static final String FORMAT = "%02d:%02d:%02d";
-    private CountDownTimer countDownTimer; // built in android class
-    // CountDownTimer
-    private long totalTimeCountInMilliseconds; // total count down time in
-    // milliseconds
-    private long timeBlinkInMilliseconds; // start time of start blinking
-    private boolean blink; // controls the blinking .. on and off
-    int seconds , minutes;
     String mystring = "3PMstore Cash";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,17 +46,6 @@ public class StoreCashFragment extends Fragment {
         storeHead.setText(content);
         tv = (TextView)rootView.findViewById(R.id.fbwall);
         tv.setText(Html.fromHtml(getString(R.string.my_text)));
-        head=(TextView)rootView.findViewById(R.id.heading);
-        //		lgender =(LinearLayout)findViewById(R.id.radio);
-        head.setTypeface(Typeface.createFromAsset(getActivity().getAssets(),"LED.ttf"));
-        head.setTextSize(20);
-        thour = (TextView)rootView.findViewById(R.id.hour);
-        tvHour = (TextView)rootView.findViewById(R.id.th);
-        tvMinute=(TextView)rootView.findViewById(R.id.tmin);
-        tminutes=(TextView)rootView.findViewById(R.id.min);
-        tvSecond=(TextView)rootView.findViewById(R.id.tsec);
-        s=(TextView)rootView.findViewById(R.id.seco);
-
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
