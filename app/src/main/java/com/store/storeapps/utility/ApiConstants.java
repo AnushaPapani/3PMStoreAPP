@@ -34,4 +34,7 @@ public class ApiConstants {
     public static final String RETURN_REASONS =URL_FORMS +"get_returnreasons.php";
     public static final String RETURN_TYPE =URL_FORMS +"get_returntype.php";
     public static final String TESTIMONIALS =BASE_URL +"testimonials.php";
+
+    public static final String SEND_OTP =BASE_URL +"otpGenerate.php";
+    public static final String CHECK_OTP =BASE_URL +"otpCheck.php";
 }
