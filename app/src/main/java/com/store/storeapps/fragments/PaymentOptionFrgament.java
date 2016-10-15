@@ -99,13 +99,6 @@ public class PaymentOptionFrgament extends Fragment {
         amounttotal.setText(amountPayable);
         cashtext.setText(pmcash);
         codchargesValue.setText(codcharge);
-////        if(pmcheckbutton.isChecked()) {
-//            expand1.setEnabled(false);
-//            expand2.setEnabled(false);
-//            expand3.setEnabled(false);
-//            expand4.setEnabled(false);
-//            expand5.setEnabled(false);
-////        }
 
         codchargesHead = (TextView)  rootView.findViewById(R.id.codchargesHead);
         codchargesQuote = (TextView)  rootView.findViewById(R.id.codchargesQuote);
@@ -641,10 +634,6 @@ public class PaymentOptionFrgament extends Fragment {
                 if (pmcheckbutton.isChecked()) {
                     if(Integer.parseInt(pmcash) >= Integer.parseInt(amountPayable))
                     {
-                        codchargesHead.setVisibility(View.GONE);
-                        codchargesQuote.setVisibility(View.GONE);
-                        codchargesValue.setVisibility(View.GONE);
-
                         amounttotal.setText(""+0);
                         pmamount.setText(""+amountPayable);
                         cashtext.setText(""+(Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
@@ -656,6 +645,9 @@ public class PaymentOptionFrgament extends Fragment {
                         expand4.setEnabled(false);
                         expand5.setEnabled(false);
 
+//                        codchargesHead.setVisibility(View.GONE);
+//                        codchargesQuote.setVisibility(View.GONE);
+//                        codchargesValue.setVisibility(View.GONE);
                         childexpand1.setVisibility(View.GONE);
                         childexpand2.setVisibility(View.GONE);
                         childexpand3.setVisibility(View.GONE);
@@ -685,6 +677,10 @@ public class PaymentOptionFrgament extends Fragment {
                         expand4.setEnabled(true);
                         expand5.setEnabled(true);
 
+                        if(codchargesValue.getVisibility()== View.VISIBLE)
+                        {
+                            amounttotal.setText(""+(Integer.parseInt(amountPayable) - Integer.parseInt(pmcash)+ Integer.parseInt(codcharge)));
+                        }
                         expand1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -916,261 +912,28 @@ public class PaymentOptionFrgament extends Fragment {
                     }
                 } 	else {
 
+                    if(codchargesValue.getVisibility()== View.VISIBLE)
+                    {
+                        amounttotal.setText(""+(Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
+                        cashtext.setText("" + pmcash + ")");
+                        pmamount.setText("" + 0);
 
-                    if(Double.parseDouble(amountPayable) > Double.parseDouble(pmcash)) {
-                        amounttotal.setText("" + (Integer.parseInt(amountPayable)));
-                        pmamount.setText("" + pmcash);
-                        cashtext.setText("" + 0 + ")");
+                    }
+                    else
+                    {
+                        amounttotal.setText("" + amountPayable);
+                        cashtext.setText("" + pmcash + ")");
+                        pmamount.setText("" + 0);
                         confirmorder.setVisibility(View.GONE);
                         expand1.setEnabled(true);
                         expand2.setEnabled(true);
                         expand3.setEnabled(true);
                         expand4.setEnabled(true);
                         expand5.setEnabled(true);
-
-                        expand1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                if (childexpand1.getVisibility() == View.VISIBLE) {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-//                expand1.setBackground(R.drawable.paymentparentbackground);
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-
-                                } else {
-                                    childexpand1.setVisibility(View.VISIBLE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.paymentparentbackground);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-                                }
-                            }
-                        });
-
-                        expand2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (childexpand2.getVisibility() == View.VISIBLE) {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-
-                                } else {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.VISIBLE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.paymentparentbackground);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-                                }
-                            }
-                        });
-
-                        expand3.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (childexpand3.getVisibility() == View.VISIBLE) {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-
-                                } else {
-
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.VISIBLE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.paymentparentbackground);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-                                }
-                            }
-                        });
-
-                        expand4.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (childexpand4.getVisibility() == View.VISIBLE) {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-
-                                } else {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.VISIBLE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.paymentparentbackground);
-                                    expand5.setBackgroundResource(R.drawable.border);
-                                }
-                            }
-                        });
-
-                        expand5.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (childexpand5.getVisibility() == View.VISIBLE) {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.GONE);
-
-                                    codchargesHead.setVisibility(View.GONE);
-                                    codchargesQuote.setVisibility(View.GONE);
-                                    codchargesValue.setVisibility(View.GONE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.border);
-
-                                    amounttotal.setText("" + (Integer.parseInt(amountPayable)));
-
-                                } else {
-                                    childexpand1.setVisibility(View.GONE);
-                                    childexpand2.setVisibility(View.GONE);
-                                    childexpand3.setVisibility(View.GONE);
-                                    childexpand4.setVisibility(View.GONE);
-                                    childexpand5.setVisibility(View.VISIBLE);
-
-                                    codchargesHead.setVisibility(View.VISIBLE);
-                                    codchargesQuote.setVisibility(View.VISIBLE);
-                                    codchargesValue.setVisibility(View.VISIBLE);
-                                    confirmorder.setVisibility(View.GONE);
-
-                                    expand1.setBackgroundResource(R.drawable.border);
-                                    expand2.setBackgroundResource(R.drawable.border);
-                                    expand3.setBackgroundResource(R.drawable.border);
-                                    expand4.setBackgroundResource(R.drawable.border);
-                                    expand5.setBackgroundResource(R.drawable.paymentparentbackground);
-
-                                    amounttotal.setText("" + (Integer.parseInt(amountPayable) + Integer.parseInt(codcharge)));
-
-                                }
-                            }
-                        });
                     }
-                        else
-                        {
-
-
-                            amounttotal.setText("" + amountPayable);
-                            cashtext.setText("" + pmcash + ")");
-                            pmamount.setText("" + 0);
-                            confirmorder.setVisibility(View.GONE);
-                            expand1.setEnabled(true);
-                            expand2.setEnabled(true);
-                            expand3.setEnabled(true);
-                            expand4.setEnabled(true);
-                            expand5.setEnabled(true);
-
-                        }
-
-
                 }
             }
         });
 
-
-
-
-
     }
-
 }

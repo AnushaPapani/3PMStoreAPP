@@ -543,22 +543,100 @@
                     <RelativeLayout
                         android:id="@+id/childexpand5"
                         android:layout_width="fill_parent"
-                        android:layout_height="85dp"
+                        android:layout_height="95dp"
                         android:layout_below="@+id/expand5"
                         android:background="@drawable/paymentborder"
-                        android:visibility="gone">
-
+                        >
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:text="OTP is send to this number"
+                             android:id="@+id/otpText"
+                             android:layout_centerHorizontal="true"
+                             android:layout_marginTop="@dimen/_5dp"/>
                         <Button
                             android:id="@+id/sendOTP"
                             android:layout_width="@dimen/_150dp"
                             android:layout_height="40dp"
                             android:layout_centerHorizontal="true"
-
+                            android:layout_below="@+id/otpText"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:layout_centerVertical="true"
                             android:background="@drawable/buttonorange"
                             android:textAllCaps="false"
                             android:textColor="@color/grey"
-                            android:textSize="16dp" />
+                            android:textSize="16dp"
+                            />
+
+                        <Button
+                            android:id="@+id/confirmOTP"
+                            android:layout_width="@dimen/_150dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/buttonorange"
+                            android:textAllCaps="false"
+                            android:textColor="@color/grey"
+                            android:textSize="16dp"
+                            android:text="Confirm OTP"
+                            android:layout_below="@+id/otpText"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="17dp"
+                            android:layout_marginEnd="17dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone"/>
+
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dp"
+                            android:id="@+id/enterOTP"
+                            android:layout_below="@+id/enterOTPtext"
+                            android:background="@drawable/adresbg"
+                            android:layout_alignLeft="@+id/sendOTP"
+                            android:layout_alignStart="@+id/sendOTP"
+                            android:layout_toLeftOf="@+id/confirmOTP"
+                            android:layout_toStartOf="@+id/confirmOTP"
+                            android:layout_marginRight="@dimen/_20dp"
+                            android:layout_alignTop="@+id/confirmOTP"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginLeft="@dimen/_10dp"
+                            android:visibility="gone"
+                            android:paddingLeft="@dimen/_10dp"/>
+
+                        <TextView
+                            android:text="Enter OTP"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:id="@+id/enterOTPtext"
+                            android:layout_below="@+id/otpText"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/resend"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/enterOTP"
+                            android:layout_below="@+id/enterOTP"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="3dp"
+                            android:text="Resend OTP?"
+                            android:textColor="#FF7700"
+                            android:textSize="16dp"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/codTV"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/enterOTPtext"
+                            android:layout_alignBottom="@+id/enterOTPtext"
+                            android:gravity="center"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:text="COD is currently not available for this PINCODE"
+                            android:textAlignment="center"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
 

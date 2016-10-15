@@ -1,8 +1,12 @@
 package com.store.storeapps.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +26,22 @@ import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.store.storeapps.R;
-import com.store.storeapps.activities.PaymentActivity;
+import com.store.storeapps.activities.FailureActivity;
 import com.store.storeapps.activities.StatusActivity;
+import com.store.storeapps.activities.SuccessActivity;
+import com.store.storeapps.customviews.CustomProgressDialog;
+import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
+
+import static com.store.storeapps.R.layout.toast;
 
 /**
  * Created by shankar on 10/15/2016.
@@ -46,7 +59,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
     Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely4,
             sendOTP, confirmorder, confirmOTP;
-    String FinalPriceToSend;
+    TextView codText,enterotp,otpText,resend;
+    EditText otp;
+    String FinalPriceToSend,cashused ,otprandom;
     String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
     String P_Cost, Quantity;
@@ -230,6 +245,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         childexpand4 = (RelativeLayout) rootView.findViewById(R.id.childexpand4);
         childexpand5 = (RelativeLayout) rootView.findViewById(R.id.childexpand5);
 
+        childexpand1.setVisibility(View.GONE);
+        childexpand2.setVisibility(View.GONE);
+        childexpand3.setVisibility(View.GONE);
+        childexpand4.setVisibility(View.GONE);
+        childexpand5.setVisibility(View.GONE);
+
         childpaysecurely1 = (Button) rootView.findViewById(R.id.childpaysecurely1);
         childpaysecurely2 = (Button) rootView.findViewById(R.id.childpaysecurely2);
         childpaysecurely3 = (Button) rootView.findViewById(R.id.childpaysecurely3);
@@ -248,7 +269,30 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         childpaysecurely4.setText("Pay Securely");
         sendOTP.setText("Send OTP");
 
+          codText  =(TextView)rootView.findViewById(R.id.codTV);
+          confirmOTP =(Button)rootView.findViewById(R.id.confirmOTP);
+          enterotp = (TextView)rootView.findViewById(R.id.enterOTPtext);
+          otpText  = (TextView)rootView.findViewById(R.id.otpText);
+          resend   = (TextView)rootView.findViewById(R.id.resend);
+        otp =(EditText)rootView.findViewById(R.id.enterOTP);
 
+        String newString = "Resend OTP?";
+        SpannableString content = new SpannableString(newString);
+        content.setSpan(new UnderlineSpan(), 0, newString.length(), 0);
+        resend.setText(content);
+//        if(coddisable.equals("1"))
+//        {
+//
+//            otp =(EditText)v.findViewById(R.id.editText1);
+//            otp.setVisibility(View.GONE);
+//            enterotp.setVisibility(View.GONE);
+//            buton.setVisibility(View.GONE);
+//            buton2.setVisibility(View.GONE);
+//            resend.setVisibility(View.GONE);
+//            codText.setVisibility(View.VISIBLE);
+//        }
+
+        otpText.setText("Click here to get OTP on ("+bmobile+")");
 
         amounttotal = (TextView) rootView.findViewById(R.id.amountpaycash);
         cashtext = (TextView) rootView.findViewById(R.id.currentcashbal);
@@ -280,41 +324,33 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         expand3.setOnClickListener(this);
         expand2.setOnClickListener(this);
 
-
         childpaysecurely1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int costValue = Integer.parseInt(amounttotal.getText().toString());
                 int FinalPrice = costValue * 100;
                 FinalPriceToSend = Integer.toString(FinalPrice);
                 startPayment();
-
             }
         });
         childpaysecurely2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 onStartTransaction();
-
             }
         });
         childpaysecurely3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-
             }
         });
         childpaysecurely4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Bundle b = new Bundle();
                 b.putString("Quantity",Quantity);
                 b.putString("orderid",orderid);
-//               Intent i =new Intent(PaymentOption.this,Payumoney.class);
                 b.putString("Promo",amounttotal.getText().toString());
                 b.putString("Pmprice",pmcash );
                 b.putString("cost", amounttotal.getText().toString());
@@ -329,13 +365,68 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 b.putString("Pid",ProductId);
 //                Intent i = new Intent(getActivity(), PayUMoneyFragment.class);
 //                startActivity(i);
-
                 Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
-//                b.putString("Ptype",Ptype);
+            }
+        });
+        sendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                cashused = pmamount.getText().toString();
+                new otp().execute();
+
+                sendOTP.setVisibility(View.GONE);
+                otpText.setText("OTP is sent to this number ("+bmobile+")");
+//								otpText.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.VISIBLE);
+                resend.setVisibility(View.VISIBLE);
+                otp.setVisibility(View.VISIBLE);
+                enterotp.setVisibility(View.VISIBLE);
+
+            }
+        });
+        resend.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new otp().execute();
+                sendOTP.setVisibility(View.GONE);
+                otpText.setText("OTP is sent to this number ("+bmobile+")");
+                confirmOTP.setVisibility(View.VISIBLE);
+                resend.setVisibility(View.VISIBLE);
+                otp.setVisibility(View.VISIBLE);
+                enterotp.setVisibility(View.VISIBLE);
             }
         });
 
+        confirmOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                String userotp =otp.getText().toString();
+                System.out.println("USER OTP"+userotp);
+//                systemotp = globalVariable.getOtpgenerate();
+//                System.out.println("SYSTEM OTP"+systemotp);
+                if(userotp.equals(otprandom))
+                {
+//                    globalVariable.setPaytype("COD");
+
+                    new CodSuccess().execute();
+                }
+                else
+                {
+                    /*TextView t =(TextView)toastRoot2.findViewById(R.id.errortoast);
+                    t.setText("Incorrect OTP");
+                    toast.setView(toastRoot2);
+                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+                    toast.setDuration(20000);
+                    toast.show();*/
+                }
+            }
+        });
     }
+
 
 
     private void calculateTotalFare(String from, int number) {
@@ -346,7 +437,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 pmamount.setText("" + Integer.parseInt(amountPayable));
                 amounttotal.setText("0");
                 cashtext.setText("" + remaningAmount);
-
+                confirmorder.setVisibility(View.VISIBLE);
                 expand1.setEnabled(false);
                 expand2.setEnabled(false);
                 expand3.setEnabled(false);
@@ -375,6 +466,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 expand3.setEnabled(true);
                 expand4.setEnabled(true);
                 expand5.setEnabled(true);
+//                childexpand5.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.GONE);
+
                 if (from.equalsIgnoreCase("COD")) {
                     total = total - Integer.parseInt(pmcash) + number;
                     pmamount.setText("" + Integer.parseInt(pmcash));
@@ -394,6 +488,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             expand3.setEnabled(true);
             expand4.setEnabled(true);
             expand5.setEnabled(true);
+            confirmorder.setVisibility(View.GONE);
+
             if (from.equalsIgnoreCase("COD")) {
                 total = total + number;
                 cashtext.setText("" + Integer.parseInt(pmcash));
@@ -546,6 +642,240 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             }
         }
     }
+    class otp extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+
+        public otp() {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                Random r = new Random();
+                int i1= (100000 + r.nextInt(900000));
+                otprandom = Integer.toString(i1);
+
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("Orderid", orderid);
+                paramsList.put("U_id", U_id);
+                paramsList.put("P_Type", "COD");
+                paramsList.put("3pmcashused",cashused );
+                paramsList.put("name", fname);
+                paramsList.put("otpgenerate",otprandom);
+                paramsList.put("cartProdId", CartProductId);
+                result = Utility.httpPostRequestToServer(ApiConstants.SEND_OTP, Utility.getParams(paramsList));
+
+            }catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        JSONObject jObj = new JSONObject(response);
+                        String success = jObj.getString("success");
+//                        String message = jObj.getString("message");
+                        System.out.println("Details "+success+ " message");
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class CodSuccess extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+
+        public CodSuccess() {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+//                Random r = new Random();
+//                int i1= (100000 + r.nextInt(900000));
+//                String otprandom = Integer.toString(i1);
+
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("Orderid", orderid);
+                paramsList.put("U_id", U_id);
+                paramsList.put("P_Type", "COD");
+                paramsList.put("3pmcashused",cashused );
+                paramsList.put("name", fname);
+                paramsList.put("EmailID", email);
+                paramsList.put("otpgenerate","PromoType");
+                paramsList.put("cartProdId", CartProductId);
+                result = Utility.httpPostRequestToServer(ApiConstants.CHECK_OTP, Utility.getParams(paramsList));
+
+            }catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        JSONObject jObj = new JSONObject(response);
+                        String success = jObj.getString("success");
+                        if(success.equals("1")) {
+                            Intent i = new Intent(getActivity(), SuccessActivity.class);
+                            i.putExtra("spiner", Quantity);
+                            i.putExtra("Promo", amountPayable);
+                            i.putExtra("Pmprice", pmcash);
+                            i.putExtra("cost", amounttotal.getText().toString());
+                            i.putExtra("coddisable", "");
+                            i.putExtra("otpmob", bmobile);
+                            i.putExtra("Amount", amounttotal.getText().toString());
+                            i.putExtra("CodCash", pmamount.getText().toString());
+                            startActivity(i);
+//                        String message = jObj.getString("message");
+                            System.out.println("Details " + success + " message");
+                        }
+                        else {
+                            Intent i = new Intent(getActivity(), FailureActivity.class);
+                            i.putExtra("spiner", Quantity);
+                            i.putExtra("Promo",amountPayable);
+                            i.putExtra("Pmprice",pmcash );
+                            i.putExtra("cost", amounttotal.getText().toString());
+                            i.putExtra("coddisable", "");
+                            i.putExtra("otpmob",bmobile);
+                            //					i.putExtra("BalCash", currentbalance);
+                            i.putExtra("Amount",amounttotal.getText().toString() );
+                            i.putExtra("CodCash",codcharge);
+                            startActivity(i);
+                        }
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class CashSuccess extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+
+        public CashSuccess() {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                Random r = new Random();
+                int i1= (100000 + r.nextInt(900000));
+                String otprandom = Integer.toString(i1);
+
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("Orderid", orderid);
+                paramsList.put("U_id", U_id);
+                paramsList.put("P_Type", "COD");
+                paramsList.put("3pmcashused",cashused );
+                paramsList.put("P_Type", "3PMstore Cash");
+                paramsList.put("otpgenerate",otprandom);
+                paramsList.put("name",fname);
+                paramsList.put("EmailID",email);
+                paramsList.put("cartProdId", CartProductId);
+
+                result = Utility.httpPostRequestToServer(ApiConstants.SEND_OTP, Utility.getParams(paramsList));
+
+            }catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        JSONObject jObj = new JSONObject(response);
+                        String success = jObj.getString("success");
+//                        String message = jObj.getString("message");
+                        System.out.println("Details "+success+ " message");
+                        if(success.equals("1")) {
+                            Intent i = new Intent(getActivity(), SuccessActivity.class);
+                            i.putExtra("spiner", Quantity);
+                            i.putExtra("Promo", amountPayable);
+                            i.putExtra("Pmprice", pmcash);
+                            i.putExtra("cost", amounttotal.getText().toString());
+                            i.putExtra("coddisable", "");
+                            i.putExtra("otpmob", bmobile);
+                            //					i.putExtra("BalCash", currentbalance);
+                            i.putExtra("Amount", amounttotal.getText().toString());
+                            i.putExtra("CodCash", codcharge);
+                            startActivity(i);
+                        }
+                        else
+                        {
+                            Intent i = new Intent(getActivity(), FailureActivity.class);
+                            i.putExtra("spiner", Quantity);
+                            i.putExtra("Promo",amountPayable);
+                            i.putExtra("Pmprice",pmcash );
+                            i.putExtra("cost", amounttotal.getText().toString());
+                            i.putExtra("coddisable", "");
+                            i.putExtra("otpmob",bmobile);
+                            //					i.putExtra("BalCash", currentbalance);
+                            i.putExtra("Amount",amounttotal.getText().toString() );
+                            i.putExtra("CodCash",codcharge);
+                            startActivity(i);
+
+                        }
+
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
-}
+    }
+
+
+

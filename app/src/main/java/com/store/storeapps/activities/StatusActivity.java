@@ -18,7 +18,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import android.support.v7.app.AppCompatActivity;
+
+import com.store.storeapps.fragments.PaymentOptionNewFrgament;
 import com.store.storeapps.utility.AppController;
+import com.store.storeapps.utility.Utility;
 
 public class StatusActivity extends AppCompatActivity {
 	private ProgressDialog pDialog;
@@ -164,10 +167,8 @@ public class StatusActivity extends AppCompatActivity {
 	@Override
 	public void onBackPressed() {
 
-//		Intent i=new Intent(StatusActivity.this,PaymentOption.class);
-//		startActivity(i);
-//		finish();
+		Utility.navigateDashBoardFragment(new PaymentOptionNewFrgament(), PaymentOptionNewFrgament.TAG, null, StatusActivity.this);
+		finish();
 		//		this.finishAffinity();
-
 	}
 } 

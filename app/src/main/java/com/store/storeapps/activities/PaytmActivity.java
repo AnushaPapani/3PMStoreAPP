@@ -51,7 +51,7 @@ public class PaytmActivity extends Activity {
 			e.printStackTrace();
 		}
 		onStartTransaction();
-		initOrderId();
+//		initOrderId();
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 
@@ -59,18 +59,18 @@ public class PaytmActivity extends Activity {
 	@Override
 	protected void onStart(){
 		super.onStart();
-		initOrderId();
+//		initOrderId();
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 
 
-	private void initOrderId() {
+	/*private void initOrderId() {
 		//		Random r = new Random(System.currentTimeMillis());
 		//		String orderId = "ORDER" + (1 + r.nextInt(2)) * 10000
 		//				+ r.nextInt(10000);
 		//		EditText orderIdEditText = (EditText) findViewById(R.id.order_id);
 		//		orderIdEditText.setText(orderId);
-	}
+	}*/
 
 	public void onStartTransaction() {
 		PaytmPGService Service = PaytmPGService.getProductionService();
