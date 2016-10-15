@@ -258,6 +258,7 @@ public class Utility {
                     "Invite Friends",
                     "Previous Products",
                     "Terms & Conditions",
+                    "Contact Us",
                     "Logout"};
         } else {
             return new String[]{
@@ -269,7 +270,8 @@ public class Utility {
                     "Blog",
                     "Invite Friends",
                     "Previous Products",
-                    "Terms & Conditions"};
+                    "Terms & Conditions",
+                    "Contact Us"};
         }
     }
 
@@ -285,6 +287,7 @@ public class Utility {
                     R.drawable.share,
                     R.drawable.arrowback,
                     R.drawable.purchase_order,
+                    R.drawable.telephone,
                     R.drawable.logout_icon
             };
         }
@@ -292,13 +295,14 @@ public class Utility {
             return new int[]{
                     R.drawable.home,
                     R.drawable.wallet,
+                    R.drawable.logout_icon,
                     R.drawable.register,
-                    R.drawable.trackorder,
                     R.drawable.testimonials,
                     R.drawable.blog,
                     R.drawable.share,
                     R.drawable.arrowback,
-                    R.drawable.purchase_order
+                    R.drawable.purchase_order,
+                    R.drawable.telephone,
             };
         }
     }
