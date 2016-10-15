@@ -2,14 +2,17 @@ package com.store.storeapps.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -46,8 +49,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedHashMap;
+
+import static com.store.storeapps.R.layout.fragment_home;
 
 
 /**
@@ -68,12 +77,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static String mCartId = "";
     public static int mCartValue = 0;
     public boolean isLogged = false;
-
+    /*Timer*/
+    TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
+    private CountDownTimer countDownTimer; // built in android class
+    // CountDownTimer
+    private long totalTimeCountInMilliseconds; // total count down time in
+    // milliseconds
+    private long timeBlinkInMilliseconds;
+    private static final String FORMAT = "%02d:%02d:%02d";
+    // start time of start blinking
+    private boolean blink; // controls the blinking .. on and off
+    int seconds, minutes;
+    LayoutInflater inflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
+
         initUI();
     }
 
@@ -265,20 +286,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
+                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
-                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
-                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                    } else {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("from", "cart");
-                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
-                    }
-                } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
+//                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
+//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+//                    } else {
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("from", "cart");
+//                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
+//                    }
+                }
+                else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))){
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                } else {
+                }
+
+
+                else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
+
                 break;
 
         }
@@ -390,6 +416,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
