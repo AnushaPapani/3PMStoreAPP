@@ -214,6 +214,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
+                        ReviewOrderFragment.Grand_total.setText("0");
                         mReviewOrderModels.remove(position);
 
                         notifyDataSetChanged();
@@ -282,6 +283,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
+                                ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
@@ -290,6 +292,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                                 ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
 
                             }
+                            ReviewOrderFragment.Grand_total.setText(ReviewOrderFragment.total_cartvalue);
                         }
                         notifyDataSetChanged();
                     }
