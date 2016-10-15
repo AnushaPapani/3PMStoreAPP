@@ -22,6 +22,7 @@ import com.store.storeapps.R;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.models.ItemDetails;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.YoutubeVideoActivity;
@@ -556,7 +557,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             String result = null;
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                paramsList.put("U_ID", "");
+                paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
                 paramsList.put("P_ID", HomeActivity.mProductItemsList.get(mPosition).getP_id());
                 paramsList.put("cartValue ", "" + HomeActivity.mCartValue);
                 paramsList.put("P_Name", HomeActivity.mProductItemsList.get(mPosition).getP_Name());

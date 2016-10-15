@@ -34,12 +34,4 @@ public class ApiConstants {
     public static final String RETURN_REASONS =URL_FORMS +"get_returnreasons.php";
     public static final String RETURN_TYPE =URL_FORMS +"get_returntype.php";
     public static final String TESTIMONIALS =BASE_URL +"testimonials.php";
-
-    public static final String SEND_OTP =URL_FORMS +"otpGenerate.php";
-    public static final String CHECK_OTP =URL_FORMS +"otpCheck.php";
-  //  public static final String CASH_SUCCESS =URL_FORMS +"otpCheck.php";
-
-//    String OTPsend ="http://www.3pmstore.com/android/android_connect/otpGenerate.php/";
-//    String CheckOtp ="http://www.3pmstore.com/android/android_connect/otpCheck.php/";
- //   String codsuccessurl ="http://www.3pmstore.com/android/android_connect/3pminvoicetoemail/viewusers.php?totalcod=&Ordders=&name=EmailID=";
 }
