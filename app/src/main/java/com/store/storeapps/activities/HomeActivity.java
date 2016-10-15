@@ -32,11 +32,13 @@ import com.store.storeapps.fragments.ContactUsFragment;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.MyAddressFragment;
+import com.store.storeapps.fragments.MyOrderFragment;
 import com.store.storeapps.fragments.PreviousProductFragment;
 import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.fragments.StoreCashFragment;
+import com.store.storeapps.fragments.TermsAndComditionsFragment;
 import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
@@ -90,6 +92,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private boolean blink; // controls the blinking .. on and off
     int seconds, minutes;
     LayoutInflater inflater;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,16 +127,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         cart_layout_button_set_text.setOnClickListener(this);
         cart_icon.setOnClickListener(this);
 
-        head=(TextView)findViewById(R.id.timer_head);
+        head = (TextView) findViewById(R.id.timer_head);
         //		lgender =(LinearLayout)findViewById(R.id.radio);
-        head.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
+        head.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
         head.setTextSize(20);
-        thour = (TextView)findViewById(R.id.txt_time_hour);
-        tvHour = (TextView)findViewById(R.id.txt_time_hour_h);
-        tvMinute=(TextView)findViewById(R.id.txt_time_minutes);
-        tminutes=(TextView)findViewById(R.id.txt_time_minutes_m);
-        tvSecond=(TextView)findViewById(R.id.txt_time_sec);
-        s=(TextView)findViewById(R.id.txt_time_sec_s);
+        thour = (TextView) findViewById(R.id.txt_time_hour);
+        tvHour = (TextView) findViewById(R.id.txt_time_hour_h);
+        tvMinute = (TextView) findViewById(R.id.txt_time_minutes);
+        tminutes = (TextView) findViewById(R.id.txt_time_minutes_m);
+        tvSecond = (TextView) findViewById(R.id.txt_time_sec);
+        s = (TextView) findViewById(R.id.txt_time_sec_s);
         setTimer();
 
     }
@@ -145,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             SimpleDateFormat dateFormat1 = new SimpleDateFormat("kk:mm:ss");
             Calendar calendar = Calendar.getInstance();
             String currenttime = new SimpleDateFormat("kk:mm:ss").format(Calendar.getInstance().getTime());
-            System.out.println("CURRENT TIME FOR TIMER" +currenttime);
+            System.out.println("CURRENT TIME FOR TIMER" + currenttime);
 
             calendar.add(Calendar.DAY_OF_YEAR, 1);
             Date tomorrow = calendar.getTime();
@@ -160,27 +163,25 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Date date2 = dateFormat.parse(tomorrowAsString);
                 Date time = dateFormat1.parse("15:00:00");
                 Date time1 = dateFormat1.parse(currenttime);
-                if(time1.getTime() > time.getTime() || time1.getTime() == time.getTime()){
-                    long different = (date2.getTime()+time.getTime()) - (date1.getTime()+time1.getTime());
+                if (time1.getTime() > time.getTime() || time1.getTime() == time.getTime()) {
+                    long different = (date2.getTime() + time.getTime()) - (date1.getTime() + time1.getTime());
                     long seconds = different / 1000;
                     minutesLeft = seconds / 60;
                     //printDifference(date1, date2, time, time1);
-                }
-                else{
-                    long different = (date2.getTime()+time.getTime()) - (date1.getTime()+time1.getTime());
+                } else {
+                    long different = (date2.getTime() + time.getTime()) - (date1.getTime() + time1.getTime());
                     long seconds = different / 1000;
                     minutesLeft = seconds / 60;
                 }
-            }catch (ParseException e) {
+            } catch (ParseException e) {
                 e.printStackTrace();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(minutesLeft > 1440)
-        {
-            minutesLeft = minutesLeft - 1440 ;
+        if (minutesLeft > 1440) {
+            minutesLeft = minutesLeft - 1440;
         }
 
         totalTimeCountInMilliseconds = 60 * minutesLeft * 1000;
@@ -198,24 +199,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 long seconds = leftTimeInMilliseconds / 1000;
 
 				/*set Timer and font type to Timer Texts*/
-                thour.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
-                tminutes.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
-                s.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
-                tvHour.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
-                tvMinute.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
-                tvSecond.setTypeface(Typeface.createFromAsset(getAssets(),"LED.ttf"));
+                thour.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tminutes.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                s.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvHour.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvMinute.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvSecond.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
 
-                AppController app= (AppController)getApplicationContext();
-                long hh=app.getHour();
-                long mm=app.getMin();
-                long ss=app.getSec();
+                AppController app = (AppController) getApplicationContext();
+                long hh = app.getHour();
+                long mm = app.getMin();
+                long ss = app.getSec();
 
 
-                thour.setText(""+hh);
+                thour.setText("" + hh);
                 tvHour.setText("H");
-                tvMinute.setText(""+mm);
+                tvMinute.setText("" + mm);
                 tminutes.setText("M");
-                tvSecond.setText(""+ss);
+                tvSecond.setText("" + ss);
                 s.setText("S");
 
                 try {
@@ -230,44 +231,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Date time1 = dateFormat1.parse(currenttime);
 
 
-                    String t= time.toString();
-                    String t1=time1.toString();
-                    if(t.equals(t1))
-                    {
+                    String t = time.toString();
+                    String t1 = time1.toString();
+                    if (t.equals(t1)) {
 //                        Intent i = new Intent(AboutusActivity.this,ProductsPage.class);
 //                        startActivity(i);
 //                        finish();
                     }
-                }catch (Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                if(hh<10)
-                {
-                    thour.setText(""+"0"+hh);
-                }
-                else
-                {
-                    thour.setText(""+hh);
+                if (hh < 10) {
+                    thour.setText("" + "0" + hh);
+                } else {
+                    thour.setText("" + hh);
 
                 }
-                if(mm<10)
-                {
-                    tvMinute.setText(""+"0"+mm);
+                if (mm < 10) {
+                    tvMinute.setText("" + "0" + mm);
 
-                }
-                else
-                {
-                    tvMinute.setText(""+mm);
+                } else {
+                    tvMinute.setText("" + mm);
 
                 }
 
-                if(ss<10)
-                {
-                    tvSecond.setText(""+"0"+ss);
-                }
-                else
-                {
-                    tvSecond.setText(""+ss);
+                if (ss < 10) {
+                    tvSecond.setText("" + "0" + ss);
+                } else {
+                    tvSecond.setText("" + ss);
                 }
 
 
@@ -284,7 +275,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
-          }
+            }
 
         }.start();
 
@@ -346,7 +337,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -365,6 +356,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
+                Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);
+                break;
+            case 10:
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, HomeActivity.this);
                 break;
 
@@ -380,30 +374,33 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
                 break;
             case 3:
-                Bundle bundle = new Bundle();
-                bundle.putString("from", "HomeActivity");
-                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-
+//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-
+                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
                 break;
             case 6:
-
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+                share.putExtra(Intent.EXTRA_SUBJECT, "Welcome to 3PMstore");
+                share.putExtra(Intent.EXTRA_TEXT, "Have you checked out the fastest shopping experience yet? Click on the link below and download the https://play.google.com/store/apps/details?id=com.three.pmstore app in just 3 seconds!");
+                startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 7:
-
+                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 8:
-
+                Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
+                Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, HomeActivity.this);
+                break;
+            case 10:
                 signOut();
-//                Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, HomeActivity.this);
-
-
                 break;
         }
     }
@@ -445,7 +442,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))) {
+                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
 //                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
 //                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
@@ -454,13 +451,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                        bundle.putString("from", "cart");
 //                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
 //                    }
-                }
-                else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this,Constants.USER_ID))){
+                } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-                }
-
-
-                else {
+                } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
 
@@ -577,7 +570,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
@@ -598,11 +590,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
-
         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(i);
-
-
     }
 
 //    @Override
