@@ -54,6 +54,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     View toastRoot;
     View toastRoot2;
     Toast toast;
+    public static String total_cartvalue;
     public static TextView Grand_total;
     private LinearLayout ll_address_layout;
     private TextView txt_name;
@@ -81,8 +82,10 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
 
         ll_fottor = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 footer_revieworder, null);
+        Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
+        promotext =(TextView)ll_fottor.findViewById(R.id.promotext);
         Checkout = (Button) ll_fottor.findViewById(R.id.proceedtopay);
         Checkout.setText("Checkout");
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
@@ -223,8 +226,6 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
         private String cartid;
         private String cartvalue;
 
-
-
         public CancelPromocode(String cartid, String cartvalue) {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
             this.cartid = cartid;
@@ -329,7 +330,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                             reviewOrderModel.setP_Name(jsonObject.getString("P_Name"));
                             reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
                             reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
-
+                            total_cartvalue = jsonobject.getString("cartValue");
                             JSONArray attrType = jsonObject.optJSONArray("Attribute_Type");
                             ArrayList<String> attrValuesArray = new ArrayList<>();
                             if (attrType != null) {
@@ -350,6 +351,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
 
                             reviewOrderModels.add(reviewOrderModel);
                         }
+                        Grand_total.setText(total_cartvalue);
                         reviewOrderAdapter = new ReviewOrderAdapter_Before_Login(getActivity(), reviewOrderModels);
                         listView_selected_orders.setAdapter(reviewOrderAdapter);
                         listView_selected_orders.addHeaderView(ll_header);

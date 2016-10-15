@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,7 +70,7 @@ public class ReviewOrderFragment extends Fragment {
     public static TextView txt_mobile;
     public TextView txt_choose_another;
     private HomeActivity mParent;
-
+    ReviewOrderModel reviewOrderModel;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,6 +159,118 @@ public class ReviewOrderFragment extends Fragment {
                 }
             }
         });
+        proceedtopay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Insert_reviewOrder(txt_name.getText().toString(), txt_address_line.getText().toString(), txt_city.getText().toString(),
+                        txt_address_state.getText().toString(),txt_pin_code.getText().toString(),txt_mobile.getText().toString(),
+                        addressesModels.get(0).getID().toString(),HomeActivity.mCartId.toString(),Grand_total.getText().toString(),
+                        Promocode.getText().toString());
+            }
+        });
+    }
+
+    private void Insert_reviewOrder(String name, String addressline, String city, String state, String pincode, String mobile,
+                                    String addressId, String cartId, String Grandtotal, String promocode ) {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new PostReviewOrderAsyncTask(name, addressline, city, state,pincode,mobile,addressId,cartId,Grandtotal,promocode).execute();
+
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
+    }
+
+    class PostReviewOrderAsyncTask extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String name;
+        private String addressline;
+        private String city;
+        private String state;
+        private String pincode;
+        private String mobile;
+        private String addressId;
+        private String cartId;
+        private String Grandtotal;
+        private String promocode;
+
+        public PostReviewOrderAsyncTask(String name, String addressline, String city, String state, String pincode, String mobile,
+                                      String addressId, String cartId, String Grandtotal, String promocode) {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            this.name = name;
+            this.addressline = addressline;
+            this.city = city;
+            this.state =state;
+            this.pincode =pincode;
+            this.mobile =mobile;
+            this.addressId =addressId;
+            this.cartId =cartId;
+            this.Grandtotal =Grandtotal;
+            this.promocode =promocode;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            String pcost =Integer.toString(reviewOrderModel.getP_Cost());
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("addressID", addressId);
+                paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(),Constants.USER_ID));
+                paramsList.put("P_Name",reviewOrderModel.getP_Name().toString() );
+                paramsList.put("cartValue", Grandtotal);
+                paramsList.put("fname", name);
+                paramsList.put("cartId", HomeActivity.mCartId);
+                paramsList.put("bline",addressline);
+                paramsList.put("bcity",city);
+                paramsList.put("bstate",state);
+                paramsList.put("bpincode",pincode);
+                paramsList.put("bmobile",mobile);
+
+
+                System.out.println("userid "+Utility.getSharedPrefStringData(getActivity(),Constants.USER_ID));
+                System.out.println("addresid "+addressId);
+                System.out.println("cartid "+cartId);
+                System.out.println("grand "+Grandtotal);
+                System.out.println("name "+name);
+                System.out.println("adres "+addressline);
+
+
+                result = Utility.httpPostRequestToServer(ApiConstants.INSERT_REVIEWORDER, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    Log.d("Create Response", jsonobject.toString());
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+
+
+                    }
+                    if (jsonobject.optString("success").equalsIgnoreCase("0")) {
+
+                    } else {
+                        Utility.navigateDashBoardFragment(new PaymentOptionNewFrgament(), PaymentOptionNewFrgament.TAG, null, getActivity());
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /*Promocode Check*/
@@ -342,7 +456,7 @@ public class ReviewOrderFragment extends Fragment {
                         JSONArray reviewOrdersArray = jsonobject.optJSONArray("tbl_cart");
                         for (int i = 0; i < reviewOrdersArray.length(); i++) {
                             JSONObject jsonObject = reviewOrdersArray.getJSONObject(i);
-                            ReviewOrderModel reviewOrderModel = new ReviewOrderModel();
+                            reviewOrderModel = new ReviewOrderModel();
                             reviewOrderModel.setP_ID(jsonObject.getString("P_ID"));
                             reviewOrderModel.setMax_Quantity(jsonObject.optInt("Max_Quantity"));
                             reviewOrderModel.setP_Cost(jsonObject.optInt("P_Cost"));
