@@ -1,13 +1,11 @@
 package com.store.storeapps.fragments;
 
-import android.app.Activity;
-//import android.app.Fragment;
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.store.storeapps.R;
-
 import com.store.storeapps.activities.ReturnFormNew;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
@@ -40,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
+//import android.app.Fragment;
 
 /**
  * Created by satyanarayana pdv on 10/4/2016.
@@ -53,14 +50,16 @@ public class MyOrderFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType;
+    public static String orderID, CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType;
     private View rootView;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.ll, container, false);
         initUI();
         return rootView;
     }
+
     private void initUI() {
         myOrderslinearLayout = (LinearLayout) rootView.findViewById(R.id.ll);
         mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -151,33 +150,31 @@ public class MyOrderFragment extends Fragment {
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
 
-
                                 movie.setTotalCost(jsonObjectMovie.optString("SubTotal"));
                                 movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
                                 movie.setDiscount(jsonObjectMovie.optString("Discount"));
                                 movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
                                 movie.setGrandTotal(jsonObjectMovie.optString("Cart_Value"));
 
-//                                movie.setAttribute_Type(jsonObjectMovie.optString("Attribute_Type"));
-//                                movie.setAttribute_Value(jsonObjectMovie.optString("Attribute_Value"));
-                                JSONArray attrTypes = jsonObjectMovie.optJSONArray("Attribute_Type");
                                 ArrayList<String> attrTypesArray = new ArrayList<>();
-                                if (attrTypes != null) {
-                                    for (int i1 = 0; i1 < attrTypes.length(); i1++) {
-                                        attrTypesArray.add(attrTypes.optString(i1));
+                                String attribute_type = jsonObjectMovie.optString("Attribute_Type");
+                                if (!Utility.isValueNullOrEmpty(attribute_type)) {
+                                    String strArray[] = attribute_type.split(",");
+                                    for (int i1 = 0; i1 < strArray.length; i1++) {
+                                        attrTypesArray.add(strArray[i1]);
                                     }
                                 }
                                 movie.setAttribute_Type(attrTypesArray);
 
-                                JSONArray attrNames = jsonObjectMovie.optJSONArray("Attribute_Value");
                                 ArrayList<String> attrNamesArray = new ArrayList<>();
-                                if (attrNames != null) {
-                                    for (int j1 = 0; j1 < attrNames.length(); j1++) {
-                                        attrNamesArray.add(attrNames.optString(j1));
+                                String attrNames = jsonObjectMovie.optString("Attribute_Value");
+                                if (!Utility.isValueNullOrEmpty(attribute_type)) {
+                                    String strattrNames[] = attrNames.split(",");
+                                    for (int i1 = 0; i1 < strattrNames.length; i1++) {
+                                        attrNamesArray.add(strattrNames[i1]);
                                     }
                                 }
                                 movie.setAttribute_Value(attrNamesArray);
-
                                 mMovie.add(movie);
                             }
                             modelArray.setMovies(mMovie);
@@ -246,21 +243,21 @@ public class MyOrderFragment extends Fragment {
                     content.setSpan(new UnderlineSpan(), 0, OrderDetails.length(), 0);
                     order_details.setText(content);
 
-                    final TextView textViewSize= (TextView) inneritem.findViewById(R.id.textViewSize);
-                    final TextView sizeQuote= (TextView) inneritem.findViewById(R.id.sizeQuote);
-                    final TextView sizeValue= (TextView) inneritem.findViewById(R.id.sizeValue);
+                    final TextView textViewSize = (TextView) inneritem.findViewById(R.id.textViewSize);
+                    final TextView sizeQuote = (TextView) inneritem.findViewById(R.id.sizeQuote);
+                    final TextView sizeValue = (TextView) inneritem.findViewById(R.id.sizeValue);
 
-                    final TextView textViewColor= (TextView) inneritem.findViewById(R.id.textViewColor);
-                    final TextView colorQuote= (TextView) inneritem.findViewById(R.id.colorQuote);
-                    final TextView colorValue= (TextView) inneritem.findViewById(R.id.colorValue);
+                    final TextView textViewColor = (TextView) inneritem.findViewById(R.id.textViewColor);
+                    final TextView colorQuote = (TextView) inneritem.findViewById(R.id.colorQuote);
+                    final TextView colorValue = (TextView) inneritem.findViewById(R.id.colorValue);
 
-                    final TextView textViewCustom= (TextView) inneritem.findViewById(R.id.textViewCustom);
-                    final TextView typeQuote= (TextView) inneritem.findViewById(R.id.typeQuote);
-                    final TextView typeValue= (TextView) inneritem.findViewById(R.id.typeValue);
+                    final TextView textViewCustom = (TextView) inneritem.findViewById(R.id.textViewCustom);
+                    final TextView typeQuote = (TextView) inneritem.findViewById(R.id.typeQuote);
+                    final TextView typeValue = (TextView) inneritem.findViewById(R.id.typeValue);
 
-                    final TextView textViewGender= (TextView) inneritem.findViewById(R.id.textViewGender);
-                    final TextView genderQuote= (TextView) inneritem.findViewById(R.id.genderQuote);
-                    final TextView genderValue= (TextView) inneritem.findViewById(R.id.genderValue);
+                    final TextView textViewGender = (TextView) inneritem.findViewById(R.id.textViewGender);
+                    final TextView genderQuote = (TextView) inneritem.findViewById(R.id.genderQuote);
+                    final TextView genderValue = (TextView) inneritem.findViewById(R.id.genderValue);
 
                     ArrayList<String> attributeType = mMovie.getAttribute_Type();
                     ArrayList<String> attributeValue = mMovie.getAttribute_Value();
@@ -280,42 +277,37 @@ public class MyOrderFragment extends Fragment {
                     textViewGender.setVisibility(View.GONE);
                     genderQuote.setVisibility(View.GONE);
                     genderValue.setVisibility(View.GONE);
+                    if (attributeType != null && attributeType.size() > 0) {
+                        for (int attrCount = 0; attrCount < attributeType.size(); attrCount++) {
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Size")) {
+                                textViewSize.setVisibility(View.VISIBLE);
+                                sizeQuote.setVisibility(View.VISIBLE);
+                                sizeValue.setVisibility(View.VISIBLE);
+                                sizeValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase(" Color")) {
+                                textViewColor.setVisibility(View.VISIBLE);
+                                colorQuote.setVisibility(View.VISIBLE);
+                                colorValue.setVisibility(View.VISIBLE);
 
-                    for(int attrCount = 0; attrCount< attributeType.size(); attrCount++)
-                    {
-                        if(attributeType.get(attrCount) == "Size")
-                        {
-                            textViewSize.setVisibility(View.VISIBLE);
-                            sizeQuote.setVisibility(View.VISIBLE);
-                            sizeValue.setVisibility(View.VISIBLE);
-                            sizeValue.setText(attributeValue.get(attrCount));
-                        }
-                        if(attributeType.get(attrCount) == "Color")
-                        {
-                            textViewColor.setVisibility(View.VISIBLE);
-                        colorQuote.setVisibility(View.VISIBLE);
-                        colorValue.setVisibility(View.VISIBLE);
+                                colorValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Gender")) {
+                                textViewGender.setVisibility(View.VISIBLE);
+                                genderQuote.setVisibility(View.VISIBLE);
+                                genderValue.setVisibility(View.VISIBLE);
 
-                        colorValue.setText(attributeValue.get(attrCount));
-                        }
-                        if(attributeType.get(attrCount) == "Gender")
-                        {
-                            textViewGender.setVisibility(View.VISIBLE);
-                        genderQuote.setVisibility(View.VISIBLE);
-                        genderValue.setVisibility(View.VISIBLE);
+                                genderValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Custom")) {
+                                textViewCustom.setVisibility(View.VISIBLE);
+                                typeQuote.setVisibility(View.VISIBLE);
+                                typeValue.setVisibility(View.VISIBLE);
 
-                        genderValue.setText(attributeValue.get(attrCount));
-                        }
-                        if(attributeType.get(attrCount) == "Custom")
-                        {
-                            textViewCustom.setVisibility(View.VISIBLE);
-                        typeQuote.setVisibility(View.VISIBLE);
-                        typeValue.setVisibility(View.VISIBLE);
-
-                        typeValue.setText(attributeValue.get(attrCount));
+                                typeValue.setText(attributeValue.get(attrCount));
+                            }
                         }
                     }
-
                     String orderstatus = mMovie.getStatus().toString();
                     String Return_ExchangeTypes = mMovie.getReturn_ExchangeType().toString();
                     String Return_RefundTypes = mMovie.getReturn_RefundType().toString();
@@ -329,7 +321,7 @@ public class MyOrderFragment extends Fragment {
                     String trackenabledate = mMovie.getTrackenabledate().toString();
                     String returndisabledate = mMovie.getReturndisabledate().toString();
 
-                    String TotalCost= mMovie.getTotalCost().toString();
+                    String TotalCost = mMovie.getTotalCost().toString();
                     String PMCashUsed = mMovie.getPMCashUsed().toString();
                     String Discount = mMovie.getDiscount().toString();
                     String COD_Charges = mMovie.getCOD_Charges().toString();
@@ -341,30 +333,25 @@ public class MyOrderFragment extends Fragment {
                     codcharges.setText(COD_Charges);
                     grandtotal.setText(GrandTotal);
 
-                    if(orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||
-                            orderstatus.equals("Packed & Ready")||orderstatus.equals("Dispatched") ||
-                            orderstatus.equals("Canceled")|| orderstatus.equals("Pre-dispatch Cancellation")
-                            ||orderstatus.equals("Post-dispatch Cancellation"))
-                    {
+                    if (orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||
+                            orderstatus.equals("Packed & Ready") || orderstatus.equals("Dispatched") ||
+                            orderstatus.equals("Canceled") || orderstatus.equals("Pre-dispatch Cancellation")
+                            || orderstatus.equals("Post-dispatch Cancellation")) {
                         btn_cancel1.setVisibility(View.VISIBLE);
                         btn_track1.setVisibility(View.VISIBLE);
                         btn_callme1.setVisibility(View.GONE);
                         btn_return1.setVisibility(View.GONE);
                         btn_review1.setVisibility(View.GONE);
-                    }
-                    else if(orderstatus.equals("Order Held"))
-                    {
+                    } else if (orderstatus.equals("Order Held")) {
                         btn_callme1.setVisibility(View.VISIBLE);
                         btn_cancel1.setVisibility(View.GONE);
                         btn_track1.setVisibility(View.GONE);
                         btn_return1.setVisibility(View.GONE);
                         btn_review1.setVisibility(View.GONE);
-                    }
-                    else if(orderstatus.equals("Delivered") || orderstatus.equals("Return Request Received") ||
+                    } else if (orderstatus.equals("Delivered") || orderstatus.equals("Return Request Received") ||
                             orderstatus.equals("Return process initiated") || orderstatus.equals("Reverse pick-up done") ||
                             orderstatus.equals("Refund done Successfully") || orderstatus.equals("Next product dispatched") ||
-                            orderstatus.equals("Exchange done Successfully"))
-                    {
+                            orderstatus.equals("Exchange done Successfully")) {
                         btn_return1.setVisibility(View.VISIBLE);
                         btn_review1.setVisibility(View.VISIBLE);
                         btn_cancel1.setVisibility(View.GONE);
@@ -374,13 +361,12 @@ public class MyOrderFragment extends Fragment {
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = new Date();
-                    String date1= dateFormat.format(date);
+                    String date1 = dateFormat.format(date);
 
                     try {
                         Date returnDisableDate = dateFormat.parse(returndisabledate);
-                        if(Refund_Issubmit.equals("1") ||Refund_Issubmit.equals("0")|| Exchange_Issubmit.equals("1")
-                                ||Exchange_Issubmit.equals("0")|| date.compareTo(returnDisableDate)>0)
-                        {
+                        if (Refund_Issubmit.equals("1") || Refund_Issubmit.equals("0") || Exchange_Issubmit.equals("1")
+                                || Exchange_Issubmit.equals("0") || date.compareTo(returnDisableDate) > 0) {
                             btn_return1.setEnabled(false);
                             btn_return1.setBackgroundResource(R.drawable.order_buttongrey);
                         }
@@ -392,52 +378,38 @@ public class MyOrderFragment extends Fragment {
                         Date trackDate = dateFormat.parse(trackenabledate);
                         Date currentDate = dateFormat.parse(date1);
 
-                        System.out.println("trackenable date String --"+trackDate);
-                        if(orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate)>0 )
-                        {
+                        System.out.println("trackenable date String --" + trackDate);
+                        if (orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate) > 0) {
                             btn_track1.setEnabled(true);
-                        }
-                        else if(orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate)<0 )
-                        {
+                        } else if (orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate) < 0) {
+                            btn_track1.setEnabled(false);
+                            btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
+                        } else {
                             btn_track1.setEnabled(false);
                             btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
                         }
-                        else
-                        {
-                            btn_track1.setEnabled(false);
-                            btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
-                        }
-                    }
-                    catch (ParseException e1) {
+                    } catch (ParseException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    if(Cancel_Issubmit.equals("1") || Cancel_Issubmit.equals("0"))
-                    {
+                    if (Cancel_Issubmit.equals("1") || Cancel_Issubmit.equals("0")) {
                         btn_cancel1.setEnabled(false);
                         btn_cancel1.setBackgroundResource(R.drawable.order_buttongrey);
-                    }
-                    else  if(CancelStatus.equals("Canceled") || CancelStatus.equals("Pre-dispatch Cancellation") ||
-                            CancelStatus.equals("Post-dispatch Cancellation") || Cancel_Issubmit.equals("0"))
-                    {
+                    } else if (CancelStatus.equals("Canceled") || CancelStatus.equals("Pre-dispatch Cancellation") ||
+                            CancelStatus.equals("Post-dispatch Cancellation") || Cancel_Issubmit.equals("0")) {
                         btn_cancel1.setVisibility(View.GONE);
-                    }
-                    else
-                    {
+                    } else {
                         btn_cancel1.setEnabled(true);
                     }
 
-                    if(!(orderstatus.equals("Order Held")) || Callme_Issubmit.equals("1")|| Cancel_Issubmit.equals("0"))
-                    {
+                    if (!(orderstatus.equals("Order Held")) || Callme_Issubmit.equals("1") || Cancel_Issubmit.equals("0")) {
                         btn_callme1.setEnabled(false);
                         btn_callme1.setBackgroundResource(R.drawable.order_buttongrey);
-                    } else
-                    {
+                    } else {
                         btn_callme1.setEnabled(true);
                     }
 
-                    if(Review_Issubmit.equals("1")||Review_Issubmit.equals("0"))
-                    {
+                    if (Review_Issubmit.equals("1") || Review_Issubmit.equals("0")) {
                         btn_review1.setEnabled(false);
                         btn_review1.setBackgroundResource(R.drawable.order_buttongrey);
                     }
@@ -453,25 +425,24 @@ public class MyOrderFragment extends Fragment {
                         statusBar12.setVisibility(View.INVISIBLE);
                         statusBar13.setVisibility(View.INVISIBLE);
                         statusBar14.setVisibility(View.INVISIBLE);
-                    }else if (orderstatus.contentEquals("Preparation in progress")) {
+                    } else if (orderstatus.contentEquals("Preparation in progress")) {
                         img_statusnode2.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar12.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }else if (orderstatus.contentEquals("Packed & Ready")) {
+                    } else if (orderstatus.contentEquals("Packed & Ready")) {
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
                         statusBar12.setVisibility(View.VISIBLE);
                         statusBar13.setVisibility(View.VISIBLE);
-                    }else if (orderstatus.contentEquals("Dispatched")) {
+                    } else if (orderstatus.contentEquals("Dispatched")) {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
                         statusBar12.setVisibility(View.VISIBLE);
                         statusBar13.setVisibility(View.VISIBLE);
-                    }
-                    else if (orderstatus.contains("Delivered")) {
+                    } else if (orderstatus.contains("Delivered")) {
                         img_statusnode2.setVisibility(View.VISIBLE);
                         img_statusnode3.setVisibility(View.VISIBLE);
                         img_statusnode4.setVisibility(View.VISIBLE);
@@ -479,17 +450,17 @@ public class MyOrderFragment extends Fragment {
                         statusBar12.setVisibility(View.VISIBLE);
                         statusBar13.setVisibility(View.VISIBLE);
 
-                    }else if (orderstatus.contains("Pre-dispatch Cancellation")) {
+                    } else if (orderstatus.contains("Pre-dispatch Cancellation")) {
                         txt_cancelled1.setText("Canceled");
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }else if (orderstatus.contains("Canceled")) {
+                    } else if (orderstatus.contains("Canceled")) {
                         txt_cancelled1.setText("Canceled");
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }else if (orderstatus.contains("Post-dispatch Cancellation")) {
+                    } else if (orderstatus.contains("Post-dispatch Cancellation")) {
                         txt_delivered1.setText("Canceled");
-                    }else if (orderstatus.contains("Return Request Received")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Return Request Received") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -507,7 +478,7 @@ public class MyOrderFragment extends Fragment {
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
 
-                    }else if (orderstatus.contains("Return Request Received")&&(Return_RefundTypes.contentEquals("Refund"))) {
+                    } else if (orderstatus.contains("Return Request Received") && (Return_RefundTypes.contentEquals("Refund"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -521,9 +492,7 @@ public class MyOrderFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar12.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-
-                    else if (orderstatus.contains("Return process initiated")&&(Return_RefundTypes.contentEquals("Refund"))) {
+                    } else if (orderstatus.contains("Return process initiated") && (Return_RefundTypes.contentEquals("Refund"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -535,8 +504,7 @@ public class MyOrderFragment extends Fragment {
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Return process initiated")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Return process initiated") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -552,8 +520,7 @@ public class MyOrderFragment extends Fragment {
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Exchange done Successfully")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Exchange done Successfully") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -562,8 +529,7 @@ public class MyOrderFragment extends Fragment {
                         statusBar14.setVisibility(View.VISIBLE);
                         txt_exstatus1.setVisibility(View.VISIBLE);
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
-                    }
-                    else if (orderstatus.contains("Reverse pick-up done")&&((Return_RefundTypes.contentEquals("Refund")))) {
+                    } else if (orderstatus.contains("Reverse pick-up done") && ((Return_RefundTypes.contentEquals("Refund")))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -574,8 +540,7 @@ public class MyOrderFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Reverse pick-up done")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Reverse pick-up done") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -587,8 +552,7 @@ public class MyOrderFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Next product dispatched")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Next product dispatched") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -599,8 +563,7 @@ public class MyOrderFragment extends Fragment {
                         statusBar14.setVisibility(View.VISIBLE);
                         txt_exstatus1.setVisibility(View.VISIBLE);
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
-                    }
-                    else if ((orderstatus.contains("Refund done Successfully")&&(Return_RefundTypes.contentEquals("Refund")))) {
+                    } else if ((orderstatus.contains("Refund done Successfully") && (Return_RefundTypes.contentEquals("Refund")))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -612,17 +575,17 @@ public class MyOrderFragment extends Fragment {
                     order_details.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new OrderDetailsFragment(), OrderDetailsFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new OrderDetailsFragment(), OrderDetailsFragment.TAG, null, getActivity());
                         }
                     });
                     btn_cancel1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
                             Pcost = mMovie.getP_Cost().toString();
@@ -631,28 +594,28 @@ public class MyOrderFragment extends Fragment {
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_review1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
                             Pcost = mMovie.getP_Cost().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
 //                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
 //                            startActivity(i);
-                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_return1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
@@ -667,10 +630,10 @@ public class MyOrderFragment extends Fragment {
                     btn_callme1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
                         }
                     });
 

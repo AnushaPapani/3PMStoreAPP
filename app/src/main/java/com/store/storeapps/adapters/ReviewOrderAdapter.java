@@ -37,11 +37,13 @@ import java.util.LinkedHashMap;
 public class ReviewOrderAdapter extends BaseAdapter {
 
     private Context mContext;
+    private HomeActivity homeActivity;
     private LayoutInflater mLayoutInflater;
     private ArrayList<ReviewOrderModel> mReviewOrderModels;
 
 
-    public ReviewOrderAdapter(Context context, ArrayList<ReviewOrderModel> mReviewOrderModels) {
+    public ReviewOrderAdapter(Context context, ArrayList<ReviewOrderModel> mReviewOrderModels, HomeActivity homeActivity) {
+        this.homeActivity = homeActivity;
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mReviewOrderModels = mReviewOrderModels;
@@ -214,8 +216,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
+                        ReviewOrderFragment.Grand_total.setText("0");
                         mReviewOrderModels.remove(position);
-
+                        if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
+                            HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
+                        } else {
+                            HomeActivity.cart_layout_button_set_text.setText("0");
+                            ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
+                        }
                         notifyDataSetChanged();
                     }
                 }
@@ -282,6 +290,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
+                                ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
@@ -290,6 +299,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                                 ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
 
                             }
+                            ReviewOrderFragment.Grand_total.setText(ReviewOrderFragment.total_cartvalue);
                         }
                         notifyDataSetChanged();
                     }

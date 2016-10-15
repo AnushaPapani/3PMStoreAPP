@@ -139,6 +139,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
+            mCustomProgressDialog.dismissProgress();
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
@@ -185,7 +186,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
                 }
-                mCustomProgressDialog.dismissProgress();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {

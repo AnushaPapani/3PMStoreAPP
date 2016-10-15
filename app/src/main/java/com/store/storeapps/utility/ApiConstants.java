@@ -33,4 +33,5 @@ public class ApiConstants {
     public static final String CANCEL_RESONS = URL_FORMS + "get_CancelReasons.php";
     public static final String RETURN_REASONS =URL_FORMS +"get_returnreasons.php";
     public static final String RETURN_TYPE =URL_FORMS +"get_returntype.php";
+    public static final String TESTIMONIALS =BASE_URL +"testimonials.php";
 }

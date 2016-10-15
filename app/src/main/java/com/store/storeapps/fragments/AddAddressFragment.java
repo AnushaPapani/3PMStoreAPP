@@ -178,18 +178,7 @@ public class AddAddressFragment extends Fragment {
                     Log.d("Create Response", jsonobject.toString());
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_ID, jsonobject.optString("ID"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_LOGIN_COUNT, jsonobject.optString("count"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_CASH, jsonobject.optString("cash"));
-//                        JSONObject userjsonobject = jsonobject.optJSONObject("user");
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_NAME, userjsonobject.optString("fullname"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID, userjsonobject.optString("email"));
-//                        Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
-//                        HomeActivity.txt_email.setText(userjsonobject.optString("email"));
-//                        HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
-//                        if (!mFrom.equalsIgnoreCase("cart")) {
-//                            mParent.onBackPressed();
-//                        }
+
                     } else {
 //                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
