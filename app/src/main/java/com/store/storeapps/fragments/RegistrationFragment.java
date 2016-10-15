@@ -69,8 +69,8 @@ public class RegistrationFragment extends Fragment {
     private View toastRoot2;
     private Toast toast;
     RadioButton selectRadio;
-    String getGender;
-
+//    String getGender;
+    String get_gender="";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +107,7 @@ public class RegistrationFragment extends Fragment {
         et = (EditText) rootView.findViewById(R.id.editText);
         btnRegisterUser = (Button) rootView.findViewById(R.id.btnRegisterUser);
         custom_toast = (TextView) toastRoot.findViewById(R.id.errortoast);
-//        et.setOnClickListener(this);
+
         selectRadio = (RadioButton) rootView.findViewById(gender
                 .getCheckedRadioButtonId());
         et.setOnClickListener(new View.OnClickListener() {
@@ -116,43 +116,39 @@ public class RegistrationFragment extends Fragment {
                 showDatePicker();
             }
         });
-        gender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int checkedRadioButton = gender.getCheckedRadioButtonId();
-//                    boolean checked = ((RadioButton) rootView).isChecked();
-                // find the radiobutton by returned id
-                RadioButton radioButton = (RadioButton) rootView.findViewById(checkedRadioButton);
-                getGender = radioButton.getText().toString();
+        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // TODO Auto-generated method stub
+                int childCount = group.getChildCount();
+
+                for (int x = 0; x < childCount; x++) {
+                    RadioButton btn = (RadioButton) group.getChildAt(x);
+
+
+                    if(btn.getId()==R.id.inputMale){
+                        btn.setText("Male");
+                    }else{
+                        btn.setText("Female");
+                    }
+                    if (btn.getId() == checkedId) {
+
+                        get_gender=btn.getText().toString();// here gender will contain M or F.
+
+                    }
+
+                }
+
+                Log.e("Gender",get_gender);
             }
         });
-
-//        gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-//        {
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                // checkedId is the RadioButton selected
-//
-//                switch(checkedId) {
-//                    case R.id.inputMale:
-//                        // switch to fragment 1
-//                        break;
-//                    case R.id.inputFemale:
-//                        // Fragment 2
-//                        break;
-//
-//                }
-//            }
-//        });
 
         btnRegisterUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isValidFields()) {
                     isValidFields();
-//                    CreateNewUser(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString(),
-//                            selectRadio.getText().toString());
-//                    Toast.makeText(getActivity(),"Clicked",Toast.LENGTH_SHORT).show();
                 } else {
                     CreateNewUser(inputName.getText().toString(), inputEmail.getText().toString(), inputPassword.getText().toString()
                     );
@@ -190,15 +186,6 @@ public class RegistrationFragment extends Fragment {
         }
     };
 
-
-//    @Override
-//    public void onClick(View view) {
-//        switch (view.getId()) {
-//            case R.id.btn_sign_up:
-//
-//                break;
-//        }
-//    }
 
     private void CreateNewUser(String name, String emailid, String password) {
         if (Utility.isNetworkAvailable(getActivity())) {
@@ -240,7 +227,7 @@ public class RegistrationFragment extends Fragment {
                 paramsList.put("email", emailid);
                 paramsList.put("fullname", name);
                 paramsList.put("password", password);
-                paramsList.put("gender", getGender);
+                paramsList.put("gender", get_gender);
                 paramsList.put("cartId", HomeActivity.mCartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.REGISTER, Utility.getParams(paramsList));
             } catch (Exception exception) {

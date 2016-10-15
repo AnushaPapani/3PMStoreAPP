@@ -27,6 +27,7 @@ import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +57,7 @@ public class ReviewOrderFragment extends Fragment {
     View toastRoot;
     View toastRoot2;
     Toast toast;
-
+    String cart_id;
     public LinearLayout ll_address_layout;
     public static TextView txt_name;
     public static TextView txt_address_line;
@@ -91,7 +92,7 @@ public class ReviewOrderFragment extends Fragment {
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
         Grand_total =(TextView)ll_fottor.findViewById(R.id.grandtotal);
-
+        promotext =(TextView)ll_fottor.findViewById(R.id.promotext);
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
         txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);
         txt_address_line = (TextView) ll_fottor.findViewById(R.id.txt_address_line);
@@ -127,9 +128,13 @@ public class ReviewOrderFragment extends Fragment {
                 if (applypromocode.getText().equals("Apply") && Promocode.getText().toString().length() > 1) {
                     applypromocode.setText("Cancel");
                     promotext.setVisibility(View.VISIBLE);
+//                    cart_id =HomeActivity.mCartId.toString();
                     Promocode.setEnabled(false);
+                    promocodeToServer(Promocode.getText().toString(),Grand_total.getText().toString(),HomeActivity.mCartId.toString());
+
                 } else if (applypromocode.getText().equals("Cancel")) {
                     applypromocode.setText("Apply");
+                    cancelpromocode(Grand_total.getText().toString(),HomeActivity.mCartId.toString());
                     Promocode.setText("");
                     promotext.setVisibility(View.GONE);
                     Promocode.setEnabled(true);
@@ -145,7 +150,143 @@ public class ReviewOrderFragment extends Fragment {
             }
         });
     }
+/*Promocode Check*/
+    private void promocodeToServer(String couponcode, String grandtotal,String cartid) {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new PromocodeCheck(couponcode,grandtotal,cartid).execute();
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
+    }
 
+    class PromocodeCheck extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String couponcode;
+        private String grandtotal;
+        private String cartid;
+
+
+        public PromocodeCheck(String couponcode, String grandtotal,String cartid) {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            this.couponcode = couponcode;
+            this.grandtotal = grandtotal;
+            this.cartid = cartid;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("P_Code", couponcode);
+                paramsList.put("cartValue", grandtotal);
+                paramsList.put("cartId", cartid);
+                result = Utility.httpPostRequestToServer(ApiConstants.PROMO_CHECK, Utility.getParams(paramsList));
+                Utility.setSharedPrefStringData(getActivity(), Constants.GRANDTOTAL, grandtotal.toString());
+
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        String disount_price =jsonobject.getString("price");
+                        Grand_total.setText(disount_price);
+                        promotext.setText(jsonobject.getString("status"));
+                    } else {
+                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    /*Delete Promocode*/
+    private void cancelpromocode(String cartid, String cartvalue) {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new CancelPromocode(cartid,cartvalue).execute();
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
+    }
+
+    class CancelPromocode extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String cartid;
+        private String cartvalue;
+
+
+
+        public CancelPromocode(String cartid, String cartvalue) {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            this.cartid = cartid;
+            this.cartvalue = cartvalue;
+
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("cartValue", cartvalue);
+                paramsList.put("cartId", cartid);
+                result = Utility.httpPostRequestToServer(ApiConstants.DELETE_PROMOCODE, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Grand_total.setText(Utility.getSharedPrefStringData(getActivity(), Constants.GRANDTOTAL));
+                    } else {
+                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void getReviewOrderDetails() {
         if (Utility.isNetworkAvailable(getActivity())) {
             new GetReviewOrderAsyncTask().execute();
