@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="@dimen/_10dp"
-        android:text="rdivya9111@gmail.com"
+        android:text=""
         android:background="@drawable/adresbg"
         android:inputType="textEmailAddress"
         android:textColor="@color/black" />
@@ -49,7 +49,7 @@
         android:id="@+id/edt_password"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="123456789"
+        android:text=""
         android:layout_margin="@dimen/_10dp"
         android:background="@drawable/adresbg"
         android:inputType="textPassword"
