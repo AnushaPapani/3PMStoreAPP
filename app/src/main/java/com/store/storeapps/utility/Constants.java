@@ -29,5 +29,5 @@ public class Constants {
     public static final String GRANDTOTAL = "GRAND_TOTAL";
     public static final String VERSION_CODE = "VERSION_CODE";
     public static final String VERSION_NAME = "VERSION_NAME";
-
+    public static final String GRANDTOTAL = "GRAND_TOTAL";
 }
