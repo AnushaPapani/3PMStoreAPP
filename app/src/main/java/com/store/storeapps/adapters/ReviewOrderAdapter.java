@@ -37,11 +37,13 @@ import java.util.LinkedHashMap;
 public class ReviewOrderAdapter extends BaseAdapter {
 
     private Context mContext;
+    private HomeActivity homeActivity;
     private LayoutInflater mLayoutInflater;
     private ArrayList<ReviewOrderModel> mReviewOrderModels;
 
 
-    public ReviewOrderAdapter(Context context, ArrayList<ReviewOrderModel> mReviewOrderModels) {
+    public ReviewOrderAdapter(Context context, ArrayList<ReviewOrderModel> mReviewOrderModels, HomeActivity homeActivity) {
+        this.homeActivity = homeActivity;
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mReviewOrderModels = mReviewOrderModels;
@@ -220,6 +222,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                             HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
                         } else {
                             HomeActivity.cart_layout_button_set_text.setText("0");
+                            ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
                         }
                         notifyDataSetChanged();
                     }

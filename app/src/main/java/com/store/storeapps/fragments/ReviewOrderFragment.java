@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.adapters.NoOrderFoundAdapter;
 import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
@@ -42,7 +43,7 @@ public class ReviewOrderFragment extends Fragment {
     public static final String TAG = "ReviewOrderFragment";
     private View rootView;
     public static String total_cartvalue;
-    private ListView listView_selected_orders;
+    public static ListView listView_selected_orders;
     private RelativeLayout ll_header;
     private LinearLayout ll_fottor;
     private TextView txt_review_your_order;
@@ -66,6 +67,13 @@ public class ReviewOrderFragment extends Fragment {
     public static TextView txt_pin_code;
     public static TextView txt_mobile;
     public TextView txt_choose_another;
+    private HomeActivity mParent;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,7 +99,7 @@ public class ReviewOrderFragment extends Fragment {
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
-        Grand_total =(TextView)ll_fottor.findViewById(R.id.grandtotal);
+        Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
         //promotext =(TextView)ll_fottor.findViewById(R.id.promotext);
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
         txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);
@@ -130,11 +138,11 @@ public class ReviewOrderFragment extends Fragment {
                     promotext.setVisibility(View.VISIBLE);
 //                    cart_id =HomeActivity.mCartId.toString();
                     Promocode.setEnabled(false);
-                    promocodeToServer(Promocode.getText().toString(),Grand_total.getText().toString(),HomeActivity.mCartId.toString());
+                    promocodeToServer(Promocode.getText().toString(), Grand_total.getText().toString(), HomeActivity.mCartId.toString());
 
                 } else if (applypromocode.getText().equals("Cancel")) {
                     applypromocode.setText("Apply");
-                    cancelpromocode(Grand_total.getText().toString(),HomeActivity.mCartId.toString());
+                    cancelpromocode(Grand_total.getText().toString(), HomeActivity.mCartId.toString());
                     Promocode.setText("");
                     promotext.setVisibility(View.GONE);
                     Promocode.setEnabled(true);
@@ -150,10 +158,11 @@ public class ReviewOrderFragment extends Fragment {
             }
         });
     }
-/*Promocode Check*/
-    private void promocodeToServer(String couponcode, String grandtotal,String cartid) {
+
+    /*Promocode Check*/
+    private void promocodeToServer(String couponcode, String grandtotal, String cartid) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new PromocodeCheck(couponcode,grandtotal,cartid).execute();
+            new PromocodeCheck(couponcode, grandtotal, cartid).execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -166,7 +175,7 @@ public class ReviewOrderFragment extends Fragment {
         private String cartid;
 
 
-        public PromocodeCheck(String couponcode, String grandtotal,String cartid) {
+        public PromocodeCheck(String couponcode, String grandtotal, String cartid) {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
             this.couponcode = couponcode;
             this.grandtotal = grandtotal;
@@ -204,7 +213,7 @@ public class ReviewOrderFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
-                        String disount_price =jsonobject.getString("price");
+                        String disount_price = jsonobject.getString("price");
                         Grand_total.setText(disount_price);
                         promotext.setText(jsonobject.getString("status"));
                     } else {
@@ -224,7 +233,7 @@ public class ReviewOrderFragment extends Fragment {
     /*Delete Promocode*/
     private void cancelpromocode(String cartid, String cartvalue) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new CancelPromocode(cartid,cartvalue).execute();
+            new CancelPromocode(cartid, cartvalue).execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -234,7 +243,6 @@ public class ReviewOrderFragment extends Fragment {
         private CustomProgressDialog mCustomProgressDialog;
         private String cartid;
         private String cartvalue;
-
 
 
         public CancelPromocode(String cartid, String cartvalue) {
@@ -286,6 +294,7 @@ public class ReviewOrderFragment extends Fragment {
             }
         }
     }
+
     private void getReviewOrderDetails() {
         if (Utility.isNetworkAvailable(getActivity())) {
             new GetReviewOrderAsyncTask().execute();
@@ -363,13 +372,18 @@ public class ReviewOrderFragment extends Fragment {
 
                             reviewOrderModels.add(reviewOrderModel);
                         }
-                        System.out.println("cartvalue "+total_cartvalue);
+                        System.out.println("cartvalue " + total_cartvalue);
                         Grand_total.setText(total_cartvalue);
-                        reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels);
-                        listView_selected_orders.setAdapter(reviewOrderAdapter);
-                        listView_selected_orders.addHeaderView(ll_header);
-                        //listView_selected_orders.addFooterView(ll_fottor);
-                        getAddress();
+                        if (reviewOrderModels.size() > 0) {
+                            reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels, mParent);
+                            listView_selected_orders.setAdapter(reviewOrderAdapter);
+                            listView_selected_orders.addHeaderView(ll_header);
+                            //listView_selected_orders.addFooterView(ll_fottor);
+                            getAddress();
+                        } else {
+                            listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
+                            listView_selected_orders.addHeaderView(ll_header);
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
