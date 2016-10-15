@@ -49,7 +49,7 @@ import static com.store.storeapps.activities.Previous_ProductsActivity.mProductI
  */
 public class PreviousProductFragment extends Fragment implements View.OnClickListener {
 
-
+    public static final String TAG = "PreviousProductFragment";
     private TextView text_desc;
     private Previous_ProductsActivity mParent;
     private View rootView;
