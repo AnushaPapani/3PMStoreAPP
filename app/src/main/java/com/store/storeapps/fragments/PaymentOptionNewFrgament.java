@@ -315,7 +315,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 b.putString("Quantity",Quantity);
                 b.putString("orderid",orderid);
 //               Intent i =new Intent(PaymentOption.this,Payumoney.class);
-                b.putString("Promo",amountPayable);
+                b.putString("Promo",amounttotal.getText().toString());
                 b.putString("Pmprice",pmcash );
                 b.putString("cost", amounttotal.getText().toString());
                 b.putString("coddisable", "");
@@ -327,8 +327,10 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 b.putString("pname",P_Name);
                 b.putString("UID",U_id);
                 b.putString("Pid",ProductId);
+//                Intent i = new Intent(getActivity(), PayUMoneyFragment.class);
+//                startActivity(i);
 
-                Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, PaymentOptionNewFrgament.this);
+                Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
 //                b.putString("Ptype",Ptype);
             }
         });
