@@ -26,7 +26,6 @@ public class Constants {
     public static final String USER_CASH = "USER_CASH";
     public static final String USER_FB_ID = "USER_FB_ID";
     public static final String ADDRESS_COUNT = "ADDRESS_COUNT";
-    public static final String GRANDTOTAL = "GRAND_TOTAL";
     public static final String VERSION_CODE = "VERSION_CODE";
     public static final String VERSION_NAME = "VERSION_NAME";
     public static final String GRANDTOTAL = "GRAND_TOTAL";

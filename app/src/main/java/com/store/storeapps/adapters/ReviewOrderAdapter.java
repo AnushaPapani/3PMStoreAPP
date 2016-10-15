@@ -216,7 +216,11 @@ public class ReviewOrderAdapter extends BaseAdapter {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         ReviewOrderFragment.Grand_total.setText("0");
                         mReviewOrderModels.remove(position);
-
+                        if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
+                            HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
+                        } else {
+                            HomeActivity.cart_layout_button_set_text.setText("0");
+                        }
                         notifyDataSetChanged();
                     }
                 }

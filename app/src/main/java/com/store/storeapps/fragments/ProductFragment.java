@@ -123,6 +123,26 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             spin_one.setVisibility(View.GONE);
         }
 
+        spin_one.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                    if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0).equalsIgnoreCase("Quantity") && i != 0) {
+                        txt_buy.setText("Buy For "+Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    } else {
+                        txt_buy.setText("Buy For "+1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    }
+                } else {
+                    txt_buy.setText("Out Of Stock");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         spin_two = (Spinner) rootView.findViewById(R.id.spin_two);
         ArrayList<String> secondArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 1) {
@@ -139,6 +159,25 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             spin_two.setVisibility(View.GONE);
         }
 
+        spin_two.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                    if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1).equalsIgnoreCase("Quantity") && i != 0) {
+                        txt_buy.setText("Buy For "+Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    } else {
+                        txt_buy.setText("Buy For "+1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    }
+                } else {
+                    txt_buy.setText("Out Of Stock");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         spin_three = (Spinner) rootView.findViewById(R.id.spin_three);
         ArrayList<String> thirdArray = new ArrayList<>();
@@ -156,6 +195,27 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             spin_three.setVisibility(View.GONE);
         }
 
+        spin_three.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                    if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2).equalsIgnoreCase("Quantity") && i != 0) {
+                        txt_buy.setText("Buy For "+Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    } else {
+                        txt_buy.setText("Buy For "+1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    }
+                } else {
+                    txt_buy.setText("Out Of Stock");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
         spin_four = (Spinner) rootView.findViewById(R.id.spin_four);
         ArrayList<String> fourArray = new ArrayList<>();
@@ -172,6 +232,26 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         } else {
             spin_four.setVisibility(View.GONE);
         }
+
+        spin_four.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                    if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3).equalsIgnoreCase("Quantity") && i != 0) {
+                        txt_buy.setText("Buy For "+Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    } else {
+                        txt_buy.setText("Buy For "+1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                    }
+                } else {
+                    txt_buy.setText("Out Of Stock");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
         image_thumbnail = (ImageView) rootView.findViewById(R.id.image_thumbnail);
@@ -477,18 +557,18 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("U_ID", "");
                 paramsList.put("P_ID", HomeActivity.mProductItemsList.get(mPosition).getP_id());
-                paramsList.put("cartValue ", ""+HomeActivity.mCartValue);
+                paramsList.put("cartValue ", "" + HomeActivity.mCartValue);
                 paramsList.put("P_Name", HomeActivity.mProductItemsList.get(mPosition).getP_Name());
                 paramsList.put("P_Cost", "" + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
-                //paramsList.put("P_Qty", getSelectedSpinner("Quantity"));
-                paramsList.put("P_Qty", "1");
+                paramsList.put("P_Qty", getSelectedSpinner("Quantity"));
+                //paramsList.put("P_Qty", "1");
                 paramsList.put("gender", getSelectedSpinner("Gender"));
                 paramsList.put("customattribute", getSelectedSpinner("Custom"));
                 paramsList.put("color", getSelectedSpinner("Color"));
                 paramsList.put("size", getSelectedSpinner("Size"));
                 paramsList.put("cartId", HomeActivity.mCartId);
 
-                result = Utility.httpPostRequestToServer(ApiConstants.INSERT_CHECK_PRODUCTS,  Utility.getParams(paramsList));
+                result = Utility.httpPostRequestToServer(ApiConstants.INSERT_CHECK_PRODUCTS, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -504,7 +584,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     JSONObject jsonobject = new JSONObject(response);
                     HomeActivity.mCartId = jsonobject.optString("cartId");
                     HomeActivity.mCartValue = jsonobject.optInt("cartCount");
-                    HomeActivity.cart_layout_button_set_text.setText(""+HomeActivity.mCartValue);
+                    HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
                     Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
                 }
                 mCustomProgressDialog.dismissProgress();
