@@ -332,7 +332,7 @@ public class ReviewOrderFragment extends Fragment {
                         t.setText("Coupon Code Applied Successfully");
                         toast.setView(toastRoot2);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                         String disount_price = jsonobject.getString("price");
                         Grand_total.setText(disount_price);
@@ -342,14 +342,14 @@ public class ReviewOrderFragment extends Fragment {
                         t.setText("Coupon Code already applied.Please cancel to apply new Coupon Code");
                         toast.setView(toastRoot2);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText("Invalid Promocode");
                         toast.setView(toastRoot);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 }
@@ -484,6 +484,7 @@ public class ReviewOrderFragment extends Fragment {
                             reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
                             reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
                             total_cartvalue = jsonobject.getString("cartValue");
+                            HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
 
                             JSONArray attrType = jsonObject.optJSONArray("Attribute_Type");
                             ArrayList<String> attrValuesArray = new ArrayList<>();
@@ -507,11 +508,11 @@ public class ReviewOrderFragment extends Fragment {
                         }
                         System.out.println("cartvalue " + total_cartvalue);
                         Grand_total.setText(total_cartvalue);
+                        HomeActivity.mCartTotal = Integer.parseInt(total_cartvalue);
                         if (reviewOrderModels.size() > 0) {
                             reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels, mParent);
                             listView_selected_orders.setAdapter(reviewOrderAdapter);
                             listView_selected_orders.addHeaderView(ll_header);
-                            //listView_selected_orders.addFooterView(ll_fottor);
 
                         } else {
                             listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
