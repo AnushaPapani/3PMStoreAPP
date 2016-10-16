@@ -308,9 +308,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        if (isLogged) {
+                        if(isLogged) {
                             navigateSideMenuClickAfterLogin(position);
-                        } else {
+                        }
+                        else {
                             navigateSideMenuClickBeforeLogin(position);
                         }
 
@@ -338,7 +339,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -378,7 +379,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
