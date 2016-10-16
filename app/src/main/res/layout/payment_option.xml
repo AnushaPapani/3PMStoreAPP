@@ -546,7 +546,7 @@
                         android:layout_height="95dp"
                         android:layout_below="@+id/expand5"
                         android:background="@drawable/paymentborder"
-                        >
+                        android:visibility="gone">
                          <TextView
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
@@ -583,24 +583,7 @@
                             android:layout_marginRight="17dp"
                             android:layout_marginEnd="17dp"
                             android:layout_marginTop="10dp"
-                            android:visibility="gone"/>
-
-                        <EditText
-                            android:layout_width="fill_parent"
-                            android:layout_height="30dp"
-                            android:id="@+id/enterOTP"
-                            android:layout_below="@+id/enterOTPtext"
-                            android:background="@drawable/adresbg"
-                            android:layout_alignLeft="@+id/sendOTP"
-                            android:layout_alignStart="@+id/sendOTP"
-                            android:layout_toLeftOf="@+id/confirmOTP"
-                            android:layout_toStartOf="@+id/confirmOTP"
-                            android:layout_marginRight="@dimen/_20dp"
-                            android:layout_alignTop="@+id/confirmOTP"
-                            android:layout_marginTop="@dimen/_5dp"
-                            android:layout_marginLeft="@dimen/_10dp"
-                            android:visibility="gone"
-                            android:paddingLeft="@dimen/_10dp"/>
+                            android:visibility="gone" />
 
                         <TextView
                             android:text="Enter OTP"
@@ -624,7 +607,7 @@
                             android:text="Resend OTP?"
                             android:textColor="#FF7700"
                             android:textSize="16dp"
-                            android:visibility="gone"/>
+                            android:visibility="gone" />
                         <TextView
                             android:id="@+id/codTV"
                             android:layout_width="wrap_content"
@@ -632,11 +615,23 @@
                             android:layout_alignBaseline="@+id/enterOTPtext"
                             android:layout_alignBottom="@+id/enterOTPtext"
                             android:gravity="center"
-                            android:layout_marginTop="@dimen/_5dp"
+                            android:layout_marginTop="@dimen/_15dp"
                             android:text="COD is currently not available for this PINCODE"
                             android:textAlignment="center"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:visibility="gone" />
+
+                        <EditText
+                            android:layout_width="fill_parent"
+                            android:layout_height="25dp"
+                            android:id="@+id/enterOTP"
+                            android:background="@drawable/adresbg"
+                            android:layout_below="@+id/enterOTPtext"
+                            android:layout_marginRight="@dimen/_20dp"
+                            android:layout_toLeftOf="@+id/confirmOTP"
+                            android:layout_alignLeft="@+id/enterOTPtext"
+                            android:layout_alignStart="@+id/enterOTPtext"
+                            android:visibility="gone"/>
                     </RelativeLayout>
 
 
