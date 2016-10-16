@@ -743,6 +743,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     if (jsonobject != null) {
                         JSONObject jObj = new JSONObject(response);
                         String success = jObj.getString("success");
+                        System.out.println();
                         if(success.equals("1")) {
                             Intent i = new Intent(getActivity(), SuccessActivity.class);
                             i.putExtra("spiner", Quantity);

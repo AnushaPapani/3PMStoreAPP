@@ -31,6 +31,7 @@ import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
+import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -165,7 +166,9 @@ public class OrderDetailsFragment extends Fragment {
 
                                 movie.setUsername(jsonObjectMovie.optString("username"));
                                 movie.setBline(jsonObjectMovie.optString("bline"));
+                                movie.setBcity(jsonObjectMovie.optString("bcity"));
                                 movie.setBstate(jsonObjectMovie.optString("bstate"));
+                                movie.setBmobile(jsonObjectMovie.optString("bmobile"));
                                 movie.setBpincode(jsonObjectMovie.optString("bpincode"));
 
                                 movie.setTotalCost(jsonObjectMovie.optString("SubTotal"));
@@ -269,8 +272,17 @@ public class OrderDetailsFragment extends Fragment {
                     Button btn_review1 = (Button) inneritem.findViewById(R.id.orderreview1);
                     Button btn_return1 = (Button) inneritem.findViewById(R.id.orderreturn1);
 
-
-
+                    img_statusnode1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Tooltip tooltip = new Tooltip.Builder(img_statusnode1)
+                                    .setText("Hello tooltip"+"/n"+"sjfksjdf").setTextColor(getActivity().getResources().getColor(R.color.white))
+                                    .show();
+                        }
+                    });
+                    Tooltip tooltip2 = new Tooltip.Builder(img_statusnode1)
+                            .setText("Hello tooltip "+"/n"+" Hello tooltip").setTextColor(getActivity().getResources().getColor(R.color.white))
+                            .show();
 
 
 
@@ -553,7 +565,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
                         statusBar12.setVisibility(View.VISIBLE);
-                        statusBar13.setVisibility(View.VISIBLE);
+//                        statusBar13.setVisibility(View.VISIBLE);
                     }else if (orderstatus.contentEquals("Dispatched")) {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
@@ -755,6 +767,7 @@ public class OrderDetailsFragment extends Fragment {
                         }
                     });
 
+//                    String
                     txt_addressname.setText(""+mMovie.getUsername());
                     txt_addressline.setText(""+mMovie.getBline());
                     txt_addresscity.setText(""+mMovie.getBcity());
@@ -770,7 +783,6 @@ public class OrderDetailsFragment extends Fragment {
                     String imgStr = mMovie.getP_Image().toString().replace(" ", "%20");
                     System.out.println("imgString " + imgStr);
                     Picasso.with(getActivity()).load(imgStr).into(img_P_Image);
-
 
                     ll_items.addView(inneritem);
                 }
