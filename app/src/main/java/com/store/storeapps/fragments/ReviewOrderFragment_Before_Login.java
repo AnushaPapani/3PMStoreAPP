@@ -18,11 +18,9 @@ import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
-import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.adapters.ReviewOrderAdapter_Before_Login;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
-import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.models.ReviewOrderModel_Before_Login;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
@@ -47,7 +45,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel_Before_Login> reviewOrderModels;
     private ReviewOrderAdapter_Before_Login reviewOrderAdapter;
-    private Button Checkout;
+    Button Checkout;
     private EditText Promocode;
     private TextView promotext;
     private TextView applypromocode;
@@ -56,8 +54,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     Toast toast;
     public static String total_cartvalue;
     public static TextView Grand_total;
-    private LinearLayout ll_address_layout;
-    private TextView txt_name;
+    private LinearLayout ll_address_layout;private TextView txt_name;
     private TextView txt_address_line;
     private TextView txt_city;
     private TextView txt_address_state;
@@ -81,15 +78,14 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                 review_order_header, null);
 
         ll_fottor = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.
-                footer_revieworder, null);
+                footer_revieworder_beforlogin, null);
         Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         promotext =(TextView)ll_fottor.findViewById(R.id.promotext);
         Checkout = (Button) ll_fottor.findViewById(R.id.proceedtopay);
         Checkout.setText("Checkout");
-        ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
-        ll_address_layout.setVisibility(View.GONE);
+
         Grand_total =(TextView)ll_fottor.findViewById(R.id.grandtotal);
         txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);
         txt_address_line = (TextView) ll_fottor.findViewById(R.id.txt_address_line);

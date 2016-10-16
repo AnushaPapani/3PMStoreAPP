@@ -81,6 +81,7 @@ public class AddAddressFragment extends Fragment {
 
 
     private void initUI() {
+        toast = new Toast(getActivity());
         inputAddName = (EditText) rootView.findViewById(R.id.addressname);
         inputAddMobile = (EditText) rootView.findViewById(R.id.addressmobile);
         inputAddAddress1 = (EditText) rootView.findViewById(R.id.address1);
@@ -95,12 +96,10 @@ public class AddAddressFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //new CreateNewAddress().execute();
-                if (isNotValidFields()) {
-                    isNotValidFields();
-                }else {
-                    CreateNewAddress(inputAddName.getText().toString(),inputAddMobile.getText().toString(),inputAddAddress1.getText().toString(),
-                            inputAddAddress2.getText().toString(),inputAddCity.getText().toString(),inputAddState.getText().toString(),inputAddPincode.getText().toString()
-                            );
+                if (isValidFields()) {
+                    CreateNewAddress(inputAddName.getText().toString(), inputAddMobile.getText().toString(), inputAddAddress1.getText().toString(),
+                            inputAddAddress2.getText().toString(), inputAddCity.getText().toString(), inputAddState.getText().toString(), inputAddPincode.getText().toString()
+                    );
                 }
 
 
@@ -111,7 +110,7 @@ public class AddAddressFragment extends Fragment {
 
     private void CreateNewAddress(String addrname, String addrmobile, String addr1, String addr2, String addrcity, String addrstate, String addrpincode) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new PostRegisterAddressAsyncTask(addrname, addrmobile, addr1, addr2, addrcity,addrstate,addrpincode).execute();
+            new PostRegisterAddressAsyncTask(addrname, addrmobile, addr1, addr2, addrcity, addrstate, addrpincode).execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -135,10 +134,10 @@ public class AddAddressFragment extends Fragment {
             this.addrname = addrname;
             this.addrmobile = addrmobile;
             this.addr1 = addr1;
-            this.addr2 =addr2;
-            this.addrcity=addrcity;
-            this.addrstate=addrstate;
-            this.addrpincode=addrpincode;
+            this.addr2 = addr2;
+            this.addrcity = addrcity;
+            this.addrstate = addrstate;
+            this.addrpincode = addrpincode;
 
 
         }
@@ -157,7 +156,7 @@ public class AddAddressFragment extends Fragment {
                 paramsList.put("User_ID", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
                 paramsList.put("username", addrname);
                 paramsList.put("bmobile", addrmobile);
-                paramsList.put("bline", addr1+addr2);
+                paramsList.put("bline", addr1 + addr2);
                 paramsList.put("bcity", addrcity);
                 paramsList.put("bstate", addrstate);
                 paramsList.put("bpincode", addrpincode);
@@ -190,7 +189,7 @@ public class AddAddressFragment extends Fragment {
         }
     }
 
-    private boolean isNotValidFields() {
+    private boolean isValidFields() {
         boolean isValidate = false;
         if ((inputAddMobile.getText().toString().equals("")) &&
                 (inputAddAddress1.getText().toString().equals(""))
@@ -232,21 +231,8 @@ public class AddAddressFragment extends Fragment {
             toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
         } else if (inputAddPincode.getText().toString().length() < 1) {
-            //						inputAddPincode.setError( "pincode is required!" );
-            //						Toast.makeText(getApplicationContext(),
-            //								"Please enter Pincode", Toast.LENGTH_SHORT).show();
             TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
             t.setText("Please enter Pincode");
-            toast.setView(toastRoot);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.show();
-        } else {
-
-            //						Toast.makeText(getApplicationContext(),
-            //								"Please Fill out the details", Toast.LENGTH_SHORT).show();
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please Fill out the details");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
             toast.setDuration(Toast.LENGTH_LONG);
