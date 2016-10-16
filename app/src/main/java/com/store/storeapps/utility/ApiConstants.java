@@ -37,4 +37,5 @@ public class ApiConstants {
     public static final String INSERT_REVIEWORDER = BASE_URL +"insert_revieworder.php";
     public static final String SEND_OTP =BASE_URL +"otpGenerate.php";
     public static final String CHECK_OTP =BASE_URL +"otpCheck.php";
+    public static final String FORGOT_PASSWORD =BASE_URL +"forgotpassword.php";
 }
