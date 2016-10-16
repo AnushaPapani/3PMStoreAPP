@@ -18,6 +18,7 @@ import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.ReviewOrderFragment;
+import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
@@ -216,13 +217,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
-                        ReviewOrderFragment.Grand_total.setText("0");
+                        ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                         mReviewOrderModels.remove(position);
                         if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
                             HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
                         } else {
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
+                            ReviewOrderFragment.Grand_total.setText("0");
                         }
                         notifyDataSetChanged();
                     }
@@ -273,6 +275,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 paramsList.put("quantity", update_quantity);
                 paramsList.put("cost", update_cartValue);
                 paramsList.put("pid ", update_pid);
+                paramsList.put("cartValue", String.valueOf(HomeActivity.mCartTotal));
                 paramsList.put("CartProdId", update_CartProdId);
                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_QTY, Utility.getParams(paramsList));
             } catch (Exception exception) {
@@ -291,10 +294,12 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
                                 ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
+                            ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
-//                                reviewOrderModel
+                                HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+                                ReviewOrderFragment.Grand_total.setText(String.valueOf(HomeActivity.mCartTotal));
                                 mReviewOrderModels.set(i, reviewOrderModel);
                                 ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
 

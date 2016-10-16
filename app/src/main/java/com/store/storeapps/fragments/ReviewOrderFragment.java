@@ -71,6 +71,7 @@ public class ReviewOrderFragment extends Fragment {
     public TextView txt_choose_another;
     private HomeActivity mParent;
     ReviewOrderModel reviewOrderModel;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,7 +103,7 @@ public class ReviewOrderFragment extends Fragment {
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
         Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
-        promotext =(TextView)ll_fottor.findViewById(R.id.promotext);
+        promotext = (TextView) ll_fottor.findViewById(R.id.promotext);
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
         txt_name = (TextView) ll_fottor.findViewById(R.id.txt_name);
         txt_address_line = (TextView) ll_fottor.findViewById(R.id.txt_address_line);
@@ -111,12 +112,12 @@ public class ReviewOrderFragment extends Fragment {
         txt_pin_code = (TextView) ll_fottor.findViewById(R.id.txt_pin_code);
         txt_mobile = (TextView) ll_fottor.findViewById(R.id.txt_mobile);
         txt_choose_another = (TextView) ll_fottor.findViewById(R.id.txt_choose_another);
-
-        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)) > 0) {
-            ll_address_layout.setVisibility(View.VISIBLE);
-        } else {
-            ll_address_layout.setVisibility(View.GONE);
-        }
+        getAddress();
+//        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)) > 0) {
+//            ll_address_layout.setVisibility(View.VISIBLE);
+//        } else {
+//            ll_address_layout.setVisibility(View.GONE);
+//        }
 
         if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
 
@@ -163,17 +164,17 @@ public class ReviewOrderFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Insert_reviewOrder(txt_name.getText().toString(), txt_address_line.getText().toString(), txt_city.getText().toString(),
-                        txt_address_state.getText().toString(),txt_pin_code.getText().toString(),txt_mobile.getText().toString(),
-                        addressesModels.get(0).getID().toString(),HomeActivity.mCartId.toString(),Grand_total.getText().toString(),
+                        txt_address_state.getText().toString(), txt_pin_code.getText().toString(), txt_mobile.getText().toString(),
+                        addressesModels.get(0).getID().toString(), HomeActivity.mCartId.toString(), Grand_total.getText().toString(),
                         Promocode.getText().toString());
             }
         });
     }
 
     private void Insert_reviewOrder(String name, String addressline, String city, String state, String pincode, String mobile,
-                                    String addressId, String cartId, String Grandtotal, String promocode ) {
+                                    String addressId, String cartId, String Grandtotal, String promocode) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new PostReviewOrderAsyncTask(name, addressline, city, state,pincode,mobile,addressId,cartId,Grandtotal,promocode).execute();
+            new PostReviewOrderAsyncTask(name, addressline, city, state, pincode, mobile, addressId, cartId, Grandtotal, promocode).execute();
 
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
@@ -194,18 +195,18 @@ public class ReviewOrderFragment extends Fragment {
         private String promocode;
 
         public PostReviewOrderAsyncTask(String name, String addressline, String city, String state, String pincode, String mobile,
-                                      String addressId, String cartId, String Grandtotal, String promocode) {
+                                        String addressId, String cartId, String Grandtotal, String promocode) {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
             this.name = name;
             this.addressline = addressline;
             this.city = city;
-            this.state =state;
-            this.pincode =pincode;
-            this.mobile =mobile;
-            this.addressId =addressId;
-            this.cartId =cartId;
-            this.Grandtotal =Grandtotal;
-            this.promocode =promocode;
+            this.state = state;
+            this.pincode = pincode;
+            this.mobile = mobile;
+            this.addressId = addressId;
+            this.cartId = cartId;
+            this.Grandtotal = Grandtotal;
+            this.promocode = promocode;
         }
 
         @Override
@@ -217,28 +218,28 @@ public class ReviewOrderFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = null;
-            String pcost =Integer.toString(reviewOrderModel.getP_Cost());
+            String pcost = Integer.toString(reviewOrderModel.getP_Cost());
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("addressID", addressId);
-                paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(),Constants.USER_ID));
-                paramsList.put("P_Name",reviewOrderModel.getP_Name().toString() );
+                paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                paramsList.put("P_Name", reviewOrderModel.getP_Name().toString());
                 paramsList.put("cartValue", Grandtotal);
                 paramsList.put("fname", name);
                 paramsList.put("cartId", HomeActivity.mCartId);
-                paramsList.put("bline",addressline);
-                paramsList.put("bcity",city);
-                paramsList.put("bstate",state);
-                paramsList.put("bpincode",pincode);
-                paramsList.put("bmobile",mobile);
+                paramsList.put("bline", addressline);
+                paramsList.put("bcity", city);
+                paramsList.put("bstate", state);
+                paramsList.put("bpincode", pincode);
+                paramsList.put("bmobile", mobile);
 
 
-                System.out.println("userid "+Utility.getSharedPrefStringData(getActivity(),Constants.USER_ID));
-                System.out.println("addresid "+addressId);
-                System.out.println("cartid "+cartId);
-                System.out.println("grand "+Grandtotal);
-                System.out.println("name "+name);
-                System.out.println("adres "+addressline);
+                System.out.println("userid " + Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                System.out.println("addresid " + addressId);
+                System.out.println("cartid " + cartId);
+                System.out.println("grand " + Grandtotal);
+                System.out.println("name " + name);
+                System.out.println("adres " + addressline);
 
 
                 result = Utility.httpPostRequestToServer(ApiConstants.INSERT_REVIEWORDER, Utility.getParams(paramsList));
@@ -359,11 +360,29 @@ public class ReviewOrderFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                        t.setText("Coupon Code Applied Successfully");
+                        toast.setView(toastRoot2);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
                         String disount_price = jsonobject.getString("price");
                         Grand_total.setText(disount_price);
                         promotext.setText(jsonobject.getString("status"));
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
+                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                        t.setText("Coupon Code already applied.Please cancel to apply new Coupon Code");
+                        toast.setView(toastRoot2);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
                     } else {
-                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
+                        t.setText("Invalid Promocode");
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -525,7 +544,7 @@ public class ReviewOrderFragment extends Fragment {
                             listView_selected_orders.setAdapter(reviewOrderAdapter);
                             listView_selected_orders.addHeaderView(ll_header);
                             //listView_selected_orders.addFooterView(ll_fottor);
-                            getAddress();
+
                         } else {
                             listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
                             listView_selected_orders.addHeaderView(ll_header);
