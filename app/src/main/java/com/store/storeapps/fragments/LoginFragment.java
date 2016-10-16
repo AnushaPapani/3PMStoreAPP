@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
@@ -44,6 +46,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private Button btn_sign_up;
 
     private String mFrom = "";
+    View toastRoot;
+    View toastRoot2;
+    Toast toast;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,11 +63,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        toastRoot = inflater.inflate(R.layout.toast, null);
+        toastRoot2 = inflater.inflate(R.layout.error_toast, null);
         initUI();
         return rootView;
     }
 
     private void initUI() {
+        toast = new Toast(getActivity());
         txt_password = (TextView) rootView.findViewById(R.id.txt_forgot_password);
         txt_register_link = (TextView) rootView.findViewById(R.id.register_link);
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
@@ -75,6 +83,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, getActivity());
+            }
+        });
+        txt_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.navigateDashBoardFragment(new ForgotPasswordFragment(), ForgotPasswordFragment.TAG, null, getActivity());
             }
         });
     }
@@ -183,7 +197,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
 
                     } else {
-                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                        TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+                        t.setText("Incorrect Credentials");
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(20000);
+                        toast.show();
                     }
                 }
 
@@ -198,13 +217,28 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private boolean isValidFields() {
         boolean isValidate = false;
         if (edt_email.getText().toString().equals("")) {
-            Utility.showOKOnlyDialog(getActivity(), "Please Enter Email Id", Utility.getResourcesString(getActivity(), R.string.app_name));
+            TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+            t.setText("Please enter fields");
+            toast.setView(toastRoot);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+            toast.setDuration(20000);
+            toast.show();
             return isValidate;
         } else if (!edt_email.getText().toString().trim().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z]+)*(\\.[A-Za-z]{2,})$")) {
-            Utility.showOKOnlyDialog(getActivity(), "Please Enter Valid Email Id", Utility.getResourcesString(getActivity(), R.string.app_name));
+            TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+            t.setText("Please enter Valid Email ID");
+            toast.setView(toastRoot);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+            toast.setDuration(20000);
+            toast.show();
             return isValidate;
         } else if (edt_password.getText().toString().equals("")) {
-            Utility.showOKOnlyDialog(getActivity(), "Please Enter Password", Utility.getResourcesString(getActivity(), R.string.app_name));
+            TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+            t.setText("Please enter Password");
+            toast.setView(toastRoot);
+            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+            toast.setDuration(20000);
+            toast.show();
             return isValidate;
         } else {
             return true;

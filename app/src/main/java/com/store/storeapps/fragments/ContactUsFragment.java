@@ -73,6 +73,7 @@ public class ContactUsFragment extends Fragment {
 
 
     private void initUI() {
+        toast = new Toast(getActivity());
         Button Contactus = (Button) rootView.findViewById(R.id.contactus);
         Name = (EditText) rootView.findViewById(R.id.name);
         EmailText = (EditText) rootView.findViewById(R.id.emailET);
@@ -80,20 +81,15 @@ public class ContactUsFragment extends Fragment {
         Message = (EditText) rootView.findViewById(R.id.message);
         alert = (TextView) rootView.findViewById(R.id.alert);
 
-        btnAddAddress.setOnClickListener(new View.OnClickListener() {
-
+        Contactus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //new CreateNewAddress().execute();
                 if (isNotValidFields()) {
-                    isNotValidFields();
-                } else {
                     ContactUS(Name.getText().toString(), EmailText.getText().toString(), Subject.getText().toString(),
                             Message.getText().toString()
                     );
                 }
-
-
             }
 
         });
@@ -218,14 +214,6 @@ public class ContactUsFragment extends Fragment {
             toast.setDuration(20000);
             toast.show();
             return isValidate;
-        } else {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please Fill out the details");
-            toast.setView(toastRoot);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
-            toast.show();
-
         }
 
 

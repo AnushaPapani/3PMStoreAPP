@@ -148,8 +148,6 @@ public class RegistrationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (isValidFields()) {
-                    isValidFields();
-                } else {
                     CreateNewUser(inputName.getText().toString(), inputEmail.getText().toString(), inputPassword.getText().toString()
                     );
                 }
