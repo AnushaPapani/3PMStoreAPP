@@ -138,8 +138,6 @@ public class AddAddressFragment extends Fragment {
             this.addrcity = addrcity;
             this.addrstate = addrstate;
             this.addrpincode = addrpincode;
-
-
         }
 
         @Override

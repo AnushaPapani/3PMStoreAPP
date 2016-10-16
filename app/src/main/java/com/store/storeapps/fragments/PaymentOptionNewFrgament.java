@@ -370,6 +370,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             codText.setVisibility(View.VISIBLE);
         }
         else {
+            confirmorder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new CashSuccess().execute();
+                }
+            });
             sendOTP.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -380,7 +386,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     sendOTP.setVisibility(View.GONE);
                     otpText.setText("OTP is sent to this number (" + bmobile + ")");
 //								otpText.setVisibility(View.GONE);
-                    confirmorder.setVisibility(View.VISIBLE);
+                    confirmOTP.setVisibility(View.VISIBLE);
                     resend.setVisibility(View.VISIBLE);
                     otp.setVisibility(View.VISIBLE);
                     enterotp.setVisibility(View.VISIBLE);
@@ -426,11 +432,11 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     private void calculateTotalFare(String from, int number) {
         int total = Integer.parseInt(amountPayable);
         if (pmcheckbutton.isChecked()) {
-            int remaningAmount = Integer.parseInt(pmcash) - Integer.parseInt(amountPayable);
+//            int remaningAmount = Integer.parseInt(pmcash) - Integer.parseInt(amountPayable);
             if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
                 pmamount.setText("" + Integer.parseInt(amountPayable));
                 amounttotal.setText("0");
-                cashtext.setText("" + remaningAmount);
+                cashtext.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable)));
                 confirmorder.setVisibility(View.VISIBLE);
                 expand1.setEnabled(false);
                 expand2.setEnabled(false);
@@ -447,7 +453,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 codchargesHead.setVisibility(View.GONE);
                 codchargesQuote.setVisibility(View.GONE);
                 codchargesValue.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.GONE);
 
                 expand1.setBackgroundResource(R.drawable.border);
                 expand2.setBackgroundResource(R.drawable.border);
@@ -711,10 +716,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         protected String doInBackground(String... params) {
             String result = null;
             try {
-//                Random r = new Random();
-//                int i1= (100000 + r.nextInt(900000));
-//                String otprandom = Integer.toString(i1);
-
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
@@ -724,7 +725,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("EmailID", email);
                 paramsList.put("otpgenerate","PromoType");
                 paramsList.put("cartId", cartId);
-                result = Utility.httpPostRequestToServer(ApiConstants.CHECK_OTP, Utility.getParams(paramsList));
+                result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
                 exception.printStackTrace();
@@ -742,16 +743,24 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     if (jsonobject != null) {
                         JSONObject jObj = new JSONObject(response);
                         String success = jObj.getString("success");
+                        System.out.println();
                         if(success.equals("1")) {
                             Intent i = new Intent(getActivity(), SuccessActivity.class);
                             i.putExtra("spiner", Quantity);
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
                             i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", "");
+                            i.putExtra("coddisable", coddisable);
                             i.putExtra("otpmob", bmobile);
                             i.putExtra("Amount", amounttotal.getText().toString());
-                            i.putExtra("CodCash", pmamount.getText().toString());
+//                            i.putExtra("CodCash", pmamount.getText().toString());
+                            i.putExtra("CodCash", codcharge);
+                            i.putExtra("Orderid", orderid);
+                            i.putExtra("U_id", U_id);
+                            i.putExtra("name",fname);
+                            i.putExtra("EmailID",email);
+                            i.putExtra("cartId", cartId);
+
                             startActivity(i);
 //                        String message = jObj.getString("message");
                             System.out.println("Details " + success + " message");
@@ -764,7 +773,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("cost", amounttotal.getText().toString());
                             i.putExtra("coddisable", "");
                             i.putExtra("otpmob",bmobile);
-                            //					i.putExtra("BalCash", currentbalance);
                             i.putExtra("Amount",amounttotal.getText().toString() );
                             i.putExtra("CodCash",codcharge);
                             startActivity(i);
@@ -795,23 +803,17 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         protected String doInBackground(String... params) {
             String result = null;
             try {
-                Random r = new Random();
-                int i1= (100000 + r.nextInt(900000));
-                String otprandom = Integer.toString(i1);
-
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
-                paramsList.put("P_Type", "COD");
                 paramsList.put("3pmcashused",cashused );
                 paramsList.put("P_Type", "3PMstore Cash");
-                paramsList.put("otpgenerate",otprandom);
-                paramsList.put("name",fname);
                 paramsList.put("EmailID",email);
-                paramsList.put("cartProdId", CartProductId);
-
-                result = Utility.httpPostRequestToServer(ApiConstants.SEND_OTP, Utility.getParams(paramsList));
-
+                paramsList.put("name",fname);
+                paramsList.put("cartId", cartId);
+                System.out.println("cartId    "+cartId);
+//                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
+                result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -827,20 +829,27 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         JSONObject jObj = new JSONObject(response);
+                        int s= jObj.getInt("success");
+                        System.out.println("sssss "+ s + " message");
                         String success = jObj.getString("success");
-//                        String message = jObj.getString("message");
                         System.out.println("Details "+success+ " message");
                         if(success.equals("1")) {
                             Intent i = new Intent(getActivity(), SuccessActivity.class);
                             i.putExtra("spiner", Quantity);
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
-                            i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", "");
-                            i.putExtra("otpmob", bmobile);
-                            //					i.putExtra("BalCash", currentbalance);
+                            i.putExtra("amounttotal", amounttotal.getText().toString());
+                            i.putExtra("coddisable", coddisable);
+                            i.putExtra("P_Type", "3PMstore Cash");
+                            i.putExtra("bmobile", bmobile);
                             i.putExtra("Amount", amounttotal.getText().toString());
                             i.putExtra("CodCash", codcharge);
+                            i.putExtra("Orderid", orderid);
+                            i.putExtra("U_id", U_id);
+                            i.putExtra("name",fname);
+                            i.putExtra("EmailID",email);
+                            i.putExtra("cartId", cartId);
+
                             startActivity(i);
                         }
                         else
@@ -850,15 +859,13 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("Promo",amountPayable);
                             i.putExtra("Pmprice",pmcash );
                             i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", "");
+                            i.putExtra("coddisable", coddisable);
                             i.putExtra("otpmob",bmobile);
-                            //					i.putExtra("BalCash", currentbalance);
                             i.putExtra("Amount",amounttotal.getText().toString() );
                             i.putExtra("CodCash",codcharge);
+
                             startActivity(i);
-
                         }
-
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

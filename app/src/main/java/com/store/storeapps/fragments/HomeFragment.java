@@ -26,12 +26,13 @@ import java.util.List;
 /**
  * Created by Shankar.
  */
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener  {
+public class HomeFragment extends Fragment {
+//        implements SwipeRefreshLayout.OnRefreshListener  {
     public static final String TAG = "HomeFragment";
     private TabLayout tabLayout;
     private View rootView;
     private ViewPager viewPager;
-    public static SwipeRefreshLayout swipeRefreshLayout;
+//    public static SwipeRefreshLayout swipeRefreshLayout;
     private HomeActivity mParent;
 
 
@@ -54,8 +55,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initUI() {
 
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
+//        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+//        swipeRefreshLayout.setOnRefreshListener(this);
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(0);
@@ -186,15 +187,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
-    @Override
-    public void onRefresh() {
-        mParent.getProductsList();
-        if (swipeRefreshLayout.isRefreshing()) {
-
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
-
-    }
+//    @Override
+//    public void onRefresh() {
+//        mParent.getProductsList();
+//        if (swipeRefreshLayout.isRefreshing()) {
+//
+//            swipeRefreshLayout.setRefreshing(false);
+//        }
+//
+//
+//    }
 
 }

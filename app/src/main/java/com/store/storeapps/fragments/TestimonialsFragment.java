@@ -110,7 +110,7 @@ public class TestimonialsFragment extends Fragment {
             }
             try {
                 // Checking for SUCCESS TAG
-                JSONObject jsonobject = new JSONObject(TAG_SUCCESS);
+                JSONObject jsonobject = new JSONObject("success");
 
                 if (jsonobject != null) {
                     // products found
@@ -169,10 +169,10 @@ public class TestimonialsFragment extends Fragment {
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
-            Log.d("All Testimonials: ", json.toString());
+//            Log.d("All Testimonials: ", json.toString());
             try {
                 // Checking for SUCCESS TAG
-                int success = json.getInt(TAG_SUCCESS);
+//                int success = json.getInt(TAG_SUCCESS);
                 if (json.optString("success").equalsIgnoreCase("1")) {
                     // products found
                     // Getting Array of Products
