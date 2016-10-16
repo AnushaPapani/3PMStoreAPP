@@ -79,6 +79,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
     public static int mCartValue = 0;
+    public static int mCartTotal = 0;
     public boolean isLogged = false;
     /*Timer*/
     TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
@@ -444,13 +445,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_icon:
                 if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
-//                    if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID))) {
-//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
-//                    } else {
-//                        Bundle bundle = new Bundle();
-//                        bundle.putString("from", "cart");
-//                        Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, HomeActivity.this);
-//                    }
                 } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 } else {
