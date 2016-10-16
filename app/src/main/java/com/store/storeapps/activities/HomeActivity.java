@@ -510,7 +510,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             ItemDetails product_itemDetails_getters_setters = new ItemDetails();
 
                             product_itemDetails_getters_setters.setEnabled(jsonResponse_tag.optBoolean("IsEnabled"));
-                            product_itemDetails_getters_setters.setProduct_Type(jsonResponse_tag.optString("Product_Type"));
+                            product_itemDetails_getters_setters.setCategory(jsonResponse_tag.optString("Category"));
+                            product_itemDetails_getters_setters.setCategory_Icon(jsonResponse_tag.optString("Category_Icon"));
                             product_itemDetails_getters_setters.setP_Cost(jsonResponse_tag.optInt("P_Cost"));
                             product_itemDetails_getters_setters.setP_Date(jsonResponse_tag.optString("P_Date"));
                             product_itemDetails_getters_setters.setP_Description(jsonResponse_tag.optString("P_Description"));

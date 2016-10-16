@@ -2,6 +2,7 @@ package com.store.storeapps.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -127,13 +128,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_one.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0).equalsIgnoreCase("Quantity") && i != 0) {
                         txt_buy.setText("Buy For " + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
                         txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
+                    txt_buy.setEnabled(false);
                     txt_buy.setText("Out Of Stock");
                 }
             }
@@ -163,13 +165,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_two.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1).equalsIgnoreCase("Quantity") && i != 0) {
                         txt_buy.setText("Buy For " + Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
                         txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
+                    txt_buy.setEnabled(false);
                     txt_buy.setText("Out Of Stock");
                 }
             }
@@ -199,13 +202,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_three.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2).equalsIgnoreCase("Quantity") && i != 0) {
                         txt_buy.setText("Buy For " + Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
                         txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
+                    txt_buy.setEnabled(false);
                     txt_buy.setText("Out Of Stock");
                 }
             }
@@ -236,13 +240,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_four.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+                if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3).equalsIgnoreCase("Quantity") && i != 0) {
                         txt_buy.setText("Buy For " + Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
                         txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
+                    txt_buy.setEnabled(false);
                     txt_buy.setText("Out Of Stock");
                 }
             }
@@ -264,9 +269,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
             text_name.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             txt_name_bottom.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
-            if (!Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
+            if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                 txt_buy.setText("BUY for " + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
             } else {
+                txt_buy.setEnabled(false);
                 txt_buy.setText("Out Of Stock");
             }
             text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
@@ -412,8 +418,11 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     }
 
     private void buyProduct() {
-        if (txt_buy.getText().toString().equalsIgnoreCase("Out Of Stock")) {
-            Utility.showToastMessage(getActivity(), "Out Of Stock..! Try after sometime");
+        if (txt_buy.getText().toString().equalsIgnoreCase("Out Of Stock") || HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0")) {
+            txt_buy.setEnabled(false);
+            txt_buy.setText("Out of Stock!!");
+            txt_buy.setBackgroundColor(Color.parseColor("#FF0000"));
+            Utility.showToastMessage(getActivity(), "Sorry! Out Of Stock..!");
         } else {
             if (isValidFields()) {
                 postSelectedItem();
