@@ -216,13 +216,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
-                        ReviewOrderFragment.Grand_total.setText("0");
+                        ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                         mReviewOrderModels.remove(position);
                         if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
                             HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
                         } else {
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
+                            ReviewOrderFragment.Grand_total.setText("0");
                         }
                         notifyDataSetChanged();
                     }
@@ -291,6 +292,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
                                 ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
+                            ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
