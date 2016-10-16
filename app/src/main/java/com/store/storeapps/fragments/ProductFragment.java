@@ -559,7 +559,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
                 paramsList.put("P_ID", HomeActivity.mProductItemsList.get(mPosition).getP_id());
-                paramsList.put("cartValue ", "" + HomeActivity.mCartValue);
+                //paramsList.put("cartValue ", "" + HomeActivity.mCartValue);
+                paramsList.put("cartValue", "" + HomeActivity.mCartTotal);
                 paramsList.put("P_Name", HomeActivity.mProductItemsList.get(mPosition).getP_Name());
                 paramsList.put("P_Cost", "" + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                 paramsList.put("P_Qty", getSelectedSpinner("Quantity"));
@@ -586,6 +587,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     JSONObject jsonobject = new JSONObject(response);
                     HomeActivity.mCartId = jsonobject.optString("cartId");
                     HomeActivity.mCartValue = jsonobject.optInt("cartCount");
+                    HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                     HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
                     Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
                 }

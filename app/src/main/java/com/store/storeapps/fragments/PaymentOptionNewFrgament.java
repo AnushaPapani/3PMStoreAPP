@@ -27,10 +27,12 @@ import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.store.storeapps.R;
 import com.store.storeapps.activities.FailureActivity;
+import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.StatusActivity;
 import com.store.storeapps.activities.SuccessActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONException;
@@ -52,7 +54,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     public static final String TAG = "PaymentOptionNewFrgament";
     private View rootView;
     private LayoutInflater mInflater;
-//    public static String orderID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType,PQuantity;
+    private HomeActivity mParent;
     CheckBox pmcheckbutton;
     TextView codchargesHead, codchargesValue, codchargesQuote, amounttotal, cashtext, pmamount, price;
     private RelativeLayout expand1, expand2, expand3, expand4, expand5,
@@ -65,8 +67,29 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
     String P_Cost, Quantity;
-    String ProductId, P_Name, codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash;
+    String ProductId, P_Name, codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
     private boolean fromCOD;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+        if (getArguments() != null) {
+            orderid = getArguments().getString("ID");
+            pmcash = getArguments().getString("pm_Cash");
+            amountPayable = getArguments().getString("amountpayable");
+            codcharge = getArguments().getString("ADMIN_COD");
+            coddisable = getArguments().getString("coddisable");
+            fname = getArguments().getString("name");
+            email = getArguments().getString("email");
+            U_id = getArguments().getString("U_ID");
+            bpincode = getArguments().getString("pincode");
+            bmobile = getArguments().getString("bmobile");
+
+            email = Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID);
+            cartId = HomeActivity.mCartId.toString();
+            System.out.println("amountPayable  val" +amountPayable);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -171,66 +194,45 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Payment Transaction is successful ", Toast.LENGTH_LONG).show();
                     }
-
                     @Override
-                    public void onTransactionFailure(String inErrorMessage,
-                                                     Bundle inResponse) {
+                    public void onTransactionFailure(String inErrorMessage,Bundle inResponse) {
                         Log.d("LOG", "Payment Transaction Failed " + inErrorMessage);
                         Toast.makeText(getActivity(), "Payment Transaction Failed ", Toast.LENGTH_LONG).show();
                     }
-
                     @Override
                     public void networkNotAvailable() {
                     }
-
                     @Override
                     public void clientAuthenticationFailed(String inErrorMessage) {
-
                     }
-
                     @Override
-                    public void onErrorLoadingWebPage(int iniErrorCode,
-                                                      String inErrorMessage, String inFailingUrl) {
-
+                    public void onErrorLoadingWebPage(int iniErrorCode,String inErrorMessage, String inFailingUrl) {
                     }
-
                     @Override
                     public void onBackPressedCancelTransaction() {
-                        // TODO Auto-generated method stub
-//                        Intent i=new Intent(PaytmActivity.this,PaymentOption.class);
-//                        i.putExtra("spiner", spinner_item);
-//                        i.putExtra("Promo",amountPayable);
-//                        i.putExtra("Pmprice",pmcash );
-//                        i.putExtra("cost", Intentcost);
-//                        i.putExtra("coddisable", coddisable);
-//                        i.putExtra("otpmob",otpmob);
-//                        //		i.putExtra("BalCash", currentbalance);
-//                        i.putExtra("Amount",amount );
-//                        i.putExtra("CodCash",globalVariable.getAdminCod().toString());
-//                        startActivity(i);
-//                        finish();
                     }
 
                 });
     }
 
     private void initUI() {
-        cartId = "CT152632";
-        U_id = "193";
-        email = "papanianu@gmail.com";
-        P_Cost = "599";
-        amountPayable = "999";
-        ProductId = "PM010247";
-        P_Name = "Ghost Busters Keychain";
-        codcharge = "75";
-        Quantity = "3";
-        fname = "Anusha Papani";
-        bline = "hyd";
-        bstate = "hyd";
-        bpincode = "hyd";
-        bmobile = "7416393994";
-        orderid = "3PMPM100200400";
-        pmcash = "900";
+//        cartId = "CT152632";
+//        U_id = "193";
+//        email = "papanianu@gmail.com";
+            P_Cost = "599";
+//        amountPayable = "999";
+            ProductId = "PM010247";
+            P_Name = "Ghost Busters Keychain";
+//        codcharge = "75";
+            Quantity = "3";
+//        fname = "Anusha Papani";
+            bline = "hyd";
+            bstate = "hyd";
+//        bpincode = "hyd";
+//        bmobile = "7416393994";
+//        orderid = "3PMPM100200400";
+//        pmcash = "900";
+//        coddisable = "0";
 
 
         expand1 = (RelativeLayout) rootView.findViewById(R.id.expand1);
@@ -280,17 +282,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         SpannableString content = new SpannableString(newString);
         content.setSpan(new UnderlineSpan(), 0, newString.length(), 0);
         resend.setText(content);
-//        if(coddisable.equals("1"))
-//        {
-//
-//            otp =(EditText)v.findViewById(R.id.editText1);
-//            otp.setVisibility(View.GONE);
-//            enterotp.setVisibility(View.GONE);
-//            buton.setVisibility(View.GONE);
-//            buton2.setVisibility(View.GONE);
-//            resend.setVisibility(View.GONE);
-//            codText.setVisibility(View.VISIBLE);
-//        }
 
         otpText.setText("Click here to get OTP on ("+bmobile+")");
 
@@ -310,7 +301,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (fromCOD) {
-                    calculateTotalFare("COD", 75);
+                    calculateTotalFare("COD", Integer.parseInt(codcharge));
                 } else {
                     calculateTotalFare("Default", 0);
                 }
@@ -368,66 +359,69 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
             }
         });
-        sendOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        if(coddisable.equals("1"))
+        {
+            otp.setVisibility(View.GONE);
+            enterotp.setVisibility(View.GONE);
+            sendOTP.setVisibility(View.GONE);
+			otpText.setVisibility(View.GONE);
+            confirmOTP.setVisibility(View.GONE);
+            resend.setVisibility(View.GONE);
+            codText.setVisibility(View.VISIBLE);
+        }
+        else {
+            sendOTP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                cashused = pmamount.getText().toString();
-                new otp().execute();
+                    cashused = pmamount.getText().toString();
+                    new otpSend().execute();
 
-                sendOTP.setVisibility(View.GONE);
-                otpText.setText("OTP is sent to this number ("+bmobile+")");
+                    sendOTP.setVisibility(View.GONE);
+                    otpText.setText("OTP is sent to this number (" + bmobile + ")");
 //								otpText.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.VISIBLE);
-                resend.setVisibility(View.VISIBLE);
-                otp.setVisibility(View.VISIBLE);
-                enterotp.setVisibility(View.VISIBLE);
+                    confirmorder.setVisibility(View.VISIBLE);
+                    resend.setVisibility(View.VISIBLE);
+                    otp.setVisibility(View.VISIBLE);
+                    enterotp.setVisibility(View.VISIBLE);
+                }
+            });
+            resend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new otpSend().execute();
+                    sendOTP.setVisibility(View.GONE);
+                    otpText.setText("OTP is sent to this number (" + bmobile + ")");
+                    confirmOTP.setVisibility(View.VISIBLE);
+                    resend.setVisibility(View.VISIBLE);
+                    otp.setVisibility(View.VISIBLE);
+                    enterotp.setVisibility(View.VISIBLE);
+                }
+            });
 
-            }
-        });
-        resend.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new otp().execute();
-                sendOTP.setVisibility(View.GONE);
-                otpText.setText("OTP is sent to this number ("+bmobile+")");
-                confirmOTP.setVisibility(View.VISIBLE);
-                resend.setVisibility(View.VISIBLE);
-                otp.setVisibility(View.VISIBLE);
-                enterotp.setVisibility(View.VISIBLE);
-            }
-        });
-
-        confirmOTP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                String userotp =otp.getText().toString();
-                System.out.println("USER OTP"+userotp);
+            confirmOTP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    String userotp = otp.getText().toString();
+                    System.out.println("USER OTP" + userotp);
 //                systemotp = globalVariable.getOtpgenerate();
 //                System.out.println("SYSTEM OTP"+systemotp);
-                if(userotp.equals(otprandom))
-                {
-//                    globalVariable.setPaytype("COD");
-
-                    new CodSuccess().execute();
-                }
-                else
-                {
+                    if (userotp.equals(otprandom)) {
+                        new CodSuccess().execute();
+                    } else {
                     /*TextView t =(TextView)toastRoot2.findViewById(R.id.errortoast);
                     t.setText("Incorrect OTP");
                     toast.setView(toastRoot2);
                     toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
                     toast.setDuration(20000);
                     toast.show();*/
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-
-
 
     private void calculateTotalFare(String from, int number) {
         int total = Integer.parseInt(amountPayable);
@@ -525,7 +519,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 break;
         }
     }
-
     private void visablityHanlde(View child, int position) {
         fromCOD = false;
         if (child.getVisibility() == View.VISIBLE) {
@@ -638,22 +631,22 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 expand3.setBackgroundResource(R.drawable.border);
                 expand4.setBackgroundResource(R.drawable.border);
                 expand5.setBackgroundResource(R.drawable.paymentparentbackground);
-                calculateTotalFare("COD", 75);
+                calculateTotalFare("COD", Integer.parseInt(codcharge));
             }
         }
     }
-    class otp extends AsyncTask<String, String, String> {
-        private CustomProgressDialog mCustomProgressDialog;
+    class otpSend extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog2;
 
-        public otp() {
-            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+        public otpSend() {
+            mCustomProgressDialog2 = new CustomProgressDialog(getActivity());
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+            mCustomProgressDialog2.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
         }
         @Override
         protected String doInBackground(String... params) {
@@ -670,7 +663,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("3pmcashused",cashused );
                 paramsList.put("name", fname);
                 paramsList.put("otpgenerate",otprandom);
-                paramsList.put("cartProdId", CartProductId);
+                paramsList.put("cartId", cartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.SEND_OTP, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
@@ -685,15 +678,16 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             super.onPostExecute(response);
             try {
                 if (response != null) {
+                    System.out.println("OTP responce "+ response);
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         JSONObject jObj = new JSONObject(response);
-                        String success = jObj.getString("success");
+                        String success = jObj.getString("Success");
 //                        String message = jObj.getString("message");
-                        System.out.println("Details "+success+ " message");
+                        System.out.println("OTP send  "+success+ "  message");
                     }
                 }
-                mCustomProgressDialog.dismissProgress();
+                mCustomProgressDialog2.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -729,7 +723,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("name", fname);
                 paramsList.put("EmailID", email);
                 paramsList.put("otpgenerate","PromoType");
-                paramsList.put("cartProdId", CartProductId);
+                paramsList.put("cartId", cartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.CHECK_OTP, Utility.getParams(paramsList));
 
             }catch (Exception exception) {

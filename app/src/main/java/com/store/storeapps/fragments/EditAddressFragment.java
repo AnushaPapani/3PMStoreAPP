@@ -175,8 +175,7 @@ public class EditAddressFragment extends Fragment {
 
     private boolean isValidFields() {
         boolean isValidate = false;
-        if ((inputAddName.getText().toString().equals(""))
-                && (inputAddMobile.getText().toString().equals("")) &&
+        if ( (inputAddMobile.getText().toString().equals("")) &&
                 (inputAddAddress1.getText().toString().equals(""))
                 && (inputAddCity.getText().toString().equals("")) &&
                 (inputAddState.getText().toString().equals("")) &&
@@ -188,14 +187,7 @@ public class EditAddressFragment extends Fragment {
             toast.setDuration(20000);
             toast.show();
             return isValidate;
-        } else if (inputAddName.getText().toString().length() < 1) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please enter name");
-            toast.setView(toastRoot);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
-            toast.show();
-            return isValidate;
+
         } else if (inputAddMobile.getText().toString().length() < 1) {
             TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
             t.setText("Please enter Mobile");
