@@ -18,6 +18,7 @@ import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.ReviewOrderFragment;
+import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
@@ -273,6 +274,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 paramsList.put("quantity", update_quantity);
                 paramsList.put("cost", update_cartValue);
                 paramsList.put("pid ", update_pid);
+                paramsList.put("cartValue", String.valueOf(HomeActivity.mCartTotal));
                 paramsList.put("CartProdId", update_CartProdId);
                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_QTY, Utility.getParams(paramsList));
             } catch (Exception exception) {
@@ -294,7 +296,8 @@ public class ReviewOrderAdapter extends BaseAdapter {
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
-//                                reviewOrderModel
+                                HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+                                ReviewOrderFragment.Grand_total.setText(String.valueOf(HomeActivity.mCartTotal));
                                 mReviewOrderModels.set(i, reviewOrderModel);
                                 ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
 
