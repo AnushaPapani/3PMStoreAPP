@@ -297,7 +297,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
-        ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+        final ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
 
 
@@ -308,8 +308,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        if(isLogged) {
+                        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_NAME))) {
                             navigateSideMenuClickAfterLogin(position);
+                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
+
+                            }
                         }
                         else {
                             navigateSideMenuClickBeforeLogin(position);
@@ -419,7 +422,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
             txt_user_name.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
             txt_email.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
+            cashs.setText(R.string.rs + Utility.getSharedPrefStringData(this, Constants.PMCASH));
+
         } else {
+            cashs.setText(""+R.string.rs);
             txt_user_name.setText("Welcome");
         }
 
