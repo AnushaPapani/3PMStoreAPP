@@ -76,6 +76,12 @@ public class MyAddressFragment extends Fragment {
         list = (ListView) rootView.findViewById(R.id.list);
         addnew = (TextView) rootView.findViewById(R.id.addanother);
         new GetAddress(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)).execute();
+        addnew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
+            }
+        });
     }
 
     class GetAddress extends AsyncTask<String, String, String> {
