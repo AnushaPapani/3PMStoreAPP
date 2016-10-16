@@ -264,7 +264,8 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
                 paramsList.put("cartId", update_cartId);
                 paramsList.put("quantity", update_quantity);
                 paramsList.put("cost", update_cartValue);
-                paramsList.put("pid ", update_pid);
+                paramsList.put("pid", update_pid);
+                paramsList.put("cartValue", String.valueOf(HomeActivity.mCartTotal));
                 paramsList.put("CartProdId", update_CartProdId);
                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_QTY, Utility.getParams(paramsList));
             } catch (Exception exception) {
@@ -285,6 +286,8 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
                             if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel_Before_Login reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
+                                HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+                                ReviewOrderFragment_Before_Login.Grand_total.setText(String.valueOf(HomeActivity.mCartTotal));
                                 mReviewOrderModels.set(i, reviewOrderModel);
                                 ReviewOrderFragment_Before_Login.reviewOrderModels.set(i, reviewOrderModel);
                             }
