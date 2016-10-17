@@ -31,6 +31,7 @@
 
         <activity android:name="com.store.storeapps.activities.Previous_ProductsActivity"></activity>
         <!--<activity android:name="com.store.storeapps.activities.PaymentActivity"></activity>-->
+        <activity android:name="com.store.storeapps.activities.SuccessActivity"></activity>
         <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
         <activity android:name="com.store.storeapps.activities.SuccessActivity"></activity>
         <activity android:name="com.store.storeapps.activities.ReturnFormNew"></activity>
@@ -41,6 +42,15 @@
             android:logo="@drawable/left"
             android:screenOrientation="portrait" >
         </activity>-->
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
             android:configChanges="keyboardHidden|orientation|keyboard"
