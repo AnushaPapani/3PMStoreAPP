@@ -1,11 +1,15 @@
 package com.store.storeapps.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -13,7 +17,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.UnderlineSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -62,6 +69,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -96,6 +105,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     String get_old_email;
     EditText userInput;
     long FBID;
+    private Context mContext;
     Context context;
     Boolean Connectiontimeout = true;
     AlertDialog.Builder alertDialogBuilder;
@@ -113,6 +123,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_MESSAGE = "message";
     RequestParams params = new RequestParams();
+    String signup ="Sign up with 3PMstore";
+    String login ="Login";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +141,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         rootView = inflater.inflate(R.layout.fragment_login, container, false);
         toastRoot = inflater.inflate(R.layout.toast, null);
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
+        this.mContext = context;
         initUI();
         return rootView;
     }
@@ -141,10 +154,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 .permitAll().build();
         AppEventsLogger logger = AppEventsLogger.newLogger(getActivity());
         logger.logEvent("pageview");
+        TextView logiheading =(TextView)rootView.findViewById(R.id.txt_login);
+        SpannableString content2 = new SpannableString(login);
+        content2.setSpan(new UnderlineSpan(), 0, login.length(), 0);
+        logiheading.setText(content2);
 
         toast = new Toast(getActivity());
         txt_password = (TextView) rootView.findViewById(R.id.txt_forgot_password);
         txt_register_link = (TextView) rootView.findViewById(R.id.register_link);
+        SpannableString content = new SpannableString(signup);
+        content.setSpan(new UnderlineSpan(), 0, signup.length(), 0);
+        txt_register_link.setText(content);
+
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
@@ -176,7 +197,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_sign_up:
                 if (isNetworkAvailable(getActivity()) == true) {
                     accessTokenFacebook();
-
+//                    printKeyHash(getActivity());
                 } else {
                     Toast.makeText(getActivity(), "No Network Connection",
                             Toast.LENGTH_SHORT).show();
@@ -185,6 +206,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
 
     public static boolean isNetworkAvailable(Context mContext) {
 
@@ -201,13 +223,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     /*Facebook*/
     public void accessTokenFacebook() {
-
-        mPrefs = this.getActivity().getPreferences(MODE_PRIVATE);
+        mPrefs = getActivity().getPreferences(MODE_PRIVATE);
+//        mPrefs = getActivity().getPreferences(MODE_PRIVATE);
         access_token = mPrefs.getString("access_token", null);
         long expires = mPrefs.getLong("access_expires", 0);
-//        mPrefs = getpre(Context.MODE_PRIVATE);
-//        access_token = mPrefs.getString("access_token", null);
-//        long expires = mPrefs.getLong("access_expires", 0);
         // Log.e("Facebook token", access_token);
 
         if (access_token != null) {
@@ -221,7 +240,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
          * Only call authorize if the access_token has expired.
          */
         if (!facebook.isSessionValid()) {
-
             facebook.authorize(getActivity(), new String[]{"email"}, new Facebook.DialogListener() {
                 public void onComplete(Bundle values) {
                     try {
@@ -311,10 +329,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             get_old_email = userInput.getText().toString();
-//                                            globalVariable.setFbemail(""+get_old_email);
-//                                            //							globalVariable.setFb
-//                                            globalVariable.setFbgender(""+gender);
-//                                            globalVariable.setFbname(""+name);
+
                                             new Fblogin().execute();
                                         }
                                     });
@@ -421,7 +436,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     /*Facebook Login*/
     class Fblogin extends AsyncTask<String, String, String> {
-        String cartid;
+
         ProgressDialog pDialog3;
         /**
          * Before starting background thread Show Progress Dialog *
