@@ -604,6 +604,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_CASH, "");
         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(i);
     }
