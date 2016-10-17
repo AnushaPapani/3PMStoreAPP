@@ -360,7 +360,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 8:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);
@@ -398,7 +400,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 7:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 8:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);

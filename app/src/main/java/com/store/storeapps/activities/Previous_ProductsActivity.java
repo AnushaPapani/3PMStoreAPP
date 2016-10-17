@@ -67,10 +67,8 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     public static HashMap<Integer , ArrayList<Previous_ItemDetails>> mProductItemsList;
     public static ArrayList<Previous_ItemDetails> inProductItemsList;
     private ArrayList<LeftMenuModel> leftMenuList;
-    public static ArrayList<CartItemModel> mCartItemsList;
+   // public static ArrayList<CartItemModel> mCartItemsList;
     public static JSONArray dates;
-    public static String mCartId = "";
-    public static int mCartValue = 0;
     public static JSONObject products;
     public static boolean isLogged = false;
     public static String loggedUserEmail;
@@ -85,7 +83,6 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     }
 
     private void initUI() {
-        mCartItemsList = new ArrayList<>();
      /*DRAWER ICON*/
         txt_home_left_drawer_icon = (TextView) findViewById(R.id.txt_home_left_drawer_icon);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_home_layout);
