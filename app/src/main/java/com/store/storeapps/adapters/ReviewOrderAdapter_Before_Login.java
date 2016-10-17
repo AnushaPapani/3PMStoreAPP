@@ -40,9 +40,11 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
     private Context mContext;
     private LayoutInflater mLayoutInflater;
     private ArrayList<ReviewOrderModel_Before_Login> mReviewOrderModels;
+    private HomeActivity homeActivity;
 
-
-    public ReviewOrderAdapter_Before_Login(Context context, ArrayList<ReviewOrderModel_Before_Login> mReviewOrderModels) {
+    public ReviewOrderAdapter_Before_Login(Context context, ArrayList<ReviewOrderModel_Before_Login> mReviewOrderModels, HomeActivity homeActivity)
+    {
+        this.homeActivity = homeActivity;
         mContext = context;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mReviewOrderModels = mReviewOrderModels;
@@ -111,7 +113,7 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
                 int position = (int) adapterView.getTag();
                 if (reviewOrderModel.getP_Qty() != Integer.parseInt(adapterView.getItemAtPosition(i).toString())) {
                     updateAPI(mReviewOrderModels.get(position).getP_Name(), HomeActivity.mCartId, adapterView.getItemAtPosition(i).toString(),
-                            "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                            String.valueOf(HomeActivity.mCartTotal), mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
                 }
             }
 
@@ -127,7 +129,7 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
             public void onClick(View view) {
                 int position = view.getId();
                 //removeReviewOrderDetails("CT152622", "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
-                removeReviewOrderDetails(HomeActivity.mCartId, "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                removeReviewOrderDetails(HomeActivity.mCartId, String.valueOf(HomeActivity.mCartTotal), mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
             }
         });
 
@@ -216,6 +218,15 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         mReviewOrderModels.remove(position);
+                        ReviewOrderFragment_Before_Login.Grand_total.setText(jsonobject.getString("cartValue"));
+                        HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
+                        if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
+                            HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
+                        } else {
+                            HomeActivity.cart_layout_button_set_text.setText("0");
+                            ReviewOrderFragment_Before_Login.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
+                            ReviewOrderFragment_Before_Login.Grand_total.setText("0");
+                        }
                         notifyDataSetChanged();
                     }
                 }

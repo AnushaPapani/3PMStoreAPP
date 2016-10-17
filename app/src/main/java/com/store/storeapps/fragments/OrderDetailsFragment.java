@@ -31,7 +31,7 @@ import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
-import com.tooltip.Tooltip;
+//import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -271,18 +271,20 @@ public class OrderDetailsFragment extends Fragment {
                     Button btn_callme1 = (Button) inneritem.findViewById(R.id.ordercallme1);
                     Button btn_review1 = (Button) inneritem.findViewById(R.id.orderreview1);
                     Button btn_return1 = (Button) inneritem.findViewById(R.id.orderreturn1);
+//                    final Tooltip tooltip2;
+//                    tooltip2 = new Tooltip.Builder(img_statusnode1)
+//                            .setText("Hello tooltip "+"\n"+" Hello tooltip").setTextColor(getActivity().getResources().getColor(R.color.white))
+//                            .show();
+//                    img_statusnode1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            Tooltip tooltip = new Tooltip.Builder(img_statusnode1)
+//                                    .setText("Hello tooltip"+"\n"+"checking").setTextColor(getActivity().getResources().getColor(R.color.white))
+//                                    .show();
+//                            tooltip2.dismiss();
+//                        }
+//                    });
 
-                    img_statusnode1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Tooltip tooltip = new Tooltip.Builder(img_statusnode1)
-                                    .setText("Hello tooltip"+"/n"+"sjfksjdf").setTextColor(getActivity().getResources().getColor(R.color.white))
-                                    .show();
-                        }
-                    });
-                    Tooltip tooltip2 = new Tooltip.Builder(img_statusnode1)
-                            .setText("Hello tooltip "+"/n"+" Hello tooltip").setTextColor(getActivity().getResources().getColor(R.color.white))
-                            .show();
 
 
 
@@ -560,6 +562,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar12.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
+
                     }else if (orderstatus.contentEquals("Packed & Ready")) {
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));

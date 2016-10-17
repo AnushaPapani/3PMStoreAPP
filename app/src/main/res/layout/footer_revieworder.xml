@@ -118,7 +118,6 @@
             android:layout_width="190dp"
             android:layout_height="25dp"
             android:layout_below="@+id/price_layout"
-            android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/promo_border">
@@ -153,8 +152,9 @@
             android:id="@+id/proceedtopay"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
-            android:layout_below="@+id/relativeLayout4"
+            android:layout_below="@+id/promotext"
             android:layout_gravity="bottom"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/buttonorange"
@@ -215,17 +215,18 @@
                 android:layout_toStartOf="@+id/grandtotal"
                 android:text="@string/rs" />
         </RelativeLayout>
+        <TextView
+            android:text="Coupon Code Applied Succesfully"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/promotext"
+            android:layout_below= "@+id/relativeLayout4"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="#A94442"
+            android:visibility="gone"/>
 
     </RelativeLayout>
-    <TextView
-        android:text="Coupon Code Applied Succesfully"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/promotext"
-        android:layout_below= "@+id/relativeLayout4"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textColor="#A94442"
-        android:visibility="gone"/>
+
 
 </LinearLayout>

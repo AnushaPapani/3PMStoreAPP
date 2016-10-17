@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
+import com.store.storeapps.adapters.NoOrderFoundAdapter;
+import com.store.storeapps.adapters.ReviewOrderAdapter;
 import com.store.storeapps.adapters.ReviewOrderAdapter_Before_Login;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
@@ -39,13 +41,14 @@ import java.util.LinkedHashMap;
 public class ReviewOrderFragment_Before_Login extends Fragment {
     public static final String TAG = "ReviewOrderFragment_Before_Login";
     private View rootView;
-    private ListView listView_selected_orders;
+    public static ListView listView_selected_orders;
     private RelativeLayout ll_header;
     private LinearLayout ll_fottor;
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel_Before_Login> reviewOrderModels;
     private ReviewOrderAdapter_Before_Login reviewOrderAdapter;
     Button Checkout;
+    private HomeActivity mParent;
 
     View toastRoot;
     View toastRoot2;
@@ -59,6 +62,12 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     private TextView txt_pin_code;
     private TextView txt_mobile;
     private TextView txt_choose_another;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -76,7 +85,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                 review_order_header, null);
 
         ll_fottor = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.
-                footer_revieworder_beforlogin, null);
+               footer_revieworder_beforlogin, null);
         Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
 
         Checkout = (Button) ll_fottor.findViewById(R.id.proceedtopay);
@@ -132,7 +141,6 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
                 result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=" + HomeActivity.mCartId);
-                //result = Utility.httpGetRequestToServer(ApiConstants.CHECKOUT_NEW + "?cartId=CT152672");
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -180,10 +188,15 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                             reviewOrderModels.add(reviewOrderModel);
                         }
                         Grand_total.setText(total_cartvalue);
-                        reviewOrderAdapter = new ReviewOrderAdapter_Before_Login(getActivity(), reviewOrderModels);
-                        listView_selected_orders.setAdapter(reviewOrderAdapter);
-                        listView_selected_orders.addHeaderView(ll_header);
-                        listView_selected_orders.addFooterView(ll_fottor);
+                        if (reviewOrderModels.size() > 0) {
+                            reviewOrderAdapter = new ReviewOrderAdapter_Before_Login(getActivity(), reviewOrderModels, mParent);
+                            listView_selected_orders.setAdapter(reviewOrderAdapter);
+                            listView_selected_orders.addHeaderView(ll_header);
+                            listView_selected_orders.addFooterView(ll_fottor);
+                        } else {
+                            listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
+                            listView_selected_orders.addHeaderView(ll_header);
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

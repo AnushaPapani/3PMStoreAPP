@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.utility.Utility;
@@ -26,12 +27,13 @@ import java.util.List;
 /**
  * Created by Shankar.
  */
-public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener  {
+public class HomeFragment extends Fragment {
+//        implements SwipeRefreshLayout.OnRefreshListener  {
     public static final String TAG = "HomeFragment";
     private TabLayout tabLayout;
     private View rootView;
     private ViewPager viewPager;
-    public static SwipeRefreshLayout swipeRefreshLayout;
+//    public static SwipeRefreshLayout swipeRefreshLayout;
     private HomeActivity mParent;
 
 
@@ -54,8 +56,8 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void initUI() {
 
-        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(this);
+//        swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh_layout);
+//        swipeRefreshLayout.setOnRefreshListener(this);
 
         viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
         viewPager.setOffscreenPageLimit(0);
@@ -71,21 +73,24 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         LinearLayout tabOne = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         TextView textview = (TextView) tabOne.findViewById(R.id.txt_image);
         ImageView img_icon = (ImageView) tabOne.findViewById(R.id.img_icon);
-        textview.setText("APPAREL");
-        img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_first_gray));
+        textview.setText(HomeActivity.mProductItemsList.get(0).getCategory().toUpperCase());
+        Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
+        //img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_first_gray));
         tabLayout.getTabAt(0).setCustomView(tabOne);
 
         LinearLayout tabTwo = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         TextView textview_two = (TextView) tabTwo.findViewById(R.id.txt_image);
         ImageView img_icon_two = (ImageView) tabTwo.findViewById(R.id.img_icon);
-        textview_two.setText("FOOTWEAR");
-        img_icon_two.setImageDrawable(getResources().getDrawable(R.drawable.image_second_gray));
+        textview_two.setText(HomeActivity.mProductItemsList.get(1).getCategory().toUpperCase());
+        Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(1).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon_two);
+        //img_icon_two.setImageDrawable(getResources().getDrawable(R.drawable.image_second_gray));
         tabLayout.getTabAt(1).setCustomView(tabTwo);
 
         LinearLayout tabThree = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         TextView textview_three = (TextView) tabThree.findViewById(R.id.txt_image);
         ImageView img_icon_three = (ImageView) tabThree.findViewById(R.id.img_icon);
-        textview_three.setText("STATIONARY");
+        textview_three.setText(HomeActivity.mProductItemsList.get(2).getCategory().toUpperCase());
+        Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon_three);
         img_icon_three.setImageDrawable(getResources().getDrawable(R.drawable.image_third_gray));
         tabLayout.getTabAt(2).setCustomView(tabThree);
 
@@ -99,13 +104,13 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 TextView textview = (TextView) selectedTab.findViewById(R.id.txt_image);
                 ImageView img_icon = (ImageView) selectedTab.findViewById(R.id.img_icon);
                 if (tab.getPosition() == 0) {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_first_white));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                     viewPager.setCurrentItem(0);
                 } else if (tab.getPosition() == 1) {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_second_white));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(1).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                     viewPager.setCurrentItem(1);
                 } else {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_third_white));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                     viewPager.setCurrentItem(2);
                 }
                 textview.setTextColor(getResources().getColor(R.color.white));
@@ -120,11 +125,11 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
                 TextView textview = (TextView) selectedTab.findViewById(R.id.txt_image);
                 ImageView img_icon = (ImageView) selectedTab.findViewById(R.id.img_icon);
                 if (tab.getPosition() == 0) {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_first_gray));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 } else if (tab.getPosition() == 1) {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_second_gray));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(1).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 } else {
-                    img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_third_gray));
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 }
                 textview.setTextColor(getResources().getColor(R.color.txt_unselected_color));
             }
@@ -186,15 +191,15 @@ public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefre
         }
     }
 
-    @Override
-    public void onRefresh() {
-        mParent.getProductsList();
-        if (swipeRefreshLayout.isRefreshing()) {
-
-            swipeRefreshLayout.setRefreshing(false);
-        }
-
-
-    }
+//    @Override
+//    public void onRefresh() {
+//        mParent.getProductsList();
+//        if (swipeRefreshLayout.isRefreshing()) {
+//
+//            swipeRefreshLayout.setRefreshing(false);
+//        }
+//
+//
+//    }
 
 }

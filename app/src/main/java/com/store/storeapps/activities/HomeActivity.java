@@ -39,7 +39,7 @@ import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.fragments.TermsAndComditionsFragment;
-import com.store.storeapps.fragments.TestimonialsFragment;
+//import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -297,7 +297,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
-        ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+        final ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
 
 
@@ -308,9 +308,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
-                        if (isLogged) {
+                        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_NAME))) {
                             navigateSideMenuClickAfterLogin(position);
-                        } else {
+                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
+
+                            }
+                        }
+                        else {
                             navigateSideMenuClickBeforeLogin(position);
                         }
 
@@ -338,7 +342,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -378,7 +382,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-//                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+               // Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -418,7 +422,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
             txt_user_name.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
             txt_email.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
+            cashs.setText(R.string.rs + Utility.getSharedPrefStringData(this, Constants.PMCASH));
+
         } else {
+            cashs.setText(""+R.string.rs);
             txt_user_name.setText("Welcome");
         }
 
@@ -443,7 +450,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
+                if(mCartId == "")
+                {
+                    Utility.showToastMessage(this, "Add at least one item to cart");
+                }
+                else if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
                 } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
@@ -499,7 +510,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             ItemDetails product_itemDetails_getters_setters = new ItemDetails();
 
                             product_itemDetails_getters_setters.setEnabled(jsonResponse_tag.optBoolean("IsEnabled"));
-                            product_itemDetails_getters_setters.setProduct_Type(jsonResponse_tag.optString("Product_Type"));
+                            product_itemDetails_getters_setters.setCategory(jsonResponse_tag.optString("Category"));
+                            product_itemDetails_getters_setters.setCategory_Icon(jsonResponse_tag.optString("Category_Icon"));
                             product_itemDetails_getters_setters.setP_Cost(jsonResponse_tag.optInt("P_Cost"));
                             product_itemDetails_getters_setters.setP_Date(jsonResponse_tag.optString("P_Date"));
                             product_itemDetails_getters_setters.setP_Description(jsonResponse_tag.optString("P_Description"));

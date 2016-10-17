@@ -51,7 +51,7 @@ public class PreviousProductFragment extends Fragment implements View.OnClickLis
 
     public static final String TAG = "PreviousProductFragment";
     private TextView text_desc;
-    private Previous_ProductsActivity mParent;
+//    private Previous_ProductsActivity mParent;
     private View rootView;
     public static String pname;
     public static TextView pname1;
@@ -76,7 +76,7 @@ public class PreviousProductFragment extends Fragment implements View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParent = (Previous_ProductsActivity) getActivity();
+//        mParent = (Previous_ProductsActivity)getActivity();
         if (getArguments() != null) {
             mPosition = getArguments().getInt("prevprodposition");
             Utility.showLog("prevprodposition", "prevprodposition" + mPosition);

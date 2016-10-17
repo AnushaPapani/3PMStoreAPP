@@ -15,7 +15,8 @@ public class ItemDetails implements Serializable {
     private ArrayList<String> attrColors;
 
     private boolean IsEnabled;
-    private String Product_Type;
+    private String Category;
+    private String Category_Icon;
     private int P_Cost;
     private String P_CustomValidate;
     private String P_Date;
@@ -79,12 +80,20 @@ public class ItemDetails implements Serializable {
         IsEnabled = enabled;
     }
 
-    public String getProduct_Type() {
-        return Product_Type;
+    public String getCategory() {
+        return Category;
     }
 
-    public void setProduct_Type(String product_Type) {
-        Product_Type = product_Type;
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public String getCategory_Icon() {
+        return Category_Icon;
+    }
+
+    public void setCategory_Icon(String category_Icon) {
+        Category_Icon = category_Icon;
     }
 
     public int getP_Cost() {

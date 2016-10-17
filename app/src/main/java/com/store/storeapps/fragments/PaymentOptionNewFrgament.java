@@ -750,10 +750,17 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
                             i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", "");
+                            i.putExtra("coddisable", coddisable);
                             i.putExtra("otpmob", bmobile);
                             i.putExtra("Amount", amounttotal.getText().toString());
-                            i.putExtra("CodCash", pmamount.getText().toString());
+//                            i.putExtra("CodCash", pmamount.getText().toString());
+                            i.putExtra("CodCash", codcharge);
+                            i.putExtra("Orderid", orderid);
+                            i.putExtra("U_id", U_id);
+                            i.putExtra("name",fname);
+                            i.putExtra("EmailID",email);
+                            i.putExtra("cartId", cartId);
+
                             startActivity(i);
 //                        String message = jObj.getString("message");
                             System.out.println("Details " + success + " message");
@@ -802,8 +809,10 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("3pmcashused",cashused );
                 paramsList.put("P_Type", "3PMstore Cash");
                 paramsList.put("EmailID",email);
-                paramsList.put("cartProdId", CartProductId);
-
+                paramsList.put("name",fname);
+                paramsList.put("cartId", cartId);
+                System.out.println("cartId    "+cartId);
+//                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
                 exception.printStackTrace();
@@ -820,6 +829,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         JSONObject jObj = new JSONObject(response);
+                        int s= jObj.getInt("success");
+                        System.out.println("sssss "+ s + " message");
                         String success = jObj.getString("success");
                         System.out.println("Details "+success+ " message");
                         if(success.equals("1")) {
@@ -827,11 +838,18 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("spiner", Quantity);
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
-                            i.putExtra("cost", amounttotal.getText().toString());
+                            i.putExtra("amounttotal", amounttotal.getText().toString());
                             i.putExtra("coddisable", coddisable);
-                            i.putExtra("otpmob", bmobile);
+                            i.putExtra("P_Type", "3PMstore Cash");
+                            i.putExtra("bmobile", bmobile);
                             i.putExtra("Amount", amounttotal.getText().toString());
                             i.putExtra("CodCash", codcharge);
+                            i.putExtra("Orderid", orderid);
+                            i.putExtra("U_id", U_id);
+                            i.putExtra("name",fname);
+                            i.putExtra("EmailID",email);
+                            i.putExtra("cartId", cartId);
+
                             startActivity(i);
                         }
                         else
@@ -845,6 +863,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("otpmob",bmobile);
                             i.putExtra("Amount",amounttotal.getText().toString() );
                             i.putExtra("CodCash",codcharge);
+
                             startActivity(i);
                         }
                     }

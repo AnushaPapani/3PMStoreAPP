@@ -113,7 +113,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 int position = (int) adapterView.getTag();
                 if (reviewOrderModel.getP_Qty() != Integer.parseInt(adapterView.getItemAtPosition(i).toString())) {
                     updateAPI(mReviewOrderModels.get(position).getP_Name(), HomeActivity.mCartId, adapterView.getItemAtPosition(i).toString(),
-                            "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                            String.valueOf(HomeActivity.mCartTotal), mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
                 }
             }
 
@@ -129,7 +129,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             public void onClick(View view) {
                 int position = view.getId();
                 //removeReviewOrderDetails("CT152622", "2000", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
-                removeReviewOrderDetails(HomeActivity.mCartId, "", mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
+                removeReviewOrderDetails(HomeActivity.mCartId, String.valueOf(HomeActivity.mCartTotal), mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
             }
         });
 
@@ -218,6 +218,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     if (jsonobject != null) {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
+                        HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
                         mReviewOrderModels.remove(position);
                         if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
                             HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
@@ -275,7 +276,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 paramsList.put("quantity", update_quantity);
                 paramsList.put("cost", update_cartValue);
                 paramsList.put("pid ", update_pid);
-                paramsList.put("cartValue", String.valueOf(HomeActivity.mCartTotal));
+                paramsList.put("cartValue", update_cartValue);
                 paramsList.put("CartProdId", update_CartProdId);
                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_QTY, Utility.getParams(paramsList));
             } catch (Exception exception) {
