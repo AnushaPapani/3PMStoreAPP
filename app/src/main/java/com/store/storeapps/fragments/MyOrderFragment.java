@@ -111,7 +111,8 @@ public class MyOrderFragment extends Fragment {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    if (jsonobject != null) {
+//                    if (jsonobject != null) {
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")){
                         JSONArray jsonArray = jsonobject.getJSONArray("orderIds");
                         JSONObject jsonObject_tbl_order = jsonobject.getJSONObject("tbl_order");
                         ArrayList<String> orderIds = new ArrayList<>();
@@ -186,7 +187,11 @@ public class MyOrderFragment extends Fragment {
                         myOrdersModel.setMovies(mModelArray);
 
                         setDataTotheLayout();
+                    }else if(jsonobject.optString("success").equalsIgnoreCase("0")) {
+                        mCustomProgressDialog.dismissProgress();
+                        Utility.navigateDashBoardFragment(new NoOrdersFragment(), NoOrdersFragment.TAG, null, getActivity());
                     }
+
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
