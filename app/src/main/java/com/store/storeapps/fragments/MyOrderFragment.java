@@ -25,6 +25,7 @@ import com.store.storeapps.models.ModelArray;
 import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -94,7 +95,9 @@ public class MyOrderFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                result = Utility.httpGetRequestToServer(ApiConstants.MY_ORDERS);
+                String url= ApiConstants.MY_ORDERS+="?Userid="+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)+"";
+                System.out.println("USER_ID   "+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                result = Utility.httpGetRequestToServer(url);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -149,12 +152,11 @@ public class MyOrderFragment extends Fragment {
                                 movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
-
-                                movie.setTotalCost(jsonObjectMovie.optString("SubTotal"));
+                                movie.setTotalCost(jsonObjectMovie.optString("Cart_Value"));
                                 movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
                                 movie.setDiscount(jsonObjectMovie.optString("Discount"));
                                 movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
-                                movie.setGrandTotal(jsonObjectMovie.optString("Cart_Value"));
+                                movie.setGrandTotal(jsonObjectMovie.optString("SubTotal"));
 
                                 ArrayList<String> attrTypesArray = new ArrayList<>();
                                 String attribute_type = jsonObjectMovie.optString("Attribute_Type");
