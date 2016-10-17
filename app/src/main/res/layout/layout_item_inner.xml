@@ -156,7 +156,7 @@
                                 android:layout_alignLeft="@+id/textViewSize"
                                 android:layout_alignStart="@+id/textViewSize"
 
-                                android:layout_below="@+id/textViewSize"
+                                android:layout_below="@+id/sizeValue"
                                 android:layout_marginTop="@dimen/_3dp"
                                 android:text="Color" />
 

@@ -171,28 +171,31 @@ public class OrderDetailsFragment extends Fragment {
                                 movie.setBmobile(jsonObjectMovie.optString("bmobile"));
                                 movie.setBpincode(jsonObjectMovie.optString("bpincode"));
 
-                                movie.setTotalCost(jsonObjectMovie.optString("SubTotal"));
+                                movie.setTotalCost(jsonObjectMovie.optString("Cart_Value"));
                                 movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
                                 movie.setDiscount(jsonObjectMovie.optString("Discount"));
                                 movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
-                                movie.setGrandTotal(jsonObjectMovie.optString("Cart_Value"));
+                                movie.setGrandTotal(jsonObjectMovie.optString("SubTotal"));
 
 //                                movie.setAttribute_Type(jsonObjectMovie.optString("Attribute_Type"));
 //                                movie.setAttribute_Value(jsonObjectMovie.optString("Attribute_Value"));
-                                JSONArray attrTypes = jsonObjectMovie.optJSONArray("Attribute_Type");
+
                                 ArrayList<String> attrTypesArray = new ArrayList<>();
-                                if (attrTypes != null) {
-                                    for (int i1 = 0; i1 < attrTypes.length(); i1++) {
-                                        attrTypesArray.add(attrTypes.optString(i1));
+                                String attribute_type = jsonObjectMovie.optString("Attribute_Type");
+                                if (!Utility.isValueNullOrEmpty(attribute_type)) {
+                                    String strArray[] = attribute_type.split(",");
+                                    for (int i1 = 0; i1 < strArray.length; i1++) {
+                                        attrTypesArray.add(strArray[i1]);
                                     }
                                 }
                                 movie.setAttribute_Type(attrTypesArray);
 
-                                JSONArray attrNames = jsonObjectMovie.optJSONArray("Attribute_Value");
                                 ArrayList<String> attrNamesArray = new ArrayList<>();
-                                if (attrNames != null) {
-                                    for (int j1 = 0; j1 < attrNames.length(); j1++) {
-                                        attrNamesArray.add(attrNames.optString(j1));
+                                String attrNames = jsonObjectMovie.optString("Attribute_Value");
+                                if (!Utility.isValueNullOrEmpty(attribute_type)) {
+                                    String strattrNames[] = attrNames.split(",");
+                                    for (int i1 = 0; i1 < strattrNames.length; i1++) {
+                                        attrNamesArray.add(strattrNames[i1]);
                                     }
                                 }
                                 movie.setAttribute_Value(attrNamesArray);
@@ -225,10 +228,6 @@ public class OrderDetailsFragment extends Fragment {
                 View layoutView = mInflater.inflate(R.layout.layout_orderdetails_item, null);
                 TextView textView = (TextView) layoutView.findViewById(R.id.order_id);
                 LinearLayout ll_items = (LinearLayout) layoutView.findViewById(R.id.ll_items);
-
-
-
-
 
 
                 textView.setText("" + modelArray.getOrderId());
@@ -285,10 +284,6 @@ public class OrderDetailsFragment extends Fragment {
 //                        }
 //                    });
 
-
-
-
-
                     final TextView textViewSize= (TextView) inneritem.findViewById(R.id.textViewSize);
                     final TextView sizeQuote= (TextView) inneritem.findViewById(R.id.sizeQuote);
                     final TextView sizeValue= (TextView) inneritem.findViewById(R.id.sizeValue);
@@ -305,15 +300,8 @@ public class OrderDetailsFragment extends Fragment {
                     final TextView genderQuote= (TextView) inneritem.findViewById(R.id.genderQuote);
                     final TextView genderValue= (TextView) inneritem.findViewById(R.id.genderValue);
 
-                    String attributeType = mMovie.getAttribute_Type().toString();
-                    String attributeValue = mMovie.getAttribute_Value().toString();
-
-                    System.out.println("attributeType attributeValue"+attributeType +"  "+attributeValue);
-
-//                    final String psize = m.getSize().toString();
-//                    final String pcolor = m.getColor().toString();
-//                    final String gender = m.getGender().toString();
-//                    final String custom = m.getP_Customattribute().toString();
+                    ArrayList<String> attributeType = mMovie.getAttribute_Type();
+                    ArrayList<String> attributeValue = mMovie.getAttribute_Value();
 
                     textViewSize.setVisibility(View.GONE);
                     sizeQuote.setVisibility(View.GONE);
@@ -330,89 +318,37 @@ public class OrderDetailsFragment extends Fragment {
                     textViewGender.setVisibility(View.GONE);
                     genderQuote.setVisibility(View.GONE);
                     genderValue.setVisibility(View.GONE);
+                    if (attributeType != null && attributeType.size() > 0) {
+                        for (int attrCount = 0; attrCount < attributeType.size(); attrCount++) {
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Size")) {
+                                textViewSize.setVisibility(View.VISIBLE);
+                                sizeQuote.setVisibility(View.VISIBLE);
+                                sizeValue.setVisibility(View.VISIBLE);
+                                sizeValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase(" Color")) {
+                                textViewColor.setVisibility(View.VISIBLE);
+                                colorQuote.setVisibility(View.VISIBLE);
+                                colorValue.setVisibility(View.VISIBLE);
 
-//                    if(!psize.equals(""))
-//                    {
-//                        textViewSize.setVisibility(View.VISIBLE);
-//                        sizeQuote.setVisibility(View.VISIBLE);
-//                        sizeValue.setVisibility(View.VISIBLE);
-//
-//                        sizeValue.setText(psize);
-//
-//                        textViewColor.setVisibility(View.GONE);
-//                        colorQuote.setVisibility(View.GONE);
-//                        colorValue.setVisibility(View.GONE);
-//
-//                        textViewCustom.setVisibility(View.GONE);
-//                        typeQuote.setVisibility(View.GONE);
-//                        typeValue.setVisibility(View.GONE);
-//
-//                        textViewGender.setVisibility(View.GONE);
-//                        genderQuote.setVisibility(View.GONE);
-//                        genderValue.setVisibility(View.GONE);
-//
-//                    }
-//                    if(!pcolor.equals(""))
-//                    {
-//                        textViewSize.setVisibility(View.GONE);
-//                        sizeQuote.setVisibility(View.GONE);
-//                        sizeValue.setVisibility(View.GONE);
-//
-//                        textViewColor.setVisibility(View.VISIBLE);
-//                        colorQuote.setVisibility(View.VISIBLE);
-//                        colorValue.setVisibility(View.VISIBLE);
-//
-//                        colorValue.setText(pcolor);
-//
-//                        textViewCustom.setVisibility(View.GONE);
-//                        typeQuote.setVisibility(View.GONE);
-//                        typeValue.setVisibility(View.GONE);
-//
-//                        textViewGender.setVisibility(View.GONE);
-//                        genderQuote.setVisibility(View.GONE);
-//                        genderValue.setVisibility(View.GONE);
-//                    }
-//                    if(!gender.equals(""))
-//                    {
-//                        textViewSize.setVisibility(View.GONE);
-//                        sizeQuote.setVisibility(View.GONE);
-//                        sizeValue.setVisibility(View.GONE);
-//
-//                        textViewColor.setVisibility(View.GONE);
-//                        colorQuote.setVisibility(View.GONE);
-//                        colorValue.setVisibility(View.GONE);
-//
-//                        textViewCustom.setVisibility(View.VISIBLE);
-//                        typeQuote.setVisibility(View.VISIBLE);
-//                        typeValue.setVisibility(View.VISIBLE);
-//
-//                        typeValue.setText(gender);
-//
-//                        textViewGender.setVisibility(View.GONE);
-//                        genderQuote.setVisibility(View.GONE);
-//                        genderValue.setVisibility(View.GONE);
-//                    }
-//                    if(!custom.equals(""))
-//                    {
-//                        textViewSize.setVisibility(View.GONE);
-//                        sizeQuote.setVisibility(View.GONE);
-//                        sizeValue.setVisibility(View.GONE);
-//
-//                        textViewColor.setVisibility(View.GONE);
-//                        colorQuote.setVisibility(View.GONE);
-//                        colorValue.setVisibility(View.GONE);
-//
-//                        textViewCustom.setVisibility(View.GONE);
-//                        typeQuote.setVisibility(View.GONE);
-//                        typeValue.setVisibility(View.GONE);
-//
-//                        textViewGender.setVisibility(View.VISIBLE);
-//                        genderQuote.setVisibility(View.VISIBLE);
-//                        genderValue.setVisibility(View.VISIBLE);
-//
-//                        genderValue.setText(custom);
-//                    }
+                                colorValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Gender")) {
+                                textViewGender.setVisibility(View.VISIBLE);
+                                genderQuote.setVisibility(View.VISIBLE);
+                                genderValue.setVisibility(View.VISIBLE);
 
+                                genderValue.setText(attributeValue.get(attrCount));
+                            }
+                            if (attributeType.get(attrCount).equalsIgnoreCase("Custom")) {
+                                textViewCustom.setVisibility(View.VISIBLE);
+                                typeQuote.setVisibility(View.VISIBLE);
+                                typeValue.setVisibility(View.VISIBLE);
+
+                                typeValue.setText(attributeValue.get(attrCount));
+                            }
+                        }
+                    }
 
 
 
