@@ -429,10 +429,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
             txt_user_name.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
             txt_email.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
-            cashs.setText(R.string.rs + Utility.getSharedPrefStringData(this, Constants.PMCASH));
+            //cashs.setText(R.string.rs + Utility.getSharedPrefStringData(this, Constants.PMCASH));
 
         } else {
-            cashs.setText(""+R.string.rs);
+            //cashs.setText(""+R.string.rs);
             txt_user_name.setText("Welcome");
         }
 
