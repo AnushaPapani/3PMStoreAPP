@@ -28,12 +28,12 @@ import java.util.List;
  * Created by Shankar.
  */
 public class HomeFragment extends Fragment {
-//        implements SwipeRefreshLayout.OnRefreshListener  {
+    //        implements SwipeRefreshLayout.OnRefreshListener  {
     public static final String TAG = "HomeFragment";
     private TabLayout tabLayout;
     private View rootView;
     private ViewPager viewPager;
-//    public static SwipeRefreshLayout swipeRefreshLayout;
+    //    public static SwipeRefreshLayout swipeRefreshLayout;
     private HomeActivity mParent;
 
 
@@ -125,11 +125,11 @@ public class HomeFragment extends Fragment {
                 TextView textview = (TextView) selectedTab.findViewById(R.id.txt_image);
                 ImageView img_icon = (ImageView) selectedTab.findViewById(R.id.img_icon);
                 if (tab.getPosition() == 0) {
-                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon_grey())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 } else if (tab.getPosition() == 1) {
-                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(1).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(1).getCategory_Icon_grey())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 } else {
-                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
+                    Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon_grey())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 }
                 textview.setTextColor(getResources().getColor(R.color.txt_unselected_color));
             }
