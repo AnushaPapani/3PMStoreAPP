@@ -456,7 +456,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
             case R.id.cart_icon:
-                if(mCartId == "")
+                /*if(mCartId == "")
                 {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
@@ -466,8 +466,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
-                }
-
+                }*/
+                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 break;
 
         }

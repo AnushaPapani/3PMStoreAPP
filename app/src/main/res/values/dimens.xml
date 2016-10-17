@@ -14,6 +14,7 @@
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_9dp">9dp</dimen>
     <dimen name="_10dp">10dp</dimen>
+    <dimen name="_12dp">12dp</dimen>
     <dimen name="_15dp">15dp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_25dp">25dp</dimen>
