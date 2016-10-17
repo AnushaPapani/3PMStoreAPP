@@ -149,6 +149,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
             }
         });
+        setHeader(list_home_left_drawer);
     }
 
     private void navigateSideMenuClickBeforeLogin(int position) {
@@ -166,7 +167,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
-                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
@@ -182,7 +183,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 8:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, Previous_ProductsActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, Previous_ProductsActivity.this);
@@ -206,7 +209,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
-                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                // Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
@@ -220,7 +223,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 7:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, Previous_ProductsActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 8:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, Previous_ProductsActivity.this);
