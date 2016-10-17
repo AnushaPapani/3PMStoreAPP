@@ -7,6 +7,7 @@
     <color name="titlbar">#FF9100</color>
     <color name="divider">#000000</color>
     <color name="clicked">#538291</color>
+    <color name="background">#666666</color>
     <drawable name="white">#ffffff</drawable>
     <drawable name="black">#000000</drawable>
 

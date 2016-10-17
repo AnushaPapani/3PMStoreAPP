@@ -130,9 +130,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("Buy For " + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -167,9 +167,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("Buy For " + Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -204,9 +204,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("Buy For " + Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -242,9 +242,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("Buy For " + Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("Buy For " + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -270,7 +270,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             text_name.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             txt_name_bottom.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
-                txt_buy.setText("BUY for " + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
             } else {
                 txt_buy.setEnabled(false);
                 txt_buy.setText("Out Of Stock");
