@@ -25,15 +25,27 @@
         android:textColor="@color/black"
         android:textSize="@dimen/sp_size_eighteen" />
 
+    <RelativeLayout
+        android:id="@+id/mailbg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/adresbg" >
+
     <EditText
         android:id="@+id/edt_email"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_margin="@dimen/_10dp"
-        android:text=""
-        android:background="@drawable/adresbg"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/black" />
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:textCursorDrawable="@null"
+        android:textColor="@color/black"
+        android:inputType="textEmailAddress" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_password"
@@ -45,15 +57,27 @@
         android:textColor="@color/black"
         android:textSize="@dimen/sp_size_eighteen" />
 
+    <RelativeLayout
+        android:id="@+id/psd"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@+id/pwd"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/adresbg"
+        android:inputType="textWebPassword" >
+
     <EditText
         android:id="@+id/edt_password"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text=""
-        android:layout_margin="@dimen/_10dp"
-        android:background="@drawable/adresbg"
-        android:inputType="textPassword"
-        android:textColor="@color/black" />
+        android:layout_marginLeft="10dp"
+        android:background="@null"
+        android:textCursorDrawable="@null"
+        android:textColor="@color/black"
+        android:inputType="textWebPassword" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/txt_forgot_password"
@@ -96,15 +120,33 @@
             android:layout_width="@dimen/_5dp"
             android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/btn_sign_up"
+
+        <RelativeLayout
+            android:id="@+id/facebook"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/fbbtn"
-            android:text="@string/sign_up"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_size_twenty" />
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="-0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/btn_sign_up"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/fbbtn"
+                android:text="Sign Up"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/f" />
+        </RelativeLayout>
     </LinearLayout>
 
 
