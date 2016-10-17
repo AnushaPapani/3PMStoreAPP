@@ -31,7 +31,7 @@ import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Utility;
-import com.tooltip.Tooltip;
+//import com.tooltip.Tooltip;
 
 import org.json.JSONArray;
 import org.json.JSONException;
