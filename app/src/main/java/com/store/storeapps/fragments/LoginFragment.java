@@ -357,7 +357,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 t.setText("Connection Time out");
                 toast.setView(toastRoot);
                 toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                toast.setDuration(20000);
+                toast.setDuration(Toast.LENGTH_SHORT);
                 toast.show();
 
             }
@@ -577,7 +577,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         t.setText("Login Successfull!");
                         toast.setView(toastRoot2);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
 
                         toast.show();
                         Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
@@ -588,7 +588,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         t.setText("Login Successfull!");
                         toast.setView(toastRoot2);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
 
                         Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
@@ -604,7 +604,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     t.setText("Login Successfull!");
                     toast.setView(toastRoot2);
                     toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                    toast.setDuration(20000);
+                    toast.setDuration(Toast.LENGTH_SHORT);
                     toast.show();
                     Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
                 }
@@ -832,17 +832,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         Utility.setSharedPrefStringData(getActivity(), Constants.USER_FB_ID, userjsonobject.optString("fb_ID"));
                         HomeActivity.txt_email.setText(userjsonobject.optString("email"));
                         HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
+                        HomeActivity.mCartId = jsonobject.optString("cartId");
+                        HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         if (!mFrom.equalsIgnoreCase("cart")) {
                             mParent.onBackPressed();
                         }
 //                        Intent i=new Intent(getActivity(),HomeActivity.class);
 //                        startActivity(i);
-                        if ((Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)))) {
-                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
-                        } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
-                        } else {
-                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                        if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
+                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+                        }
+                        else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)){
+                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+                        }
+                        else {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
                         }
 
 //                        }else if ((!Utility.isValueNullOrEmpty(HomeActivity.mCartId)&&
@@ -863,7 +867,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         t.setText("Incorrect Credentials");
                         toast.setView(toastRoot);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(20000);
+                        toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                     }
                 }
@@ -883,7 +887,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             t.setText("Please enter fields");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (!edt_email.getText().toString().trim().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z]+)*(\\.[A-Za-z]{2,})$")) {
@@ -891,7 +895,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             t.setText("Please enter Valid Email ID");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (edt_password.getText().toString().equals("")) {
@@ -899,7 +903,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             t.setText("Please enter Password");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else {
