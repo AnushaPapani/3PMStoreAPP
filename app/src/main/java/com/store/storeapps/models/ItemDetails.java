@@ -17,6 +17,7 @@ public class ItemDetails implements Serializable {
     private boolean IsEnabled;
     private String Category;
     private String Category_Icon;
+    private String Category_Icon_grey;
     private int P_Cost;
     private String P_CustomValidate;
     private String P_Date;
@@ -198,5 +199,13 @@ public class ItemDetails implements Serializable {
 
     public void setP_Video(String p_Video) {
         P_Video = p_Video;
+    }
+
+    public String getCategory_Icon_grey() {
+        return Category_Icon_grey;
+    }
+
+    public void setCategory_Icon_grey(String category_Icon_grey) {
+        Category_Icon_grey = category_Icon_grey;
     }
 }

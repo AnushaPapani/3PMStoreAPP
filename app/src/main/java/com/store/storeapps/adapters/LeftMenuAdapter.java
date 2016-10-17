@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.store.storeapps.R;
 import com.store.storeapps.models.LeftMenuModel;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import java.util.ArrayList;
@@ -68,6 +69,11 @@ public class LeftMenuAdapter extends BaseAdapter {
         mLeftMenuItemHolder.txt_title.setText(leftMenuModel.getmName());
         if (position == 1) {
             mLeftMenuItemHolder.txt_cash.setVisibility(View.VISIBLE);
+            if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(mContext, Constants.USER_CASH))) {
+                mLeftMenuItemHolder.txt_cash.setText("(" + Utility.getResourcesString(mContext, R.string.rs) + Utility.getSharedPrefStringData(mContext, Constants.USER_CASH) + ")");
+            } else {
+                mLeftMenuItemHolder.txt_cash.setText("(" + Utility.getResourcesString(mContext, R.string.rs) + "0"+ ")");
+            }
         } else {
             mLeftMenuItemHolder.txt_cash.setVisibility(View.GONE);
         }
