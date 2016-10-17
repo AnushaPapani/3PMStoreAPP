@@ -662,14 +662,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    if(jsonobject.optString("success") == "1") {
+                    if(jsonobject.optString("success").equalsIgnoreCase("1")) {
                         HomeActivity.mCartId = jsonobject.optString("cartId");
                         HomeActivity.mCartValue = jsonobject.optInt("cartCount");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
                         Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
                     }
-                    else if(jsonobject.optString("success") == "2")
+                    else if(jsonobject.optString("success").equalsIgnoreCase("2"))
                     {
                         Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
                     }
