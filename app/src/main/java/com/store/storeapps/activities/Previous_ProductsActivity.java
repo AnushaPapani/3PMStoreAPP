@@ -31,7 +31,7 @@ import com.store.storeapps.fragments.Previous_ProductsFragment;
 import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.fragments.TermsAndComditionsFragment;
-import com.store.storeapps.fragments.TestimonialsFragment;
+//import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -169,7 +169,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
-                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
@@ -209,7 +209,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
-                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
