@@ -666,7 +666,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
                 paramsList.put("P_Type", "COD");
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("name", fname);
                 paramsList.put("otpgenerate",otprandom);
                 paramsList.put("cartId", cartId);
@@ -721,7 +721,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
                 paramsList.put("P_Type", "COD");
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("name", fname);
                 paramsList.put("EmailID", email);
                 paramsList.put("otpgenerate","PromoType");
@@ -809,12 +809,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("P_Type", "3PMstore Cash");
                 paramsList.put("EmailID",email);
                 paramsList.put("name",fname);
                 paramsList.put("cartId", cartId);
-                System.out.println("cartId    "+cartId);
+                System.out.println("cartId    "+cartId+"cashused    " +  pmamount.getText().toString());
 //                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
