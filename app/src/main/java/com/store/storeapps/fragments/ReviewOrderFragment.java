@@ -259,13 +259,45 @@ public class ReviewOrderFragment extends Fragment {
                     Log.d("Create Response", jsonobject.toString());
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
 
+                        Bundle b = new Bundle();
+                        String pincode = jsonobject.optString("pincode");
+                        String coddisable = jsonobject.optString("coddisable");
+                        b.putString("pincode",pincode);
+                        b.putString("coddisable",coddisable);
+                        JSONArray tbl_delivery = jsonobject.getJSONArray("tbl_delivery");
+                        for(int i=0; i<tbl_delivery.length(); i++)
+                        {
+                            String TotalCost = tbl_delivery.getJSONObject(i).getString("TotalCost").toString();
+                            String ADMIN_COD = tbl_delivery.getJSONObject(i).getString("ADMIN_COD").toString();
+                            String pm_Cash = tbl_delivery.getJSONObject(i).getString("3pm_Cash").toString();
+                            String bmobile = tbl_delivery.getJSONObject(i).getString("bmobile").toString();
+                            String ID = tbl_delivery.getJSONObject(i).getString("ID").toString();
+                            String U_ID = tbl_delivery.getJSONObject(i).getString("U_ID").toString();
+                            String amountpayable = tbl_delivery.getJSONObject(i).getString("amountpayable").toString();
 
+                            String name = txt_name.getText().toString();
+//                            Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID);
+//                            HomeActivity.mCartId.toString();
+                            b.putString("TotalCost",TotalCost);
+                            b.putString("ADMIN_COD",ADMIN_COD);
+                            b.putString("pm_Cash",pm_Cash);
+                            b.putString("ID",ID);
+                            b.putString("bmobile",bmobile);
+                            b.putString("U_ID",U_ID);
+                            b.putString("amountpayable",amountpayable);
+                            b.putString("name",name);
+                            System.out.println("TotalCost  " + TotalCost);
+
+                            System.out.println("pm_Cash  " + pm_Cash);
+                        }
+                        Utility.navigateDashBoardFragment(new PaymentOptionNewFrgament(), PaymentOptionNewFrgament.TAG,  b, getActivity());
                     }
                     if (jsonobject.optString("success").equalsIgnoreCase("0")) {
 
-                    } else {
-                        Utility.navigateDashBoardFragment(new PaymentOptionNewFrgament(), PaymentOptionNewFrgament.TAG, null, getActivity());
                     }
+//                    else {
+//
+//                    }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {

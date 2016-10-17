@@ -63,7 +63,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             sendOTP, confirmorder, confirmOTP;
     TextView codText,enterotp,otpText,resend;
     EditText otp;
-    String FinalPriceToSend,cashused ,otprandom;
+    String FinalPriceToSend,cashused ,otprandom ,totalCOD;
     String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
     String P_Cost, Quantity;
@@ -219,15 +219,15 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 //        cartId = "CT152632";
 //        U_id = "193";
 //        email = "papanianu@gmail.com";
-            P_Cost = "599";
+        P_Cost = "599";
 //        amountPayable = "999";
-            ProductId = "PM010247";
-            P_Name = "Ghost Busters Keychain";
+        ProductId = "PM010247";
+        P_Name = "Ghost Busters Keychain";
 //        codcharge = "75";
-            Quantity = "3";
+        Quantity = "3";
 //        fname = "Anusha Papani";
-            bline = "hyd";
-            bstate = "hyd";
+        bline = "hyd";
+        bstate = "hyd";
 //        bpincode = "hyd";
 //        bmobile = "7416393994";
 //        orderid = "3PMPM100200400";
@@ -271,11 +271,11 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         childpaysecurely4.setText("Pay Securely");
         sendOTP.setText("Send OTP");
 
-          codText  =(TextView)rootView.findViewById(R.id.codTV);
-          confirmOTP =(Button)rootView.findViewById(R.id.confirmOTP);
-          enterotp = (TextView)rootView.findViewById(R.id.enterOTPtext);
-          otpText  = (TextView)rootView.findViewById(R.id.otpText);
-          resend   = (TextView)rootView.findViewById(R.id.resend);
+        codText  =(TextView)rootView.findViewById(R.id.codTV);
+        confirmOTP =(Button)rootView.findViewById(R.id.confirmOTP);
+        enterotp = (TextView)rootView.findViewById(R.id.enterOTPtext);
+        otpText  = (TextView)rootView.findViewById(R.id.otpText);
+        resend   = (TextView)rootView.findViewById(R.id.resend);
         otp =(EditText)rootView.findViewById(R.id.enterOTP);
 
         String newString = "Resend OTP?";
@@ -364,7 +364,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             otp.setVisibility(View.GONE);
             enterotp.setVisibility(View.GONE);
             sendOTP.setVisibility(View.GONE);
-			otpText.setVisibility(View.GONE);
+            otpText.setVisibility(View.GONE);
             confirmOTP.setVisibility(View.GONE);
             resend.setVisibility(View.GONE);
             codText.setVisibility(View.VISIBLE);
@@ -415,6 +415,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 //                systemotp = globalVariable.getOtpgenerate();
 //                System.out.println("SYSTEM OTP"+systemotp);
                     if (userotp.equals(otprandom)) {
+                        totalCOD =amounttotal.getText().toString();
                         new CodSuccess().execute();
                     } else {
                     /*TextView t =(TextView)toastRoot2.findViewById(R.id.errortoast);
@@ -665,7 +666,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
                 paramsList.put("P_Type", "COD");
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("name", fname);
                 paramsList.put("otpgenerate",otprandom);
                 paramsList.put("cartId", cartId);
@@ -720,11 +721,13 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
                 paramsList.put("P_Type", "COD");
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("name", fname);
                 paramsList.put("EmailID", email);
                 paramsList.put("otpgenerate","PromoType");
                 paramsList.put("cartId", cartId);
+                paramsList.put("totalcod", totalCOD);
+
                 result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
@@ -753,8 +756,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("coddisable", coddisable);
                             i.putExtra("otpmob", bmobile);
                             i.putExtra("Amount", amounttotal.getText().toString());
-//                            i.putExtra("CodCash", pmamount.getText().toString());
-                            i.putExtra("CodCash", codcharge);
+                            i.putExtra("P_Type", "COD");
+                            i.putExtra("CodCash", amounttotal.getText().toString());
                             i.putExtra("Orderid", orderid);
                             i.putExtra("U_id", U_id);
                             i.putExtra("name",fname);
@@ -806,12 +809,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("Orderid", orderid);
                 paramsList.put("U_id", U_id);
-                paramsList.put("3pmcashused",cashused );
+                paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("P_Type", "3PMstore Cash");
                 paramsList.put("EmailID",email);
                 paramsList.put("name",fname);
                 paramsList.put("cartId", cartId);
-                System.out.println("cartId    "+cartId);
+                System.out.println("cartId    "+cartId+"cashused    " +  pmamount.getText().toString());
 //                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
@@ -876,7 +879,4 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     }
 
 
-    }
-
-
-
+}

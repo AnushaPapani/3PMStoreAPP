@@ -141,7 +141,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                     public void run() {
                         mDrawerLayout.closeDrawers();
 
-                        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_NAME))) {
+                        if(isLogged) {
                             navigateSideMenuClickAfterLogin(position);
                         }
                         else {
