@@ -63,6 +63,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             sendOTP, confirmorder, confirmOTP;
     TextView codText,enterotp,otpText,resend;
     EditText otp;
+    TextView CODheading;
     String FinalPriceToSend,cashused ,otprandom ,totalCOD;
     String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
@@ -224,6 +225,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 //        amountPayable = "999";
         ProductId = "PM010247";
         P_Name = "Ghost Busters Keychain";
+
 //        codcharge = "75";
         Quantity = "3";
 //        fname = "Anusha Papani";
@@ -278,7 +280,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         otpText  = (TextView)rootView.findViewById(R.id.otpText);
         resend   = (TextView)rootView.findViewById(R.id.resend);
         otp =(EditText)rootView.findViewById(R.id.enterOTP);
-
+        CODheading =(TextView)rootView.findViewById(R.id.parentData5);
+        CODheading.setText("Cash On Delivery"+"("+"\u20B9"+codcharge+" extra"+")");
         String newString = "Resend OTP?";
         SpannableString content = new SpannableString(newString);
         content.setSpan(new UnderlineSpan(), 0, newString.length(), 0);
@@ -438,7 +441,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
                 pmamount.setText("" + Integer.parseInt(amountPayable));
                 amounttotal.setText("0");
-                cashtext.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable)));
+                cashtext.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
                 confirmorder.setVisibility(View.VISIBLE);
                 expand1.setEnabled(false);
                 expand2.setEnabled(false);
@@ -474,13 +477,13 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     total = total - Integer.parseInt(pmcash) + number;
                     pmamount.setText("" + Integer.parseInt(pmcash));
                     amounttotal.setText("" + total);
-                    cashtext.setText("0");
+                    cashtext.setText("0"+")");
                     codchargesValue.setText("" + number);
                 } else {
                     total = total - Integer.parseInt(pmcash);
                     pmamount.setText("" + Integer.parseInt(pmcash));
                     amounttotal.setText("" + total);
-                    cashtext.setText("0");
+                    cashtext.setText("0"+")");
                 }
             }
         } else {
@@ -493,12 +496,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 
             if (from.equalsIgnoreCase("COD")) {
                 total = total + number;
-                cashtext.setText("" + Integer.parseInt(pmcash));
+                cashtext.setText("" + Integer.parseInt(pmcash)+")");
                 amounttotal.setText("" + total);
                 pmamount.setText("0");
                 codchargesValue.setText("" + number);
             } else {
-                cashtext.setText("" + Integer.parseInt(pmcash));
+                cashtext.setText("" + Integer.parseInt(pmcash)+")");
                 amounttotal.setText("" + total);
                 pmamount.setText("0");
                 codchargesValue.setText("0");
