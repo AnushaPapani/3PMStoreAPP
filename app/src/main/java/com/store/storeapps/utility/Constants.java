@@ -35,4 +35,8 @@ public class Constants {
     public static final String PMCASH = "PMCASH";
     public static final String GCM_REGID = "GCM_REGID";
     public static final String GCM_REGEMAILID = "GCM_REGEMAILID";
+
+    public static final String PR_ID = "PR_ID";
+    public static final String CP_ID = "CP_ID";
+    public static final String GRAND_VALUE = "GRAND_VALUE";
 }

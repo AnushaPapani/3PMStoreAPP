@@ -133,7 +133,7 @@ public class MyOrderFragment extends Fragment {
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setCart_Prod_ID(jsonObjectMovie.optString("Cart_Prod_ID"));
                                 movie.setP_Name(jsonObjectMovie.optString("P_Name"));
-                                movie.setStatus(jsonObjectMovie.optString("Status"));
+                                movie.setStatus(jsonObjectMovie.optString("OrderStatus"));
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setP_Image(jsonObjectMovie.optString("P_Image"));
                                 movie.setCustomerName(jsonObjectMovie.optString("CustomerName"));
@@ -152,11 +152,11 @@ public class MyOrderFragment extends Fragment {
                                 movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
-                                movie.setTotalCost(jsonObjectMovie.optString("Cart_Value"));
+                                movie.setTotalCost(jsonObjectMovie.optString("TotalOrderValue"));
                                 movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
                                 movie.setDiscount(jsonObjectMovie.optString("Discount"));
                                 movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
-                                movie.setGrandTotal(jsonObjectMovie.optString("SubTotal"));
+                                movie.setGrandTotal(jsonObjectMovie.optString("GrandTotal"));
 
                                 ArrayList<String> attrTypesArray = new ArrayList<>();
                                 String attribute_type = jsonObjectMovie.optString("Attribute_Type");
