@@ -123,9 +123,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     JSONParser jsonParser = new JSONParser();
     private static final String TAG_MESSAGE = "message";
     RequestParams params = new RequestParams();
-    String signup ="Sign up with 3PMstore";
-    String login ="Login";
+    String signup = "Sign up with 3PMstore";
+    String login = "Login";
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +155,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 .permitAll().build();
         AppEventsLogger logger = AppEventsLogger.newLogger(getActivity());
         logger.logEvent("pageview");
-        TextView logiheading =(TextView)rootView.findViewById(R.id.txt_login);
+        TextView logiheading = (TextView) rootView.findViewById(R.id.txt_login);
         SpannableString content2 = new SpannableString(login);
         content2.setSpan(new UnderlineSpan(), 0, login.length(), 0);
         logiheading.setText(content2);
@@ -655,8 +656,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             protected void onPostExecute(String msg) {
                 if (!TextUtils.isEmpty(regId)) {
 //                    storeRegIdinSharedPref(getActivity(), regId, emailID);
-                    Utility.setSharedPrefStringData(getActivity(),Constants.GCM_REGID,regId);
-                    Utility.setSharedPrefStringData(getActivity(),Constants.GCM_REGEMAILID,emailID);
+                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGID, regId);
+                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGEMAILID, emailID);
                     //					Toast.makeText(
                     //							applicationContext,
                     //							"Registered with GCM Server successfully.\n\n"
@@ -856,11 +857,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 //                        startActivity(i);
                         if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
                             Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
-                        }
-                        else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)){
+                        } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
+                            HomeActivity.updateNavigationDrawer(mParent);
                             Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
-                        }
-                        else {
+                        } else {
                             Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
                         }
 
