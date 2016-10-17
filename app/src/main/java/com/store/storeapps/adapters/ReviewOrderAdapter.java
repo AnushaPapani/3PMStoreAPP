@@ -93,7 +93,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
         Picasso.with(mContext).load(getFullFilledImage(reviewOrderModel.getP_Image())).placeholder(Utility.getDrawable(mContext, R.drawable.refresh))
                 .into(mReviewOrderItemHolder.img_order);
         mReviewOrderItemHolder.txt_product_name.setText(reviewOrderModel.getP_Name());
-        mReviewOrderItemHolder.txt_price.setText("" + reviewOrderModel.getP_Cost());
+        mReviewOrderItemHolder.txt_price.setText("" + Utility.getResourcesString(mContext, R.string.rs) + reviewOrderModel.getP_Cost());
 
         ArrayList<String> spinnerArray = new ArrayList<>();
         for (int i = 0; i < reviewOrderModel.getMax_Quantity(); i++) {
@@ -104,7 +104,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 spinnerArray);
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
-        mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+        mReviewOrderItemHolder.txt_price_two.setText("" + Utility.getResourcesString(mContext, R.string.rs) + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
 
         mReviewOrderItemHolder.spin_qty.setTag(position);
         mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -294,9 +294,9 @@ public class ReviewOrderAdapter extends BaseAdapter {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
-                                ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
+                            ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
                             ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
-                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
+                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))) {
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
                                 HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
