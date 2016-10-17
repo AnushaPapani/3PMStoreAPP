@@ -74,9 +74,10 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
         if (getArguments() != null) {
-            orderid = getArguments().getString("ID");
+            orderid = getArguments().getString("OrderID");
             pmcash = getArguments().getString("pm_Cash");
-            amountPayable = getArguments().getString("amountpayable");
+
+            amountPayable = getArguments().getString("TotalCost");
             codcharge = getArguments().getString("ADMIN_COD");
             coddisable = getArguments().getString("coddisable");
             fname = getArguments().getString("name");
@@ -814,7 +815,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("EmailID",email);
                 paramsList.put("name",fname);
                 paramsList.put("cartId", cartId);
-                System.out.println("cartId    "+cartId+"cashused    " +  pmamount.getText().toString());
+                //System.out.println("cartId    "+cartId+"cashused    " +  pmamount.getText().toString());
 //                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {

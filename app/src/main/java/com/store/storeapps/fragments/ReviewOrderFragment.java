@@ -68,6 +68,7 @@ public class ReviewOrderFragment extends Fragment {
     public static TextView txt_address_state;
     public static TextView txt_pin_code;
     public static TextView txt_mobile;
+    public static String Orderid = "";
     public TextView txt_choose_another;
     private HomeActivity mParent;
     ReviewOrderModel reviewOrderModel;
@@ -141,11 +142,11 @@ public class ReviewOrderFragment extends Fragment {
                     promotext.setVisibility(View.VISIBLE);
 //                    cart_id =HomeActivity.mCartId.toString();
                     Promocode.setEnabled(false);
-                    promocodeToServer(Promocode.getText().toString(), Grand_total.getText().toString(), HomeActivity.mCartId.toString());
+                    promocodeToServer(Promocode.getText().toString(), String.valueOf(HomeActivity.mCartTotal), HomeActivity.mCartId.toString());
 
                 } else if (applypromocode.getText().equals("Cancel")) {
                     applypromocode.setText("Apply");
-                    cancelpromocode(Grand_total.getText().toString(), HomeActivity.mCartId.toString());
+                    cancelpromocode(HomeActivity.mCartId.toString(),String.valueOf(HomeActivity.mCartTotal),Promocode.getText().toString());
                     Promocode.setText("");
                     promotext.setVisibility(View.GONE);
                     Promocode.setEnabled(true);
@@ -165,7 +166,7 @@ public class ReviewOrderFragment extends Fragment {
             public void onClick(View v) {
                 Insert_reviewOrder(txt_name.getText().toString(), txt_address_line.getText().toString(), txt_city.getText().toString(),
                         txt_address_state.getText().toString(), txt_pin_code.getText().toString(), txt_mobile.getText().toString(),
-                        addressesModels.get(0).getID().toString(), HomeActivity.mCartId.toString(), Grand_total.getText().toString(),
+                        addressesModels.get(0).getID().toString(), HomeActivity.mCartId.toString(), String.valueOf(HomeActivity.mCartTotal),
                         Promocode.getText().toString());
             }
         });
@@ -227,11 +228,14 @@ public class ReviewOrderFragment extends Fragment {
                 paramsList.put("cartValue", Grandtotal);
                 paramsList.put("fname", name);
                 paramsList.put("cartId", HomeActivity.mCartId);
+                paramsList.put("cartValue", String.valueOf(HomeActivity.mCartTotal));
+                paramsList.put("TotalCost", String.valueOf(HomeActivity.mCartTotal));
                 paramsList.put("bline", addressline);
                 paramsList.put("bcity", city);
                 paramsList.put("bstate", state);
                 paramsList.put("bpincode", pincode);
                 paramsList.put("bmobile", mobile);
+                paramsList.put("Orderid",Orderid);
 
 
                 System.out.println("userid " + Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
@@ -272,16 +276,15 @@ public class ReviewOrderFragment extends Fragment {
                             String pm_Cash = tbl_delivery.getJSONObject(i).getString("3pm_Cash").toString();
                             String bmobile = tbl_delivery.getJSONObject(i).getString("bmobile").toString();
                             String ID = tbl_delivery.getJSONObject(i).getString("ID").toString();
+                            Orderid = tbl_delivery.getJSONObject(i).getString("ID").toString();
                             String U_ID = tbl_delivery.getJSONObject(i).getString("U_ID").toString();
                             String amountpayable = tbl_delivery.getJSONObject(i).getString("amountpayable").toString();
 
                             String name = txt_name.getText().toString();
-//                            Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID);
-//                            HomeActivity.mCartId.toString();
                             b.putString("TotalCost",TotalCost);
                             b.putString("ADMIN_COD",ADMIN_COD);
                             b.putString("pm_Cash",pm_Cash);
-                            b.putString("ID",ID);
+                            b.putString("OrderID",ID);
                             b.putString("bmobile",bmobile);
                             b.putString("U_ID",U_ID);
                             b.putString("amountpayable",amountpayable);
@@ -344,7 +347,8 @@ public class ReviewOrderFragment extends Fragment {
                 paramsList.put("cartValue", grandtotal);
                 paramsList.put("cartId", cartid);
                 result = Utility.httpPostRequestToServer(ApiConstants.PROMO_CHECK, Utility.getParams(paramsList));
-                Utility.setSharedPrefStringData(getActivity(), Constants.GRANDTOTAL, grandtotal.toString());
+                //Utility.setSharedPrefStringData(getActivity(), Constants.GRANDTOTAL, grandtotal.toString());
+                HomeActivity.mCartTotal = Integer.parseInt(grandtotal.toString());
 
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -366,8 +370,9 @@ public class ReviewOrderFragment extends Fragment {
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
-                        String disount_price = jsonobject.getString("price");
-                        Grand_total.setText(disount_price);
+                        String discount_price = jsonobject.getString("price");
+                        Grand_total.setText(discount_price);
+                        HomeActivity.mCartTotal = Integer.parseInt(discount_price);
                         promotext.setText(jsonobject.getString("status"));
                     } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
                         TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
@@ -396,9 +401,9 @@ public class ReviewOrderFragment extends Fragment {
 
 
     /*Delete Promocode*/
-    private void cancelpromocode(String cartid, String cartvalue) {
+    private void cancelpromocode(String cartid, String cartvalue,String promoCode) {
         if (Utility.isNetworkAvailable(getActivity())) {
-            new CancelPromocode(cartid, cartvalue).execute();
+            new CancelPromocode(cartid, cartvalue,promoCode).execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -408,13 +413,14 @@ public class ReviewOrderFragment extends Fragment {
         private CustomProgressDialog mCustomProgressDialog;
         private String cartid;
         private String cartvalue;
+        private String promoCode;
 
 
-        public CancelPromocode(String cartid, String cartvalue) {
+        public CancelPromocode(String cartid, String cartvalue, String promoCode) {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
             this.cartid = cartid;
             this.cartvalue = cartvalue;
-
+            this.promoCode = promoCode;
         }
 
         @Override
@@ -431,6 +437,7 @@ public class ReviewOrderFragment extends Fragment {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 paramsList.put("cartValue", cartvalue);
                 paramsList.put("cartId", cartid);
+                paramsList.put("promo", promoCode);
                 result = Utility.httpPostRequestToServer(ApiConstants.DELETE_PROMOCODE, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -446,7 +453,8 @@ public class ReviewOrderFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
-                        Grand_total.setText(Utility.getSharedPrefStringData(getActivity(), Constants.GRANDTOTAL));
+                        Grand_total.setText(jsonobject.optString("cartValue"));
+                        HomeActivity.mCartTotal = Integer.parseInt(jsonobject.optString("cartValue"));
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
