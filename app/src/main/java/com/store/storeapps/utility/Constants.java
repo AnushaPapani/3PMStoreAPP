@@ -17,6 +17,9 @@ public class Constants {
     public static final String APP_PREF = "Store_Pref";
     public static final String CHARACTER_SET_ISO_8859_1 = "iso-8859-1";
     public static final String CHARACTER_SET_UTF_8 = "UTF-8";
+    public static final String FB_NAME = "FB_NAME";
+    public static final String FB_EMAIL = "FB_EMAIL";
+    public static final String FB_GENDER = "FB_GENDER";
     public static final String PREF_KEY_IS_APP_OPENED_FIRST_TIME = "isAppOpenedFirstTime";
     public static final String USER_EMAIL_ID = "USER_EMAIL_ID";
     public static final String USER_NAME = "USER_NAME";
@@ -30,4 +33,6 @@ public class Constants {
     public static final String VERSION_NAME = "VERSION_NAME";
     public static final String GRANDTOTAL = "GRAND_TOTAL";
     public static final String PMCASH = "PMCASH";
+    public static final String GCM_REGID = "GCM_REGID";
+    public static final String GCM_REGEMAILID = "GCM_REGEMAILID";
 }
