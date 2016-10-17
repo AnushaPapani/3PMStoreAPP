@@ -27,7 +27,6 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 
 	private Activity activity;
 	public BaseAdapter adapter;
-    int leftMargin;
 
 	public ListViewAdapter(Activity activity, int resource, List<FriendInfor> objects) {
 		super(activity, resource, objects);
@@ -36,14 +35,11 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 
 	@Override
 	public int getViewTypeCount() {
-		// return the total number of view types. this value should never change
-		// at runtime
 		return 2;
 	}
 
 	@Override
 	public int getItemViewType(int position) {
-		// return a value between 0 and (getViewTypeCount - 1)
 		return position % 2;
 	}
 
@@ -52,7 +48,6 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 		ViewHolder holder = null;
         Drawable image;
 
-		// inflate layout from xml
 		LayoutInflater inflater = (LayoutInflater) activity
 				.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
@@ -85,52 +80,12 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 		String img= getItem(position).getImg();
 		System.out.println("image string 3pm"+img);
 		holder.gender.setImageResource(R.drawable.logo);
-//	     Picasso.with(activity)
-//		.load(img)
-//		.into(holder.gender);
 
-	     Picasso.with(activity).load(img).transform(new CircleTransform()).into(holder.gender);
+		Picasso.with(activity).load(img).transform(new CircleTransform()).into(holder.gender);
 
-
-	//	new DownloadImageTask(holder.gender).execute(getItem(position).getImg());
 		holder.name.setText(getItem(position).getTname());
-//		holder.message.setText(getItem(position).getTestimonialmessage());
 		holder.city.setText(getItem(position).getCity());
 		holder.profession.setText(getItem(position).getProfession());
-
-
-//        final ViewHolder finalHolder = holder;
-//        Target target = new Target() {
-//            @Override
-//            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-//                finalHolder.gender.setImageBitmap(bitmap);
-//                Drawable image = finalHolder.gender.getDrawable();
-//                leftMargin = image.getIntrinsicWidth() + 10;
-//            }
-//
-//            @Override
-//            public void onBitmapFailed(Drawable errorDrawable) {}
-//
-//            @Override
-//            public void onPrepareLoad(Drawable placeHolderDrawable) {}
-//        };
-//
-//        Picasso.with(activity).load(img).into(target);
-
-
-		// Get the icon and its width
-//		Drawable DICON = holder.gender.getDrawable();
-//        int leftMargin = DICON.getIntrinsicWidth() + 10;
-
-
-//		holder.gender.setBackgroundDrawable (DICON) ;
-//		SpannableString SS = new SpannableString (getItem(position).getTestimonialmessage());
-//		//Expose the indent for the first three rows
-//		SS.setSpan(new SpanString(3,leftMargin),0,SS.length(),0);
-//        holder.message.setText ( SS ) ;
-
-
-//		holder.webv.setText(getItem(position).getProfession());
 
 		String text = "<html><body>"
 		+ "<p align=\"justify\">"
@@ -150,7 +105,7 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 		private TextView city;
 		private TextView profession;
 		private WebView webv;
-		
+
 		public ViewHolder(View v) {
 			gender = (ImageView) v.findViewById(R.id.gender_image);
 			name = (TextView) v.findViewById(R.id.name);
@@ -160,37 +115,6 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 			webv = (WebView) v.findViewById(R.id.webview);
 		}
 	}
-	
-//	private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-//		ImageView bmImage;
-//
-//		public DownloadImageTask(ImageView bmImage) {
-//			this.bmImage = bmImage;
-//		}
-//
-//		protected Bitmap doInBackground(String... urls) {
-//			String urldisplay = urls[0];
-//			Bitmap mIcon11 = null,resized = null;
-//			try {
-//				InputStream in = new java.net.URL(urldisplay).openStream();
-//				mIcon11 = BitmapFactory.decodeStream(in);
-//				 resized = Bitmap.createScaledBitmap(mIcon11,(int)(mIcon11.getWidth()*0.4), 
-//						(int)(mIcon11.getHeight()*0.4), true);
-//			} catch (Exception e) {
-//				Log.e("Error", e.getMessage());
-//				e.printStackTrace();
-//			}
-//			
-//			return resized;
-//		}
-//
-//		protected void onPostExecute(Bitmap result) {
-//
-////			adapter.notifyDataSetChanged();
-//			bmImage.setImageBitmap(result);
-//		}
-//
-//	}
 
 	public class CircleTransform implements Transformation {
 	    @Override
@@ -226,5 +150,5 @@ public class ListViewAdapter extends ArrayAdapter<FriendInfor> {
 	        return "circle";
 	    }
 	}
-	
+
 }

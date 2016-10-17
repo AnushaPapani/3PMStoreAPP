@@ -217,24 +217,13 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     }
 
     private void initUI() {
-//        cartId = "CT152632";
-//        U_id = "193";
-//        email = "papanianu@gmail.com";
+
         P_Cost = "599";
-//        amountPayable = "999";
         ProductId = "PM010247";
         P_Name = "Ghost Busters Keychain";
-//        codcharge = "75";
         Quantity = "3";
-//        fname = "Anusha Papani";
         bline = "hyd";
         bstate = "hyd";
-//        bpincode = "hyd";
-//        bmobile = "7416393994";
-//        orderid = "3PMPM100200400";
-//        pmcash = "900";
-//        coddisable = "0";
-
 
         expand1 = (RelativeLayout) rootView.findViewById(R.id.expand1);
         expand2 = (RelativeLayout) rootView.findViewById(R.id.expand2);
@@ -260,7 +249,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         childpaysecurely4 = (Button) rootView.findViewById(R.id.childpaysecurely4);
         sendOTP = (Button) rootView.findViewById(R.id.sendOTP);
         confirmorder = (Button) rootView.findViewById(R.id.confirmorder);
-        //        confirmOTP =(Button) rootView.findViewById(R.id.confirmOTP);
 
         codchargesHead = (TextView) rootView.findViewById(R.id.codchargesHead);
         codchargesQuote = (TextView) rootView.findViewById(R.id.codchargesQuote);
@@ -386,7 +374,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 
                     sendOTP.setVisibility(View.GONE);
                     otpText.setText("OTP is sent to this number (" + bmobile + ")");
-//								otpText.setVisibility(View.GONE);
                     confirmOTP.setVisibility(View.VISIBLE);
                     resend.setVisibility(View.VISIBLE);
                     otp.setVisibility(View.VISIBLE);
@@ -413,18 +400,10 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                     // TODO Auto-generated method stub
                     String userotp = otp.getText().toString();
                     System.out.println("USER OTP" + userotp);
-//                systemotp = globalVariable.getOtpgenerate();
-//                System.out.println("SYSTEM OTP"+systemotp);
                     if (userotp.equals(otprandom)) {
                         totalCOD =amounttotal.getText().toString();
                         new CodSuccess().execute();
                     } else {
-                    /*TextView t =(TextView)toastRoot2.findViewById(R.id.errortoast);
-                    t.setText("Incorrect OTP");
-                    toast.setView(toastRoot2);
-                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
-                    toast.setDuration(20000);
-                    toast.show();*/
                     }
                 }
             });
@@ -434,7 +413,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     private void calculateTotalFare(String from, int number) {
         int total = Integer.parseInt(amountPayable);
         if (pmcheckbutton.isChecked()) {
-//            int remaningAmount = Integer.parseInt(pmcash) - Integer.parseInt(amountPayable);
             if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
                 pmamount.setText("" + Integer.parseInt(amountPayable));
                 amounttotal.setText("0");
@@ -467,7 +445,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 expand3.setEnabled(true);
                 expand4.setEnabled(true);
                 expand5.setEnabled(true);
-//                childexpand5.setVisibility(View.GONE);
                 confirmorder.setVisibility(View.GONE);
 
                 if (from.equalsIgnoreCase("COD")) {
@@ -815,8 +792,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("EmailID",email);
                 paramsList.put("name",fname);
                 paramsList.put("cartId", cartId);
-                //System.out.println("cartId    "+cartId+"cashused    " +  pmamount.getText().toString());
-//                String url=ApiConstants.HURRAY_NOTIFICATION+"?Ordders="+orderid+"&name="+"anusha"+"&EmailID="+email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
                 exception.printStackTrace();

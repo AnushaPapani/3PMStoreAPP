@@ -1,5 +1,6 @@
 package com.store.storeapps.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -40,6 +41,7 @@ import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.fragments.TermsAndComditionsFragment;
 //import com.store.storeapps.fragments.TestimonialsFragment;
+import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -75,12 +77,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static TextView txt_email;
     public ImageView cart_icon;
     public static ArrayList<ItemDetails> mProductItemsList;
-    private ArrayList<LeftMenuModel> leftMenuList;
+    private static ArrayList<LeftMenuModel> leftMenuList;
     public static ArrayList<CartItemModel> mCartItemsList;
     public static String mCartId = "";
     public static int mCartValue = 0;
     public static int mCartTotal = 0;
-    public boolean isLogged = false;
+    public static boolean isLogged = false;
     /*Timer*/
     TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
     private CountDownTimer countDownTimer; // built in android class
@@ -93,6 +95,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private boolean blink; // controls the blinking .. on and off
     int seconds, minutes;
     LayoutInflater inflater;
+    private static ListView list_home_left_drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -297,7 +300,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
-        final ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+        list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
 
 
@@ -342,7 +345,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -358,7 +361,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 8:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);
@@ -382,7 +387,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-               // Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+               Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -396,7 +401,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(Intent.createChooser(share, "Share !"));
                 break;
             case 7:
-                Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
+                Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
+                startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 8:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, HomeActivity.this);
@@ -461,7 +468,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
-
+                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 break;
 
         }
@@ -512,6 +519,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             product_itemDetails_getters_setters.setEnabled(jsonResponse_tag.optBoolean("IsEnabled"));
                             product_itemDetails_getters_setters.setCategory(jsonResponse_tag.optString("Category"));
                             product_itemDetails_getters_setters.setCategory_Icon(jsonResponse_tag.optString("Category_Icon"));
+                            product_itemDetails_getters_setters.setCategory_Icon_grey(jsonResponse_tag.optString("Category_Icon_grey"));
                             product_itemDetails_getters_setters.setP_Cost(jsonResponse_tag.optInt("P_Cost"));
                             product_itemDetails_getters_setters.setP_Date(jsonResponse_tag.optString("P_Date"));
                             product_itemDetails_getters_setters.setP_Description(jsonResponse_tag.optString("P_Description"));
@@ -596,8 +604,28 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
+        Utility.setSharedPrefStringData(this, Constants.USER_CASH, "");
         Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(i);
+    }
+
+    public static void updateNavigationDrawer(Context context){
+        leftMenuList = new ArrayList<>();
+        for (int i = 0; i < Utility.getSideMenuItemsListName(context).length; i++) {
+            LeftMenuModel leftMenuModel = new LeftMenuModel();
+            leftMenuModel.setmName(Utility.getSideMenuItemsListName(context)[i]);
+            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons(context)[i]);
+            leftMenuList.add(leftMenuModel);
+        }
+
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(context, Constants.USER_NAME))) {
+            isLogged = true;
+        } else {
+            isLogged = false;
+        }
+        final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(context, leftMenuList);
+        list_home_left_drawer.setAdapter(leftMenuAdapter);
+
     }
 
 //    @Override

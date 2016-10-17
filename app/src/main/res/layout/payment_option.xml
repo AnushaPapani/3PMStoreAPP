@@ -89,8 +89,16 @@
                         android:layout_alignBottom="@+id/pmstorecash"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="8dp"
-                        android:text=" -0"
+                        android:text=" 0"
                         android:textSize="15dp" />
+                    <TextView
+                        android:id="@+id/minus"
+                        android:layout_alignBaseline="@+id/pmstorecash"
+                        android:layout_alignBottom="@+id/pmstorecash"
+                        android:layout_toLeftOf="@+id/pmstorecashamount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"/>
 
                     <TextView
                         android:id="@+id/amountpaycash"
@@ -144,7 +152,7 @@
                         android:layout_alignLeft="@+id/pmcheck"
                         android:layout_below="@+id/pmcheck"
                         android:layout_marginTop="10dp"
-                        android:text="(Your Current Balance is Rs. "
+                        android:text="(Your Current Balance is  \u20B9 "
                         android:textSize="12dp" />
 
                     <TextView
@@ -232,6 +240,21 @@
                         android:layout_alignRight="@+id/amountpaycash"
                         android:text="0" />
 
+                    <Button
+                        android:id="@+id/confirmorder"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@+id/amountpay"
+                        android:background="@drawable/buttonorange"
+                        android:orientation="horizontal"
+                        android:text="Confirm Order"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/grey"
+                        android:textSize="18dp" />
+
                 </RelativeLayout>
 
                 <TextView
@@ -259,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="Select Payment Options"
+                    android:text="Select Payment Options:"
                     android:textSize="25dp" />
 
                 <View
@@ -299,7 +322,7 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/_10dp"
                             android:gravity="center"
-                            android:text="Credit/Debit/NetBanking"
+                            android:text="Credit/Debit Card/NetBanking"
                             android:textAlignment="center"
                             android:textSize="16dp" />
 
@@ -659,17 +682,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
 
-                <Button
-                    android:id="@+id/confirmorder"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/buttonorange"
-                    android:orientation="horizontal"
-                    android:text="Confirm Order"
-                    android:textColor="@color/grey"
-                    android:textSize="18dp" />
+
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

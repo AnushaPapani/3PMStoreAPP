@@ -72,7 +72,6 @@ public class TestimonialsFragment extends Fragment {
         SpannableString content = new SpannableString(Aboutus);
         content.setSpan(new UnderlineSpan(), 0, Aboutus.length(), 0);
         aboutustext.setText(content);
-        // Hashmap for ListView
         mytestimonialsList = new ArrayList<HashMap<String, String>>();
         listView = (ListView) rootView.findViewById(R.id.list);
         new GetTestimonials().execute();
@@ -85,8 +84,6 @@ public class TestimonialsFragment extends Fragment {
 
     class GetTestimonials extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;
-        private String userid;
-        JSONObject json;
 
         public GetTestimonials() {
             mCustomProgressDialog = new CustomProgressDialog(getActivity());
@@ -108,75 +105,19 @@ public class TestimonialsFragment extends Fragment {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-            try {
-                // Checking for SUCCESS TAG
-                JSONObject jsonobject = new JSONObject("success");
-
-                if (jsonobject != null) {
-                    // products found
-                    // Getting Array of Products
-                    JSONArray testimonials = jsonobject.optJSONArray(TAG_TESTIMONIALS);
-//                    testimonials = json.getJSONArray(TAG_TESTIMONIALS);
-                    // looping through All Products
-                    for (int i = 0; i < testimonials.length(); i++) {
-                        JSONObject c = testimonials.getJSONObject(i);
-                        // Storing each json item in variable
-                        id = c.getString(TAG_ID);
-                        pname = c.getString(TAG_NAME);
-                        city = c.getString(TAG_CITY);
-                        profession = c.getString(TAG_PROFESSION);
-                        testimonial = c.getString(TAG_TESTIMONIAL);
-                        image = c.getString(TAG_IMAGE);
-                        date = c.getString(TAG_DATE);
-
-                        if (profession.equals("")) {
-                            String c1 = profession.concat("");
-                            c2 = c1.concat(city);
-                        } else {
-                            String c1 = profession.concat(", ");
-                            c2 = c1.concat(city);
-                        }
-
-                        //    globalVariable.setTname(pname);
-                        friends = new LinkedList<FriendInfor>();
-//                        friends.add(new FriendInfor(pname, false));
-                        // creating new HashMap
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        // adding each child node to HashMap key => value
-
-                        map.put(TAG_ID, id);
-                        map.put(TAG_NAME, pname);
-                        map.put(TAG_CITY, city);
-                        map.put(TAG_PROFESSION, c2);
-                        map.put(TAG_TESTIMONIAL, testimonial);
-                        map.put(TAG_IMAGE, image);
-                        map.put(TAG_DATE, date);
-
-                        // adding HashList to ArrayList
-                        mytestimonialsList.add(map);
-                    }
-                } else {
-
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
             return result;
-
-//            return result;
         }
 
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
-//            Log.d("All Testimonials: ", json.toString());
             try {
                 // Checking for SUCCESS TAG
-//                int success = json.getInt(TAG_SUCCESS);
-                if (json.optString("success").equalsIgnoreCase("1")) {
+                JSONObject jsonobject = new JSONObject(response);
+                if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                     // products found
                     // Getting Array of Products
-                    JSONArray testimonials = json.getJSONArray(TAG_TESTIMONIALS);
+                    JSONArray testimonials = jsonobject.getJSONArray(TAG_TESTIMONIALS);
                     // looping through All Products
                     for (int i = 0; i < testimonials.length(); i++) {
                         JSONObject c = testimonials.getJSONObject(i);
@@ -197,21 +138,11 @@ public class TestimonialsFragment extends Fragment {
                             String c1 = profession.concat(", ");
                             c2 = c1.concat(city);
                         }
-                        System.out.println("after adapter" + id);
-                        System.out.println("after adapter" + pname);
-                        System.out.println("after adapter" + city);
-                        System.out.println("after adapter" + profession);
-                        System.out.println("after adapter" + testimonial);
-                        System.out.println("after adapter" + image);
-                        System.out.println("after adapter" + date);
-
-
                         testiname.add(pname);
                         testimessage.add(testimonial);
                         testiimage.add(image);
                         testicity.add(city);
                         testiprofession.add(c2);
-//                                  globalVariable.setTname(pname);
                     }
                     friends = new LinkedList<FriendInfor>();
                     if (!firsttime) {
@@ -223,20 +154,6 @@ public class TestimonialsFragment extends Fragment {
                             ));
 
                             String Image = testiimage.get(i);
-//                        			uri = Uri.parse(Image);
-                            Log.d("ORDER IMAGE P", Image);
-                            System.out.println("3pm Image" + Image);
-//                        			Picasso.with(TestimonialsActivity.this)
-//                        			.load(Image);
-//                              		List<String> tmsg = testimessage;
-//                              		List<String> img = testiimage;
-                            System.out.println("after adapter1" + testiname);
-                            System.out.println("after adapter1" + testimessage);
-                            System.out.println("after adapter1" + testiimage);
-                            System.out.println("after adapter1" + testicity);
-                            System.out.println("after adapter1" + testiprofession);
-
-
                             if (profession.equals("")) {
                                 String c1 = profession.concat("");
                                 c2 = c1.concat(city);
@@ -246,28 +163,28 @@ public class TestimonialsFragment extends Fragment {
                                 c2 = c1.concat(city);
                             }
 
-                            setListViewAdapter();
                             firsttime = true;
-                            // creating new HashMap
                             HashMap<String, String> map = new HashMap<String, String>();
-                            // adding each child node to HashMap key => value
-//                                    map.put(TAG_ID, id);
                             map.put(TAG_NAME, pname);
                             map.put(TAG_TESTIMONIAL, testimonial);
                             map.put(TAG_CITY, city);
                             map.put(TAG_PROFESSION, c2);
-//                                    map.put(TAG_TESTIMONIAL, testimonial);
                             map.put(TAG_IMAGE, image);
-//                                    map.put(TAG_DATE, date);
 
                             // adding HashList to ArrayList
                             mytestimonialsList.add(map);
+                        }
+
+                        if(mytestimonialsList.size() > 0)
+                        {
+                            setListViewAdapter();
                         }
                     }
                 } else {
                     Utility.navigateDashBoardFragment(new NoTestimonialsFragment(), NoTestimonialsFragment.TAG, null, getActivity());
 
                 }
+                mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

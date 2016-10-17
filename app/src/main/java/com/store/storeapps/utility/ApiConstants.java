@@ -25,7 +25,7 @@ public class ApiConstants {
     public static final String CAPTURE_USER_APP_VERSION = BASE_URL + "CaptureUserAppVersion.php";
     public static final String INSERT_PREVIOUS_PRODUCTS = BASE_URL + "insertpreviousproducts.php";
     public static final String CONTACT_US = BASE_URL + "contactus.php";
-    public static final String MY_ORDERS = BASE_URL + "my_orders.php";
+    public static String MY_ORDERS = BASE_URL + "my_orders.php";
     public static final String CHECKOUT_ADDRESS = BASE_URL + "checkout_address.php";
     public static final String PROMO_CHECK = BASE_URL + "promocheck.php";
     public static final String DELETE_PROMOCODE = BASE_URL + "delete_promocode.php";
