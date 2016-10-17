@@ -1,6 +1,5 @@
 package com.store.storeapps.fragments;
 
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
