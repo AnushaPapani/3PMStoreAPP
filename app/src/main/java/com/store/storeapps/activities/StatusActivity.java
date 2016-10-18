@@ -109,6 +109,7 @@ public class StatusActivity extends AppCompatActivity {
 			try {
 				if (response != null) {
 					JSONObject jsonobject = new JSONObject(response);
+
 					if (jsonobject != null) {
 						JSONObject jObj = new JSONObject(response);
 						int s = jObj.getInt("success");

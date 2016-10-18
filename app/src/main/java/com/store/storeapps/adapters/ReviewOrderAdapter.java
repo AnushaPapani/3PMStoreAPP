@@ -105,6 +105,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 spinnerArray);
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
+
 //        //String CP_ID = Utility.getSharedPrefStringData(mContext, Constants.CP_ID);
 //       // String PR_ID = Utility.getSharedPrefStringData(mContext, Constants.PR_ID);
 //        String GRAND_VALUE = Utility.getSharedPrefStringData(mContext, Constants.GRAND_VALUE);
