@@ -56,7 +56,6 @@ public class SuccessActivity extends AppCompatActivity {
 		setContentView(R.layout.success);
 
 		mWebView = (WebView) findViewById(R.id.successactivity_main_webview);
-
 		spinner_item =getIntent().getStringExtra("spiner");
 		Intentcost =getIntent().getStringExtra("amounttotal");
 		otpmob= getIntent().getStringExtra("bmobile");

@@ -633,6 +633,7 @@ public class ReviewOrderFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+
         }
 
         @Override
