@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -37,6 +38,7 @@ import com.store.storeapps.models.ModelArray;
 import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -56,34 +58,34 @@ import static com.store.storeapps.R.layout.toast;
  * Created by satyanarayana pdv on 10/4/2016.
  */
 
-public class ReturnFormNew extends Activity {
+public class ReturnFormNew extends AppCompatActivity  {
 
     private LayoutInflater mInflater;
-    String issue,orderid,CartProductId,payment, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch,
-            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id , PaymentType;
+    String issue, orderid, CartProductId, payment, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch,
+            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id, PaymentType, cartProdId, cartId, name, id;
     int posss;
 
-    EditText issueexplainET,email,newproductET,nameET,banknameET,
-            ifsccodeET,accountnoET,reenterAccountnoET,branchET;
-    View relativeBank ,relativeissue,returnTypeRelative;
+    EditText issueexplainET, email, newproductET, nameET, banknameET,
+            ifsccodeET, accountnoET, reenterAccountnoET, branchET;
+    View relativeBank, relativeissue, returnTypeRelative;
     CheckBox confirmCheckBox;
     RadioGroup rg;
     int rgpos;
-    RadioButton storeCash,bankDetails,rgbutton;
-    Button confirm,cancel;
+    RadioButton storeCash, bankDetails, rgbutton;
+    Button confirm, cancel;
 
 
-    String orderpcost,bemail;
+    String orderpcost, bemail;
     JSONParser jsonParser = new JSONParser();
-    Spinner issueSpinner,returnTypespinner,spinnerAccount;
-    ArrayList<String> returnIssue,returnType;
+    Spinner issueSpinner, returnTypespinner, spinnerAccount;
+    ArrayList<String> returnIssue, returnType;
     JSONObject json;
-//    Toast toast;
+    //    Toast toast;
 //    View toastRoot;
 //    View toastRoot2;
     TextView textAboveCheckBox;
     TextView textBelowissueET;
-    String returnorder ="Order Return Request";
+    String returnorder = "Order Return Request";
     String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z0-9]+\\.+[a-zA-Z]+";
 
     @Override
@@ -92,23 +94,27 @@ public class ReturnFormNew extends Activity {
         setContentView(R.layout.returnsform);
 
         orderid = MyOrderFragment.orderID;
-        CartProductId = MyOrderFragment.CartPID;
+        cartProdId = MyOrderFragment.CartPID;
+        cartId = MyOrderFragment.cartID;
         Uname = MyOrderFragment.USername;
         U_id = MyOrderFragment.Uid;
         payment = MyOrderFragment.PaymentType;
-        System.out.println("payment" +payment );
+        name = Utility.getSharedPrefStringData(this, Constants.USER_NAME);
+        id = Utility.getSharedPrefStringData(this, Constants.USER_ID);
+        System.out.println("cartProdId   " + cartProdId);
+        System.out.println("cartId    " + cartId);
 
-        final Context context = getApplicationContext();
+        //final Context context = getApplicationContext();
         // Create layout inflator object to inflate toast.xml file
-        final LayoutInflater inflater = getLayoutInflater();
+        //final LayoutInflater inflater = getLayoutInflater();
         // Call toast.xml file for toast layout
 //            toastRoot = inflater.inflate(R.layout.toast, null);
 //            toastRoot2 =inflater.inflate(R.layout.error_toast, null);
 //            toast = new Toast(context);
-        relativeBank = (RelativeLayout)findViewById(R.id.relativeBank);
-        relativeissue = (RelativeLayout)findViewById(R.id.relative5);
-        returnTypeRelative = (RelativeLayout)findViewById(R.id.relative3);
-        TextView textorder =(TextView)findViewById(R.id.textView1);
+        relativeBank = (RelativeLayout) findViewById(R.id.relativeBank);
+        relativeissue = (RelativeLayout) findViewById(R.id.relative5);
+        returnTypeRelative = (RelativeLayout) findViewById(R.id.relative3);
+        TextView textorder = (TextView) findViewById(R.id.textView1);
         SpannableString content2 = new SpannableString(returnorder);
         content2.setSpan(new UnderlineSpan(), 0, returnorder.length(), 0);
         textorder.setText(content2);
@@ -119,40 +125,40 @@ public class ReturnFormNew extends Activity {
 
         //		confirmCheckBox = (CheckBox)findViewById(R.id.confirmCheckBox);
 
-        issueexplainET =(EditText)findViewById(R.id.issueExplainET);
-        newproductET = (EditText)findViewById(R.id.newProductET);
-        nameET = (EditText)findViewById(R.id.nameET);
+        issueexplainET = (EditText) findViewById(R.id.issueExplainET);
+        newproductET = (EditText) findViewById(R.id.newProductET);
+        nameET = (EditText) findViewById(R.id.nameET);
         //		emailET = (EditText)findViewById(R.id.emailET);
-        banknameET = (EditText)findViewById(R.id.banknameET);
-        ifsccodeET = (EditText)findViewById(R.id.ifsccodeET);
-        accountnoET = (EditText)findViewById(R.id.accountnoET);
-        reenterAccountnoET = (EditText)findViewById(R.id.reenterAccountnoET);
-        branchET = (EditText)findViewById(R.id.branchET);
+        banknameET = (EditText) findViewById(R.id.banknameET);
+        ifsccodeET = (EditText) findViewById(R.id.ifsccodeET);
+        accountnoET = (EditText) findViewById(R.id.accountnoET);
+        reenterAccountnoET = (EditText) findViewById(R.id.reenterAccountnoET);
+        branchET = (EditText) findViewById(R.id.branchET);
 
-        textAboveCheckBox = (TextView)findViewById(R.id.textAboveCheckBox);
+        textAboveCheckBox = (TextView) findViewById(R.id.textAboveCheckBox);
 
 
-        storeCash= (RadioButton)findViewById(R.id.storeCash);
+        storeCash = (RadioButton) findViewById(R.id.storeCash);
 //        Typeface font = Typeface.createFromAsset(getAssets(), "myriadprobold.otf");
 //        storeCash.setTypeface(font);
-        bankDetails= (RadioButton)findViewById(R.id.bankAccount);
+        bankDetails = (RadioButton) findViewById(R.id.bankAccount);
 //        Typeface font2 = Typeface.createFromAsset(getAssets(), "myriadprobold.otf");
 //        bankDetails.setTypeface(font2);
 
         rg = (RadioGroup) findViewById(R.id.radioGroup);
-        confirmCheckBox = (CheckBox)findViewById(R.id.confirmCheckBox);
+        confirmCheckBox = (CheckBox) findViewById(R.id.confirmCheckBox);
 //        Typeface font3 = Typeface.createFromAsset(getAssets(), "myriadprobold.otf");
 //        confirmCheckBox.setTypeface(font3);
 
-        cancel =(Button)findViewById(R.id.cancel);
-        confirm =(Button)findViewById(R.id.confirm);
+        cancel = (Button) findViewById(R.id.cancel);
+        confirm = (Button) findViewById(R.id.confirm);
 
 
-        TextView odrid = (TextView)findViewById(R.id.order);
-        TextView cost =(TextView)findViewById(R.id.total);
-        textBelowissueET = (TextView)findViewById(R.id.textBelowissueET);
+        TextView odrid = (TextView) findViewById(R.id.order);
+        TextView cost = (TextView) findViewById(R.id.total);
+        textBelowissueET = (TextView) findViewById(R.id.textBelowissueET);
 
-        email = (EditText)findViewById(R.id.emailET);
+        email = (EditText) findViewById(R.id.emailET);
 
         new GetStatus().execute();
         new GetReturnType().execute();
@@ -162,11 +168,10 @@ public class ReturnFormNew extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
-                final int issueposition=issueSpinner.getSelectedItemPosition();
-                System.out.println("issueposition"+issueposition);
+                final int issueposition = issueSpinner.getSelectedItemPosition();
+                System.out.println("issueposition" + issueposition);
 
-                if(issueposition==0)
-                {
+                if (issueposition == 0) {
                     relativeissue.setVisibility(View.GONE);
                     returnTypeRelative.setVisibility(View.GONE);
                     rg.setVisibility(View.GONE);
@@ -174,12 +179,11 @@ public class ReturnFormNew extends Activity {
                     cancel.setVisibility(View.GONE);
                     confirm.setVisibility(View.GONE);
                     textBelowissueET.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
                     relativeissue.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
                 // your code here
@@ -191,11 +195,10 @@ public class ReturnFormNew extends Activity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
-                final int returnposition=returnTypespinner.getSelectedItemPosition();
-                System.out.println("returnposition"+returnposition);
+                final int returnposition = returnTypespinner.getSelectedItemPosition();
+                System.out.println("returnposition" + returnposition);
 
-                if(returnposition==0)
-                {
+                if (returnposition == 0) {
                     returnTypeRelative.setVisibility(View.GONE);
                     rg.setVisibility(View.GONE);
                     confirmCheckBox.setVisibility(View.GONE);
@@ -203,9 +206,7 @@ public class ReturnFormNew extends Activity {
                     confirm.setVisibility(View.GONE);
                     relativeBank.setVisibility(View.GONE);
                     textAboveCheckBox.setVisibility(View.GONE);
-                }
-                else if(returnposition==1)
-                {
+                } else if (returnposition == 1) {
                     Log.e("Position 1", "one ");
                     returnTypeRelative.setVisibility(View.VISIBLE);
                     confirmCheckBox.setVisibility(View.VISIBLE);
@@ -213,9 +214,7 @@ public class ReturnFormNew extends Activity {
                     confirm.setVisibility(View.VISIBLE);
                     rg.setVisibility(View.GONE);
                     relativeBank.setVisibility(View.GONE);
-                }
-                else if(returnposition == 2)
-                {
+                } else if (returnposition == 2) {
                     returnTypeRelative.setVisibility(View.GONE);
 
                     storeCash.setVisibility(View.VISIBLE);
@@ -227,6 +226,7 @@ public class ReturnFormNew extends Activity {
                     rg.setVisibility(View.VISIBLE);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
@@ -242,14 +242,13 @@ public class ReturnFormNew extends Activity {
 
             }
         });
-        cancel.setOnClickListener(new View.OnClickListener(){
+        cancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                final int returnposition2=returnTypespinner.getSelectedItemPosition();
-                System.out.println("returnposition"+returnposition2);
+                final int returnposition2 = returnTypespinner.getSelectedItemPosition();
+                System.out.println("returnposition" + returnposition2);
                 textAboveCheckBox.setVisibility(View.GONE);
-                if(returnposition2==1)
-                {
+                if (returnposition2 == 1) {
                     returnTypeRelative.setVisibility(View.GONE);
                     rg.setVisibility(View.GONE);
                     confirmCheckBox.setVisibility(View.GONE);
@@ -258,9 +257,7 @@ public class ReturnFormNew extends Activity {
                     relativeBank.setVisibility(View.GONE);
                     returnTypespinner.setSelection(0);
                     textBelowissueET.setVisibility(View.GONE);
-                }
-                else
-                {
+                } else {
 
                     relativeBank.setVisibility(View.GONE);
                     relativeBank.invalidate();
@@ -278,7 +275,6 @@ public class ReturnFormNew extends Activity {
                 }
 
 
-
             }
         });
 
@@ -291,21 +287,7 @@ public class ReturnFormNew extends Activity {
 //        getMyOrdersData();
     }
 
-//    private void getMyOrdersData() {
-//        if (Utility.isNetworkAvailable(this)) {
-//        runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                new GetReturnType().execute();
-//                new GetStatus().execute();
-//            }
-//        });
 
-
-//        } else {
-//            DialogClass.createDAlertDialog(this, "The Internet connection appears to be offline.");
-//        }
-//    }
 
     class ReturnFormAsyncTask extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;
@@ -324,25 +306,25 @@ public class ReturnFormNew extends Activity {
         protected String doInBackground(String... params) {
             String result = null;
 
-            int selectedId=rg.getCheckedRadioButtonId();
-            rgbutton=(RadioButton)findViewById(selectedId);
+            int selectedId = rg.getCheckedRadioButtonId();
+            rgbutton = (RadioButton) findViewById(selectedId);
             //            Toast.makeText(MainActivity.this,radioSexButton.getText(),Toast.LENGTH_SHORT).show();
-            final String radiodata= rgbutton.getText().toString();
-            System.out.println("orderid radiodata"+radiodata);
+            final String radiodata = rgbutton.getText().toString();
+            System.out.println("orderid radiodata" + radiodata);
 
             StringTokenizer tokens = new StringTokenizer(radiodata, "(");
             final String first = tokens.nextToken();
-            System.out.println("orderid radiodata"+first);
-            final int pos=issueSpinner.getSelectedItemPosition();
+            System.out.println("orderid radiodata" + first);
+            final int pos = issueSpinner.getSelectedItemPosition();
 
             final String issue = issueSpinner.getSelectedItem().toString();
-            final int poss=returnTypespinner.getSelectedItemPosition();
+            final int poss = returnTypespinner.getSelectedItemPosition();
             final String returnType = returnTypespinner.getSelectedItem().toString();
             final String accountType = spinnerAccount.getSelectedItem().toString();
 
-            System.out.println("orderid accountType"+accountType);
-            System.out.println("orderid returnType"+returnType);
-            System.out.println("orderid issueid position"+issue);
+            System.out.println("orderid accountType" + accountType);
+            System.out.println("orderid returnType" + returnType);
+            System.out.println("orderid issueid position" + issue);
             final String issueExplain = issueexplainET.getText().toString();
             final String newProduct = newproductET.getText().toString();
             final String bname = nameET.getText().toString();
@@ -358,25 +340,24 @@ public class ReturnFormNew extends Activity {
 //            final String U_id = globalVariable.getUserid().toString();
 
             //			String orderid = globalVariable.getOrderid();
-            System.out.println("orderid"+orderid);
-            System.out.println("orderid"+U_id);
-            System.out.println("orderid"+Uname);
+            System.out.println("orderid" + orderid);
+            System.out.println("orderid" + U_id);
+            System.out.println("orderid" + Uname);
 
-            System.out.println("orderid"+issueExplain);
-            System.out.println("orderid"+newProduct);
-            System.out.println("orderid"+bname);
-            System.out.println("email"+bemaill);
-            System.out.println("orderid"+branch);
-            System.out.println("orderid"+bankname);
-            System.out.println("orderid"+bifsccode);
-            System.out.println("orderid"+baccount);
-            System.out.println("orderid accountType"+accountType);
-            System.out.println("orderid returnType"+returnType);
-            System.out.println("orderid issueid position"+issue);
-            System.out.println("orderid payment"+payment);
+            System.out.println("orderid" + issueExplain);
+            System.out.println("orderid" + newProduct);
+            System.out.println("orderid" + bname);
+            System.out.println("email" + bemaill);
+            System.out.println("orderid" + branch);
+            System.out.println("orderid" + bankname);
+            System.out.println("orderid" + bifsccode);
+            System.out.println("orderid" + baccount);
+            System.out.println("orderid accountType" + accountType);
+            System.out.println("orderid returnType" + returnType);
+            System.out.println("orderid issueid position" + issue);
+            System.out.println("orderid payment" + payment);
 
-            if(issueExplain.length()<15)
-            {
+            if (issueExplain.length() < 15) {
                 runOnUiThread(new Runnable() {
 
                     @Override
@@ -385,9 +366,9 @@ public class ReturnFormNew extends Activity {
                         storeCash.setChecked(true);
                         bankDetails.setChecked(false);
                         relativeBank.setVisibility(View.GONE);
-                    }});
-            }
-            else if(payment.equals("COD")) {
+                    }
+                });
+            } else if (payment.equals("COD")) {
                 runOnUiThread(new Runnable() {
 
                     @Override
@@ -559,13 +540,11 @@ public class ReturnFormNew extends Activity {
                             });
 
                             LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                            paramsList.put("callmeOrderid", orderid);
-                            paramsList.put("name", Uname);
-                            paramsList.put("id", U_id);
+                            paramsList.put("name", name);
+                            paramsList.put("id", id);
                             paramsList.put("returnissueId", issue);
                             paramsList.put("issueexplain", issueExplain);
-                            paramsList.put("returntype", returnTypeString);
-                            paramsList.put("returnpaytype", first);
+                            paramsList.put("returntype", returnType);
                             paramsList.put("returnpaytype", first);
                             paramsList.put("exchangecomments", newProduct);
                             paramsList.put("email", bemaill);
@@ -574,12 +553,11 @@ public class ReturnFormNew extends Activity {
                             paramsList.put("returncodaccounttype", accountType);
                             paramsList.put("returncodcustname", bname);
                             paramsList.put("returncodbankifsccode", bifsccode);
-                            paramsList.put("returncodbankifsccode", bifsccode);
                             paramsList.put("returncodaccountno", baccount);
                             paramsList.put("returnOrderid", orderid);
                             paramsList.put("StatusType", "Return");
-
-                            paramsList.put("cartProdId", CartProductId);
+                            paramsList.put("cartId", cartId);
+                            paramsList.put("cartProdId", cartProdId);
 
                             result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
 
@@ -597,6 +575,9 @@ public class ReturnFormNew extends Activity {
                                     String message = jsonobject.getString("message");
                                     System.out.println("Retirn Status success" + success);
                                     if (success == 1) {
+
+                                    Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, ReturnFormNew.this);
+
                                         // successfully created user
 //                                    TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                                    t.setText(message);
@@ -617,78 +598,6 @@ public class ReturnFormNew extends Activity {
                                     e.printStackTrace();
                                 }
                             }
-                        }
-                            else {
-                                runOnUiThread(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-                                        textAboveCheckBox.setVisibility(View.VISIBLE);
-                                    }
-                                });
-
-                            }
-
-
-                        } else if (confirmCheckBox.isChecked()) {
-                            runOnUiThread(new Runnable() {
-
-                                @Override
-                                public void run() {
-                                    textAboveCheckBox.setVisibility(View.GONE);
-                                }
-                            });
-                            LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-//                                paramsList.put("name", name);
-//                                paramsList.put("id", uid);
-                            paramsList.put("returnissueId", issue);
-                            paramsList.put("issueexplain", issueExplain);
-                            paramsList.put("returntype", returnTypeString);
-                            paramsList.put("returnpaytype", first);
-                            paramsList.put("exchangecomments", newProduct);
-                            paramsList.put("email", bemaill);
-                            paramsList.put("returncodbankname", bankname);
-                            paramsList.put("branchname", branch);
-                            paramsList.put("returncodaccounttype", accountType);
-                            paramsList.put("returncodcustname", bname);
-                            paramsList.put("returncodbankifsccode", bifsccode);
-                            paramsList.put("returncodaccountno", baccount);
-                            paramsList.put("returnOrderid", orderid);
-                            paramsList.put("StatusType", "Return");
-                            paramsList.put("cartProdId", CartProductId);
-
-                            result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
-                            JSONObject jsonobject = null;
-                            try {
-                                jsonobject = new JSONObject(result);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            Log.d("Create Response", jsonobject.toString());
-                            try {
-                                int success = jsonobject.getInt("success");
-                                String message = jsonobject.getString("message");
-                                System.out.println("Return Status success" + success);
-                                if (success == 1) {
-                                    // successfully created user
-//                                TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-//                                t.setText(message);
-//                                toast.setView(toastRoot2);
-//                                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-//                                toast.setDuration(20000);
-//                                toast.show();
-//                                Intent i = new Intent(getApplicationContext(), MyOrder.class);
-//                                startActivity(i);
-//                                finish();
-
-
-                                } else {
-                                    System.out.println("Cancel Status found");
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
                         } else {
                             runOnUiThread(new Runnable() {
 
@@ -700,6 +609,7 @@ public class ReturnFormNew extends Activity {
 
                         }
 
+
                     } else if (confirmCheckBox.isChecked()) {
                         runOnUiThread(new Runnable() {
 
@@ -709,11 +619,11 @@ public class ReturnFormNew extends Activity {
                             }
                         });
                         LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                        paramsList.put("name", Uname);
-                        paramsList.put("id", U_id);
+                        paramsList.put("name", name);
+                        paramsList.put("id", id);
                         paramsList.put("returnissueId", issue);
                         paramsList.put("issueexplain", issueExplain);
-                        paramsList.put("returntype", returnTypeString);
+                        paramsList.put("returntype", returnType);
                         paramsList.put("returnpaytype", first);
                         paramsList.put("exchangecomments", newProduct);
                         paramsList.put("email", bemaill);
@@ -724,8 +634,10 @@ public class ReturnFormNew extends Activity {
                         paramsList.put("returncodbankifsccode", bifsccode);
                         paramsList.put("returncodaccountno", baccount);
                         paramsList.put("returnOrderid", orderid);
-                        paramsList.put("cartProdId", CartProductId);
                         paramsList.put("StatusType", "Return");
+                        paramsList.put("cartId", cartId);
+                        paramsList.put("cartProdId", cartProdId);
+
                         result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
                         JSONObject jsonobject = null;
                         try {
@@ -735,27 +647,31 @@ public class ReturnFormNew extends Activity {
                         }
 
                         Log.d("Create Response", jsonobject.toString());
-
                         try {
                             int success = jsonobject.getInt("success");
                             String message = jsonobject.getString("message");
-                            System.out.println("Retirn Status success" + success);
-                            if (success == 1) {
-                                // successfully created user
-//                            TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-//                            t.setText(message);
-//                            toast.setView(toastRoot2);
-//                            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-//                            toast.setDuration(20000);
-//                            toast.show();
-//                            Intent i = new Intent(getApplicationContext(), MyOrder.class);
-//                            startActivity(i);
-//                            finish();
-
-
-                            } else {
-                                System.out.println("Cancel Status found");
+                            System.out.println("Return Status success" + success);
+                            if(success == 1)
+                            {
+                                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, ReturnFormNew.this);
                             }
+                            else
+                            {
+                                Utility.showToastMessage(ReturnFormNew.this, "form details not inserted");
+                            }
+                                // successfully created user
+//                                TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+//                                t.setText(message);
+//                                toast.setView(toastRoot2);
+//                                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+//                                toast.setDuration(20000);
+//                                toast.show();
+//                                Intent i = new Intent(getApplicationContext(), MyOrder.class);
+//                                startActivity(i);
+//                                finish();
+//                            } else {
+//                                System.out.println("Cancel Status found");
+//                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -765,9 +681,9 @@ public class ReturnFormNew extends Activity {
                             @Override
                             public void run() {
                                 textAboveCheckBox.setVisibility(View.VISIBLE);
-
                             }
                         });
+
                     }
 
                 } else if (confirmCheckBox.isChecked()) {
@@ -776,16 +692,14 @@ public class ReturnFormNew extends Activity {
                         @Override
                         public void run() {
                             textAboveCheckBox.setVisibility(View.GONE);
-                            textBelowissueET.setVisibility(View.GONE);
                         }
                     });
-                    // Building Parameters
                     LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                     paramsList.put("name", Uname);
                     paramsList.put("id", U_id);
                     paramsList.put("returnissueId", issue);
                     paramsList.put("issueexplain", issueExplain);
-                    paramsList.put("returntype", returnTypeString);
+                    paramsList.put("returntype", returnType);
                     paramsList.put("returnpaytype", first);
                     paramsList.put("exchangecomments", newProduct);
                     paramsList.put("email", bemaill);
@@ -796,7 +710,8 @@ public class ReturnFormNew extends Activity {
                     paramsList.put("returncodbankifsccode", bifsccode);
                     paramsList.put("returncodaccountno", baccount);
                     paramsList.put("returnOrderid", orderid);
-                paramsList.put("cartProdId", CartProductId);
+                    paramsList.put("cartId", cartId);
+                    paramsList.put("cartProdId", cartProdId);
                     paramsList.put("StatusType", "Return");
                     result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
                     JSONObject jsonobject = null;
@@ -805,14 +720,92 @@ public class ReturnFormNew extends Activity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
                     Log.d("Create Response", jsonobject.toString());
 
                     try {
                         int success = jsonobject.getInt("success");
                         String message = jsonobject.getString("message");
                         System.out.println("Retirn Status success" + success);
-                        if (success == 1) {
-                            // successfully created user
+                        if(success == 1)
+                        {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, ReturnFormNew.this);
+                        }
+                        else
+                        {
+                            Utility.showToastMessage(ReturnFormNew.this, "form details not inserted");
+                        }
+
+                        // successfully created user
+//                            TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+//                            t.setText(message);
+//                            toast.setView(toastRoot2);
+//                            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+//                            toast.setDuration(20000);
+//                            toast.show();
+//                            Intent i = new Intent(getApplicationContext(), MyOrder.class);
+//                            startActivity(i);
+//                            finish();
+//                        } else {
+//                            System.out.println("Cancel Status found");
+//                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            textAboveCheckBox.setVisibility(View.VISIBLE);
+
+                        }
+                    });
+                }
+
+            } else if (confirmCheckBox.isChecked()) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        textAboveCheckBox.setVisibility(View.GONE);
+                        textBelowissueET.setVisibility(View.GONE);
+                    }
+                });
+                // Building Parameters
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("name", Uname);
+                paramsList.put("id", U_id);
+                paramsList.put("returnissueId", issue);
+                paramsList.put("issueexplain", issueExplain);
+                paramsList.put("returntype", returnType);
+                paramsList.put("returnpaytype", first);
+                paramsList.put("exchangecomments", newProduct);
+                paramsList.put("email", bemaill);
+                paramsList.put("returncodbankname", bankname);
+                paramsList.put("branchname", branch);
+                paramsList.put("returncodaccounttype", accountType);
+                paramsList.put("returncodcustname", bname);
+                paramsList.put("returncodbankifsccode", bifsccode);
+                paramsList.put("returncodaccountno", baccount);
+                paramsList.put("returnOrderid", orderid);
+                paramsList.put("cartProdId", CartProductId);
+                paramsList.put("StatusType", "Return");
+                result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
+                JSONObject jsonobject = null;
+                try {
+                    jsonobject = new JSONObject(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("Create Response", jsonobject.toString());
+
+                try {
+                    int success = jsonobject.getInt("success");
+                    String message = jsonobject.getString("message");
+                    System.out.println("Retirn Status success" + success);
+//                    if (success == 1) {
+                        // successfully created user
 //                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                        t.setText(message);
 //                        toast.setView(toastRoot2);
@@ -824,15 +817,23 @@ public class ReturnFormNew extends Activity {
 //                        startActivity(i);
 //
 //                        finish();
-
-
-                        } else {
-                            System.out.println("Cancel Status found");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    if(success == 1)
+                    {
+                        Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null,ReturnFormNew.this);
                     }
-                } else {
+                    else
+                    {
+                        Utility.showToastMessage(ReturnFormNew.this, "form details not inserted");
+                    }
+
+
+//                    } else {
+//                        System.out.println("Cancel Status found");
+//                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
                 runOnUiThread(new Runnable() {
 
                     @Override
@@ -847,19 +848,18 @@ public class ReturnFormNew extends Activity {
         @Override
         protected void onPostExecute(String file_url) {
 
-                mCustomProgressDialog.dismissProgress();
-            }
+            mCustomProgressDialog.dismissProgress();
         }
+    }
 
-    public void onRadioButtonClicked(View v)
-    {
+    public void onRadioButtonClicked(View v) {
 
-        boolean  checked = ((RadioButton) v).isChecked();
+        boolean checked = ((RadioButton) v).isChecked();
 
-        switch(v.getId()){
+        switch (v.getId()) {
 
             case R.id.storeCash:
-                if(checked)
+                if (checked)
                     runOnUiThread(new Runnable() {
 
                         @Override
@@ -868,21 +868,20 @@ public class ReturnFormNew extends Activity {
                             cancel.setVisibility(View.GONE);
                             confirm.setVisibility(View.VISIBLE);
                             relativeBank.setVisibility(View.GONE);
-                        }});
+                        }
+                    });
                 break;
 
             case R.id.bankAccount:
-                if(checked)
-                    System.out.println("payment"+payment);
-                if(payment.equals("COD"))
-                {
+                if (checked)
+                    System.out.println("payment" + payment);
+                if (payment.equals("COD")) {
                     runOnUiThread(new Runnable() {
 
                         @Override
                         public void run() {
 
-                            if(issueexplainET.getText().toString().length()<15)
-                            {
+                            if (issueexplainET.getText().toString().length() < 15) {
                                 runOnUiThread(new Runnable() {
 
                                     @Override
@@ -890,24 +889,23 @@ public class ReturnFormNew extends Activity {
                                         textBelowissueET.setVisibility(View.VISIBLE);
 //										returnTypespinner.setSelection(0);
                                         storeCash.setChecked(true);
-                                    }});
-                            }
-                            else
-                            {
+                                    }
+                                });
+                            } else {
                                 relativeBank.setVisibility(View.VISIBLE);
                                 cancel.setVisibility(View.VISIBLE);
                             }
-                        }});
-                }
-                else
-                {
+                        }
+                    });
+                } else {
                     runOnUiThread(new Runnable() {
 
                         @Override
                         public void run() {
                             relativeBank.setVisibility(View.GONE);
                             cancel.setVisibility(View.GONE);
-                        }});
+                        }
+                    });
                 }
 
                 break;
