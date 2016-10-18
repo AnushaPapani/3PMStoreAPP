@@ -154,28 +154,31 @@
                 android:id="@+id/txt_mrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_10dp"
-                android:layout_toLeftOf="@+id/txt_strike"
                 android:gravity="center"
                 android:text="MRP:"
+                android:layout_marginRight="15dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/txt_strike"
+                android:layout_toStartOf="@+id/txt_strike"
+                android:layout_marginEnd="24dp" />
 
             <TextView
                 android:id="@+id/txt_strike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_5dp"
-                android:layout_marginRight="@dimen/_15dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="600"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="38dp" />
 
         </RelativeLayout>
 
@@ -241,25 +244,25 @@
                 android:id="@+id/spin_one"
                 style="@style/spinner_style_shape"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"></Spinner>
+                android:layout_height="40dp"></Spinner>
 
             <Spinner
                 android:id="@+id/spin_two"
                 style="@style/spinner_style_shape"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"></Spinner>
+                android:layout_height="40dp"></Spinner>
 
             <Spinner
                 android:id="@+id/spin_three"
                 style="@style/spinner_style_shape"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"></Spinner>
+                android:layout_height="40dp"></Spinner>
 
             <Spinner
                 android:id="@+id/spin_four"
                 style="@style/spinner_style_shape"
                 android:layout_width="match_parent"
-                android:layout_height="42dp"></Spinner>
+                android:layout_height="40dp"></Spinner>
         </LinearLayout>
 
         <RelativeLayout
