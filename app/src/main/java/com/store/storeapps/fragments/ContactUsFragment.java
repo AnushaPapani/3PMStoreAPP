@@ -54,7 +54,7 @@ public class ContactUsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParent = (HomeActivity) getActivity();
+       // mParent = (HomeActivity) getActivity();
         if (getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
@@ -170,7 +170,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Please Enter fields");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (Name.getText().toString().length() == 0) {
@@ -178,7 +178,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Please enter Name");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (EmailText.getText().toString().length() < 1) {
@@ -186,7 +186,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Please enter Email");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (!(EmailText.getText().toString().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -195,7 +195,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Please enter Valid Email");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (Subject.getText().toString().length() == 0) {
@@ -203,7 +203,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Subject is required!");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         } else if (Message.getText().toString().length() == 0) {
@@ -211,7 +211,7 @@ public class ContactUsFragment extends Fragment {
             t.setText("Please enter Message");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(20000);
+            toast.setDuration(Toast.LENGTH_SHORT);
             toast.show();
             return isValidate;
         }
