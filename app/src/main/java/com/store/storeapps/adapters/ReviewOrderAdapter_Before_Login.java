@@ -226,6 +226,8 @@ public class ReviewOrderAdapter_Before_Login extends BaseAdapter {
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment_Before_Login.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
                             ReviewOrderFragment_Before_Login.Grand_total.setText("0");
+                            ReviewOrderFragment_Before_Login.Checkout.setEnabled(false);
+                            ReviewOrderFragment_Before_Login.Checkout.setText("Oops Cart Empty");
                         }
                         notifyDataSetChanged();
                     }

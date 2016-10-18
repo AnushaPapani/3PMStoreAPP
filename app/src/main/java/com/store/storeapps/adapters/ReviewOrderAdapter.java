@@ -17,6 +17,7 @@ import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
+import com.store.storeapps.fragments.ProductFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.models.ReviewOrderModel;
@@ -105,29 +106,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 spinnerArray);
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
-
-//        //String CP_ID = Utility.getSharedPrefStringData(mContext, Constants.CP_ID);
-//       // String PR_ID = Utility.getSharedPrefStringData(mContext, Constants.PR_ID);
-//        String GRAND_VALUE = Utility.getSharedPrefStringData(mContext, Constants.GRAND_VALUE);
-////        if(ReviewOrderFragment.CP_ID.equals(mReviewOrderModels.get(position).getCart_Prod_ID()) && ReviewOrderFragment.P_ID.equals(mReviewOrderModels.get(position).getP_ID())) {
-////
-////            mReviewOrderItemHolder.txt_price_two.setText("" + GRAND_VALUE);
-////            ReviewOrderFragment.CP_ID = "";
-////            ReviewOrderFragment.P_ID = "";
-////        }
-////        else
-//        {
-//        mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
-//        }
-
-        //        if(CP_ID.equals(mReviewOrderModels.get(position).getCart_Prod_ID()) && PR_ID.equals(mReviewOrderModels.get(position).getP_ID())) {
-//
-//            mReviewOrderItemHolder.txt_price_two.setText("" + GRAND_VALUE);
-//        }
-//        else
-//        {
         mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
-//        }
         mReviewOrderItemHolder.spin_qty.setTag(position);
         mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -145,6 +124,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
             }
         });
 
+
         mReviewOrderItemHolder.img_remove.setId(position);
         mReviewOrderItemHolder.img_remove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,6 +134,17 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 removeReviewOrderDetails(HomeActivity.mCartId, String.valueOf(HomeActivity.mCartTotal), mReviewOrderModels.get(position).getP_ID(), mReviewOrderModels.get(position).getCart_Prod_ID(), position);
             }
         });
+
+        if(ReviewOrderFragment.isPromoCodeApplied)
+        {
+            mReviewOrderItemHolder.spin_qty.setEnabled(false);
+            mReviewOrderItemHolder.img_remove.setEnabled(false);
+        }
+        else
+        {
+            mReviewOrderItemHolder.spin_qty.setEnabled(true);
+            mReviewOrderItemHolder.img_remove.setEnabled(true);
+        }
 
         return convertView;
     }
@@ -179,14 +170,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
     }
 
 
-    public static class ReviewOrderItemHolder {
+    private class ReviewOrderItemHolder {
         private ImageView img_order;
         private TextView txt_product_name;
         private Spinner spin_qty;
         private TextView txt_unitPrice;
         private TextView txt_price;
         private TextView txt_subtotal;
-        public static TextView txt_price_two;
+        private TextView txt_price_two;
         private ImageView img_remove;
     }
 
@@ -248,6 +239,8 @@ public class ReviewOrderAdapter extends BaseAdapter {
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
                             ReviewOrderFragment.Grand_total.setText("0");
+                            ReviewOrderFragment.proceedtopay.setEnabled(false);
+                            ReviewOrderFragment.proceedtopay.setText("Oops Cart Empty!");
                         }
                         notifyDataSetChanged();
                     }

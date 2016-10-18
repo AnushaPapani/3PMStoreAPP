@@ -127,10 +127,11 @@
     <string name="user_title">Hello User</string>
     <string name="prompt">Choose an item</string>
     <string name="total_price">Total Price</string>
-    <string name="no_orders_found">No Orders Found</string>
+    <string name="no_orders_found">No Items In Cart</string>
     <string-array name="bankType">
-    <item>Select AccountType</item>
-    <item>Savings</item>
-    <item>Current</item>
+        <item>Select AccountType</item>
+        <item>Savings</item>
+        <item>Current</item>
     </string-array>
+    <string name="title_activity_razor_pay">RazorPayActivity</string>
 </resources>
