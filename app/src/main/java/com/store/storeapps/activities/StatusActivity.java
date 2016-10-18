@@ -16,11 +16,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import android.support.v7.app.AppCompatActivity;
 
 import com.store.storeapps.fragments.PaymentOptionNewFrgament;
+import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.AppController;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 public class StatusActivity extends AppCompatActivity {
@@ -46,9 +49,10 @@ public class StatusActivity extends AppCompatActivity {
 	class Hurray extends AsyncTask<String, String, String> {
 		SharedPreferences store;
 		SharedPreferences.Editor editor;
+
 		/**
 		 * Before starting background thread Show Progress Dialog
-		 * */
+		 */
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -62,108 +66,91 @@ public class StatusActivity extends AppCompatActivity {
 
 		/**
 		 * Creating product
-		 * */
+		 */
 		protected String doInBackground(String... args) {
 
-			
-			UID = globalVariable.getUserid().toString();
-			System.out.println("hurray USER ID  "+UID);
-			Ordders =globalVariable.getOrderid().toString();
-			System.out.println("hurray order id "+Ordders);
-			name =globalVariable.getName().toString();
-			System.out.println("hurray name "+name);
+			String result = null;
+			UID = Utility.getSharedPrefStringData(StatusActivity.this, Constants.USER_ID);
+			System.out.println("hurray USER ID  " + UID);
+			Ordders = getIntent().getStringExtra("Orderid");
+			System.out.println("hurray order id " + Ordders);
+			name = getIntent().getStringExtra("name");
+			System.out.println("hurray name " + name);
 
-			ptype = globalVariable.getPaytype().toString();
-			System.out.println("hurray ptype "+ptype);
+			ptype = getIntent().getStringExtra("P_Type");
+			System.out.println("hurray ptype " + ptype);
 
-			EmailID =globalVariable.getEmailid().toString();
-			System.out.println("hurray email "+EmailID);
+			EmailID = getIntent().getStringExtra("email");
+			System.out.println("hurray email " + EmailID);
 
-			int pmcash =globalVariable.getCashused();
-			String cashused = Integer.toString(pmcash);
-			System.out.println("c"+cashused);
-			
+			//int pmcash = globalVariable.getCashused();
+			String cashused = getIntent().getStringExtra("3pmcashused");
+			System.out.println("c" + cashused);
 
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+			paramsList.put("Orderid", Ordders);
+			paramsList.put("U_id", UID);
+			paramsList.put("3pmcashused", cashused);
+			paramsList.put("P_Type", ptype);
+			paramsList.put("EmailID", EmailID);
+			paramsList.put("name", name);
+			paramsList.put("cartId", HomeActivity.mCartId);
+			result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
 
-			params.add(new BasicNameValuePair("Orderid", Ordders));
-			params.add(new BasicNameValuePair("U_id", UID));
-			params.add(new BasicNameValuePair("P_Type", ptype));
-			params.add(new BasicNameValuePair("name", name));
-			params.add(new BasicNameValuePair("3pmcashused", cashused));
-			params.add(new BasicNameValuePair("EmailID", EmailID));
-			System.out.println("hurrayorder"+Ordders);
-			System.out.println("hurrayorder"+UID);
-			System.out.println("hurrayorder"+ptype);
-			System.out.println("hurrayorder"+name);
-			System.out.println("hurrayorder"+cashused);
-			System.out.println("hurrayorder"+EmailID);
-			
-			System.out.println("EMAIL FOR PAYMENT "+EmailID);
-			// getting JSON Object
-			// Note that create product url accepts POST method
-			JSONParser jsonpars =new JSONParser();
-			JSONObject json = jsonpars.makeHttpRequest(hurray,
-					"POST", params);
-
-			// check log cat fro response
-//			try {
-//				Log.d("Create Response", json.toString());
-//			} catch (NullPointerException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-			//System.out.println("ORDER ID"+json);	
-			// Writing data to SharedPreferences
-
-			// check for success tag
-			try {
-				int success = json.getInt(TAG_SUCCESS);
-
-				if (success != 1) {
-					Intent i = new Intent(getApplicationContext(), FailureActivity.class);
-					startActivity(i);
-					finish();
-				}
-				else if(success == 1)
-				{
-					if (status == "Paytm Transaction Successful!") {
-						globalVariable.setPaytype("Paytm");
-						Intent i = new Intent(getApplicationContext(), SuccessActivity.class);
-						startActivity(i);
-						finish();
-					}else {
-						globalVariable.setPaytype("CCAvenue");
-						Intent i = new Intent(getApplicationContext(), SuccessActivity.class);
-						startActivity(i);
-						finish();
-					}
-					
-				}
-				
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			return null;
+			return result;
 		}
 
 		/**
 		 * After completing background task Dismiss the progress dialog
-		 * **/
-		protected void onPostExecute(String file_url) {
+		 **/
+		protected void onPostExecute(String response) {
 			// dismiss the dialog once done
-			//			String responseBody = EntityUtils.toString(js.getEntity());
 
-			pDialog.dismiss();
+			try {
+				if (response != null) {
+					JSONObject jsonobject = new JSONObject(response);
+					if (jsonobject != null) {
+						JSONObject jObj = new JSONObject(response);
+						int s = jObj.getInt("success");
+						String success = jObj.getString("success");
+						if (success.equals("1")) {
+							if (status == "Paytm Transaction Successful!") {
+								Intent i = new Intent(getApplicationContext(), SuccessActivity.class);
+								i.putExtra("P_Type", "PayTM");
+								i.putExtra("Orderid",Ordders);
+								i.putExtra("name",name);
+								i.putExtra("EmailID",EmailID);
+
+								startActivity(i);
+								finish();
+							} else {
+								globalVariable.setPaytype("CCAvenue");
+								Intent i = new Intent(getApplicationContext(), SuccessActivity.class);
+								i.putExtra("P_Type", "PayTM");
+								i.putExtra("Orderid",Ordders);
+								i.putExtra("name",name);
+								i.putExtra("EmailID",EmailID);
+								startActivity(i);
+								finish();
+							}
+						} else {
+							Intent i = new Intent(getApplicationContext(), FailureActivity.class);
+							i.putExtra("P_Type", "PayTM");
+							i.putExtra("Orderid",Ordders);
+							i.putExtra("name",name);
+							i.putExtra("EmailID",EmailID);
+							startActivity(i);
+							finish();
+						}
+					}
+				}
+				pDialog.dismiss();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
-
-
 	}
 
-	public void showToast(String msg) {
-		Toast.makeText(this, "Toast: " + msg, Toast.LENGTH_LONG).show();
-	}
 	@Override
 	public void onBackPressed() {
 

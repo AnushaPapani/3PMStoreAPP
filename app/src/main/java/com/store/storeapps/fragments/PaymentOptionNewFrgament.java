@@ -49,7 +49,7 @@ import static com.store.storeapps.R.layout.toast;
  * Created by shankar on 10/15/2016.
  */
 
-public class PaymentOptionNewFrgament extends Fragment implements View.OnClickListener , PaymentResultListener {
+public class PaymentOptionNewFrgament extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "PaymentOptionNewFrgament";
     private View rootView;
@@ -127,34 +127,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             e.printStackTrace();
         }
     }
-    public void onPaymentSuccess(String razorpayPaymentID) {
-        try {
-            Toast.makeText(getActivity(), "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
-            Log.d("LOG", "Payment Transaction is successful " + razorpayPaymentID);
-            String status = "RazorPay Transaction Successful!";
-            String P_Type = "RazorPay";
-            Intent intent = new Intent(getActivity(), StatusActivity.class);
-            intent.putExtra("transStatus", status);
-            startActivity(intent);
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentSuccess", e);
-        }
-    }
-
-    /**
-     * The name of the function has to be
-     * onPaymentError
-     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
-     */
-    @SuppressWarnings("unused")
-    @Override
-    public void onPaymentError(int code, String response) {
-        try {
-            Toast.makeText(getActivity(), response+"Error on payment", Toast.LENGTH_SHORT).show();
-        } catch (Exception e) {
-            Log.e(TAG, "Exception in onPaymentError", e);
-        }
-    }
 
     public void onStartTransaction() {
         PaytmPGService Service = PaytmPGService.getProductionService();
@@ -192,6 +164,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         String P_Type = "PayTM";
                         Intent intent = new Intent(getActivity(),StatusActivity.class);
                         intent.putExtra("transStatus", status);
+                        intent.putExtra("Orderid", orderid);
+                        intent.putExtra("EmailID", email);
+                        intent.putExtra("name", fname);
+                        intent.putExtra("P_Type", "PayTM");
+                        intent.putExtra("amount", HomeActivity.mCartTotal);
+                        intent.putExtra("3pmcashused", pmamount.getText().toString());
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Payment Transaction is successful ", Toast.LENGTH_LONG).show();
                     }
@@ -741,7 +719,6 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("U_id", U_id);
                             i.putExtra("name",fname);
                             i.putExtra("EmailID",email);
-                            i.putExtra("cartId", cartId);
 
                             startActivity(i);
 //                        String message = jObj.getString("message");
