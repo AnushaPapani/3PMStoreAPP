@@ -785,6 +785,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
+
                         JSONObject jObj = new JSONObject(response);
                         int s= jObj.getInt("success");
                         System.out.println("sssss "+ s + " message");
