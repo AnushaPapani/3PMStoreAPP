@@ -702,11 +702,12 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("3pmcashused",pmamount.getText().toString() );
                 paramsList.put("name", fname);
                 paramsList.put("EmailID", email);
-                paramsList.put("otpgenerate","PromoType");
+                paramsList.put("PromoType","PromoType");
                 paramsList.put("cartId", cartId);
                 paramsList.put("totalcod", totalCOD);
-
-                result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
+                result = Utility.httpPostRequestToServer((ApiConstants.COD_SUCCESS +
+                        "?totalcod="+totalCOD+"&Ordders="+orderid+"&name="+fname+"&EmailID="+email+"").replace(" ","%20") , Utility.getParams(paramsList));
+//              result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
                 exception.printStackTrace();

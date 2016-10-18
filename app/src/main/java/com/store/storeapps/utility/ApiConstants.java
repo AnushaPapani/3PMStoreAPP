@@ -8,7 +8,7 @@ public class ApiConstants {
 
     /*base URL*/
     public static final String BASE_URL = "http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/";
-    public static final String URL_FORMS= "http://www.3pmstore.com/android/android_connect/";
+    public static final String URL_FORMS= "http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/";
 
     public static final String GET_ALL_PRODUCTS = BASE_URL + "get_all_products.php";
     public static final String INSERT_CHECK_PRODUCTS = BASE_URL + "insert_check_products.php";
