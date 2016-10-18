@@ -34,7 +34,7 @@
                 android:layout_marginTop="@dimen/_5dp"
                 android:gravity="right"
                 android:text="@string/choose_another_address"
-                android:textColor="@color/Login"
+                android:textColor="#FAA61A"
                 android:textSize="@dimen/sp_size_sixteen" />
 
             <com.store.storeapps.activities.CustomTextView
@@ -112,6 +112,14 @@
         android:background="@color/background_color"
         android:paddingBottom="10dp">
 
+        <com.store.storeapps.activities.BoldCustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price_layout"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#FAA61A"
+            android:text="Promo Code" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout4"
@@ -119,7 +127,7 @@
             android:layout_height="25dp"
             android:layout_below="@+id/price_layout"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:background="@drawable/promo_border">
 
             <TextView
@@ -166,34 +174,48 @@
             android:textSize="18dp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/promotext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Coupon Code Applied Succesfully"
+            android:textColor="#A94442"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/price_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
                 app:srcCompat="@drawable/paysummary" />
 
             <com.store.storeapps.activities.BoldCustomTextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/imageView3"
                 android:gravity="center_vertical"
+                android:text="Total Price"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="18sp"
-                android:text="Total Price"
                 android:textStyle="bold" />
 
             <TextView
@@ -214,9 +236,9 @@
                 android:layout_alignTop="@+id/grandtotal"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/grandtotal"
-                android:textStyle="bold"
                 android:layout_toStartOf="@+id/grandtotal"
-                android:text="@string/rs" />
+                android:text="@string/rs"
+                android:textStyle="bold" />
 
             <com.store.storeapps.activities.CustomTextView
                 android:id="@+id/DiscountText"
@@ -225,8 +247,8 @@
                 android:layout_below="@+id/textView"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:textColor="@color/dark_gray_color"
-                android:text="Discount Applied" />
+                android:text="Discount Applied"
+                android:textColor="@color/dark_gray_color" />
 
             <com.store.storeapps.activities.BoldCustomTextView
                 android:id="@+id/GrandText"
@@ -258,17 +280,6 @@
                 android:text="gvalue" />
 
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/promotext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout4"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Coupon Code Applied Succesfully"
-            android:textColor="#A94442"
-            android:visibility="gone" />
 
     </RelativeLayout>
 
