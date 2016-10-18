@@ -21,6 +21,7 @@ import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
 import com.store.storeapps.models.ReviewOrderModel;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -93,7 +94,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
         Picasso.with(mContext).load(getFullFilledImage(reviewOrderModel.getP_Image())).placeholder(Utility.getDrawable(mContext, R.drawable.refresh))
                 .into(mReviewOrderItemHolder.img_order);
         mReviewOrderItemHolder.txt_product_name.setText(reviewOrderModel.getP_Name());
-        mReviewOrderItemHolder.txt_price.setText("" + Utility.getResourcesString(mContext, R.string.rs) + reviewOrderModel.getP_Cost());
+        mReviewOrderItemHolder.txt_price.setText("" + reviewOrderModel.getP_Cost());
 
         ArrayList<String> spinnerArray = new ArrayList<>();
         for (int i = 0; i < reviewOrderModel.getMax_Quantity(); i++) {
@@ -104,8 +105,28 @@ public class ReviewOrderAdapter extends BaseAdapter {
                 spinnerArray);
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
-        mReviewOrderItemHolder.txt_price_two.setText("" + Utility.getResourcesString(mContext, R.string.rs) + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+//        //String CP_ID = Utility.getSharedPrefStringData(mContext, Constants.CP_ID);
+//       // String PR_ID = Utility.getSharedPrefStringData(mContext, Constants.PR_ID);
+//        String GRAND_VALUE = Utility.getSharedPrefStringData(mContext, Constants.GRAND_VALUE);
+////        if(ReviewOrderFragment.CP_ID.equals(mReviewOrderModels.get(position).getCart_Prod_ID()) && ReviewOrderFragment.P_ID.equals(mReviewOrderModels.get(position).getP_ID())) {
+////
+////            mReviewOrderItemHolder.txt_price_two.setText("" + GRAND_VALUE);
+////            ReviewOrderFragment.CP_ID = "";
+////            ReviewOrderFragment.P_ID = "";
+////        }
+////        else
+//        {
+//        mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+//        }
 
+        //        if(CP_ID.equals(mReviewOrderModels.get(position).getCart_Prod_ID()) && PR_ID.equals(mReviewOrderModels.get(position).getP_ID())) {
+//
+//            mReviewOrderItemHolder.txt_price_two.setText("" + GRAND_VALUE);
+//        }
+//        else
+//        {
+        mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+//        }
         mReviewOrderItemHolder.spin_qty.setTag(position);
         mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -157,14 +178,14 @@ public class ReviewOrderAdapter extends BaseAdapter {
     }
 
 
-    private class ReviewOrderItemHolder {
+    public static class ReviewOrderItemHolder {
         private ImageView img_order;
         private TextView txt_product_name;
         private Spinner spin_qty;
         private TextView txt_unitPrice;
         private TextView txt_price;
         private TextView txt_subtotal;
-        private TextView txt_price_two;
+        public static TextView txt_price_two;
         private ImageView img_remove;
     }
 
@@ -296,7 +317,7 @@ public class ReviewOrderAdapter extends BaseAdapter {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
                             ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
                             ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
-                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))) {
+                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
                                 HomeActivity.mCartTotal = jsonobject.optInt("cartValue");

@@ -688,7 +688,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                                 });
                         AlertDialog alert = builder.create();
                         alert.show();
-//                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
+                    }
+                    else if(jsonobject.optString("success").equalsIgnoreCase("3"))
+                    {
+                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
                     }
                     else
                     {
