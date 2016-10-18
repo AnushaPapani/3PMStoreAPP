@@ -137,7 +137,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/view">
 
-            <TextView
+            <com.store.storeapps.activities.BoldCustomTextView
                 android:id="@+id/txt_name_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -150,7 +150,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.store.storeapps.activities.BoldCustomTextView
                 android:id="@+id/txt_mrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -188,7 +188,7 @@
             android:layout_below="@+id/rl_ll3"
             android:layout_marginBottom="@dimen/_10dp">
 
-            <TextView
+            <com.store.storeapps.activities.CustomTextView
                 android:id="@+id/txt_free"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
