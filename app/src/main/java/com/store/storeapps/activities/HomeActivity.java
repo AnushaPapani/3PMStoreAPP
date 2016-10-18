@@ -468,7 +468,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
-                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                //Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 break;
 
         }
