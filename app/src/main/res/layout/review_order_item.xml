@@ -32,7 +32,7 @@
                 android:src="@drawable/ic_launcher" />
         </LinearLayout>
 
-        <TextView
+        <com.store.storeapps.activities.CustomTextView
             android:id="@+id/txt_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,20 +45,45 @@
             android:textSize="@dimen/sp_size_eighteen"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spin_qty"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_below="@id/txt_product_name"
+        <RelativeLayout
+            android:id="@+id/rela"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/txt_product_name"
             android:layout_marginLeft="@dimen/_20dp"
             android:layout_marginTop="@dimen/_5dp"
-            android:layout_toRightOf="@id/linear_img"></Spinner>
+            android:layout_toRightOf="@id/linear_img"
+            android:background="@drawable/spinner_borders"
+             >
 
-        <TextView
+            <Spinner
+                android:id="@+id/spin_qty"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:background="@null"
+                android:layout_marginLeft="5dp"
+                android:dropDownVerticalOffset="-5dp"
+                android:prompt="@string/prompt"
+                android:spinnerMode="dropdown"/>
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/spin_qty"
+                android:layout_toStartOf="@+id/spin_qty"
+                android:src="@drawable/arow">
+
+            </ImageView>
+        </RelativeLayout>
+
+        <com.store.storeapps.activities.CustomTextView
             android:id="@+id/txt_unitPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/spin_qty"
+            android:layout_below="@id/rela"
             android:layout_marginTop="@dimen/_5dp"
             android:layout_toRightOf="@id/linear_img"
             android:paddingLeft="@dimen/_20dp"
@@ -66,10 +91,15 @@
             android:textSize="15sp" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9"/>
+
+        <TextView
             android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/spin_qty"
+            android:layout_below="@id/rela"
             android:layout_marginLeft="@dimen/_3dp"
             android:layout_marginTop="@dimen/_5dp"
             android:layout_toRightOf="@id/txt_unitPrice"
@@ -78,7 +108,7 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <TextView
+        <com.store.storeapps.activities.CustomTextView
             android:id="@+id/txt_subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
