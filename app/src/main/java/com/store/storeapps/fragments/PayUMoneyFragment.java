@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.StatusActivity;
+import com.store.storeapps.activities.SuccessActivity;
 import com.store.storeapps.utility.Utility;
 
 import org.apache.http.util.EncodingUtils;
@@ -94,6 +95,10 @@ public class PayUMoneyFragment extends Fragment {
                     String status = "PayU Transaction Successful!";
                     String P_Type = "PayU";
                     Intent intent = new Intent(getActivity(), StatusActivity.class);
+                    intent.putExtra("P_Type", P_Type);
+                    intent.putExtra("Orderid",orderid);
+                    intent.putExtra("name",fname);
+                    intent.putExtra("EmailID",email);
                     intent.putExtra("transStatus", status);
                     startActivity(intent);
                 }

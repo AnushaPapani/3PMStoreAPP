@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,7 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.razorpay.PaymentResultListener;
 import com.store.storeapps.R;
 import com.store.storeapps.adapters.LeftMenuAdapter;
 import com.store.storeapps.customviews.CustomProgressDialog;
@@ -34,6 +37,7 @@ import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.MyAddressFragment;
 import com.store.storeapps.fragments.MyOrderFragment;
+import com.store.storeapps.fragments.PaymentOptionNewFrgament;
 import com.store.storeapps.fragments.PreviousProductFragment;
 import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
@@ -67,7 +71,7 @@ import static com.store.storeapps.R.layout.fragment_home;
 /**
  * Created by Shankar.
  */
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener, PaymentResultListener {
 
     private TextView txt_home_left_drawer_icon;
     public DrawerLayout mDrawerLayout;
@@ -83,6 +87,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static int mCartValue = 0;
     public static int mCartTotal = 0;
     public static boolean isLogged = false;
+    public static final String TAG = "PaymentOptionNewFrgament";
     /*Timer*/
     TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
     private CountDownTimer countDownTimer; // built in android class
@@ -142,6 +147,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tvSecond = (TextView) findViewById(R.id.txt_time_sec);
         s = (TextView) findViewById(R.id.txt_time_sec_s);
         setTimer();
+
+
 
     }
 
@@ -471,6 +478,36 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 break;
 
+        }
+    }
+
+    public void onPaymentSuccess(String razorpayPaymentID) {
+        try {
+            Toast.makeText(HomeActivity.this, "Payment Successful: " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+            Log.d("LOG", "Payment Transaction is successful " + razorpayPaymentID);
+            String status = "RazorPay Transaction Successful!";
+            String P_Type = "RazorPay";
+            Intent intent = new Intent(HomeActivity.this, StatusActivity.class);
+            intent.putExtra("transStatus", status);
+            intent.putExtra("P_Type", P_Type);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in onPaymentSuccess", e);
+        }
+    }
+
+    /**
+     * The name of the function has to be
+     * onPaymentError
+     * Wrap your code in try catch, as shown, to ensure that this method runs correctly
+     */
+    @SuppressWarnings("unused")
+    @Override
+    public void onPaymentError(int code, String response) {
+        try {
+            Toast.makeText(HomeActivity.this, response+"Error on payment", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.e(TAG, "Exception in onPaymentError", e);
         }
     }
 
