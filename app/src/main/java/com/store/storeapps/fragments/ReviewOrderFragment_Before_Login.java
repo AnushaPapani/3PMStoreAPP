@@ -47,7 +47,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel_Before_Login> reviewOrderModels;
     private ReviewOrderAdapter_Before_Login reviewOrderAdapter;
-    Button Checkout;
+    public static Button Checkout;
     private HomeActivity mParent;
 
     View toastRoot;
