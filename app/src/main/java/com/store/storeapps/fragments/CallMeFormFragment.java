@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +30,7 @@ public class CallMeFormFragment extends Fragment {
     public static final String TAG = "CallMeFormFragment";
     private View rootView;
     Button btn_submit;
-    String orderid, CartProductId , primary,secondary, orderpcost;
+    String orderid, cartProdId , primary,secondary, orderpcost, cartId;
     EditText edtxt_primaryMobile, edtxt_secondaryMobile;
     TextView txt_primarytext, txt_secondarytext, txt_orderid, txt_pcost;
 
@@ -37,7 +39,9 @@ public class CallMeFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.callmeform, container, false);
         orderid = MyOrderFragment.orderID;
-        CartProductId = MyOrderFragment.CartPID;
+        cartProdId = MyOrderFragment.CartPID;
+        cartId = MyOrderFragment.cartID;
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initUI();
         return rootView;
     }
@@ -99,7 +103,14 @@ public class CallMeFormFragment extends Fragment {
                     paramsList.put("existcontact", primary);
                     paramsList.put("altcontact", secondary);
                     paramsList.put("StatusType", "Callme");
-                    paramsList.put("cartProdId", CartProductId);
+                    paramsList.put("cartId", cartId);
+                    paramsList.put("cartProdId", cartProdId);
+
+                    paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                    paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
+
+//                ("name", name));
+//                ("id", uid));
                     result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
@@ -120,6 +131,14 @@ public class CallMeFormFragment extends Fragment {
                         String success = jObj.getString("success");
                         String message = jObj.getString("message");
                         System.out.println("Call me form Details "+success+ " " +message);
+                        if(success.equals("1"))
+                        {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                        }
+                        else
+                        {
+                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

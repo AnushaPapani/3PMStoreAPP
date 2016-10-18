@@ -12,6 +12,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.store.storeapps.R;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,8 +44,8 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
     TextView countText, titleAlert, productAlert, customerAlert,head1,head2;
     EditText reviewTitle,productReview,customerExperience,extraComments;
     Button submit;
-    String orderid, CartProductId, title, productreview, customerexperience, extraComment, pcost,
-            Uname , U_id, ProductRating, CustomerRating;
+    String orderid, cartProdId, title, productreview, customerexperience, extraComment, pcost,
+            Uname , U_id, ProductRating, CustomerRating,cartId;
     String review ="Order Review form";
     int count;
     float curRate;
@@ -54,11 +56,12 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.reviewform, container, false);
         orderid = MyOrderFragment.orderID;
-        CartProductId = MyOrderFragment.CartPID;
+        cartProdId = MyOrderFragment.CartPID;
+        cartId = MyOrderFragment.cartID;
         pcost = MyOrderFragment.Pcost;
         Uname = MyOrderFragment.USername;
         U_id =MyOrderFragment.Uid;
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         reviewTitle= (EditText)rootView.findViewById(R.id.reviewTitle);
         head2=(TextView) rootView.findViewById(R.id.t2);
         head1 =(TextView) rootView.findViewById(R.id.t1);
@@ -201,12 +204,14 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
                 paramsList.put("reviewcomments", extraComment);
                 paramsList.put("reviewprodrating", ProductRating);
                 paramsList.put("reviewcustexprating", CustomerRating);
-
-                paramsList.put("name", Uname);
-                paramsList.put("id", U_id);
+                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
+//                paramsList.put("name", Uname);
+//                paramsList.put("id", U_id);
                 paramsList.put("reviewOrderid", orderid);
                 paramsList.put("StatusType", "Review");
-                paramsList.put("cartProdId", CartProductId);
+                paramsList.put("cartProdId", cartProdId);
+                paramsList.put("cartId", cartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
@@ -226,7 +231,17 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
                         JSONObject jObj = new JSONObject(response);
                         String success = jObj.getString("success");
                         String message = jObj.getString("message");
+                        System.out.println("cartProdId   " +cartProdId );
+                        System.out.println("cartId       " +cartId );
                         System.out.println("Call me form Details "+success+ " " +message);
+                        if(success.equals("1"))
+                        {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                        }
+                        else
+                        {
+                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

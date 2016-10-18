@@ -30,6 +30,7 @@ import com.store.storeapps.models.ModelArray;
 import com.store.storeapps.models.Movie;
 import com.store.storeapps.models.MyOrdersModel;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 //import com.tooltip.Tooltip;
 
@@ -104,7 +105,9 @@ public class OrderDetailsFragment extends Fragment {
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                result = Utility.httpGetRequestToServer(ApiConstants.MY_ORDERS);
+                paramsList.put("Userid", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                result = Utility.httpPostRequestToServer(ApiConstants.MY_ORDERS, Utility.getParams(paramsList));
+//                result = Utility.httpGetRequestToServer(ApiConstants.MY_ORDERS);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }

@@ -11,6 +11,8 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,7 +53,7 @@ public class MyOrderFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType;
+    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType;
     private View rootView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,10 +96,14 @@ public class MyOrderFragment extends Fragment {
             String result = null;
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+
                 Utility.showLog("data", "datadata" + paramsList.toString());
-                String url= ApiConstants.MY_ORDERS+="?Userid="+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)+"";
-                System.out.println("USER_ID   "+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
-                result = Utility.httpGetRequestToServer(url);
+//                String url= ApiConstants.MY_ORDERS+="?Userid="+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)+"";
+
+                paramsList.put("Userid", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                result = Utility.httpPostRequestToServer(ApiConstants.MY_ORDERS, Utility.getParams(paramsList));
+//                System.out.println("USER_ID   "+Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+//                result = Utility.httpGetRequestToServer(url);
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -133,6 +139,7 @@ public class MyOrderFragment extends Fragment {
                                 Movie movie = new Movie();
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setCart_Prod_ID(jsonObjectMovie.optString("Cart_Prod_ID"));
+                                movie.setCart_ID(jsonObjectMovie.optString("Cart_ID"));
                                 movie.setP_Name(jsonObjectMovie.optString("P_Name"));
                                 movie.setStatus(jsonObjectMovie.optString("OrderStatus"));
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
@@ -151,6 +158,7 @@ public class MyOrderFragment extends Fragment {
                                 movie.setRefund_IsSubmit(jsonObjectMovie.optString("Refund_IsSubmit"));
                                 movie.setExchange_IsSubmit(jsonObjectMovie.optString("Exchange_IsSubmit"));
                                 movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
+                                movie.setTrackurl(jsonObjectMovie.optString("Trackurl"));
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
                                 movie.setTotalCost(jsonObjectMovie.optString("TotalOrderValue"));
@@ -188,7 +196,7 @@ public class MyOrderFragment extends Fragment {
 
                         setDataTotheLayout();
                     }else if(jsonobject.optString("success").equalsIgnoreCase("0")) {
-                        mCustomProgressDialog.dismissProgress();
+//                        mCustomProgressDialog.dismissProgress();
                         Utility.navigateDashBoardFragment(new NoOrdersFragment(), NoOrdersFragment.TAG, null, getActivity());
                     }
 
@@ -243,6 +251,7 @@ public class MyOrderFragment extends Fragment {
                     Button btn_callme1 = (Button) inneritem.findViewById(R.id.ordercallme1);
                     Button btn_review1 = (Button) inneritem.findViewById(R.id.orderreview1);
                     Button btn_return1 = (Button) inneritem.findViewById(R.id.orderreturn1);
+                    Button btn_details = (Button) inneritem.findViewById(R.id.detailsbtn);
 
                     TextView order_details = (TextView) inneritem.findViewById(R.id.detials);
                     String OrderDetails = "Order Details";
@@ -334,11 +343,13 @@ public class MyOrderFragment extends Fragment {
                     String COD_Charges = mMovie.getCOD_Charges().toString();
                     String GrandTotal = mMovie.getGrandTotal().toString();
 
-                    totalcost.setText(TotalCost);
-                    pmcashused.setText(PMCashUsed);
-                    discount.setText(Discount);
-                    codcharges.setText(COD_Charges);
-                    grandtotal.setText(GrandTotal);
+                    String cartId = mMovie.getCart_ID().toString();
+
+                    totalcost.setText(getString(R.string.rs)+TotalCost);
+                    pmcashused.setText("- "+getString(R.string.rs)+PMCashUsed);
+                    discount.setText("- "+getString(R.string.rs)+Discount);
+                    codcharges.setText("+ "+getString(R.string.rs)+COD_Charges);
+                    grandtotal.setText(getString(R.string.rs)+GrandTotal);
 
                     if (orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||
                             orderstatus.equals("Packed & Ready") || orderstatus.equals("Dispatched") ||
@@ -579,11 +590,13 @@ public class MyOrderFragment extends Fragment {
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
                     }
 
-                    order_details.setOnClickListener(new View.OnClickListener() {
+                    btn_details.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
+
 
                             Utility.navigateDashBoardFragment(new OrderDetailsFragment(), OrderDetailsFragment.TAG, null, getActivity());
                         }
@@ -593,6 +606,8 @@ public class MyOrderFragment extends Fragment {
                         public void onClick(View v) {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
+
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
                             Pcost = mMovie.getP_Cost().toString();
@@ -609,6 +624,8 @@ public class MyOrderFragment extends Fragment {
                         public void onClick(View v) {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
+
                             Pcost = mMovie.getP_Cost().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
@@ -623,6 +640,8 @@ public class MyOrderFragment extends Fragment {
                         public void onClick(View v) {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
+
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
@@ -639,16 +658,27 @@ public class MyOrderFragment extends Fragment {
                         public void onClick(View v) {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
+
 
                             Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
+                        }
+                    });
+                    btn_track1.setOnClickListener(new View.OnClickListener()
+                    {
+                        public void onClick(View v)  {
+                            String url = mMovie.getTrackurl().toString().replace("","%20");
+                            Utility.setSharedPrefStringData(getActivity(), Constants.TRACKING_URL, "");
+                            System.out.println("url "+url);
+                            Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, null, getActivity());
                         }
                     });
 
 
                     txt_product_name.setText("" + mMovie.getP_Name());
                     txt_status.setText("" + mMovie.getStatus());
-                    txt_date.setText("" + mMovie.getOrder_Date());
-                    String imgStr = mMovie.getP_Image().toString().replace(" ", "%20");
+                    txt_date.setText("" + mMovie.getOrder_Date().toString().replace("-", "/"));
+                    String imgStr = mMovie.getP_Image();
                     System.out.println("imgString " + imgStr);
                     Picasso.with(getActivity()).load(imgStr).into(img_P_Image);
 

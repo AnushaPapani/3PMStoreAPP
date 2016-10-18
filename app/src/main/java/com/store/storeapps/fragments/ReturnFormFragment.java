@@ -31,6 +31,7 @@ import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -50,7 +51,7 @@ public class ReturnFormFragment extends Fragment {
     public static final String TAG = "ReturnFormFragment";
     private View rootView;
     Button btn_submit, cancel, confirm;
-    String orderid, CartProductId, orderpcost, bemail, payment;
+    String orderid, cartProdId, orderpcost, bemail, payment;
     TextView textAboveCheckBox;
     TextView textBelowissueET;
     String returnorder = "Order Return Request";
@@ -67,19 +68,21 @@ public class ReturnFormFragment extends Fragment {
 
     int pos, poss;
     String issue, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch,
-            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id , PaymentType;
+            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id , PaymentType, cartId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.returnsform, container, false);
         orderid = MyOrderFragment.orderID;
-        CartProductId = MyOrderFragment.CartPID;
+        cartProdId = MyOrderFragment.CartPID;
+        cartId = MyOrderFragment.cartID;
         Uname = MyOrderFragment.USername;
         U_id = MyOrderFragment.Uid;
         payment = MyOrderFragment.PaymentType;
 
-        System.out.println("payment" +payment );
+        System.out.println("cartProdId   " +cartProdId );
+        System.out.println("cartId    " +cartId );
 
         relativeBank = (RelativeLayout) rootView.findViewById(R.id.relativeBank);
         relativeissue = (RelativeLayout) rootView.findViewById(R.id.relative5);
@@ -225,40 +228,6 @@ public class ReturnFormFragment extends Fragment {
             }
         });
 
-//        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
-//        {
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                boolean  checked = ((RadioButton) rootView).isChecked();
-//                switch(rootView.getId()) {
-//                    case R.id.storeCash:
-//                        if (checked)
-//                            confirmCheckBox.setVisibility(View.VISIBLE);
-//                        cancel.setVisibility(View.GONE);
-//                        confirm.setVisibility(View.VISIBLE);
-//                        relativeBank.setVisibility(View.GONE);
-//                        break;
-//
-//                    case R.id.bankAccount:
-//                        if (checked)
-//                            System.out.println("payment" + payment);
-//                        if (payment.equals("COD")) {
-//                            if (issueexplainET.getText().toString().length() < 15) {
-//                                textBelowissueET.setVisibility(View.VISIBLE);
-//                                storeCash.setChecked(true);
-//                            } else {
-//                                relativeBank.setVisibility(View.VISIBLE);
-//                                cancel.setVisibility(View.VISIBLE);
-//                            }
-//                        } else {
-//                            relativeBank.setVisibility(View.GONE);
-//                            cancel.setVisibility(View.GONE);
-//                        }
-//                        break;
-//                }
-//            }
-//        });
-
-
         rg.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -323,12 +292,14 @@ public class ReturnFormFragment extends Fragment {
             pos = issueSpinner.getSelectedItemPosition();
 
             issue = issueSpinner.getSelectedItem().toString();
+            System.out.println("isssssssssssssssssssssssssssss" + issue);
             poss = returnTypespinner.getSelectedItemPosition();
             returnTypeString = returnTypespinner.getSelectedItem().toString();
             accountType = spinnerAccount.getSelectedItem().toString();
 
             System.out.println("orderid accountType" + accountType);
-            System.out.println("orderid returnType" + returnType);
+            System.out.println("orderid returnType oldddd" + returnType);
+            System.out.println("orderid returnTypeString" + returnTypeString);
             System.out.println("orderid issueid position" + issue);
             issueExplain = issueexplainET.getText().toString();
             newProduct = newproductET.getText().toString();
@@ -452,13 +423,13 @@ public class ReturnFormFragment extends Fragment {
                                 textAboveCheckBox.setVisibility(View.GONE);
 
                                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                                paramsList.put("callmeOrderid", orderid);
-                                paramsList.put("name", Uname);
-                                paramsList.put("id", U_id);
+                                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
                                 paramsList.put("returnissueId", issue);
                                 paramsList.put("issueexplain", issueExplain);
+
+                                System.out.println("returnTypespinner String gettin"+returnTypeString);
                                 paramsList.put("returntype", returnTypeString);
-                                paramsList.put("returnpaytype", first);
                                 paramsList.put("returnpaytype", first);
                                 paramsList.put("exchangecomments", newProduct);
                                 paramsList.put("email", bemaill);
@@ -467,12 +438,12 @@ public class ReturnFormFragment extends Fragment {
                                 paramsList.put("returncodaccounttype", accountType);
                                 paramsList.put("returncodcustname", bname);
                                 paramsList.put("returncodbankifsccode", bifsccode);
-                                paramsList.put("returncodbankifsccode", bifsccode);
                                 paramsList.put("returncodaccountno", baccount);
                                 paramsList.put("returnOrderid", orderid);
                                 paramsList.put("StatusType", "Return");
 
-                                paramsList.put("cartProdId", CartProductId);
+                                paramsList.put("cartId", cartId);
+                                paramsList.put("cartProdId", cartProdId);
 
                                 result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
 
@@ -483,8 +454,16 @@ public class ReturnFormFragment extends Fragment {
                                     try {
                                         int success = jsonobject.getInt("success");
                                         String message = jsonobject.getString("message");
-                                        System.out.println("Retirn Status success" + success);
-                                        if (success == 1) {
+                                        System.out.println("Return 1 Status success" + success);
+//                                        if (success == 1) {
+                                            if(success == 1)
+                                            {
+                                                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                                            }
+                                            else
+                                            {
+                                                Utility.showToastMessage(getActivity(), "form details not inserted");
+                                            }
 //                                        // successfully created user
 //                                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                                        t.setText(message);
@@ -496,9 +475,9 @@ public class ReturnFormFragment extends Fragment {
 //                                        startActivity(i);
 //                                        finish();
 //
-                                        } else {
-                                            System.out.println("Cancel Status found");
-                                        }
+//                                        } else {
+//                                            System.out.println("Cancel Status found");
+//                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -512,6 +491,8 @@ public class ReturnFormFragment extends Fragment {
                                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
 //                                paramsList.put("name", name);
 //                                paramsList.put("id", uid);
+                                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
                                 paramsList.put("returnissueId", issue);
                                 paramsList.put("issueexplain", issueExplain);
                                 paramsList.put("returntype", returnTypeString);
@@ -526,6 +507,9 @@ public class ReturnFormFragment extends Fragment {
                                 paramsList.put("returncodaccountno", baccount);
                                 paramsList.put("returnOrderid", orderid);
                                 paramsList.put("StatusType", "Return");
+                                paramsList.put("cartId", cartId);
+                                paramsList.put("cartProdId", cartProdId);
+
 
                                 result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
                                 JSONObject jsonobject = new JSONObject(result);
@@ -536,6 +520,14 @@ public class ReturnFormFragment extends Fragment {
                                     String message = jsonobject.getString("message");
                                     System.out.println("Return Status success" + success);
                                     if (success == 1) {
+                                        if(success == 1)
+                                        {
+                                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                                        }
+                                        else
+                                        {
+                                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                                        }
                                         // successfully created user
 //                                    TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                                    t.setText(message);
@@ -562,8 +554,8 @@ public class ReturnFormFragment extends Fragment {
                             textAboveCheckBox.setVisibility(View.GONE);
 
                             LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                            paramsList.put("name", Uname);
-                            paramsList.put("id", U_id);
+                            paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                            paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
                             paramsList.put("returnissueId", issue);
                             paramsList.put("issueexplain", issueExplain);
                             paramsList.put("returntype", returnTypeString);
@@ -577,6 +569,8 @@ public class ReturnFormFragment extends Fragment {
                             paramsList.put("returncodbankifsccode", bifsccode);
                             paramsList.put("returncodaccountno", baccount);
                             paramsList.put("returnOrderid", orderid);
+                            paramsList.put("cartId", cartId);
+                            paramsList.put("cartProdId", cartProdId);
 
                             paramsList.put("StatusType", "Return");
                             result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
@@ -587,8 +581,15 @@ public class ReturnFormFragment extends Fragment {
                             try {
                                 int success = jsonobject.getInt("success");
                                 String message = jsonobject.getString("message");
-                                System.out.println("Retirn Status success" + success);
-                                if (success == 1) {
+                                System.out.println("Return 2 Status success" + success);
+                                if (success == 1)
+                                    {
+                                        Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                                    }
+                                    else
+                                    {
+                                        Utility.showToastMessage(getActivity(), "form details not inserted");
+                                    }
                                     // successfully created user
 //                                TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                                t.setText(message);
@@ -599,11 +600,6 @@ public class ReturnFormFragment extends Fragment {
 //                                Intent i = new Intent(getApplicationContext(), MyOrder.class);
 //                                startActivity(i);
 //                                finish();
-
-
-                                } else {
-                                    System.out.println("Cancel Status found");
-                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -616,8 +612,8 @@ public class ReturnFormFragment extends Fragment {
                         textBelowissueET.setVisibility(View.GONE);
 
                         LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                        paramsList.put("name", Uname);
-                        paramsList.put("id", U_id);
+                        paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                        paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
                         paramsList.put("returnissueId", issue);
                         paramsList.put("issueexplain", issueExplain);
                         paramsList.put("returntype", returnTypeString);
@@ -631,6 +627,9 @@ public class ReturnFormFragment extends Fragment {
                         paramsList.put("returncodbankifsccode", bifsccode);
                         paramsList.put("returncodaccountno", baccount);
                         paramsList.put("returnOrderid", orderid);
+                        paramsList.put("cartId", cartId);
+                        paramsList.put("cartProdId", cartProdId);
+
 
                         paramsList.put("StatusType", "Return");
                         result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
@@ -640,9 +639,15 @@ public class ReturnFormFragment extends Fragment {
                         try {
                             int success = jsonobject.getInt("success");
                             String message = jsonobject.getString("message");
-                            System.out.println("Retirn Status success" + success);
+                            System.out.println("Return 3 Status success" + success);
                             if (success == 1) {
-                                // successfully created user
+
+                                    Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+//                                }
+//                                else
+//                                {
+//                                }
+
 //                            TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                            t.setText(message);
 //                            toast.setView(toastRoot2);
@@ -657,6 +662,7 @@ public class ReturnFormFragment extends Fragment {
 
 
                             } else {
+                                Utility.showToastMessage(getActivity(), "form details not inserted");
                                 System.out.println("Cancel Status found");
                             }
                         } catch (JSONException e) {
@@ -683,6 +689,14 @@ public class ReturnFormFragment extends Fragment {
                         String success = jObj.getString("success");
                         String message = jObj.getString("message");
                         System.out.println("Call me form Details " + success + " " + message);
+                        if(success.equals("1"))
+                        {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                        }
+                        else
+                        {
+                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -691,36 +705,6 @@ public class ReturnFormFragment extends Fragment {
             }
         }
     }
-
-//    public void onRadioButtonClicked(View v) {
-//        boolean checked = ((RadioButton) v).isChecked();
-//        switch (v.getId()) {
-//            case R.id.storeCash:
-//                if (checked)
-//                    confirmCheckBox.setVisibility(View.VISIBLE);
-//                cancel.setVisibility(View.GONE);
-//                confirm.setVisibility(View.VISIBLE);
-//                relativeBank.setVisibility(View.GONE);
-//                break;
-//
-//            case R.id.bankAccount:
-//                if (checked)
-//                    System.out.println("payment" + payment);
-//                if (payment.equals("COD")) {
-//                    if (issueexplainET.getText().toString().length() < 15) {
-//                        textBelowissueET.setVisibility(View.VISIBLE);
-//                        storeCash.setChecked(true);
-//                    } else {
-//                        relativeBank.setVisibility(View.VISIBLE);
-//                        cancel.setVisibility(View.VISIBLE);
-//                    }
-//                } else {
-//                    relativeBank.setVisibility(View.GONE);
-//                    cancel.setVisibility(View.GONE);
-//                }
-//                break;
-//        }
-//    }
 
     class GetStatus extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;

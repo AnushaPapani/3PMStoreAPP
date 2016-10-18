@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.store.storeapps.R;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
+import com.store.storeapps.utility.Constants;
 import com.store.storeapps.utility.Utility;
 
 import org.json.JSONArray;
@@ -38,7 +40,8 @@ public class CancelFormFragment extends Fragment {
     private View rootView;
     Uri uri;
     Button btn_submit;
-    String orderid, CartProductId, orderpcost, orderpimage, pname, pcost, orderStatus, orderdate, cancelReason, comments, Uname, U_id;
+    String orderid, cartProdId, orderpcost, orderpimage, pname, pcost, orderStatus, orderdate, cancelReason,
+            comments, Uname, U_id, cartId;
     int pos;
     ArrayList<String> m;
     Spinner issueSpinner;
@@ -51,7 +54,8 @@ public class CancelFormFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.cancelform, container, false);
         orderid = MyOrderFragment.orderID;
-        CartProductId = MyOrderFragment.CartPID;
+        cartId = MyOrderFragment.cartID;
+        cartProdId = MyOrderFragment.CartPID;
         orderpimage = MyOrderFragment.Pimage;
         pname = MyOrderFragment.Pname;
         pcost = MyOrderFragment.Pcost;
@@ -59,7 +63,7 @@ public class CancelFormFragment extends Fragment {
         orderdate = MyOrderFragment.Orderdate;
         Uname = MyOrderFragment.USername;
         U_id =MyOrderFragment.Uid;
-
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         spinnerdataList = new ArrayList<String>();
         m = new ArrayList<String>();
 
@@ -140,14 +144,17 @@ public class CancelFormFragment extends Fragment {
             String result = null;
             try {
                 LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                paramsList.put("name", Uname);
-                paramsList.put("id", U_id);
+                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
+                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
                 paramsList.put("cancelReason", cancelReason);
                 paramsList.put("comments", comments);
                 paramsList.put("StatusType", "Cancel");
-                paramsList.put("cartProdId", CartProductId);
+                paramsList.put("cartId", cartId);
                 paramsList.put("Orderid", orderid);
+                paramsList.put("cartProdId", cartProdId);
                 result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
+
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -159,13 +166,22 @@ public class CancelFormFragment extends Fragment {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             try {
+                System.out.println("response    " +response);
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
-                        JSONObject jObj = new JSONObject(response);
-                        String success = jObj.getString("success");
-                        String message = jObj.getString("message");
+//                        JSONObject jObj = new JSONObject(response);
+                        String success = jsonobject.getString("success");
+                        String message = jsonobject.getString("message");
                         System.out.println("Cancel form Details " + success + " " + message);
+                        if(success.equals("1"))
+                        {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                        }
+                        else
+                        {
+                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                        }
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
