@@ -50,6 +50,13 @@
         <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
         <activity android:name="com.store.storeapps.activities.ReturnFormNew"></activity>
         <activity android:name="com.store.storeapps.activities.YoutubeVideoActivity"></activity>
+        <activity android:name="com.store.storeapps.activities.Facebook"></activity>
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!--<activity
             android:name=".PaytmActivity"
             android:label="@string/app_name"

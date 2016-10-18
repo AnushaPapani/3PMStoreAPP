@@ -1,63 +1,134 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/botom"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#FFF" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="Returns And Cancellations"
-        android:textSize="25dp" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent">
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="3dp"
-        android:background="#f3f3f3" >
-    </View>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent">
 
-    <RelativeLayout
-        android:id="@+id/rexpand"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view1"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp" >
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/textView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Returns And Cancellations"
+                android:textSize="25dp" />
 
-        <ExpandableListView
-            android:id="@+id/expandableListView1"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="5dp"
-            android:groupIndicator="@null" >
-        </ExpandableListView>
-    </RelativeLayout>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="3dp"
+                android:background="#f3f3f3"></View>
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/rexpand"
-        android:layout_marginBottom="1dp"
-        android:layout_marginTop="2dp"
-        android:background="#f3f3f3" >
-    </View>
+            <RelativeLayout
+                android:id="@+id/rexpand"
+                android:layout_width="fill_parent"
+                android:layout_height="450dp"
+                android:layout_above="@+id/LinearLayout2"
+                android:layout_below="@+id/view1"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
 
+                <ExpandableListView
+                    android:id="@+id/expandableListView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5dp"
+                    android:groupIndicator="@null">
+
+                </ExpandableListView>
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/rexpand"
+                android:layout_marginBottom="1dp"
+                android:layout_marginTop="2dp"
+                android:background="#f3f3f3">
+
+            </View>
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/textView3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Delivery"
+                android:textSize="25dp" />
+
+            <RelativeLayout
+                android:id="@+id/rexpand2"
+                android:layout_width="fill_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/textView3"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <ExpandableListView
+                    android:id="@+id/expandableListView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5dp"
+                    android:groupIndicator="@null">
+
+                </ExpandableListView>
+            </RelativeLayout>
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/textView4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view2"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:text="Delivery"
+                android:textSize="25dp" />
+
+            <RelativeLayout
+                android:id="@+id/rexpand3"
+                android:layout_width="fill_parent"
+                android:layout_height="500dp"
+                android:layout_below="@+id/textView3"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <ExpandableListView
+                    android:id="@+id/expandableListView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5dp"
+                    android:groupIndicator="@null">
+
+                </ExpandableListView>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
 </RelativeLayout>
-</android.support.v4.widget.NestedScrollView>

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:text="3PMstore is a unique concept founded in 2015 over an overload of pizzas! It promotes a sense of curiosity amongst everyone to indulge in a range of mysterious shopping! You can call quits on your boring / lazy afternoons and count on 3PMstore to surprise you with some legendary, classy, funky, unique &amp; stupendous horizon of products."
+            android:text="3PMstore is a unique concept founded in 2015 over an overload of pizzas! It promotes a sense of curiosity amongst large audiences to indulge in a range of mysterious shopping! "
             android:textSize="15dp" />
     </RelativeLayout>
 
@@ -37,7 +37,7 @@
             android:id="@+id/aboutus2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3PMstore is an abstract way of expressing reality, abstract forms that will enlighten the MYSTERY! This beautiful experience of mystery will leave you in awe and trigger your butterflies in the stomach to just keep wanting more !"
+            android:text="You can call quits on your boring / lazy afternoons and count on 3PMstore to surprise you with some mysterious products. All you have to do is log on to 3PMstore.com @3PM and experience the quickest shopping experience. We promise to keep you curious and thrilled for life! :D"
             android:textSize="15dp"
             android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"
@@ -45,23 +45,7 @@
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/aboutuslayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/aboutuslayout2"
-        android:layout_marginTop="12dp" >
 
-        <com.store.storeapps.activities.CustomTextView
-            android:id="@+id/aboutus3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:text="All you have to do is log on to 3PMstore.com @ 3PM and experience the quickest shopping experience. We promise to keep you curious and thrilled for life ! "
-            android:textSize="15dp" />
-    </RelativeLayout>
 
     <com.store.storeapps.activities.BoldCustomTextView
         android:id="@+id/aboutustext"
