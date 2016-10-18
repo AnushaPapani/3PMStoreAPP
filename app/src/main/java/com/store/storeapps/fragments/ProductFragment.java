@@ -1,6 +1,8 @@
 package com.store.storeapps.fragments;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -671,7 +673,22 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     }
                     else if(jsonobject.optString("success").equalsIgnoreCase("2"))
                     {
-                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("This product has expired. Please check out todays product!")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //do things
+                                        dialog.cancel();
+//                                        Utility.navigateDashBoardFragment(new ProductFragment(), ProductFragment.TAG, null, getActivity());
+                                        Intent i = new Intent(getActivity(), HomeActivity.class);
+                                        startActivity(i);
+//                                        finish();
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+//                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
                     }
                     else
                     {
