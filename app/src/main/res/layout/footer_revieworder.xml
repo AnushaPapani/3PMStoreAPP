@@ -150,6 +150,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/applypromo"
                 android:background="@null"
+                android:layout_marginLeft="@dimen/_10dp"
                 android:singleLine="true"
                 android:textSize="14dp">
 

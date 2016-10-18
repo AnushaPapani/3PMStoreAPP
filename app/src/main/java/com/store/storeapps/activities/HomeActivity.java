@@ -87,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static int mCartValue = 0;
     public static int mCartTotal = 0;
     public static boolean isLogged = false;
-    public static final String TAG = "PaymentOptionNewFrgament";
+    public static final String TAG = "HomeActivity";
     /*Timer*/
     TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
     private CountDownTimer countDownTimer; // built in android class

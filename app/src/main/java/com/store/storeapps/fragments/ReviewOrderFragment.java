@@ -52,8 +52,9 @@ public class ReviewOrderFragment extends Fragment {
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     private static ArrayList<AddressesModel> addressesModels;
     private ReviewOrderAdapter reviewOrderAdapter;
-    private Button proceedtopay;
+    public static Button proceedtopay;
     public static TextView Grand_total;
+    public static boolean isPromoCodeApplied= false;
     private EditText Promocode;
     private TextView promotext;
     private TextView applypromocode;
@@ -69,6 +70,8 @@ public class ReviewOrderFragment extends Fragment {
     public static TextView txt_pin_code;
     public static TextView txt_mobile;
     public static String Orderid = "";
+    public static String CP_ID = "";
+    public static String P_ID = "";
     public TextView txt_choose_another;
     private HomeActivity mParent;
     ReviewOrderModel reviewOrderModel;
@@ -151,6 +154,8 @@ public class ReviewOrderFragment extends Fragment {
                     promotext.setVisibility(View.GONE);
                     Promocode.setEnabled(true);
                     Promocode.setText("");
+                    isPromoCodeApplied = false;
+                    reviewOrderAdapter.notifyDataSetChanged();
                 } else {
                     TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                     t.setText("Please enter Promo code");
@@ -361,19 +366,58 @@ public class ReviewOrderFragment extends Fragment {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             try {
+                TextView DiscountText = (TextView) rootView.findViewById(R.id.DiscountText);
+                TextView DiscountValue = (TextView) rootView.findViewById(R.id.DiscountValue);
+                TextView GrandText = (TextView) rootView.findViewById(R.id.GrandText);
+                TextView GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
-                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                        t.setText("Coupon Code Applied Successfully");
-                        toast.setView(toastRoot2);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_SHORT);
-                        toast.show();
-                        String discount_price = jsonobject.getString("price");
-                        Grand_total.setText(discount_price);
-                        HomeActivity.mCartTotal = Integer.parseInt(discount_price);
-                        promotext.setText(jsonobject.getString("status"));
+                        String PromoType = jsonobject.optString("type");
+                        if(PromoType.equals("BUY2GET1FREE"))
+                        {
+                            //{"success":"1","price":748,"type":"BUY2GET1FREE","P_ID":"PM010247","CP_ID":"CP153843","remAmount":0,"minAmount":"199"}
+                            int price = jsonobject.getInt("price");
+                            String P_ID_DB = jsonobject.optString("P_ID");
+                            String CP_ID_DB = jsonobject.optString("CP_ID");
+                            int remAmount = jsonobject.getInt("remAmount");
+
+                            int minAmount = jsonobject.getInt("minAmount");
+                            String ammt = Integer.toString(minAmount);
+                            DiscountText.setVisibility(View.VISIBLE);
+                            DiscountValue.setVisibility(View.VISIBLE);
+                            GrandText.setVisibility(View.VISIBLE);
+                            GrandValue.setVisibility(View.VISIBLE);
+
+                            int  amt = price+minAmount;
+                            DiscountValue.setText("- "+minAmount);
+                            GrandValue.setText(""+price);
+                            Grand_total.setText(""+amt);
+                            CP_ID = CP_ID_DB;
+                            P_ID = P_ID_DB;
+                            HomeActivity.mCartTotal = price;
+                            promotext.setText(jsonobject.getString("status"));
+
+                        }
+                        else
+                        {
+                            DiscountText.setVisibility(View.GONE);
+                            DiscountValue.setVisibility(View.GONE);
+                            GrandText.setVisibility(View.GONE);
+                            GrandValue.setVisibility(View.GONE);
+                            TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                            t.setText(jsonobject.getString("status"));
+                            toast.setView(toastRoot2);
+                            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.show();
+                            String discount_price = jsonobject.getString("price");
+                            Grand_total.setText(discount_price);
+                            HomeActivity.mCartTotal = Integer.parseInt(discount_price);
+                            promotext.setText(jsonobject.getString("status"));
+                        }
+                        isPromoCodeApplied = true;
+                        reviewOrderAdapter.notifyDataSetChanged();
                     } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
                         TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
                         t.setText("Coupon Code already applied.Please cancel to apply new Coupon Code");
@@ -381,6 +425,8 @@ public class ReviewOrderFragment extends Fragment {
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
+                        isPromoCodeApplied = false;
+                        reviewOrderAdapter.notifyDataSetChanged();
                     } else {
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText("Invalid Promocode");
@@ -388,6 +434,8 @@ public class ReviewOrderFragment extends Fragment {
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
+                        isPromoCodeApplied = false;
+                        reviewOrderAdapter.notifyDataSetChanged();
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
@@ -523,6 +571,8 @@ public class ReviewOrderFragment extends Fragment {
                             reviewOrderModel.setP_Name(jsonObject.getString("P_Name"));
                             reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
                             reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
+//                            reviewOrderModel.setPR_ID(jsonObject.getString("Cart_Prod_ID"));
+//                            reviewOrderModel.setCP_ID(jsonObject.getString("Cart_Prod_ID"));
                             total_cartvalue = jsonobject.getString("cartValue");
                             HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
 
@@ -622,6 +672,7 @@ public class ReviewOrderFragment extends Fragment {
                             mAddressesModel.setBstate(jsonTblAddresses.optString("bstate"));
                             mAddressesModel.setBpincode(jsonTblAddresses.optString("bpincode"));
                             mAddressesModel.setBmobile(jsonTblAddresses.optString("bmobile"));
+//                            mAddressesModel.setCP_ID("");
                             addressesModels.add(mAddressesModel);
                         }
                         setAddressData();

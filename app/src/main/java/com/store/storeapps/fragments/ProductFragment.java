@@ -58,6 +58,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private TextView txt_buy;
     private ImageView img_highlighted;
     private ImageView image_thumbnail;
+    private ImageView image_VideoPlayButton;
 
     private ImageView img_first;
     private ImageView img_second;
@@ -260,11 +261,20 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
         image_thumbnail = (ImageView) rootView.findViewById(R.id.image_thumbnail);
+        image_VideoPlayButton = (ImageView) rootView.findViewById(R.id.img_VideoPreviewPlayButton);
         if(HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.size()>0) {
-            Picasso.with(getActivity()).load(getFullFilledImage("http://img.youtube.com/vi/" + HomeActivity.mProductItemsList.get(mPosition).getP_Video() + "/0.jpg")).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
-                    .into(image_thumbnail);
+            if(!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getP_Video())) {
+                image_thumbnail.setVisibility(View.VISIBLE);
+                image_VideoPlayButton.setVisibility(View.VISIBLE);
+                Picasso.with(getActivity()).load(getFullFilledImage("http://img.youtube.com/vi/" + HomeActivity.mProductItemsList.get(mPosition).getP_Video() + "/0.jpg")).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                        .into(image_thumbnail);
+            }
+            else
+            {
+                image_thumbnail.setVisibility(View.GONE);
+                image_VideoPlayButton.setVisibility(View.GONE);
+            }
 
             txt_right_icon.setTypeface(Utility.setTypeFace_fontawesome(getActivity()));
             txt_left_icon.setTypeface(Utility.setTypeFace_fontawesome(getActivity()));

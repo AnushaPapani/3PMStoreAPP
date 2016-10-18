@@ -32,6 +32,7 @@ import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.StoreCashFragment;
 import com.store.storeapps.fragments.TermsAndComditionsFragment;
 //import com.store.storeapps.fragments.TestimonialsFragment;
+import com.store.storeapps.fragments.TestimonialsFragment;
 import com.store.storeapps.models.CartItemModel;
 import com.store.storeapps.models.ItemDetails;
 import com.store.storeapps.models.LeftMenuModel;
@@ -72,6 +73,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     public static JSONObject products;
     public static boolean isLogged = false;
     public static String loggedUserEmail;
+    private static ListView list_home_left_drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,7 +129,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
-        ListView list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+         list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
 
         list_home_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -140,6 +142,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
                         if(isLogged) {
                             navigateSideMenuClickAfterLogin(position);
+                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
+
+                            }
                         }
                         else {
                             navigateSideMenuClickBeforeLogin(position);
@@ -155,7 +160,8 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     private void navigateSideMenuClickBeforeLogin(int position) {
         switch (position) {
             case 1:
-                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Previous_ProductsActivity.this);
+                Intent homeAct = new Intent(this, HomeActivity.class);
+                startActivity(homeAct);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
@@ -167,7 +173,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
-                //Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
@@ -185,7 +191,6 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             case 8:
                 Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
                 startActivity(prevProds);
-                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, Previous_ProductsActivity.this);
@@ -200,7 +205,8 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     private void navigateSideMenuClickAfterLogin(int position) {
         switch (position) {
             case 1:
-                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Previous_ProductsActivity.this);
+                Intent homeAct = new Intent(this, HomeActivity.class);
+                startActivity(homeAct);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
@@ -209,7 +215,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
-                // Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                 Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
@@ -246,6 +252,17 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         TextView emails = (TextView) layout_list_header.findViewById(R.id.emails);
         TextView cashs = (TextView) layout_list_header.findViewById(R.id.cashs);
         TextView div = (TextView) layout_list_header.findViewById(R.id.div);
+
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
+            loginNameTextViews.setText(Utility.getSharedPrefStringData(this, Constants.USER_NAME));
+            emails.setText(Utility.getSharedPrefStringData(this, Constants.USER_EMAIL_ID));
+            //cashs.setText(R.string.rs + Utility.getSharedPrefStringData(this, Constants.PMCASH));
+
+        } else {
+            //cashs.setText(""+R.string.rs);
+            loginNameTextViews.setText("Welcome");
+        }
+
         list_home_left_drawer.addHeaderView(layout_list_header);
     }
 
