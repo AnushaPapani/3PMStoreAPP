@@ -215,7 +215,7 @@
                 android:gravity="center_vertical"
                 android:text="Total Price"
                 android:textColor="@color/dark_gray_color"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -227,7 +227,9 @@
                 android:layout_alignTop="@+id/textView"
                 android:layout_marginRight="10dp"
                 android:text=""
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="20sp"
+                />
 
             <TextView
                 android:id="@+id/textView7"
@@ -238,7 +240,8 @@
                 android:layout_toLeftOf="@+id/grandtotal"
                 android:layout_toStartOf="@+id/grandtotal"
                 android:text="@string/rs"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                />
 
             <com.store.storeapps.activities.CustomTextView
                 android:id="@+id/DiscountText"
@@ -248,16 +251,21 @@
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="@dimen/_10dp"
                 android:text="Discount Applied"
-                android:textColor="@color/dark_gray_color" />
+                android:textColor="@color/dark_gray_color"
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
-            <com.store.storeapps.activities.BoldCustomTextView
+            <com.store.storeapps.activities.CustomTextView
                 android:id="@+id/GrandText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/DiscountText"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:text="GrandTotal" />
+                android:textColor="@color/dark_gray_color"
+                android:text="GrandTotal"
+                android:textSize="18sp"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/DiscountValue"
@@ -266,8 +274,13 @@
                 android:layout_below="@+id/textView7"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:layout_toLeftOf="@+id/grandtotal"
-                android:text="dvalue" />
+                android:layout_marginRight="@dimen/_10dp"
+                android:textColor="@color/dark_gray_color"
+                android:text="0"
+                android:textSize="18sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/GrandValue"
@@ -276,8 +289,13 @@
                 android:layout_below="@+id/DiscountValue"
                 android:layout_marginLeft="45dp"
                 android:layout_marginTop="@dimen/_10dp"
-                android:layout_toLeftOf="@+id/grandtotal"
-                android:text="gvalue" />
+                android:layout_marginRight="@dimen/_10dp"
+                android:text="0"
+                android:textColor="@color/dark_gray_color"
+                android:textSize="18sp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"/>
 
         </RelativeLayout>
 
