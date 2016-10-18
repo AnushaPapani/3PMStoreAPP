@@ -138,13 +138,50 @@ public class OrderDetailsFragment extends Fragment {
                             ArrayList<Movie> mMovie = new ArrayList<>();
                             for (int k = 0; k < jsonArrayItem.length(); k++) {
                                 JSONObject jsonObjectMovie = jsonArrayItem.getJSONObject(k);
+//                                Movie movie = new Movie();
+//                                movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
+//                                movie.setCart_Prod_ID(jsonObjectMovie.optString("Cart_Prod_ID"));
+//
+//                                movie.setP_Name(jsonObjectMovie.optString("P_Name"));
+//                                movie.setP_Qty(jsonObjectMovie.optString("P_Qty"));
+//                                movie.setStatus(jsonObjectMovie.optString("Status"));
+//                                movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
+//                                movie.setP_Image(jsonObjectMovie.optString("P_Image"));
+//                                movie.setCustomerName(jsonObjectMovie.optString("CustomerName"));
+//                                movie.setU_ID(jsonObjectMovie.optString("U_ID"));
+//                                movie.setP_Cost(jsonObjectMovie.optString("P_Cost"));
+//                                movie.setPayment_Type(jsonObjectMovie.optString("Payment_Type"));
+//                                movie.setReturn_RefundType(jsonObjectMovie.optString("Return_RefundType"));
+//                                movie.setReturn_ExchangeType(jsonObjectMovie.optString("Return_ExchangeType"));
+//
+//                                movie.setCallmeback_IsSubmit(jsonObjectMovie.optString("Callmeback_IsSubmit"));
+//                                movie.setCancelStatus(jsonObjectMovie.optString("CancelStatus"));
+//                                movie.setCancel_Issubmit(jsonObjectMovie.optString("Cancel_Issubmit"));
+//                                movie.setReview_Issubmit(jsonObjectMovie.optString("Review_Issubmit"));
+//                                movie.setRefund_IsSubmit(jsonObjectMovie.optString("Refund_IsSubmit"));
+//                                movie.setExchange_IsSubmit(jsonObjectMovie.optString("Exchange_IsSubmit"));
+//                                movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
+//                                movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
+//
+//                                movie.setUsername(jsonObjectMovie.optString("username"));
+//                                movie.setBline(jsonObjectMovie.optString("bline"));
+//                                movie.setBcity(jsonObjectMovie.optString("bcity"));
+//                                movie.setBstate(jsonObjectMovie.optString("bstate"));
+//                                movie.setBmobile(jsonObjectMovie.optString("bmobile"));
+//                                movie.setBpincode(jsonObjectMovie.optString("bpincode"));
+//
+//                                movie.setTotalCost(jsonObjectMovie.optString("Cart_Value"));
+//                                movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
+//                                movie.setDiscount(jsonObjectMovie.optString("Discount"));
+//                                movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
+//                                movie.setGrandTotal(jsonObjectMovie.optString("SubTotal"));
+
                                 Movie movie = new Movie();
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setCart_Prod_ID(jsonObjectMovie.optString("Cart_Prod_ID"));
-
                                 movie.setP_Name(jsonObjectMovie.optString("P_Name"));
                                 movie.setP_Qty(jsonObjectMovie.optString("P_Qty"));
-                                movie.setStatus(jsonObjectMovie.optString("Status"));
+                                movie.setStatus(jsonObjectMovie.optString("OrderStatus"));
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setP_Image(jsonObjectMovie.optString("P_Image"));
                                 movie.setCustomerName(jsonObjectMovie.optString("CustomerName"));
@@ -163,6 +200,11 @@ public class OrderDetailsFragment extends Fragment {
                                 movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
+                                movie.setTotalCost(jsonObjectMovie.optString("TotalOrderValue"));
+                                movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
+                                movie.setDiscount(jsonObjectMovie.optString("Discount"));
+                                movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
+                                movie.setGrandTotal(jsonObjectMovie.optString("GrandTotal"));
 
                                 movie.setUsername(jsonObjectMovie.optString("username"));
                                 movie.setBline(jsonObjectMovie.optString("bline"));
@@ -170,12 +212,6 @@ public class OrderDetailsFragment extends Fragment {
                                 movie.setBstate(jsonObjectMovie.optString("bstate"));
                                 movie.setBmobile(jsonObjectMovie.optString("bmobile"));
                                 movie.setBpincode(jsonObjectMovie.optString("bpincode"));
-
-                                movie.setTotalCost(jsonObjectMovie.optString("Cart_Value"));
-                                movie.setPMCashUsed(jsonObjectMovie.optString("3PMCashUsed"));
-                                movie.setDiscount(jsonObjectMovie.optString("Discount"));
-                                movie.setCOD_Charges(jsonObjectMovie.optString("COD_Charges"));
-                                movie.setGrandTotal(jsonObjectMovie.optString("SubTotal"));
 
 //                                movie.setAttribute_Type(jsonObjectMovie.optString("Attribute_Type"));
 //                                movie.setAttribute_Value(jsonObjectMovie.optString("Attribute_Value"));
@@ -220,7 +256,6 @@ public class OrderDetailsFragment extends Fragment {
             }
         }
     }
-
     private void setDataTotheLayout() {
         if (myOrdersModel.getMovies() != null) {
             for (int l = 0; l < myOrdersModel.getMovies().size(); l++) {
@@ -228,7 +263,6 @@ public class OrderDetailsFragment extends Fragment {
                 View layoutView = mInflater.inflate(R.layout.layout_orderdetails_item, null);
                 TextView textView = (TextView) layoutView.findViewById(R.id.order_id);
                 LinearLayout ll_items = (LinearLayout) layoutView.findViewById(R.id.ll_items);
-
 
                 textView.setText("" + modelArray.getOrderId());
 
@@ -249,7 +283,6 @@ public class OrderDetailsFragment extends Fragment {
                     TextView txt_addressstate = (TextView) inneritem.findViewById(R.id.addresstate);
                     TextView txt_addresspin = (TextView) inneritem.findViewById(R.id.addrespin);
                     TextView txt_addressmobile = (TextView) inneritem.findViewById(R.id.addresmob);
-
 
                     final TextView txt_approved1 = (TextView) inneritem.findViewById(R.id.approved1);
                     final TextView txt_packed1 = (TextView) inneritem.findViewById(R.id.Packed1);
@@ -350,8 +383,6 @@ public class OrderDetailsFragment extends Fragment {
                         }
                     }
 
-
-
                     String orderstatus = mMovie.getStatus().toString();
                     String Return_ExchangeTypes = mMovie.getReturn_ExchangeType().toString();
                     String Return_RefundTypes = mMovie.getReturn_RefundType().toString();
@@ -364,17 +395,6 @@ public class OrderDetailsFragment extends Fragment {
                     String Exchange_Issubmit = mMovie.getExchange_IsSubmit().toString();
                     String trackenabledate = mMovie.getTrackenabledate().toString();
                     String returndisabledate = mMovie.getReturndisabledate().toString();
-
-
-
-
-
-
-
-
-
-
-
 
 
                     if(orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||

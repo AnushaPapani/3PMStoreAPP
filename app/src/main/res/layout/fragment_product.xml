@@ -43,9 +43,9 @@
                 android:layout_centerInParent="true"
                 android:layout_toLeftOf="@+id/txt_right_icon"
                 android:layout_toRightOf="@+id/txt_left_icon"
-                android:layout_marginLeft="@dimen/_30dp"
-                android:layout_marginRight="@dimen/_30dp"
-                android:minHeight="@dimen/_240dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:minHeight="280dp"
                 android:src="@drawable/ic_launcher" />
 
             <TextView
