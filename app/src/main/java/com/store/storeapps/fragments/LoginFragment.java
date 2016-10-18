@@ -48,6 +48,7 @@ import com.store.storeapps.activities.GCMApplicationConstants;
 import com.store.storeapps.activities.GCMUtility;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.JSONParser;
+import com.store.storeapps.activities.Previous_ProductsActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.utility.ApiConstants;
@@ -86,6 +87,7 @@ import static com.store.storeapps.activities.GCMMainActivity.REG_ID;
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "LoginFragment";
+
     private HomeActivity mParent;
     private View rootView;
     // Instance of Facebook Class
@@ -131,6 +133,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
+
         if (getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
@@ -643,7 +646,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     regId = gcmObj
                             .register(GCMApplicationConstants.GOOGLE_PROJ_ID);
                     msg = "Registration ID :" + regId;
-
+                    storeRegIdinServer(regId, emailID);
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
                 } catch (NullPointerException e) {
@@ -656,38 +659,40 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             protected void onPostExecute(String msg) {
                 if (!TextUtils.isEmpty(regId)) {
 //                    storeRegIdinSharedPref(getActivity(), regId, emailID);
-                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGID, regId);
-                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGEMAILID, emailID);
-                    //					Toast.makeText(
-                    //							applicationContext,
-                    //							"Registered with GCM Server successfully.\n\n"
-                    //									+ msg, Toast.LENGTH_SHORT).show();
+//                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGID, regId);
+//                    Utility.setSharedPrefStringData(getActivity(), Constants.GCM_REGEMAILID, emailID);
+//                    storeRegIdinServer(Utility.getSharedPrefStringData(getActivity(),Constants.GCM_REGID),
+//                            Utility.getSharedPrefStringData(getActivity(),Constants.GCM_REGEMAILID));
+//                    					Toast.makeText(
+//                    							getActivity(),
+//                    							"Registered with GCM Server successfully.\n\n"
+//                    									+ msg, Toast.LENGTH_SHORT).show();
                 } else {
-                    //					Toast.makeText(
-                    //							applicationContext,
-                    //							"Reg ID Creation Failed.\n\nEither you haven't enabled Internet or GCM server is busy right now. Make sure you enabled Internet and try registering again after some time."
-                    //									+ msg, Toast.LENGTH_LONG).show();
+//                    					Toast.makeText(
+//                    							getActivity(),
+//                    							"Reg ID Creation Failed.\n\nEither you haven't enabled Internet or GCM server is busy right now. Make sure you enabled Internet and try registering again after some time."
+//                    									+ msg, Toast.LENGTH_LONG).show();
                 }
             }
         }.execute(null, null, null);
     }
     // Store RegId and Email entered by User in SharedPref
-//    private void storeRegIdinSharedPref(Context context, String regId,String emailID) {
-//        SharedPreferences prefs = getSharedPreferences("UserDetails",
-//                Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = prefs.edit();
-//        editor.putString(REG_ID, regId);
-//        editor.putString(EMAIL_ID, emailID);
-//        editor.commit();
-//        storeRegIdinServer(regId, emailID);
-//
-//    }
+    private void storeRegIdinSharedPref(Context context, String regId,String emailID) {
+        SharedPreferences prefs = getActivity().getSharedPreferences("UserDetails",
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(REG_ID, regId);
+        editor.putString(EMAIL_ID, emailID);
+        editor.commit();
+        storeRegIdinServer(regId, emailID);
+
+    }
 
     // Share RegID and Email ID with GCM Server Application (Php)
     private void storeRegIdinServer(String regId2, String emailID) {
         //		prgDialog.show();
-        params.put("emailId", emailID);
-        params.put("regId", regId);
+        params.put("emailId", HomeActivity.txt_email.getText().toString());
+        params.put("regId", regId2);
         System.out.println("Email id = " + emailID + " Reg Id = " + regId);
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
@@ -796,7 +801,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
     class PostLoginAsyncTask extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;
         private String username;
@@ -850,11 +854,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                         HomeActivity.mCartId = jsonobject.optString("cartId");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+                        /*GCM*/
+                        if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))
+                                && GCMUtility.validate(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
+                            // Check if Google Play Service is installed in Device
+                            // Play services is needed to handle GCM stuffs
+                            if (checkPlayServices()) {
+                                // Register Device in GCM Server
+                                registerInBackground(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID));
+                            }
+                        }
+
                         if (!mFrom.equalsIgnoreCase("cart")) {
                             mParent.onBackPressed();
                         }
-//                        Intent i=new Intent(getActivity(),HomeActivity.class);
-//                        startActivity(i);
+
                         if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
                             Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
                         } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
