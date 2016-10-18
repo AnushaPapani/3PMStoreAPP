@@ -106,7 +106,9 @@
         <RelativeLayout
             android:id="@+id/rela"
             android:layout_width="40dp"
-            android:layout_height="25dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="2dp"
             android:layout_toRightOf="@+id/qty_heading"
             android:layout_below="@+id/txt_product_name"
             android:background="@drawable/spinner_borders">
@@ -127,7 +129,7 @@
                 android:layout_height="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@+id/spin_qty"
                 android:layout_toStartOf="@+id/spin_qty"
                 android:src="@drawable/arow">
