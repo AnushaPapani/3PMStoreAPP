@@ -242,7 +242,7 @@ public class ReviewOrderFragment extends Fragment {
                 System.out.println("addresid " + addressId);
                 System.out.println("cartid " + cartId);
                 System.out.println("grand " + Grandtotal);
-                System.out.println("name " + name);
+                System.out.println("pincode " + pincode);
                 System.out.println("adres " + addressline);
 
 
