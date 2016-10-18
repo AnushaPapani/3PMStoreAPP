@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#e3e4e5">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+>
     <TextView
         android:id="@+id/order_id2"
         android:layout_width="match_parent"
@@ -19,8 +24,6 @@
         android:layout_width="fill_parent"
         android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
         android:layout_marginTop="@dimen/_10dp"
         android:background="@drawable/orderborder"
         >
@@ -65,9 +68,9 @@
         <RelativeLayout
             android:id="@+id/cartdivider"
             android:layout_width="fill_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:layout_centerHorizontal="true"
-
+            android:visibility="gone"
             android:background="#A8A8A8">
 
         </RelativeLayout>
@@ -89,7 +92,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="30dp"
                 android:text="Cart Summary"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textColor="#414141"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/totalvalue"
@@ -100,7 +105,8 @@
                 android:layout_below="@+id/cartheading"
                 android:layout_marginLeft="34dp"
                 android:text="Total Order Value"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textColor="#414141"/>
 
 
             <TextView
@@ -113,29 +119,32 @@
                 android:layout_marginRight="34dp"
                 android:text="599"
                 android:textSize="15dp"
-                />
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/textView38"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView35"
                 android:layout_alignStart="@+id/textView35"
                 android:layout_below="@+id/textView35"
                 android:layout_marginRight="1dp"
                 android:text="@string/rs"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/textView43"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/textView38"
                 android:layout_alignStart="@+id/textView38"
                 android:layout_below="@+id/textView38"
                 android:layout_marginRight="1dp"
                 android:text="@string/rs"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textColor="#414141"
+                />
 
             <RelativeLayout
                 android:id="@+id/granddivider"
@@ -158,19 +167,22 @@
                 android:layout_below="@+id/granddivider"
                 android:layout_marginTop="5dp"
                 android:text="Grand Total"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:textColor="#414141"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/grandtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/grandTotal"
-
                 android:text="1200"
                 android:textSize="15dp"
                 android:layout_alignTop="@+id/grandTotal"
                 android:layout_alignRight="@+id/codcharges"
-                android:layout_alignEnd="@+id/codcharges" />
+                android:layout_alignEnd="@+id/codcharges"
+                android:textColor="#414141"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/textView47"
@@ -183,7 +195,10 @@
                 android:layout_alignLeft="@+id/textView43"
                 android:layout_alignStart="@+id/textView43"
                 android:layout_toLeftOf="@+id/totalcost"
-                android:layout_toStartOf="@+id/totalcost" />
+                android:layout_toStartOf="@+id/totalcost"
+                android:textColor="#414141"
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/codcharges"
@@ -196,17 +211,18 @@
                 android:layout_below="@+id/pmcashused"
                 android:layout_alignRight="@+id/pmcashused"
                 android:layout_alignEnd="@+id/pmcashused"
-                />
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/textView35"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/rs"
                 android:textSize="15dp"
                 android:layout_below="@+id/textView29"
                 android:layout_alignLeft="@+id/textView29"
-                android:layout_alignStart="@+id/textView29" />
+                android:layout_alignStart="@+id/textView29"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/pmcashused"
@@ -217,7 +233,8 @@
                 android:layout_alignBaseline="@+id/textView35"
                 android:layout_alignBottom="@+id/textView35"
                 android:layout_alignRight="@+id/totalcost"
-                android:layout_alignEnd="@+id/totalcost" />
+                android:layout_alignEnd="@+id/totalcost"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/textView39"
@@ -228,7 +245,8 @@
                 android:layout_alignBaseline="@+id/textView43"
                 android:layout_alignBottom="@+id/textView43"
                 android:layout_alignLeft="@+id/promocodediscount"
-                android:layout_alignStart="@+id/promocodediscount" />
+                android:layout_alignStart="@+id/promocodediscount"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/promocodediscount"
@@ -239,7 +257,8 @@
                 android:layout_centerVertical="true"
                 android:layout_alignLeft="@+id/pmcash"
                 android:layout_alignStart="@+id/pmcash"
-                android:layout_below="@+id/pmcash"/>
+                android:layout_below="@+id/pmcash"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/pmcash"
@@ -250,11 +269,12 @@
                 android:layout_alignBaseline="@+id/textView35"
                 android:layout_alignBottom="@+id/textView35"
                 android:layout_alignLeft="@+id/totalvalue"
-                android:layout_alignStart="@+id/totalvalue" />
+                android:layout_alignStart="@+id/totalvalue"
+                android:textColor="#414141"/>
 
             <TextView
                 android:id="@+id/textView29"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="14dp"
                 android:text="@string/rs"
@@ -263,7 +283,9 @@
                 android:layout_alignBottom="@+id/totalcost"
                 android:layout_toLeftOf="@+id/totalcost"
                 android:layout_toStartOf="@+id/totalcost"
-                android:layout_marginEnd="25dp" />
+                android:layout_marginEnd="25dp"
+                android:textColor="#414141"
+                />
 
             <TextView
                 android:id="@+id/discount"
@@ -273,7 +295,8 @@
                 android:textSize="15dp"
                 android:layout_below="@+id/pmcashused"
                 android:layout_alignRight="@+id/pmcashused"
-                android:layout_alignEnd="@+id/pmcashused" />
+                android:layout_alignEnd="@+id/pmcashused"
+                android:textColor="#414141"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -286,5 +309,7 @@
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textSize="@dimen/_20dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        />
 </LinearLayout>
+    </LinearLayout>
