@@ -423,7 +423,8 @@
                         android:layout_height="35dp"
                         android:layout_below="@+id/childexpand2"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:background="@drawable/border">
+                        android:background="@drawable/border"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/parentData3"
@@ -534,7 +535,8 @@
                         android:layout_height="35dp"
                         android:layout_below="@+id/childexpand4"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:background="@drawable/border">
+                        android:background="@drawable/border"
+                        >
 
                         <TextView
                             android:id="@+id/parentData5"

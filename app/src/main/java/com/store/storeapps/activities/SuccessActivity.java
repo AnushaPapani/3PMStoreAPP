@@ -99,7 +99,9 @@ public class SuccessActivity extends AppCompatActivity {
 
 //				new CODSuccess().execute(totalcod,Ordders,name,EmailID);
 //				if (codlayout.getVisibility() == View.GONE)
-			mWebView.loadUrl("http://www.3pmstore.com/android/android_connect/3pminvoicetoemail/viewusers.php?totalcod="+totalcod+"&Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"");
+			String newUrl = ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/codSuccess.php?" +
+					"totalcod="+totalcod+"&Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
+			mWebView.loadUrl(newUrl);
 //                    gcmnames =globalVariable.getEmailid().toString();
 			if (!TextUtils.isEmpty(gcmnames) && GCMUtility.validate(gcmnames)) {
 				// Check if Google Play Service is installed in Device
@@ -114,7 +116,10 @@ public class SuccessActivity extends AppCompatActivity {
 		else
 		{
 //				new CashSuccess().execute(Ordders,name,EmailID);
-			mWebView.loadUrl("http://www.3pmstore.com/android/android_connect/3pminvoicetoemail/hurraynotification.php?Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"");
+
+			String url= ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/hurraynotification.php?" +
+					"Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
+			mWebView.loadUrl(url);
 //                    gcmnames =globalVariable.getEmailid().toString();
 			if (!TextUtils.isEmpty(gcmnames) && GCMUtility.validate(gcmnames)) {
 				// Check if Google Play Service is installed in Device
