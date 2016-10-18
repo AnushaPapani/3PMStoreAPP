@@ -90,7 +90,8 @@
                         android:layout_alignStart="@+id/proname1"
                         android:layout_below="@+id/proname1"
                         android:layout_marginTop="8dp"
-                        android:text="Quantity" />
+                        android:text="Quantity"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/quantityQuote"
@@ -100,7 +101,8 @@
                         android:layout_marginLeft="30dp"
                         android:layout_toEndOf="@+id/quantityHead"
                         android:layout_toRightOf="@+id/quantityHead"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/quantityValue"
@@ -112,7 +114,8 @@
                         android:layout_marginStart="15dp"
                         android:layout_toEndOf="@+id/quantityQuote"
                         android:layout_toRightOf="@+id/quantityQuote"
-                        android:text="quantityValue" />
+                        android:text="quantityValue"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/textViewSize"
@@ -122,7 +125,8 @@
                         android:layout_alignStart="@+id/quantityHead"
                         android:layout_below="@+id/quantityHead"
                         android:layout_marginTop="5dp"
-                        android:text="Size" />
+                        android:text="Size"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/sizeQuote"
@@ -132,17 +136,19 @@
                         android:layout_alignBottom="@+id/textViewSize"
                         android:layout_alignLeft="@+id/quantityQuote"
                         android:layout_alignStart="@+id/quantityQuote"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/sizeValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/sizeQuote"
-                        android:layout_alignBottom="@+id/sizeQuote"
                         android:layout_alignLeft="@+id/quantityValue"
                         android:layout_alignStart="@+id/quantityValue"
-                        android:text="sizeValue" />
+                        android:layout_below="@+id/quantityValue"
+                        android:text="sizeValue"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/textViewGender"
@@ -152,7 +158,8 @@
                         android:layout_alignStart="@+id/textViewSize"
                         android:layout_below="@+id/textViewSize"
                         android:layout_marginTop="5dp"
-                        android:text="Gender" />
+                        android:text="Gender"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/genderQuote"
@@ -162,17 +169,19 @@
                         android:layout_alignBottom="@+id/textViewGender"
                         android:layout_alignLeft="@+id/sizeQuote"
                         android:layout_alignStart="@+id/sizeQuote"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/genderValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/genderQuote"
-                        android:layout_alignBottom="@+id/genderQuote"
                         android:layout_alignLeft="@+id/sizeValue"
                         android:layout_alignStart="@+id/sizeValue"
-                        android:text="genderValue" />
+                        android:layout_below="@+id/sizeValue"
+                        android:text="genderValue"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/textViewColor"
@@ -180,10 +189,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/textViewGender"
                         android:layout_alignStart="@+id/textViewGender"
-
                         android:layout_below="@+id/textViewGender"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:text="Color" />
+                        android:text="Color"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/colorQuote"
@@ -193,7 +202,8 @@
                         android:layout_alignBottom="@+id/textViewColor"
                         android:layout_alignLeft="@+id/genderQuote"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/colorValue"
@@ -203,7 +213,8 @@
                         android:layout_alignStart="@+id/genderValue"
                         android:layout_below="@+id/genderValue"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:text="colorValue" />
+                        android:text="colorValue"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/textViewCustom"
@@ -213,7 +224,8 @@
                         android:layout_alignStart="@+id/textViewColor"
                         android:layout_below="@+id/textViewColor"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:text="Type" />
+                        android:text="Type"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/typeQuote"
@@ -226,7 +238,8 @@
                         android:layout_marginTop="@dimen/_3dp"
                         android:layout_toEndOf="@+id/genderQuote"
                         android:layout_toLeftOf="@+id/pdate1"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/typeValue"
@@ -236,7 +249,8 @@
                         android:layout_alignStart="@+id/colorValue"
                         android:layout_below="@+id/colorValue"
                         android:layout_marginTop="@dimen/_3dp"
-                        android:text="typeValue" />
+                        android:text="typeValue"
+                        android:textColor="#414141"/>
 
 
 
@@ -248,7 +262,8 @@
                         android:layout_alignStart="@+id/textViewCustom"
                         android:layout_below="@+id/textViewCustom"
                         android:layout_marginTop="5dp"
-                        android:text="Subtotal" />
+                        android:text="Subtotal"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/subtotalQuote"
@@ -258,7 +273,8 @@
                         android:layout_alignBottom="@+id/subtotalHead"
                         android:layout_alignLeft="@+id/typeQuote"
                         android:layout_alignStart="@+id/typeQuote"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/subtoatalValue"
@@ -268,7 +284,8 @@
                         android:layout_alignBottom="@+id/subtotalQuote"
                         android:layout_alignLeft="@+id/typeValue"
                         android:layout_alignStart="@+id/typeValue"
-                        android:text="subtoatalValue" />
+                        android:text="subtoatalValue"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/grandToatalHead"
@@ -278,7 +295,8 @@
                         android:layout_alignStart="@+id/subtotalHead"
                         android:layout_below="@+id/subtotalHead"
                         android:layout_marginTop="5dp"
-                        android:text="GrandToatal" />
+                        android:text="GrandToatal"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/grandtotalQuote"
@@ -288,7 +306,8 @@
                         android:layout_alignBottom="@+id/grandToatalHead"
                         android:layout_alignLeft="@+id/subtotalQuote"
                         android:layout_alignStart="@+id/subtotalQuote"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/grandTotalValue"
@@ -298,7 +317,8 @@
                         android:layout_alignBottom="@+id/grandtotalQuote"
                         android:layout_alignLeft="@+id/subtoatalValue"
                         android:layout_alignStart="@+id/subtoatalValue"
-                        android:text="grandTotalValue" />
+                        android:text="grandTotalValue"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/orderStatus"
@@ -308,7 +328,8 @@
                         android:layout_alignStart="@+id/grandToatalHead"
                         android:layout_below="@+id/grandToatalHead"
                         android:layout_marginTop="5dp"
-                        android:text="OrderStatus" />
+                        android:text="OrderStatus"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/orderStatusQuote"
@@ -318,7 +339,8 @@
                         android:layout_alignBottom="@+id/orderStatus"
                         android:layout_alignLeft="@+id/grandtotalQuote"
                         android:layout_alignStart="@+id/grandtotalQuote"
-                        android:text=":" />
+                        android:text=":"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/pstatus1"
@@ -328,7 +350,8 @@
                         android:layout_alignBottom="@+id/orderStatusQuote"
                         android:layout_alignLeft="@+id/grandTotalValue"
                         android:layout_alignStart="@+id/grandTotalValue"
-                        android:text="orderStatusValue" />
+                        android:text="orderStatusValue"
+                        android:textColor="#414141"/>
 
 
                 </RelativeLayout>
@@ -551,7 +574,8 @@
                             android:maxLines="3"
                             android:singleLine="false"
                             android:text="Approved"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:textColor="#414141"/>
 
                         <TextView
                             android:id="@+id/Packed1"
@@ -564,7 +588,8 @@
                             android:maxLines="3"
                             android:singleLine="false"
                             android:text="Packed"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:textColor="#414141"/>
 
                         <TextView
                             android:id="@+id/Canceled1"
@@ -577,7 +602,8 @@
                             android:maxLines="3"
                             android:singleLine="false"
                             android:text="Shipping"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:textColor="#414141"/>
 
                         <TextView
                             android:id="@+id/delivered1"
@@ -590,7 +616,8 @@
                             android:maxLines="3"
                             android:singleLine="false"
                             android:text="Delivered"
-                            android:textSize="10dp" />
+                            android:textSize="10dp"
+                            android:textColor="#414141"/>
 
                         <TextView
                             android:id="@+id/exstatus1"
@@ -602,6 +629,7 @@
                             android:singleLine="false"
                             android:text="exstatus1"
                             android:textSize="10dp"
+                            android:textColor="#414141"
                             android:visibility="gone"/>
                     </LinearLayout>
                 </RelativeLayout>
@@ -649,7 +677,8 @@
                         android:layout_alignLeft="@+id/addresname"
                         android:layout_below="@+id/addresname"
                         android:layout_marginTop="3dp"
-                        android:text="Address" />
+                        android:text="Address"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/addrescity"
@@ -657,7 +686,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/addresline"
                         android:layout_below="@+id/addresline"
-                        android:text="city" />
+                        android:text="city"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/addresstate"
@@ -673,7 +703,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/addresstate"
                         android:layout_below="@+id/addresstate"
-                        android:text="pincode" />
+                        android:text="pincode"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/chooseanother"
@@ -695,7 +726,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/addrespin"
                         android:layout_below="@+id/addrespin"
-                        android:text="Mobile No" />
+                        android:text="Mobile No"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/addressID"
