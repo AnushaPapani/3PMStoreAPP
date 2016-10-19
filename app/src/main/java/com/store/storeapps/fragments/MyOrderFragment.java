@@ -53,7 +53,7 @@ public class MyOrderFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType;
+    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType, GTOTAL;
     private View rootView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -641,7 +641,7 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
+                            GTOTAL = mMovie.getGrandTotal().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();

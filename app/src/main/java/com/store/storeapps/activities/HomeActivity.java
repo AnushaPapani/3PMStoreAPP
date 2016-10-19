@@ -34,6 +34,7 @@ import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.AddAddressFragment;
 import com.store.storeapps.fragments.Blog;
 import com.store.storeapps.fragments.ContactUsFragment;
+import com.store.storeapps.fragments.Faqview;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.MyAddressFragment;
@@ -359,6 +360,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
+
+
                 break;
             case 7:
                 Intent share = new Intent(Intent.ACTION_SEND);
@@ -381,6 +384,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case 10:
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, HomeActivity.this);
                 break;
+            case 11:
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, HomeActivity.this);
+                break;
 
         }
     }
@@ -400,7 +406,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
-                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
+//                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
+
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, HomeActivity.this);
                 break;
             case 6:
                 Intent share = new Intent(Intent.ACTION_SEND);
@@ -422,6 +430,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, HomeActivity.this);
                 break;
             case 10:
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, HomeActivity.this);
+                break;
+            case 11:
                 signOut();
                 break;
         }
