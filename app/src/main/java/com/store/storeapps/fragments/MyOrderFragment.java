@@ -646,9 +646,9 @@ public class MyOrderFragment extends Fragment {
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
 
-                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-                            startActivity(i);
-//                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
+//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
+//                            startActivity(i);
+                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
                         }
                     });
 

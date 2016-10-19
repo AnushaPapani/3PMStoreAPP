@@ -4,7 +4,6 @@ package com.store.storeapps.fragments;
  * Created by satyanarayana pdv on 10/11/2016.
  */
 
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.store.storeapps.R;
-import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.utility.ApiConstants;
 import com.store.storeapps.utility.Constants;
@@ -41,10 +39,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.StringTokenizer;
-
-/**
- * Created by satyanarayana pdv on 10/11/2016.
- */
 
 public class ReturnFormFragment extends Fragment {
 
@@ -67,8 +61,12 @@ public class ReturnFormFragment extends Fragment {
     Spinner issueSpinner, returnTypespinner, spinnerAccount;
 
     int pos, poss;
-    String issue, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch,
-            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id , PaymentType, cartId;
+    String issue, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch, id, name,
+            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id, PaymentType, cartId;
+
+    TextView textBelownameET, textBelowemailET, textBelowbranchET, textBelowbankET,
+            textBelowifsccodeET, textBelowaccountnoET, textBelowreenterAccountnoET;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,9 +78,10 @@ public class ReturnFormFragment extends Fragment {
         Uname = MyOrderFragment.USername;
         U_id = MyOrderFragment.Uid;
         payment = MyOrderFragment.PaymentType;
-
-        System.out.println("cartProdId   " +cartProdId );
-        System.out.println("cartId    " +cartId );
+        name = Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME);
+        id = Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID);
+        System.out.println("cartProdId   " + cartProdId);
+        System.out.println("cartId    " + cartId);
 
         relativeBank = (RelativeLayout) rootView.findViewById(R.id.relativeBank);
         relativeissue = (RelativeLayout) rootView.findViewById(R.id.relative5);
@@ -104,6 +103,15 @@ public class ReturnFormFragment extends Fragment {
         reenterAccountnoET = (EditText) rootView.findViewById(R.id.reenterAccountnoET);
         branchET = (EditText) rootView.findViewById(R.id.branchET);
         textAboveCheckBox = (TextView) rootView.findViewById(R.id.textAboveCheckBox);
+
+
+        textBelownameET = (TextView) rootView.findViewById(R.id.textBelownameET);
+        textBelowemailET = (TextView) rootView.findViewById(R.id.textBelowemailET);
+        textBelowbranchET = (TextView) rootView.findViewById(R.id.textBelowbranchET);
+        textBelowbankET = (TextView) rootView.findViewById(R.id.textBelowbankET);
+        textBelowifsccodeET = (TextView) rootView.findViewById(R.id.textBelowifsccodeET);
+        textBelowaccountnoET = (TextView) rootView.findViewById(R.id.textBelowaccountnoET);
+        textBelowreenterAccountnoET = (TextView) rootView.findViewById(R.id.textBelowreenterAccountnoET);
 
         storeCash = (RadioButton) rootView.findViewById(R.id.storeCash);
 //        Typeface font = Typeface.createFromAsset(getAssets(), "myriadprobold.otf");
@@ -228,51 +236,78 @@ public class ReturnFormFragment extends Fragment {
             }
         });
 
-        rg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int checkedRadioButton = rg.getCheckedRadioButtonId();
-                    boolean  checked = ((RadioButton) rootView).isChecked();
-                    switch (checkedRadioButton) {
-                        case R.id.storeCash:
+        rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
-                            if (checked)
-                                Toast.makeText(getActivity(),"checking",Toast.LENGTH_SHORT).show();
-                        confirmCheckBox.setVisibility(View.VISIBLE);
-                        cancel.setVisibility(View.GONE);
-                        confirm.setVisibility(View.VISIBLE);
-                        relativeBank.setVisibility(View.GONE);
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                        break;
 
-                        case R.id.bankAccount:
-                            if (checked)
-                                System.out.println("payment radio" + payment);
+                        switch (checkedId) {
+
+                            case R.id.storeCash:
+                                System.out.println("payment store cash" );
+
+//                                    getActivity().runOnUiThread(new Runnable() {
+//
+//                                        @Override
+//                                        public void run() {
+                                            confirmCheckBox.setVisibility(View.VISIBLE);
+                                            cancel.setVisibility(View.GONE);
+                                            confirm.setVisibility(View.VISIBLE);
+                                            relativeBank.setVisibility(View.GONE);
+//                                        }
+//                                    });
+                                break;
+
+                            case R.id.bankAccount:
+//                                    System.out.println("payment" + payment);
+                                System.out.println("payment bank account" );
+
                                 if (payment.equals("COD")) {
-                                    if (issueexplainET.getText().toString().length() < 15) {
-                                        textBelowissueET.setVisibility(View.VISIBLE);
-                                        storeCash.setChecked(true);
-                                    } else {
-                                        relativeBank.setVisibility(View.VISIBLE);
-                                        cancel.setVisibility(View.VISIBLE);
-                                    }
+//                                    getActivity().runOnUiThread(new Runnable() {
+//
+//                                        @Override
+//                                        public void run() {
+
+                                            if (issueexplainET.getText().toString().length() < 15) {
+//                                                getActivity().runOnUiThread(new Runnable() {
+//
+//                                                    @Override
+//                                                    public void run() {
+                                                        textBelowissueET.setVisibility(View.VISIBLE);
+//										returnTypespinner.setSelection(0);
+                                                        storeCash.setChecked(true);
+//                                                    }
+//                                                });
+                                            } else {
+                                                relativeBank.setVisibility(View.VISIBLE);
+                                                cancel.setVisibility(View.VISIBLE);
+                                            }
+//                                        }
+//                                    });
                                 } else {
-                                    relativeBank.setVisibility(View.GONE);
-                                    cancel.setVisibility(View.GONE);
+//                                    getActivity().runOnUiThread(new Runnable() {
+//
+//                                        @Override
+//                                        public void run() {
+                                            relativeBank.setVisibility(View.GONE);
+                                            cancel.setVisibility(View.GONE);
+//                                        }
+//                                    });
                                 }
-                        break;
-                        default:
-                        break;
-                    }
-                }
+
+                                break;
+                        }
+
+            }
+
         });
+
 
         initUI();
         return rootView;
     }
-
     private void initUI() {
-
     }
 
     class ReturnFormAsyncTask extends AsyncTask<String, String, String> {
@@ -321,213 +356,267 @@ public class ReturnFormFragment extends Fragment {
         @Override
         protected String doInBackground(String... params) {
             String result = null;
-            try {
 
-                if (issueExplain.length() < 15) {
-                    textBelowissueET.setVisibility(View.VISIBLE);
-                    storeCash.setChecked(true);
-                    bankDetails.setChecked(false);
-                    relativeBank.setVisibility(View.GONE);
-                } else if (payment.equals("COD")) {
+            int selectedId = rg.getCheckedRadioButtonId();
+            rgbutton = (RadioButton) rootView.findViewById(selectedId);
+            //            Toast.makeText(MainActivity.this,radioSexButton.getText(),Toast.LENGTH_SHORT).show();
+            final String radiodata = rgbutton.getText().toString();
+            System.out.println("orderid radiodata" + radiodata);
 
-                    textBelowissueET.setVisibility(View.GONE);
+            StringTokenizer tokens = new StringTokenizer(radiodata, "(");
+            final String first = tokens.nextToken();
+            System.out.println("orderid radiodata" + first);
+            final int pos = issueSpinner.getSelectedItemPosition();
 
-                    final int returnposition3 = returnTypespinner.getSelectedItemPosition();
-                    System.out.println("returnposition" + returnposition3);
+            final String issue = issueSpinner.getSelectedItem().toString();
+            final int poss = returnTypespinner.getSelectedItemPosition();
+            final String returnType = returnTypespinner.getSelectedItem().toString();
+            final String accountType = spinnerAccount.getSelectedItem().toString();
 
-                    if (returnposition3 == 2) {
-                        if (first.equals("To My Bank Account")) {
-                            final TextView textBelownameET, textBelowemailET, textBelowbranchET, textBelowbankET,
-                                    textBelowifsccodeET, textBelowaccountnoET, textBelowreenterAccountnoET;
+            System.out.println("orderid accountType" + accountType);
+            System.out.println("orderid returnType" + returnType);
+            System.out.println("orderid issueid position" + issue);
+            final String issueExplain = issueexplainET.getText().toString();
+            final String newProduct = newproductET.getText().toString();
+            final String bname = nameET.getText().toString();
+            final String bemaill = email.getText().toString();
+            final String branch = branchET.getText().toString();
+            final String bankname = banknameET.getText().toString();
+            final String bifsccode = ifsccodeET.getText().toString();
+            final String baccount = accountnoET.getText().toString();
+            final String breenteraccount = reenterAccountnoET.getText().toString();
 
-                            textBelownameET = (TextView) rootView.findViewById(R.id.textBelownameET);
-                            textBelowemailET = (TextView) rootView.findViewById(R.id.textBelowemailET);
-                            textBelowbranchET = (TextView) rootView.findViewById(R.id.textBelowbranchET);
-                            textBelowbankET = (TextView) rootView.findViewById(R.id.textBelowbankET);
-                            textBelowifsccodeET = (TextView) rootView.findViewById(R.id.textBelowifsccodeET);
-                            textBelowaccountnoET = (TextView) rootView.findViewById(R.id.textBelowaccountnoET);
-                            textBelowreenterAccountnoET = (TextView) rootView.findViewById(R.id.textBelowreenterAccountnoET);
 
+//            final String name = globalVariable.getName();
+//            final String U_id = globalVariable.getUserid().toString();
+            //			String orderid = globalVariable.getOrderid();
+            System.out.println("orderid" + orderid);
+            System.out.println("orderid" + U_id);
+            System.out.println("orderid" + Uname);
 
-                            final int posss = spinnerAccount.getSelectedItemPosition();
-                            if (bname.equals("")) {
-                                textBelownameET.setVisibility(View.VISIBLE);
-                            } else if (bemaill.equals("")) {
-                                textBelowemailET.setVisibility(View.VISIBLE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (bemaill.matches(emailPattern)) {
-                                textBelowemailET.setVisibility(View.VISIBLE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (branch.equals("")) {
-                                textBelowbranchET.setVisibility(View.VISIBLE);
+            System.out.println("orderid" + issueExplain);
+            System.out.println("orderid" + newProduct);
+            System.out.println("orderid" + bname);
+            System.out.println("email" + bemaill);
+            System.out.println("orderid" + branch);
+            System.out.println("orderid" + bankname);
+            System.out.println("orderid" + bifsccode);
+            System.out.println("orderid" + baccount);
+            System.out.println("orderid accountType" + accountType);
+            System.out.println("orderid returnType" + returnType);
+            System.out.println("orderid issueid position" + issue);
+            System.out.println("orderid payment" + payment);
 
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (bankname.equals("")) {
-                                textBelowbankET.setVisibility(View.VISIBLE);
+            if (issueExplain.length() < 15) {
+                getActivity().runOnUiThread(new Runnable() {
 
-                                textBelowbranchET.setVisibility(View.GONE);
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (bifsccode.equals("")) {
+                    @Override
+                    public void run() {
+                        textBelowissueET.setVisibility(View.VISIBLE);
+                        storeCash.setChecked(true);
+                        bankDetails.setChecked(false);
+                        relativeBank.setVisibility(View.GONE);
+                    }
+                });
+            } else if (payment.equals("COD")) {
+                getActivity().runOnUiThread(new Runnable() {
 
-                                textBelowifsccodeET.setVisibility(View.VISIBLE);
+                    @Override
+                    public void run() {
 
-                                textBelowbankET.setVisibility(View.GONE);
-                                textBelowbranchET.setVisibility(View.GONE);
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (baccount.equals("")) {
+                        textBelowissueET.setVisibility(View.GONE);
 
-                                textBelowaccountnoET.setVisibility(View.VISIBLE);
+                    }
+                });
+                final int returnposition3 = returnTypespinner.getSelectedItemPosition();
+                System.out.println("returnposition" + returnposition3);
 
-                                textBelowifsccodeET.setVisibility(View.GONE);
-                                textBelowbankET.setVisibility(View.GONE);
-                                textBelowbranchET.setVisibility(View.GONE);
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (breenteraccount.equals("")) {
-                                textBelowreenterAccountnoET.setVisibility(View.VISIBLE);
+                if (returnposition3 == 2) {
+                    if (first.equals("To My Bank Account")) {
 
-                                textBelowaccountnoET.setVisibility(View.GONE);
-                                textBelowifsccodeET.setVisibility(View.GONE);
-                                textBelowbankET.setVisibility(View.GONE);
-                                textBelowbranchET.setVisibility(View.GONE);
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-                            } else if (!baccount.equals(breenteraccount)) {
-//                                    Toast.makeText(getApplicationContext(),"Account Number Not Matching",Toast.LENGTH_SHORT).show();
+                        final int posss = spinnerAccount.getSelectedItemPosition();
+                        if (bname.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
 
-                            } else if (posss == 0) {
+                                @Override
+                                public void run() {
 
-//                                        Toast.makeText(getApplicationContext(),"Select Account Type",Toast.LENGTH_SHORT).show();
-                                textBelowreenterAccountnoET.setVisibility(View.GONE);
-                                textBelowaccountnoET.setVisibility(View.GONE);
-                                textBelowifsccodeET.setVisibility(View.GONE);
-                                textBelowbankET.setVisibility(View.GONE);
-                                textBelowbranchET.setVisibility(View.GONE);
-                                textBelowemailET.setVisibility(View.GONE);
-                                textBelownameET.setVisibility(View.GONE);
-
-                            } else if (bname.equals("") && bemaill.equals("") && branch.equals("") && bankname.equals("")
-                                    && bifsccode.equals("") && baccount.equals("") && breenteraccount.equals("") && posss == 0) {
-
-                                textBelownameET.setVisibility(View.VISIBLE);
-                                textBelowemailET.setVisibility(View.VISIBLE);
-                                textBelowbranchET.setVisibility(View.VISIBLE);
-                                textBelowbankET.setVisibility(View.VISIBLE);
-                                textBelowifsccodeET.setVisibility(View.VISIBLE);
-                                textBelowaccountnoET.setVisibility(View.VISIBLE);
-                                textBelowreenterAccountnoET.setVisibility(View.VISIBLE);
-                            } else if (confirmCheckBox.isChecked()) {
-                                textAboveCheckBox.setVisibility(View.GONE);
-
-                                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
-                                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
-                                paramsList.put("returnissueId", issue);
-                                paramsList.put("issueexplain", issueExplain);
-
-                                System.out.println("returnTypespinner String gettin"+returnTypeString);
-                                paramsList.put("returntype", returnTypeString);
-                                paramsList.put("returnpaytype", first);
-                                paramsList.put("exchangecomments", newProduct);
-                                paramsList.put("email", bemaill);
-                                paramsList.put("returncodbankname", bankname);
-                                paramsList.put("branchname", branch);
-                                paramsList.put("returncodaccounttype", accountType);
-                                paramsList.put("returncodcustname", bname);
-                                paramsList.put("returncodbankifsccode", bifsccode);
-                                paramsList.put("returncodaccountno", baccount);
-                                paramsList.put("returnOrderid", orderid);
-                                paramsList.put("StatusType", "Return");
-
-                                paramsList.put("cartId", cartId);
-                                paramsList.put("cartProdId", cartProdId);
-
-                                result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
-
-                                JSONObject jsonobject = new JSONObject(result);
-                                if (jsonobject != null) {
-                                    Log.d("Create Response", jsonobject.toString());
-
-                                    try {
-                                        int success = jsonobject.getInt("success");
-                                        String message = jsonobject.getString("message");
-                                        System.out.println("Return 1 Status success" + success);
-//                                        if (success == 1) {
-                                            if(success == 1)
-                                            {
-                                                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
-                                            }
-                                            else
-                                            {
-                                                Utility.showToastMessage(getActivity(), "form details not inserted");
-                                            }
-//                                        // successfully created user
-//                                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-//                                        t.setText(message);
-//                                        toast.setView(toastRoot2);
-//                                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-//                                        toast.setDuration(20000);
-//                                        toast.show();
-//                                        Intent i = new Intent(getApplicationContext(), MyOrder.class);
-//                                        startActivity(i);
-//                                        finish();
-//
-//                                        } else {
-//                                            System.out.println("Cancel Status found");
-//                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    textAboveCheckBox.setVisibility(View.VISIBLE);
+                                    textBelownameET.setVisibility(View.VISIBLE);
                                 }
-                            } else if (confirmCheckBox.isChecked()) {
+                            });
+                        } else if (bemaill.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
 
-                                textAboveCheckBox.setVisibility(View.GONE);
+                                @Override
+                                public void run() {
+                                    textBelowemailET.setVisibility(View.VISIBLE);
 
-                                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-//                                paramsList.put("name", name);
-//                                paramsList.put("id", uid);
-                                paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
-                                paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
-                                paramsList.put("returnissueId", issue);
-                                paramsList.put("issueexplain", issueExplain);
-                                paramsList.put("returntype", returnTypeString);
-                                paramsList.put("returnpaytype", first);
-                                paramsList.put("exchangecomments", newProduct);
-                                paramsList.put("email", bemaill);
-                                paramsList.put("returncodbankname", bankname);
-                                paramsList.put("branchname", branch);
-                                paramsList.put("returncodaccounttype", accountType);
-                                paramsList.put("returncodcustname", bname);
-                                paramsList.put("returncodbankifsccode", bifsccode);
-                                paramsList.put("returncodaccountno", baccount);
-                                paramsList.put("returnOrderid", orderid);
-                                paramsList.put("StatusType", "Return");
-                                paramsList.put("cartId", cartId);
-                                paramsList.put("cartProdId", cartProdId);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+//                        else if (bemaill.matches(emailPattern)) {
+//                            getActivity().runOnUiThread(new Runnable() {
+//
+//                                @Override
+//                                public void run() {
+//                                    textBelowemailET.setVisibility(View.VISIBLE);
+//
+//                                    textBelownameET.setVisibility(View.GONE);
+//                                }
+//                            });
+//                        }
+                    else if (branch.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
 
+                                @Override
+                                public void run() {
+                                    textBelowbranchET.setVisibility(View.VISIBLE);
 
-                                result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
-                                JSONObject jsonobject = new JSONObject(result);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (bankname.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
 
+                                @Override
+                                public void run() {
+                                    textBelowbankET.setVisibility(View.VISIBLE);
+
+                                    textBelowbranchET.setVisibility(View.GONE);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (bifsccode.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textBelowifsccodeET.setVisibility(View.VISIBLE);
+
+                                    textBelowbankET.setVisibility(View.GONE);
+                                    textBelowbranchET.setVisibility(View.GONE);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (baccount.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textBelowaccountnoET.setVisibility(View.VISIBLE);
+
+                                    textBelowifsccodeET.setVisibility(View.GONE);
+                                    textBelowbankET.setVisibility(View.GONE);
+                                    textBelowbranchET.setVisibility(View.GONE);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (breenteraccount.equals("")) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textBelowreenterAccountnoET.setVisibility(View.VISIBLE);
+
+                                    textBelowaccountnoET.setVisibility(View.GONE);
+                                    textBelowifsccodeET.setVisibility(View.GONE);
+                                    textBelowbankET.setVisibility(View.GONE);
+                                    textBelowbranchET.setVisibility(View.GONE);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (!baccount.equals(breenteraccount)) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                            Toast.makeText(getActivity(), "Account Number Not Matching", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (posss == 0) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    Toast.makeText(getActivity(), "Select Account Type", Toast.LENGTH_SHORT).show();
+                                    textBelowreenterAccountnoET.setVisibility(View.GONE);
+                                    textBelowaccountnoET.setVisibility(View.GONE);
+                                    textBelowifsccodeET.setVisibility(View.GONE);
+                                    textBelowbankET.setVisibility(View.GONE);
+                                    textBelowbranchET.setVisibility(View.GONE);
+                                    textBelowemailET.setVisibility(View.GONE);
+                                    textBelownameET.setVisibility(View.GONE);
+                                }
+                            });
+                        } else if (bname.equals("") && bemaill.equals("") && branch.equals("") && bankname.equals("")
+                                && bifsccode.equals("") && baccount.equals("") && breenteraccount.equals("") && posss == 0) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textBelownameET.setVisibility(View.VISIBLE);
+                                    textBelowemailET.setVisibility(View.VISIBLE);
+                                    textBelowbranchET.setVisibility(View.VISIBLE);
+                                    textBelowbankET.setVisibility(View.VISIBLE);
+                                    textBelowifsccodeET.setVisibility(View.VISIBLE);
+                                    textBelowaccountnoET.setVisibility(View.VISIBLE);
+                                    textBelowreenterAccountnoET.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        } else if (confirmCheckBox.isChecked()) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textAboveCheckBox.setVisibility(View.GONE);
+                                }
+                            });
+
+                            LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                            paramsList.put("name", name);
+                            paramsList.put("id", id);
+                            paramsList.put("returnissueId", issue);
+                            paramsList.put("issueexplain", issueExplain);
+                            paramsList.put("returntype", returnType);
+                            paramsList.put("returnpaytype", first);
+                            paramsList.put("exchangecomments", newProduct);
+                            paramsList.put("email", bemaill);
+                            paramsList.put("returncodbankname", bankname);
+                            paramsList.put("branchname", branch);
+                            paramsList.put("returncodaccounttype", accountType);
+                            paramsList.put("returncodcustname", bname);
+                            paramsList.put("returncodbankifsccode", bifsccode);
+                            paramsList.put("returncodaccountno", baccount);
+                            paramsList.put("returnOrderid", orderid);
+                            paramsList.put("StatusType", "Return");
+                            paramsList.put("cartId", cartId);
+                            paramsList.put("cartProdId", cartProdId);
+
+                            result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
+
+                            JSONObject jsonobject = null;
+                            try {
+                                jsonobject = new JSONObject(result);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            if (jsonobject != null) {
                                 Log.d("Create Response", jsonobject.toString());
+
                                 try {
                                     int success = jsonobject.getInt("success");
                                     String message = jsonobject.getString("message");
-                                    System.out.println("Return Status success" + success);
+                                    System.out.println("Retirn Status success" + success);
                                     if (success == 1) {
-                                        if(success == 1)
-                                        {
-                                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
-                                        }
-                                        else
-                                        {
-                                            Utility.showToastMessage(getActivity(), "form details not inserted");
-                                        }
+
+                                        Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+
                                         // successfully created user
 //                                    TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                                    t.setText(message);
@@ -539,84 +628,41 @@ public class ReturnFormFragment extends Fragment {
 //                                    startActivity(i);
 //                                    finish();
 
+
                                     } else {
                                         System.out.println("Cancel Status found");
                                     }
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            } else {
-                                textAboveCheckBox.setVisibility(View.VISIBLE);
-                            }
-
-                        } else if (confirmCheckBox.isChecked()) {
-
-                            textAboveCheckBox.setVisibility(View.GONE);
-
-                            LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                            paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
-                            paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
-                            paramsList.put("returnissueId", issue);
-                            paramsList.put("issueexplain", issueExplain);
-                            paramsList.put("returntype", returnTypeString);
-                            paramsList.put("returnpaytype", first);
-                            paramsList.put("exchangecomments", newProduct);
-                            paramsList.put("email", bemaill);
-                            paramsList.put("returncodbankname", bankname);
-                            paramsList.put("branchname", branch);
-                            paramsList.put("returncodaccounttype", accountType);
-                            paramsList.put("returncodcustname", bname);
-                            paramsList.put("returncodbankifsccode", bifsccode);
-                            paramsList.put("returncodaccountno", baccount);
-                            paramsList.put("returnOrderid", orderid);
-                            paramsList.put("cartId", cartId);
-                            paramsList.put("cartProdId", cartProdId);
-
-                            paramsList.put("StatusType", "Return");
-                            result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
-                            JSONObject jsonobject = new JSONObject(result);
-
-                            Log.d("Create Response", jsonobject.toString());
-
-                            try {
-                                int success = jsonobject.getInt("success");
-                                String message = jsonobject.getString("message");
-                                System.out.println("Return 2 Status success" + success);
-                                if (success == 1)
-                                    {
-                                        Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
-                                    }
-                                    else
-                                    {
-                                        Utility.showToastMessage(getActivity(), "form details not inserted");
-                                    }
-                                    // successfully created user
-//                                TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-//                                t.setText(message);
-//                                toast.setView(toastRoot2);
-//                                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-//                                toast.setDuration(20000);
-//                                toast.show();
-//                                Intent i = new Intent(getApplicationContext(), MyOrder.class);
-//                                startActivity(i);
-//                                finish();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
                             }
                         } else {
-                            textAboveCheckBox.setVisibility(View.VISIBLE);
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    textAboveCheckBox.setVisibility(View.VISIBLE);
+                                }
+                            });
+
                         }
 
-                    } else if (confirmCheckBox.isChecked()) {
-                        textAboveCheckBox.setVisibility(View.GONE);
-                        textBelowissueET.setVisibility(View.GONE);
 
+                    } else if (confirmCheckBox.isChecked()) {
+                        getActivity().runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                textAboveCheckBox.setVisibility(View.GONE);
+                            }
+                        });
                         LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-                        paramsList.put("name", Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME)) ;
-                        paramsList.put("id", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) ;
+                        paramsList.put("name", name);
+                        paramsList.put("id", id);
                         paramsList.put("returnissueId", issue);
                         paramsList.put("issueexplain", issueExplain);
-                        paramsList.put("returntype", returnTypeString);
+                        paramsList.put("returntype", returnType);
                         paramsList.put("returnpaytype", first);
                         paramsList.put("exchangecomments", newProduct);
                         paramsList.put("email", bemaill);
@@ -627,56 +673,213 @@ public class ReturnFormFragment extends Fragment {
                         paramsList.put("returncodbankifsccode", bifsccode);
                         paramsList.put("returncodaccountno", baccount);
                         paramsList.put("returnOrderid", orderid);
+                        paramsList.put("StatusType", "Return");
                         paramsList.put("cartId", cartId);
                         paramsList.put("cartProdId", cartProdId);
 
-
-                        paramsList.put("StatusType", "Return");
                         result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
-                        JSONObject jsonobject = new JSONObject(result);
-                        Log.d("Create Response", jsonobject.toString());
+                        JSONObject jsonobject = null;
+                        try {
+                            jsonobject = new JSONObject(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
+                        Log.d("Create Response", jsonobject.toString());
                         try {
                             int success = jsonobject.getInt("success");
                             String message = jsonobject.getString("message");
-                            System.out.println("Return 3 Status success" + success);
+                            System.out.println("Return Status success" + success);
                             if (success == 1) {
+                                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                            } else {
+                                Utility.showToastMessage(getActivity(), "form details not inserted");
+                            }
+                            // successfully created user
+//                                TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+//                                t.setText(message);
+//                                toast.setView(toastRoot2);
+//                                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+//                                toast.setDuration(20000);
+//                                toast.show();
+//                                Intent i = new Intent(getApplicationContext(), MyOrder.class);
+//                                startActivity(i);
+//                                finish();
+//                            } else {
+//                                System.out.println("Cancel Status found");
+//                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        getActivity().runOnUiThread(new Runnable() {
 
-                                    Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
-//                                }
-//                                else
-//                                {
-//                                }
+                            @Override
+                            public void run() {
+                                textAboveCheckBox.setVisibility(View.VISIBLE);
+                            }
+                        });
 
+                    }
+
+                } else if (confirmCheckBox.isChecked()) {
+                    getActivity().runOnUiThread(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            textAboveCheckBox.setVisibility(View.GONE);
+                        }
+                    });
+                    LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                    paramsList.put("name", Uname);
+                    paramsList.put("id", U_id);
+                    paramsList.put("returnissueId", issue);
+                    paramsList.put("issueexplain", issueExplain);
+                    paramsList.put("returntype", returnType);
+                    paramsList.put("returnpaytype", first);
+                    paramsList.put("exchangecomments", newProduct);
+                    paramsList.put("email", bemaill);
+                    paramsList.put("returncodbankname", bankname);
+                    paramsList.put("branchname", branch);
+                    paramsList.put("returncodaccounttype", accountType);
+                    paramsList.put("returncodcustname", bname);
+                    paramsList.put("returncodbankifsccode", bifsccode);
+                    paramsList.put("returncodaccountno", baccount);
+                    paramsList.put("returnOrderid", orderid);
+                    paramsList.put("cartId", cartId);
+                    paramsList.put("cartProdId", cartProdId);
+                    paramsList.put("StatusType", "Return");
+                    result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
+                    JSONObject jsonobject = null;
+                    try {
+                        jsonobject = new JSONObject(result);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d("Create Response", jsonobject.toString());
+
+                    try {
+                        int success = jsonobject.getInt("success");
+                        String message = jsonobject.getString("message");
+                        System.out.println("Retirn Status success" + success);
+                        if (success == 1) {
+                            Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
+                        } else {
+                            Utility.showToastMessage(getActivity(), "form details not inserted");
+                        }
+
+                        // successfully created user
 //                            TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
 //                            t.setText(message);
 //                            toast.setView(toastRoot2);
 //                            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
 //                            toast.setDuration(20000);
 //                            toast.show();
-                                // successfully created user
 //                            Intent i = new Intent(getApplicationContext(), MyOrder.class);
 //                            startActivity(i);
-//
 //                            finish();
+//                        } else {
+//                            System.out.println("Cancel Status found");
+//                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    getActivity().runOnUiThread(new Runnable() {
 
+                        @Override
+                        public void run() {
+                            textAboveCheckBox.setVisibility(View.VISIBLE);
 
-                            } else {
-                                Utility.showToastMessage(getActivity(), "form details not inserted");
-                                System.out.println("Cancel Status found");
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+                    });
+                }
+
+
+            } else if (confirmCheckBox.isChecked())
+
+            {
+                getActivity().runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        textAboveCheckBox.setVisibility(View.GONE);
+                        textBelowissueET.setVisibility(View.GONE);
+                    }
+                });
+                // Building Parameters
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("name", Uname);
+                paramsList.put("id", U_id);
+                paramsList.put("returnissueId", issue);
+                paramsList.put("issueexplain", issueExplain);
+                paramsList.put("returntype", returnType);
+                paramsList.put("returnpaytype", first);
+                paramsList.put("exchangecomments", newProduct);
+                paramsList.put("email", bemaill);
+                paramsList.put("returncodbankname", bankname);
+                paramsList.put("branchname", branch);
+                paramsList.put("returncodaccounttype", accountType);
+                paramsList.put("returncodcustname", bname);
+                paramsList.put("returncodbankifsccode", bifsccode);
+                paramsList.put("returncodaccountno", baccount);
+                paramsList.put("returnOrderid", orderid);
+                paramsList.put("cartProdId", cartProdId);
+                paramsList.put("StatusType", "Return");
+                result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
+                JSONObject jsonobject = null;
+                try {
+                    jsonobject = new JSONObject(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("Create Response", jsonobject.toString());
+
+                try {
+                    int success = jsonobject.getInt("success");
+                    String message = jsonobject.getString("message");
+                    System.out.println("Retirn Status success" + success);
+//                    if (success == 1) {
+                    // successfully created user
+//                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+//                        t.setText(message);
+//                        toast.setView(toastRoot2);
+//                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+//                        toast.setDuration(20000);
+//                        toast.show();
+//                        // successfully created user
+//                        Intent i = new Intent(getApplicationContext(), MyOrder.class);
+//                        startActivity(i);
+//
+//                        finish();
+                    if (success == 1) {
+                        Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
                     } else {
+                        Utility.showToastMessage(getActivity(), "form details not inserted");
+                    }
+
+
+//                    } else {
+//                        System.out.println("Cancel Status found");
+//                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else
+
+            {
+                getActivity().runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
                         textAboveCheckBox.setVisibility(View.VISIBLE);
                     }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+                });
             }
-            return result;
+            return null;
         }
+
 
         @Override
         protected void onPostExecute(String response) {
@@ -689,12 +892,9 @@ public class ReturnFormFragment extends Fragment {
                         String success = jObj.getString("success");
                         String message = jObj.getString("message");
                         System.out.println("Call me form Details " + success + " " + message);
-                        if(success.equals("1"))
-                        {
+                        if (success.equals("1")) {
                             Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, getActivity());
-                        }
-                        else
-                        {
+                        } else {
                             Utility.showToastMessage(getActivity(), "form details not inserted");
                         }
                     }
