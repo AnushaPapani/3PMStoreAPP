@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/img_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginTop="@dimen/_10dp"
         android:src="@drawable/image_first_gray" />
 
@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/apparel"
-        android:layout_marginTop="@dimen/_5dp"
-        android:layout_marginBottom="@dimen/_5dp"
+        android:layout_marginTop="2dp"
         android:textSize="@dimen/sp_size_twelve"
-        android:textColor="@color/txt_unselected_color" />
+        android:paddingBottom="10dp"
+        android:textColor="#666666" />
 </LinearLayout>
