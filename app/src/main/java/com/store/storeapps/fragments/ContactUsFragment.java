@@ -28,6 +28,9 @@ import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 
+import static com.store.storeapps.R.id.contactus;
+import static com.store.storeapps.R.id.view;
+
 /**
  * Created by Shankar.
  */
@@ -45,9 +48,11 @@ public class ContactUsFragment extends Fragment {
     EditText inputAddPincode;
     private String mFrom = "";
     private TextView custom_toast;
+    TextView success;
     private View toastRoot;
     private View toastRoot2;
     private Toast toast;
+    private Button Contactus;
     TextView alert;
     Button btnAddAddress;
 
@@ -74,26 +79,27 @@ public class ContactUsFragment extends Fragment {
 
     private void initUI() {
         toast = new Toast(getActivity());
-        Button Contactus = (Button) rootView.findViewById(R.id.contactus);
+        Contactus = (Button) rootView.findViewById(R.id.submitcontact);
         Name = (EditText) rootView.findViewById(R.id.name);
         EmailText = (EditText) rootView.findViewById(R.id.emailET);
         Subject = (EditText) rootView.findViewById(R.id.subject);
         Message = (EditText) rootView.findViewById(R.id.message);
         alert = (TextView) rootView.findViewById(R.id.alert);
-
+        success =(TextView)toastRoot2.findViewById(R.id.validtoast) ;
+        custom_toast = (TextView) toastRoot.findViewById(R.id.errortoast);
         Contactus.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //new CreateNewAddress().execute();
-                if (isNotValidFields()) {
+            public void onClick(View v) {
+                if (isValidFields()){
                     ContactUS(Name.getText().toString(), EmailText.getText().toString(), Subject.getText().toString(),
-                            Message.getText().toString()
-                    );
+                            Message.getText().toString());
                 }
+                Toast.makeText(getActivity(), "Tested", Toast.LENGTH_SHORT).show();
             }
-
         });
+
     }
+
 
     private void ContactUS(String Name, String Emailid, String Subject, String Message) {
         if (Utility.isNetworkAvailable(getActivity())) {
@@ -150,70 +156,67 @@ public class ContactUsFragment extends Fragment {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    Log.d("Create Response", jsonobject.toString());
-
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Log.d("Create Response", jsonobject.toString());
+                        String message = jsonobject.getString("message");
+                        Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, getActivity());
+                        success.setText(message);
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                    mCustomProgressDialog.dismissProgress();
                 }
-                mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-    }
 
-    private boolean isNotValidFields() {
+    }
+    private boolean isValidFields() {
         boolean isValidate = false;
-        if ((Name.getText().toString().length() == 0)
-                && (EmailText.getText().toString().length() == 0) &&
-                (Subject.getText().toString().length() == 0)
-                && (Message.getText().toString().length() == 0)) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please Enter fields");
+        if ((EmailText.getText().toString().length() < 1) &&
+                (Name.getText().toString().length() < 1) &&
+                (Subject.getText().toString().length() < 1) &&
+                (Message.getText().toString().length() < 1)) {
+            custom_toast.setText("Please enter fields");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        } else if (Name.getText().toString().length() == 0) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please enter Name");
+        } else if (Name.getText().toString().length() < 1) {
+            custom_toast.setText("Please enter Name");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        } else if (EmailText.getText().toString().length() < 1) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please enter Email");
+        } else if (Message.getText().toString().length() < 1) {
+            custom_toast.setText("Please select gender");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        } else if (!(EmailText.getText().toString().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please enter Valid Email");
+        } else if ((EmailText.getText().toString().length() < 1)) {
+            custom_toast.setText("Please enter Email id");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        } else if (Subject.getText().toString().length() == 0) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Subject is required!");
+        } else if (!EmailText.getText().toString().trim().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z]+)*(\\.[A-Za-z]{2,})$")) {
+            custom_toast.setText("Please Enter Valid Email Id");
             toast.setView(toastRoot);
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
             return isValidate;
-        } else if (Message.getText().toString().length() == 0) {
-            TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-            t.setText("Please enter Message");
-            toast.setView(toastRoot);
-            toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.show();
-            return isValidate;
+        } else {
+            ContactUS(Name.getText().toString(), EmailText.getText().toString(), Subject.getText().toString(),
+                    Message.getText().toString());
         }
 
 
