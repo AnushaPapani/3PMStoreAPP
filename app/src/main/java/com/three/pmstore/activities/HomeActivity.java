@@ -242,9 +242,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     String t = time.toString();
                     String t1 = time1.toString();
                     if (t.equals(t1)) {
-//                        Intent i = new Intent(AboutusActivity.this,ProductsPage.class);
-//                        startActivity(i);
-//                        finish();
+                        Intent i = new Intent(HomeActivity.this,HomeActivity.class);
+                        startActivity(i);
+                        finish();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

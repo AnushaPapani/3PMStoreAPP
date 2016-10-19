@@ -218,7 +218,7 @@
                 android:paddingTop="@dimen/_6dp"
                 android:text="BUY for 299"
                 android:textColor="#fff"
-                android:textSize="20dp"
+                android:textSize="26dp"
                 android:textStyle="bold" />
 
             <com.three.pmstore.activities.CustomTextView
@@ -389,7 +389,7 @@
             android:layout_below="@+id/rl_desc"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/border">
+            >
 
             <TableLayout
                 android:id="@+id/tableLayout1"
