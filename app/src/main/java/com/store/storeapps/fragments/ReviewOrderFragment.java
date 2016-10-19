@@ -352,7 +352,6 @@ public class ReviewOrderFragment extends Fragment {
                 paramsList.put("cartValue", grandtotal);
                 paramsList.put("cartId", cartid);
                 result = Utility.httpPostRequestToServer(ApiConstants.PROMO_CHECK, Utility.getParams(paramsList));
-                //Utility.setSharedPrefStringData(getActivity(), Constants.GRANDTOTAL, grandtotal.toString());
                 HomeActivity.mCartTotal = Integer.parseInt(grandtotal.toString());
 
             } catch (Exception exception) {
@@ -372,6 +371,7 @@ public class ReviewOrderFragment extends Fragment {
                 TextView GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
+                    promotext.setText("");
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         String PromoType = jsonobject.optString("type");
                         if(PromoType.equals("BUY2GET1FREE"))
@@ -393,11 +393,8 @@ public class ReviewOrderFragment extends Fragment {
                             DiscountValue.setText("- "+minAmount);
                             GrandValue.setText(""+price);
                             Grand_total.setText(""+amt);
-                            CP_ID = CP_ID_DB;
-                            P_ID = P_ID_DB;
                             HomeActivity.mCartTotal = price;
                             promotext.setText(jsonobject.getString("status"));
-
                         }
                         else
                         {
@@ -420,21 +417,23 @@ public class ReviewOrderFragment extends Fragment {
                         reviewOrderAdapter.notifyDataSetChanged();
                     } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
                         TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                        t.setText("Coupon Code already applied.Please cancel to apply new Coupon Code");
+                        t.setText(jsonobject.getString("status"));
                         toast.setView(toastRoot2);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                         isPromoCodeApplied = false;
+                        promotext.setText(jsonobject.getString("status"));
                         reviewOrderAdapter.notifyDataSetChanged();
                     } else {
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-                        t.setText("Invalid Promocode");
+                        t.setText(jsonobject.getString("status"));
                         toast.setView(toastRoot);
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                         isPromoCodeApplied = false;
+                        promotext.setText(jsonobject.getString("status"));
                         reviewOrderAdapter.notifyDataSetChanged();
                     }
                 }
@@ -503,6 +502,7 @@ public class ReviewOrderFragment extends Fragment {
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         Grand_total.setText(jsonobject.optString("cartValue"));
                         HomeActivity.mCartTotal = Integer.parseInt(jsonobject.optString("cartValue"));
+                        promotext.setText("");
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
