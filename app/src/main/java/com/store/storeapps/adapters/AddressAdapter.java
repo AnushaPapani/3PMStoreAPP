@@ -114,6 +114,7 @@ public class AddressAdapter extends BaseAdapter {
                     mSelectedId = "-1";
                 } else {
                     mSelectedId = addressesModels.get(position).getID();
+                    ReviewOrderFragment.addressId = addressesModels.get(position).getID();
                     ReviewOrderFragment.txt_name.setText(addressesModels.get(position).getUsername());
                     ReviewOrderFragment.txt_address_line.setText(addressesModels.get(position).getBline());
                     ReviewOrderFragment.txt_city.setText(addressesModels.get(position).getBcity());
