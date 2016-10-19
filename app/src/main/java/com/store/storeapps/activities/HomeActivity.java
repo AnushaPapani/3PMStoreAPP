@@ -14,6 +14,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,6 +40,7 @@ import com.store.storeapps.fragments.MyAddressFragment;
 import com.store.storeapps.fragments.MyOrderFragment;
 import com.store.storeapps.fragments.PaymentOptionNewFrgament;
 import com.store.storeapps.fragments.PreviousProductFragment;
+import com.store.storeapps.fragments.ProductFragment;
 import com.store.storeapps.fragments.RegistrationFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment;
 import com.store.storeapps.fragments.ReviewOrderFragment_Before_Login;
@@ -65,7 +67,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-import static com.store.storeapps.R.layout.fragment_home;
+import static com.store.storeapps.R.id.image_thumbnail;
 
 
 /**
@@ -466,7 +468,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.cart_icon:
                 if(mCartId == "")
                 {
-                    Utility.showToastMessage(this, "Add at least one item to cart");
+
                 }
                 else if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
@@ -569,6 +571,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             product_itemDetails_getters_setters.setP_shortdesc(jsonResponse_tag.optString("P_shortdesc"));
                             product_itemDetails_getters_setters.setStock(jsonResponse_tag.optString("Stock"));
                             product_itemDetails_getters_setters.setStrikeMrp(jsonResponse_tag.optString("StrikeMrp"));
+
 
 
                             JSONArray images = jsonResponse_tag.optJSONArray("Images");
