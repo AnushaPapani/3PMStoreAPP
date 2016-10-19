@@ -77,7 +77,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" >
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addmobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" >
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addaddress1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" >
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addaddress2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" >
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addcity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -211,7 +211,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp" >
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addstate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -276,7 +276,7 @@
                     android:text="Save"
                     android:textColor="@color/grey" />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/addpincode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -288,7 +288,7 @@
 
             </RelativeLayout>
 
-            <com.store.storeapps.activities.CustomTextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/editadd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

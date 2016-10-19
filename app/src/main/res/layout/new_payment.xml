@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
-                <com.store.storeapps.activities.BoldCustomTextView
+                <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
                     android:text="0"
                     android:textSize="15dp" />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/pmstorecash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                     android:textStyle="bold"
                     android:textSize="15dp" />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/amountpay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
                     android:textSize="15dp"
                      />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/currentcash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                     android:text="(Your Current Balance is Rs. "
                     android:textSize="12dp" />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -164,7 +164,7 @@
                     android:text="0"
                     android:textSize="15dp" />
 
-                <com.store.storeapps.activities.CustomTextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/pricetext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
         android:layout_marginTop="5dp"
         android:background="#ffffff" >
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/textView2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

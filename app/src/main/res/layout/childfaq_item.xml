@@ -9,7 +9,7 @@
         android:layout_height="100dp"
         android:background="@drawable/border" >
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/faq"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

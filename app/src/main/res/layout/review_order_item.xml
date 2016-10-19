@@ -32,7 +32,7 @@
                 android:src="@drawable/ic_launcher" />
         </LinearLayout>
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/txt_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             </ImageView>
         </RelativeLayout>
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/txt_unitPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
             android:layout_toRightOf="@+id/linear_img"
             android:layout_toEndOf="@+id/linear_img" />
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Qty :"
@@ -159,7 +159,7 @@
             android:layout_below="@+id/txt_product_name"
              />
 
-        <com.store.storeapps.activities.CustomTextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/txt_subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
