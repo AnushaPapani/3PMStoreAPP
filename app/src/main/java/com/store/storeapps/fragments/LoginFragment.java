@@ -31,12 +31,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -44,6 +51,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.store.storeapps.R;
+
 import com.store.storeapps.activities.GCMApplicationConstants;
 import com.store.storeapps.activities.GCMUtility;
 import com.store.storeapps.activities.HomeActivity;
@@ -73,6 +81,7 @@ import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -127,7 +136,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     RequestParams params = new RequestParams();
     String signup = "Sign up with 3PMstore";
     String login = "Login";
+    CallbackManager callbackManager;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private View otherView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -170,6 +182,19 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         content.setSpan(new UnderlineSpan(), 0, signup.length(), 0);
         txt_register_link.setText(content);
 
+        try {
+            PackageInfo info = getActivity().getPackageManager().getPackageInfo("com.store.storeapps", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("MY KEY HASH:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
@@ -200,17 +225,74 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_sign_up:
                 if (isNetworkAvailable(getActivity()) == true) {
-                    accessTokenFacebook();
+                    setUpFacebookLogin();
+//                    accessTokenFacebook();
 //                    printKeyHash(getActivity());
                 } else {
                     Toast.makeText(getActivity(), "No Network Connection",
                             Toast.LENGTH_SHORT).show();
                 }
-
                 break;
         }
     }
 
+    private void setUpFacebookLogin() {
+        LoginManager.getInstance().logInWithReadPermissions(getActivity(),
+                Collections.singletonList("public_profile"));
+
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    String name = object.getString("name");
+                                    String mEmainId = object.getString("email");
+                                    String mFaceBookUniqueId = object.getString("id");
+
+                                    String token = loginResult.getAccessToken().getToken();
+                                    System.out.println("fname"+name);
+//                                    Utility.showLog("name", "name" + name);
+//                                    Utility.showLog("token", "token" + token);
+
+//                                    if (mFromLogin.equals("fromlogin")) {
+//                                        signInforNextstar(mEmainId, mFaceBookUniqueId, "", "facebook");
+//                                    } else if (mFromLogin.equals("fromsingup")) {
+//                                        if (!Utility.isValueNullOrEmpty(mEmainId)) {
+//                                            checkisUsernameAviableOrNot();
+//                                        } else {
+//                                            Bundle bundle = new Bundle();
+//                                            bundle.putString("useremail", "");
+//                                            bundle.putString("password", etAccountPassword.getText().toString());
+//                                            bundle.putString("logintype", mLoginType);
+//                                            bundle.putString("facebookuniqueid", mFaceBookUniqueId);
+//                                        /*parent.tvTermsPrivacy.setVisibility(View.VISIBLE);*/
+//                                            parent.llPrivacy.setVisibility(View.GONE);
+//                                            Utility.navigateFragment(new RolesFragment(), RolesFragment.TAG, bundle, getActivity());
+//                                        }
+//                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "name,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+            @Override
+            public void onCancel() {
+            }
+            @Override
+            public void onError(FacebookException error) {
+            }
+
+        });
+    }
 
     public static boolean isNetworkAvailable(Context mContext) {
 
@@ -225,10 +307,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         return false;
     }
 
-    /*Facebook*/
+    @SuppressWarnings("deprecation")
     public void accessTokenFacebook() {
+
         mPrefs = getActivity().getPreferences(MODE_PRIVATE);
-//        mPrefs = getActivity().getPreferences(MODE_PRIVATE);
         access_token = mPrefs.getString("access_token", null);
         long expires = mPrefs.getLong("access_expires", 0);
         // Log.e("Facebook token", access_token);
@@ -244,10 +326,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
          * Only call authorize if the access_token has expired.
          */
         if (!facebook.isSessionValid()) {
+
             facebook.authorize(getActivity(), new String[]{"email"}, new Facebook.DialogListener() {
                 public void onComplete(Bundle values) {
                     try {
                         JSONObject me = new JSONObject(facebook.request("me"));
+
                         SharedPreferences.Editor editor = mPrefs.edit();
                         String id = me.getString("id");
                         System.out
@@ -676,8 +760,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
         }.execute(null, null, null);
     }
+
     // Store RegId and Email entered by User in SharedPref
-    private void storeRegIdinSharedPref(Context context, String regId,String emailID) {
+    private void storeRegIdinSharedPref(Context context, String regId, String emailID) {
         SharedPreferences prefs = getActivity().getSharedPreferences("UserDetails",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
