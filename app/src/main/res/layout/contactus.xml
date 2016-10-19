@@ -148,7 +148,7 @@
             </RelativeLayout>
 
             <Button
-                android:id="@+id/contactus"
+                android:id="@+id/submitcontact"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_below="@+id/messageRelative"
