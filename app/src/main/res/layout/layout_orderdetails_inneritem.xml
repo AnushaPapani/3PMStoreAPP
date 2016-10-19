@@ -466,7 +466,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view2"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:layout_marginBottom="@dimen/_10dp"
                     android:gravity="center_horizontal" >
 
                     <RelativeLayout
@@ -695,7 +696,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/addrescity"
                         android:layout_below="@+id/addrescity"
-                        android:text="state" />
+                        android:text="state"
+                        android:textColor="#414141"/>
 
                     <TextView
                         android:id="@+id/addrespin"
@@ -706,19 +708,6 @@
                         android:text="pincode"
                         android:textColor="#414141"/>
 
-                    <TextView
-                        android:id="@+id/chooseanother"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_below="@+id/addresmob"
-                        android:text="Choose another address"
-                        android:textColor="#FAA61A"
-                        android:textSize="16dp" />
 
                     <TextView
                         android:id="@+id/addresmob"

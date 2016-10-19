@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,8 +41,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-//import android.app.Fragment;
-
 /**
  * Created by satyanarayana pdv on 10/4/2016.
  */
@@ -53,7 +52,7 @@ public class MyOrderFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType;
+    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType, url;
     private View rootView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -158,7 +157,7 @@ public class MyOrderFragment extends Fragment {
                                 movie.setRefund_IsSubmit(jsonObjectMovie.optString("Refund_IsSubmit"));
                                 movie.setExchange_IsSubmit(jsonObjectMovie.optString("Exchange_IsSubmit"));
                                 movie.setTrackenabledate(jsonObjectMovie.optString("trackenabledate"));
-                                movie.setTrackurl(jsonObjectMovie.optString("Trackurl"));
+                                movie.setTrackurl(jsonObjectMovie.getString("Trackurl"));
                                 movie.setReturndisabledate(jsonObjectMovie.optString("returndisabledate"));
 
                                 movie.setTotalCost(jsonObjectMovie.optString("TotalOrderValue"));
@@ -597,7 +596,6 @@ public class MyOrderFragment extends Fragment {
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
 
-
                             Utility.navigateDashBoardFragment(new OrderDetailsFragment(), OrderDetailsFragment.TAG, null, getActivity());
                         }
                     });
@@ -607,7 +605,6 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
                             Pcost = mMovie.getP_Cost().toString();
@@ -625,13 +622,10 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
                             Pcost = mMovie.getP_Cost().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-//                            startActivity(i);
                             Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null, getActivity());
                         }
                     });
@@ -641,13 +635,10 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
 
-//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-//                            startActivity(i);
                             Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
                         }
                     });
@@ -660,17 +651,29 @@ public class MyOrderFragment extends Fragment {
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
 
-
                             Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_track1.setOnClickListener(new View.OnClickListener()
                     {
                         public void onClick(View v)  {
-                            String url = mMovie.getTrackurl().toString().replace("","%20");
-                            Utility.setSharedPrefStringData(getActivity(), Constants.TRACKING_URL, "");
-                            System.out.println("url "+url);
-                            Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, null, getActivity());
+                            url = mMovie.getTrackurl().toString();
+                            System.out.println("url before "+url);
+                            Bundle b = new Bundle();
+                            b.putString("URL",url);
+                            Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, b, getActivity());
+//                            Intent i = new Intent(getActivity(), TrackWebView.class);
+//                            i.putExtra("URL",url);
+//                            startActivity(i);
+//                            Utility.setSharedPrefStringData(getActivity(), Constants.TRACKING_URL, "");
+//                            System.out.println("url "+url);
+//                            Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, null, getActivity());
+//                            View item =  mInflater.inflate(R.layout.trackorder, null);
+//                            WebView webView = (WebView) item.findViewById(R.id.activity_main_webview);
+//                            webView.setWebViewClient(new WebViewClient());
+//                            WebSettings webSettings = webView.getSettings();
+//                            webSettings.setJavaScriptEnabled(true);
+//                            webView.loadUrl(url);
                         }
                     });
 

@@ -249,7 +249,6 @@
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
                     android:checked="true"
-                    android:onClick="onRadioButtonClicked"
                     android:text="3PMstore Cash(1-2 days after product pickup)"
                     android:textSize="18dp" />
 
@@ -259,7 +258,6 @@
                     android:layout_height="55dp"
                     android:layout_gravity="center_horizontal"
                     android:checked="false"
-                    android:onClick="onRadioButtonClicked"
                     android:text="To My Bank Account(8-12 days after product pickup)"
                     android:textSize="18dp" />
             </RadioGroup>
