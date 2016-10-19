@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -33,11 +36,18 @@ import com.store.storeapps.utility.ApiConstants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.jsoup.Jsoup;
+
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * Created by Shankar.
@@ -65,15 +75,17 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private ImageView img_third;
     private ImageView img_four;
     private ImageView img_five;
-
+    TableLayout table_layout;
     private Spinner spin_one;
     private Spinner spin_two;
     private Spinner spin_three;
     private Spinner spin_four;
-
+    LinkedList<List<String>> columns = new LinkedList<List<String>>();
     private int mPosition = -1;
     private int mSelectedPosition = 0;
-
+    String preTable,postTable;
+    String out,out1;
+    String infor;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +112,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         img_highlighted = (ImageView) rootView.findViewById(R.id.img_highlighted);
         txt_left_icon = (TextView) rootView.findViewById(R.id.txt_left_icon);
         txt_right_icon = (TextView) rootView.findViewById(R.id.txt_right_icon);
-
+        table_layout = (TableLayout) rootView.findViewById(R.id.tableLayout1);
         description = (Button) rootView.findViewById(R.id.btn_desc);
         specifications = (Button) rootView.findViewById(R.id.btn_spec);
         text_desc = (TextView) rootView.findViewById(R.id.text_desc);
@@ -267,7 +279,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             if(!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getP_Video())) {
                 image_thumbnail.setVisibility(View.VISIBLE);
                 image_VideoPlayButton.setVisibility(View.VISIBLE);
-                Picasso.with(getActivity()).load(getFullFilledImage("http://img.youtube.com/vi/" + HomeActivity.mProductItemsList.get(mPosition).getP_Video() + "/0.jpg")).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                Picasso.with(getActivity()).load(getFullFilledImage("http://img.youtube.com/vi/" + HomeActivity.mProductItemsList.get(mPosition).getP_Video() + "/0.jpg")).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                         .into(image_thumbnail);
             }
             else
@@ -290,9 +302,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
             txt_strike.setText("" + HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp());
             txt_strike.setPaintFlags(txt_strike.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            infor =text_desc.getText().toString();
 
             Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition)
-                    .getImages().get(0))).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                    .getImages().get(0))).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                     .into(img_highlighted);
 
             updateUI(mPosition, mSelectedPosition);
@@ -311,28 +324,59 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             specifications.setOnClickListener(this);
             description.setOnClickListener(this);
         }
+
+        if (infor.contains("<table")) {
+            preTable = infor.substring(0, infor.indexOf("<table"));
+            postTable = infor.substring(infor.indexOf("<table"));
+            //inforStrings = infor.split("<table");
+            out = Jsoup.parse(preTable).text();
+            out1 = Jsoup.parse(postTable).text();
+            Log.d("infor1", out);
+            Log.d("infor2", out1);
+
+            org.jsoup.nodes.Document doc = Jsoup.parseBodyFragment(postTable);
+
+            //List<String> headings = new LinkedList<String>();;
+
+            Element elementsByTag = doc.getElementsByTag("table").get(0);
+            Elements rows = elementsByTag.getElementsByTag("tr");
+            int rowCount = 0;
+            for (Element row : rows) {
+
+
+                List<String> individualColumn = new ArrayList<String>();
+                ;
+                for (int headerCount = 0; headerCount < row.getElementsByTag("td").size(); headerCount++) {
+                    individualColumn.add(row.getElementsByTag("td").get(headerCount).text());
+                }
+                columns.add(individualColumn);
+
+            }
+        } else {
+            out = Jsoup.parse(infor).text();
+        }
     }
 
     private void updateLowerImages() {
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages().get(0)))
                 .resize(100, 100)
-                .placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_first);
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages().get(1)))
                 .resize(100, 100)
-                .placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_second);
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages().get(2)))
                 .resize(100, 100)
-                .placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_third);
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages().get(3)))
                 .resize(100, 100)
-                .placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_four);
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages().get(4)))
                 .resize(100, 100)
-                .placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_five);
     }
 
@@ -386,6 +430,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             img_four.setBackground(Utility.getDrawable(mParent, R.drawable.border_unselect));
             img_five.setBackground(Utility.getDrawable(mParent, R.drawable.border_select));
         }
+        String txtString = HomeActivity.mProductItemsList.get(mPosition).getP_Information();
+
     }
 
     @Override
@@ -421,9 +467,22 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btn_desc:
+                if (infor.contains("<table")) {
+                    text_desc.setText(Html.fromHtml(preTable));
+                    table_layout.removeAllViews();
+                    BuildTable(columns);
+                } else {
+                    text_desc.setText(Html.fromHtml(infor));
+                }
+                description.setBackgroundResource(R.drawable.homeborders);
+                specifications.setBackgroundResource(R.drawable.borders);
+                table_layout.removeAllViews();
                 text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
                 break;
             case R.id.btn_spec:
+                table_layout.removeAllViews();
+                description.setBackgroundResource(R.drawable.borders);
+                specifications.setBackgroundResource(R.drawable.homeborders);
                 text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Information()));
                 break;
         }
@@ -441,6 +500,36 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+    private void BuildTable(LinkedList<List<String>> columns) {
+
+        // outer for loop
+        int rows = 5;
+        int cols = 5;
+        for (int i = 0; i < columns.size(); i++) {
+
+            TableRow row = new TableRow(getActivity());
+            row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
+                    TableRow.LayoutParams.WRAP_CONTENT));
+
+            // inner for loop
+            for (int j = 0; j < columns.get(i).size(); j++) {
+
+                TextView tv = new TextView(getActivity());
+                tv.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                        TableRow.LayoutParams.WRAP_CONTENT));
+                tv.setBackgroundResource(R.drawable.cell_shape);
+                tv.setPadding(5, 5, 5, 5);
+                tv.setText(columns.get(i).get(j).toString());
+
+                row.addView(tv);
+
+            }
+
+            table_layout.addView(row);
+
+        }
+    }
+
 
     private void postSelectedItem() {
         if (Utility.isNetworkAvailable(getActivity())) {
@@ -609,7 +698,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private void updateParticularImage(int mSelectedPosition) {
         this.mSelectedPosition = mSelectedPosition;
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages()
-                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_highlighted);
         updateUI(mPosition, mSelectedPosition);
     }
@@ -617,7 +706,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private void updateLeftImage() {
         mSelectedPosition = mSelectedPosition - 1;
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages()
-                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_highlighted);
         updateUI(mPosition, mSelectedPosition);
     }
@@ -625,7 +714,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private void updateRightImage() {
         mSelectedPosition = mSelectedPosition + 1;
         Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition).getImages()
-                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                .get(mSelectedPosition))).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                 .into(img_highlighted);
         updateUI(mPosition, mSelectedPosition);
     }
