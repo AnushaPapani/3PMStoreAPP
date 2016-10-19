@@ -106,7 +106,7 @@
             android:layout_alignLeft="@+id/pname"
             android:layout_below="@+id/pname"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/ppimage" >
+            android:layout_toRightOf="@+id/relative2" >
 
             <TextView
                 android:id="@+id/status"

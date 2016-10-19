@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.store.storeapps">
+    package="com.three.pmstore">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,7 @@
 
     <!-- Creates a custom permission so only this app can receive its messages. -->
     <permission
-        android:name="com.store.storeapps.permission.C2D_MESSAGE"
+        android:name="com.store.pmstore.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
     <meta-data
         android:name="com.google.android.gms.version"
@@ -34,26 +34,26 @@
     <application
         android:name=".utility.AppController"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/applogo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.store.storeapps.activities.SplashActivity">
+        <activity android:name="com.three.pmstore.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.three.pmstore.activities.Facebook_Activity"></activity>
 
-        <activity android:name="com.store.storeapps.activities.Previous_ProductsActivity"></activity>
+        <activity android:name="com.three.pmstore.activities.Previous_ProductsActivity"></activity>
         <!--<activity android:name="com.store.storeapps.activities.PaymentActivity"></activity>-->
-        <activity android:name="com.store.storeapps.activities.SuccessActivity"></activity>
-        <activity android:name="com.store.storeapps.activities.StatusActivity"></activity>
-        <activity android:name="com.store.storeapps.activities.HomeActivity"></activity>
-        <activity android:name="com.store.storeapps.activities.ReturnFormNew"></activity>
-        <activity android:name="com.store.storeapps.activities.YoutubeVideoActivity"></activity>
-        <activity android:name="com.store.storeapps.activities.Facebook"></activity>
+        <activity android:name="com.three.pmstore.activities.SuccessActivity"></activity>
+        <activity android:name="com.three.pmstore.activities.StatusActivity"></activity>
+        <activity android:name="com.three.pmstore.activities.HomeActivity"></activity>
+        <activity android:name="com.three.pmstore.activities.ReturnFormNew"></activity>
+        <activity android:name="com.three.pmstore.activities.YoutubeVideoActivity"></activity>
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -81,7 +81,7 @@
             android:screenOrientation="portrait" />
 
         <receiver
-            android:name="com.store.storeapps.activities.GcmBroadcastReceiver"
+            android:name="com.three.pmstore.activities.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -91,7 +91,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="com.store.storeapps.activities.GCMNotificationIntentService" />
+        <service android:name="com.three.pmstore.activities.GCMNotificationIntentService" />
 
 
     </application>

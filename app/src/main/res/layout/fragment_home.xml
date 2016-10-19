@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginTop="-10dp"
-            android:showDividers="none"
+            android:showDividers="middle"
             app:tabGravity="fill"
             app:tabIndicatorColor="@android:color/transparent"
             app:tabMode="fixed"
@@ -25,9 +25,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1dp"
+            android:layout_height="2dp"
             android:layout_marginTop="-10dp"
-            android:background="#f1f1f1" />
+            android:background="#ededed" />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
