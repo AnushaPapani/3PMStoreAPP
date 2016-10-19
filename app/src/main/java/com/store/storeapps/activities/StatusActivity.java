@@ -88,12 +88,12 @@ public class StatusActivity extends AppCompatActivity {
 			System.out.println("c" + cashused);
 
 			LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
-			paramsList.put("Orderid", Ordders);
+			paramsList.put("Orderid", PaymentOptionNewFrgament.finalOrderid);
 			paramsList.put("U_id", UID);
 			paramsList.put("3pmcashused", cashused);
 			paramsList.put("P_Type", ptype);
-			paramsList.put("EmailID", EmailID);
-			paramsList.put("name", name);
+			paramsList.put("EmailID", PaymentOptionNewFrgament.finalemail);
+			paramsList.put("name", PaymentOptionNewFrgament.finalname);
 			paramsList.put("cartId", HomeActivity.mCartId);
 			result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
 

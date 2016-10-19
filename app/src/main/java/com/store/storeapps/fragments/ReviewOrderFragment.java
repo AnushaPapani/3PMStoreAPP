@@ -69,6 +69,7 @@ public class ReviewOrderFragment extends Fragment {
     public static TextView txt_address_state;
     public static TextView txt_pin_code;
     public static TextView txt_mobile;
+    public static String addressId;
     public static String Orderid = "";
     public static String CP_ID = "";
     public static String P_ID = "";
@@ -171,7 +172,7 @@ public class ReviewOrderFragment extends Fragment {
             public void onClick(View v) {
                 Insert_reviewOrder(txt_name.getText().toString(), txt_address_line.getText().toString(), txt_city.getText().toString(),
                         txt_address_state.getText().toString(), txt_pin_code.getText().toString(), txt_mobile.getText().toString(),
-                        addressesModels.get(0).getID().toString(), HomeActivity.mCartId.toString(), String.valueOf(HomeActivity.mCartTotal),
+                        addressId, HomeActivity.mCartId.toString(), String.valueOf(HomeActivity.mCartTotal),
                         Promocode.getText().toString());
             }
         });
@@ -692,6 +693,7 @@ public class ReviewOrderFragment extends Fragment {
         txt_address_state.setText(Utility.capitalizeFirstLetter(addressesModels.get(0).getBstate()));
         txt_pin_code.setText(addressesModels.get(0).getBpincode());
         txt_mobile.setText(addressesModels.get(0).getBmobile());
+        addressId = addressesModels.get(0).getID();
         txt_choose_another.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

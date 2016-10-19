@@ -69,6 +69,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     String P_Cost, Quantity;
     String ProductId, P_Name, codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
     private boolean fromCOD;
+    public static String finalname,finalemail,finalOrderid;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +89,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 
             email = Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID);
             cartId = HomeActivity.mCartId.toString();
+            finalemail = email;
+            finalname = fname;
+            finalOrderid = orderid;
             System.out.println("amountPayable  val" +amountPayable);
         }
     }
@@ -119,7 +123,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             preFill.put("email",email );
             preFill.put("contact", bmobile);
             options.put("prefill", preFill);
-
+            finalname = fname;
+            finalemail = email;
             co.setPublicKey("rzp_live_bKbvbtZ8byoBY9");
             co.open(getActivity(), options);
         } catch (Exception e) {
@@ -170,6 +175,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         intent.putExtra("P_Type", "PayTM");
                         intent.putExtra("amount", HomeActivity.mCartTotal);
                         intent.putExtra("3pmcashused", pmamount.getText().toString());
+                        finalname = fname;
+                        finalemail = email;
                         startActivity(intent);
                         Toast.makeText(getActivity(), "Payment Transaction is successful ", Toast.LENGTH_LONG).show();
                     }
@@ -626,6 +633,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("name", fname);
                 paramsList.put("otpgenerate",otprandom);
                 paramsList.put("cartId", cartId);
+                finalname = fname;
+                finalemail = email;
                 result = Utility.httpPostRequestToServer(ApiConstants.SEND_OTP, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
@@ -683,9 +692,11 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("PromoType","PromoType");
                 paramsList.put("cartId", cartId);
                 paramsList.put("totalcod", totalCOD);
+                finalname = fname;
+                finalemail = email;
                 result = Utility.httpPostRequestToServer((ApiConstants.COD_SUCCESS +
-                        "?totalcod="+totalCOD+"&Ordders="+orderid+"&name="+fname+"&EmailID="+email+"").replace(" ","%20") , Utility.getParams(paramsList));
-//              result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
+                     "?totalcod="+totalCOD+"&Ordders="+orderid+"&name="+fname+"&EmailID="+email+"").replace(" ","%20") , Utility.getParams(paramsList));
+              //result = Utility.httpPostRequestToServer(ApiConstants.COD_SUCCESS, Utility.getParams(paramsList));
 
             }catch (Exception exception) {
                 exception.printStackTrace();
@@ -719,7 +730,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("U_id", U_id);
                             i.putExtra("name",fname);
                             i.putExtra("EmailID",email);
-
+                            finalname = fname;
+                            finalemail = email;
                             startActivity(i);
 //                        String message = jObj.getString("message");
                             System.out.println("Details " + success + " message");
@@ -770,6 +782,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 paramsList.put("EmailID",email);
                 paramsList.put("name",fname);
                 paramsList.put("cartId", cartId);
+                finalname = fname;
+                finalemail = email;
                 result = Utility.httpPostRequestToServer(ApiConstants.HURRAY_NOTIFICATION, Utility.getParams(paramsList));
             }catch (Exception exception) {
                 exception.printStackTrace();
@@ -807,7 +821,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             i.putExtra("name",fname);
                             i.putExtra("EmailID",email);
                             i.putExtra("cartId", cartId);
-
+                            finalname = fname;
+                            finalemail = email;
                             startActivity(i);
                         }
                         else

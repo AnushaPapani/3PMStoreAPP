@@ -23,7 +23,9 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.store.storeapps.R;
 import com.store.storeapps.fragments.MyOrderFragment;
+import com.store.storeapps.fragments.PaymentOptionNewFrgament;
 import com.store.storeapps.fragments.Previous_ProductsFragment;
+import com.store.storeapps.fragments.ReviewOrderFragment;
 
 import org.json.JSONArray;
 
@@ -67,10 +69,11 @@ public class SuccessActivity extends AppCompatActivity {
 
 		Paymenttype = getIntent().getStringExtra("P_Type");
 		totalcod = getIntent().getStringExtra("CodCash");
-		Ordders= getIntent().getStringExtra("Orderid");
 		UID= getIntent().getStringExtra("U_id");
 		name    =getIntent().getStringExtra("name");
-		EmailID  =getIntent().getStringExtra("EmailID");
+		EmailID  = PaymentOptionNewFrgament.finalemail;
+		name = PaymentOptionNewFrgament.finalname;
+		Ordders= PaymentOptionNewFrgament.finalOrderid;
 
 		System.out.println("spinner_item  check"+spinner_item+ "   " +pmcash);
 
@@ -95,10 +98,11 @@ public class SuccessActivity extends AppCompatActivity {
 		System.out.println("COD GET Payment "+Paymenttype);
 		if(Paymenttype.equals("COD"))
 		{
-
-//				new CODSuccess().execute(totalcod,Ordders,name,EmailID);
-//				if (codlayout.getVisibility() == View.GONE)
-			String newUrl = ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/codSuccess.php?" +
+            HomeActivity.mCartTotal = 0;
+			HomeActivity.mCartId = "";
+			HomeActivity.mCartItemsList = null;
+			ReviewOrderFragment.isPromoCodeApplied = false;
+			String newUrl = ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/codgcm.php?" +
 					"totalcod="+totalcod+"&Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(newUrl);
 //                    gcmnames =globalVariable.getEmailid().toString();
@@ -114,9 +118,11 @@ public class SuccessActivity extends AppCompatActivity {
 		}
 		else
 		{
-//				new CashSuccess().execute(Ordders,name,EmailID);
-
-			String url= ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/hurraynotification.php?" +
+			HomeActivity.mCartTotal = 0;
+			HomeActivity.mCartId = "";
+			HomeActivity.mCartItemsList = null;
+			ReviewOrderFragment.isPromoCodeApplied = false;
+			String url= ("http://8daysaweek.in/3productsaday/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/hurraygcm.php?" +
 					"Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(url);
 //                    gcmnames =globalVariable.getEmailid().toString();
@@ -131,9 +137,6 @@ public class SuccessActivity extends AppCompatActivity {
 			}
 		}
 	}
-
-
-
 
 	private boolean isNetworkAvailable1() {
 		ConnectivityManager connectivityManager

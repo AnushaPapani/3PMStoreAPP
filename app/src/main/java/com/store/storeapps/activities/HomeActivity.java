@@ -89,7 +89,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public static int mCartValue = 0;
     public static int mCartTotal = 0;
     public static boolean isLogged = false;
-    public static final String TAG = "HomeActivity";
+    public static final String TAG = "MyOrderFragment";
     /*Timer*/
     TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
     private CountDownTimer countDownTimer; // built in android class
@@ -111,6 +111,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_home);
 
         initUI();
+        //getIntentData();
     }
 
     private void initUI() {
@@ -666,6 +667,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(context, leftMenuList);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
 
+    }
+
+    private void getIntentData() {
+        //from clicking of public profile from another screens
+        Intent intent = getIntent();
+        if (getIntent().getExtras() != null) {
+            if (intent.getExtras().containsKey(TAG)) {
+                // mStrUserId = intent.getStringExtra("user_id");
+                // screenNavigation();
+                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG,null,HomeActivity.this);
+            }
+            else
+            {
+                initUI();
+            }
+        }
     }
 
 //    @Override
