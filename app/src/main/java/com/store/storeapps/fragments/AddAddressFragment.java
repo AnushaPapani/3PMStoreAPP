@@ -158,6 +158,7 @@ public class AddAddressFragment extends Fragment {
                 paramsList.put("bcity", addrcity);
                 paramsList.put("bstate", addrstate);
                 paramsList.put("bpincode", addrpincode);
+                paramsList.put("cartId", HomeActivity.mCartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.ADD_ADDRESS, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -235,6 +236,10 @@ public class AddAddressFragment extends Fragment {
             toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
             toast.setDuration(Toast.LENGTH_LONG);
             toast.show();
+        }else {
+            CreateNewAddress(inputAddName.getText().toString(), inputAddMobile.getText().toString(), inputAddAddress1.getText().toString(),
+                    inputAddAddress2.getText().toString(), inputAddCity.getText().toString(), inputAddState.getText().toString(), inputAddPincode.getText().toString()
+            );
         }
 
         return isValidate;
