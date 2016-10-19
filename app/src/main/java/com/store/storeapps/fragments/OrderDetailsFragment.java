@@ -57,7 +57,7 @@ public class OrderDetailsFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url;
+    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url, GTOTAL;
     private Activity activity;
     //    private Context getActivity();
     private View rootView;
@@ -712,6 +712,7 @@ public class OrderDetailsFragment extends Fragment {
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
+                            GTOTAL = mMovie.getGrandTotal().toString();
 
                             Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
                         }

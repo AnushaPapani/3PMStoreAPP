@@ -62,10 +62,10 @@ public class ReturnFormFragment extends Fragment {
 
     int pos, poss;
     String issue, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch, id, name,
-            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id, PaymentType, cartId;
+            bankname, bifsccode, baccount, breenteraccount, first, radiodata, Uname, U_id, PaymentType, cartId,total;
 
     TextView textBelownameET, textBelowemailET, textBelowbranchET, textBelowbankET,
-            textBelowifsccodeET, textBelowaccountnoET, textBelowreenterAccountnoET;
+            textBelowifsccodeET, textBelowaccountnoET, textBelowreenterAccountnoET,odrid,cost;
 
 
     @Override
@@ -78,6 +78,8 @@ public class ReturnFormFragment extends Fragment {
         Uname = MyOrderFragment.USername;
         U_id = MyOrderFragment.Uid;
         payment = MyOrderFragment.PaymentType;
+        total = MyOrderFragment.GTOTAL;
+
         name = Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME);
         id = Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID);
         System.out.println("cartProdId   " + cartProdId);
@@ -103,7 +105,11 @@ public class ReturnFormFragment extends Fragment {
         reenterAccountnoET = (EditText) rootView.findViewById(R.id.reenterAccountnoET);
         branchET = (EditText) rootView.findViewById(R.id.branchET);
         textAboveCheckBox = (TextView) rootView.findViewById(R.id.textAboveCheckBox);
+        odrid = (TextView)rootView.findViewById(R.id.order);
+        cost =(TextView)rootView.findViewById(R.id.total);
 
+        odrid.setText(orderid);
+        cost.setText(total);
 
         textBelownameET = (TextView) rootView.findViewById(R.id.textBelownameET);
         textBelowemailET = (TextView) rootView.findViewById(R.id.textBelowemailET);

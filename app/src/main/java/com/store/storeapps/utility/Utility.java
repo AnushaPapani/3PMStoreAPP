@@ -259,6 +259,7 @@ public class Utility {
                     "Previous Products",
                     "Terms & Conditions",
                     "Contact Us",
+                    "FAQs",
                     "Logout"};
         } else {
             return new String[]{
@@ -271,7 +272,8 @@ public class Utility {
                     "Invite Friends",
                     "Previous Products",
                     "Terms & Conditions",
-                    "Contact Us"};
+                    "Contact Us",
+                    "FAQs"};
         }
     }
 
@@ -288,6 +290,7 @@ public class Utility {
                     R.drawable.arrowback,
                     R.drawable.purchase_order,
                     R.drawable.telephone,
+                    R.drawable.faqicon,
                     R.drawable.logout_icon
             };
         }
@@ -303,6 +306,7 @@ public class Utility {
                     R.drawable.arrowback,
                     R.drawable.purchase_order,
                     R.drawable.telephone,
+                    R.drawable.faqicon
             };
         }
     }

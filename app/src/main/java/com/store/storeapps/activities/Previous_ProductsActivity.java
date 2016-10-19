@@ -23,6 +23,7 @@ import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.fragments.AddAddressFragment;
 import com.store.storeapps.fragments.Blog;
 import com.store.storeapps.fragments.ContactUsFragment;
+import com.store.storeapps.fragments.Faqview;
 import com.store.storeapps.fragments.HomeFragment;
 import com.store.storeapps.fragments.LoginFragment;
 import com.store.storeapps.fragments.MyOrderFragment;
@@ -198,6 +199,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             case 10:
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
+            case 11:
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, Previous_ProductsActivity.this);
+                break;
 
         }
     }
@@ -238,6 +242,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, Previous_ProductsActivity.this);
+                break;
+            case 11:
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 10:
                 signOut();
