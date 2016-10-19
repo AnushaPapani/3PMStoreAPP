@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
                 } else {
                     Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(2).getCategory_Icon_grey())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
                 }
-                textview.setTextColor(getResources().getColor(R.color.txt_unselected_color));
+                textview.setTextColor(getResources().getColor(R.color.Tab_Cat_name));
             }
 
             @Override
