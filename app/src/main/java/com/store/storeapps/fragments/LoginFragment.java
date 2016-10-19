@@ -1,6 +1,5 @@
 package com.store.storeapps.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.text.SpannableString;
@@ -52,11 +50,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.store.storeapps.R;
 
+import com.store.storeapps.activities.Facebook_Activity;
 import com.store.storeapps.activities.GCMApplicationConstants;
 import com.store.storeapps.activities.GCMUtility;
 import com.store.storeapps.activities.HomeActivity;
 import com.store.storeapps.activities.JSONParser;
-import com.store.storeapps.activities.Previous_ProductsActivity;
 import com.store.storeapps.customviews.CustomProgressDialog;
 import com.store.storeapps.customviews.DialogClass;
 import com.store.storeapps.utility.ApiConstants;
@@ -99,7 +97,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private HomeActivity mParent;
     private View rootView;
-    // Instance of Facebook Class
+    // Instance of Facebook_Activity Class
     private TextView txt_password;
     private TextView txt_register_link;
     public static String Emailid, Username;
@@ -120,10 +118,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     Context context;
     Boolean Connectiontimeout = true;
     AlertDialog.Builder alertDialogBuilder;
-    // Your Facebook APP ID
+    // Your Facebook_Activity APP ID
     private static String APP_ID = "1667274583560911"; // Replace with your App ID
     JSONObject json;
-    // Instance of Facebook Class
+    // Instance of Facebook_Activity Class
     private Facebook facebook = new Facebook(APP_ID);
     private AsyncFacebookRunner mAsyncRunner;
     String name = "";
@@ -223,16 +221,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     loginDataToServer(edt_email.getText().toString(), edt_password.getText().toString());
                 }
                 break;
-            case R.id.btn_sign_up:
-                if (isNetworkAvailable(getActivity()) == true) {
-                    setUpFacebookLogin();
-//                    accessTokenFacebook();
-//                    printKeyHash(getActivity());
-                } else {
-                    Toast.makeText(getActivity(), "No Network Connection",
-                            Toast.LENGTH_SHORT).show();
-                }
-                break;
+//            case R.id.btn_sign_up:
+//                if (isNetworkAvailable(getActivity()) == true) {
+//                    Intent i=new Intent(getActivity(),Facebook_Activity.class);
+//                    startActivity(i);
+////                    setUpFacebookLogin();
+////                    accessTokenFacebook();
+////                    printKeyHash(getActivity());
+//                } else {
+//                    Toast.makeText(getActivity(), "No Network Connection",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//                break;
         }
     }
 
@@ -313,7 +313,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mPrefs = getActivity().getPreferences(MODE_PRIVATE);
         access_token = mPrefs.getString("access_token", null);
         long expires = mPrefs.getLong("access_expires", 0);
-        // Log.e("Facebook token", access_token);
+        // Log.e("Facebook_Activity token", access_token);
 
         if (access_token != null) {
             facebook.setAccessToken(access_token);
@@ -364,7 +364,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    /*Facebook*/
+    /*Facebook_Activity*/
     public class getFacebookData extends AsyncTask<String, Void, String> {
 
         ProgressDialog pd;
@@ -468,7 +468,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    /*Facebook Userprofile*/
+    /*Facebook_Activity Userprofile*/
     public void fbUserProfile() {
 
         try {
@@ -522,7 +522,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    /*Facebook Login*/
+    /*Facebook_Activity Login*/
     class Fblogin extends AsyncTask<String, String, String> {
 
         ProgressDialog pDialog3;
