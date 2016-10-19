@@ -57,7 +57,7 @@ public class OrderDetailsFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType;
+    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url;
     private Activity activity;
     //    private Context getActivity();
     private View rootView;
@@ -182,6 +182,7 @@ public class OrderDetailsFragment extends Fragment {
                                 Movie movie = new Movie();
                                 movie.setOrder_Date(jsonObjectMovie.optString("Order_Date"));
                                 movie.setCart_Prod_ID(jsonObjectMovie.optString("Cart_Prod_ID"));
+                                movie.setCart_ID(jsonObjectMovie.optString("Cart_ID"));
                                 movie.setP_Name(jsonObjectMovie.optString("P_Name"));
                                 movie.setP_Qty(jsonObjectMovie.optString("P_Qty"));
                                 movie.setStatus(jsonObjectMovie.optString("OrderStatus"));
@@ -671,11 +672,13 @@ public class OrderDetailsFragment extends Fragment {
                         txt_exstatus1.setVisibility(View.INVISIBLE);
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
                     }
+
                     btn_cancel1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
                             Pcost = mMovie.getP_Cost().toString();
@@ -684,37 +687,33 @@ public class OrderDetailsFragment extends Fragment {
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_review1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
                             Pcost = mMovie.getP_Cost().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-//                            startActivity(i);
-                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_return1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
 
-                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-                            startActivity(i);
-//                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
-
-
+                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
                         }
                     });
 
@@ -722,10 +721,21 @@ public class OrderDetailsFragment extends Fragment {
                     btn_callme1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            orderID= modelArray.getOrderId().toString();
-                            CartPID= mMovie.getCart_Prod_ID().toString();
+                            orderID = modelArray.getOrderId().toString();
+                            CartPID = mMovie.getCart_Prod_ID().toString();
+                            cartID = mMovie.getCart_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null,getActivity());
+                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
+                        }
+                    });
+                    btn_track1.setOnClickListener(new View.OnClickListener()
+                    {
+                        public void onClick(View v)  {
+                            url = mMovie.getTrackurl().toString();
+                            System.out.println("url before "+url);
+                            Bundle b = new Bundle();
+                            b.putString("URL",url);
+                            Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, b, getActivity());
                         }
                     });
 

@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srs"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:background="#E4E4E4">
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E4E4E4"
@@ -193,7 +198,8 @@
             android:orientation="horizontal"
             android:text="Confirm Cancellation"
             android:textColor="@color/grey"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:layout_marginBottom="@dimen/_10dp"/>
 
         <TextView
             android:id="@+id/TextView01"
@@ -237,3 +243,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+</ScrollView>
