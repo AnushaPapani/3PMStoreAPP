@@ -71,9 +71,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider"
+            android:exported="true" />
 
         <activity
             android:name="com.paytm.pgsdk.PaytmPGActivity"
@@ -82,16 +82,16 @@
 
         <receiver
             android:name="com.store.storeapps.activities.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.three.pmstore" />
+                <category android:name="com.store.storeapps" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".GCMNotificationIntentService" />
+        <service android:name="com.store.storeapps.activities.GCMNotificationIntentService" />
 
 
     </application>
