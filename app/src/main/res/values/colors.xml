@@ -37,9 +37,9 @@
     <color name="colorAccent">#c8e8ff</color>
 
     <color name="dark_gray_color">#3f3f3f</color>
-    <color name="txt_hint_color">#c0c0c0</color>
+    <color name="txt_hint_color">#666666</color>
     <color name="txt_unselected_color">#bdc7d8</color>
-
+    <color name="Tab_Cat_name">#666666</color>
     <color name="background_color">#f0f0f0</color>
 
 

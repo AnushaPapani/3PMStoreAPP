@@ -43,6 +43,16 @@
             android:textSize="@dimen/sp_size_eighteen" />
 
         <TextView
+            android:id="@+id/txt_time_hour_h1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:text=":"
+            android:textColor="@color/titlbar"
+            android:textSize="@dimen/sp_size_eighteen" />
+
+        <TextView
             android:id="@+id/txt_time_minutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,6 +69,16 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="bottom"
             android:text="@string/time_minutes_m"
+            android:textColor="@color/titlbar"
+            android:textSize="@dimen/sp_size_eighteen" />
+
+        <TextView
+            android:id="@+id/txt_time_hour_h2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom"
+            android:text=":"
             android:textColor="@color/titlbar"
             android:textSize="@dimen/sp_size_eighteen" />
 

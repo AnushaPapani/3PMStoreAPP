@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@android:color/white">
 
-        <TextView
+        <com.store.storeapps.activities.BoldCustomTextView
             android:id="@+id/text_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,8 +22,8 @@
             android:id="@+id/linear_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_2dp"
-            android:layout_below="@+id/text_name">
+            android:layout_below="@+id/text_name"
+            android:layout_marginTop="@dimen/_2dp">
 
             <TextView
                 android:id="@+id/txt_left_icon"
@@ -41,12 +41,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_toLeftOf="@+id/txt_right_icon"
-                android:layout_toRightOf="@+id/txt_left_icon"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginRight="@dimen/_10dp"
+                android:layout_toLeftOf="@+id/txt_right_icon"
+                android:layout_toRightOf="@+id/txt_left_icon"
                 android:minHeight="280dp"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <TextView
                 android:id="@+id/txt_right_icon"
@@ -67,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/linear_img"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="@dimen/_2dp"
             android:layout_marginRight="30dp"
+            android:layout_marginTop="@dimen/_2dp"
             android:orientation="horizontal"
             android:weightSum="5">
 
@@ -79,7 +79,7 @@
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_select"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <ImageButton
                 android:id="@+id/img_second"
@@ -88,7 +88,7 @@
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_unselect"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <ImageButton
                 android:id="@+id/img_third"
@@ -97,7 +97,7 @@
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_unselect"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <ImageButton
                 android:id="@+id/img_four"
@@ -106,7 +106,7 @@
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_unselect"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <ImageButton
                 android:id="@+id/img_five"
@@ -115,7 +115,7 @@
                 android:layout_margin="@dimen/_2dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_unselect"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/logo" />
         </LinearLayout>
 
         <View
@@ -123,13 +123,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_1dp"
             android:layout_below="@+id/ll2"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_10dp"
             android:layout_marginLeft="@dimen/_10dp"
             android:layout_marginRight="@dimen/_10dp"
             android:layout_marginStart="@dimen/_10dp"
-            android:layout_marginEnd="@dimen/_10dp"
             android:layout_marginTop="@dimen/_5dp"
-            android:layout_marginBottom="@dimen/_5dp"
-            android:background="@color/background" />
+            android:background="#A8A8A8" />
 
         <RelativeLayout
             android:id="@+id/rl_ll3"
@@ -154,31 +154,31 @@
                 android:id="@+id/txt_mrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="MRP:"
-                android:layout_marginRight="15dp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@+id/txt_strike"
                 android:layout_toStartOf="@+id/txt_strike"
-                android:layout_marginEnd="24dp" />
+                android:gravity="center"
+                android:text="MRP:"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txt_strike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="38dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="600"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="38dp" />
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -203,34 +203,36 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-
-            <TextView
-                android:id="@+id/txt_deli"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/txt_free"
-                android:layout_marginLeft="15dp"
-                android:text="Delivered in 5-9 Days"
-                android:textSize="15dp" />
-
-            <TextView
+            <com.store.storeapps.activities.BoldCustomTextView
                 android:id="@+id/txt_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="15dp"
                 android:background="#7fbf4d"
+                android:paddingBottom="@dimen/_6dp"
+                android:paddingEnd="@dimen/_10dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
                 android:paddingStart="@dimen/_10dp"
-                android:paddingEnd="@dimen/_10dp"
                 android:paddingTop="@dimen/_6dp"
-                android:paddingBottom="@dimen/_6dp"
                 android:text="BUY for 299"
                 android:textColor="#fff"
                 android:textSize="20dp"
                 android:textStyle="bold" />
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/txt_deli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Delivered in 5-9 Days"
+                android:textSize="15dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -240,29 +242,73 @@
             android:layout_below="@+id/ll4"
             android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spin_one"
-                style="@style/spinner_style_shape"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"></Spinner>
+            <RelativeLayout
+                android:id="@+id/layoutattribute1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/newupdate_borders">
 
-            <Spinner
-                android:id="@+id/spin_two"
-                style="@style/spinner_style_shape"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"></Spinner>
+                <Spinner
+                    android:id="@+id/spin_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
 
-            <Spinner
-                android:id="@+id/spin_three"
-                style="@style/spinner_style_shape"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"></Spinner>
+                </Spinner>
+            </RelativeLayout>
 
-            <Spinner
-                android:id="@+id/spin_four"
-                style="@style/spinner_style_shape"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"></Spinner>
+            <RelativeLayout
+                android:id="@+id/layoutattribute2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/newupdate_borders">
+
+                <Spinner
+                    android:id="@+id/spin_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+
+                </Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutattribute3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/newupdate_borders">
+
+                <Spinner
+                    android:id="@+id/spin_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"></Spinner>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutattribute4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radio"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/newupdate_borders">
+
+                <Spinner
+                    android:id="@+id/spin_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"></Spinner>
+            </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
@@ -288,6 +334,19 @@
                 android:visibility="visible" />
         </RelativeLayout>
 
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1dp"
+            android:layout_below="@+id/rl_video"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:layout_marginEnd="@dimen/_10dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:layout_marginStart="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:background="#A8A8A8" />
+
         <RelativeLayout
             android:id="@+id/rl_desc"
             android:layout_width="match_parent"
@@ -300,7 +359,7 @@
             <Button
                 android:id="@+id/btn_desc"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:background="@color/black"
                 android:paddingLeft="10dp"
@@ -312,7 +371,7 @@
             <Button
                 android:id="@+id/btn_spec"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="@dimen/_15dp"
                 android:layout_toRightOf="@id/btn_desc"
                 android:background="#55C6D2"
@@ -324,15 +383,32 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/text_desc"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rl_desc"
-            android:layout_marginLeft="@dimen/_10dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:text="@string/access_code"
-            android:textSize="@dimen/sp_size_sixteen" />
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/border">
+
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_desc"
+                android:shrinkColumns="*"
+                android:stretchColumns="*"></TableLayout>
+
+            <com.store.storeapps.activities.CustomTextView
+                android:id="@+id/text_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="@dimen/_10dp"
+                android:text="@string/access_code"
+                android:textSize="@dimen/sp_size_sixteen" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>
