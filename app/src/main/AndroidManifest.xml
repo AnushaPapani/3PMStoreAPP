@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.three.pmstore.activities.Facebook_Activity"></activity>
-
+        <activity android:name="com.three.pmstore.activities.NoPrevious"></activity>
         <activity android:name="com.three.pmstore.activities.Previous_ProductsActivity"></activity>
         <!--<activity android:name="com.store.storeapps.activities.PaymentActivity"></activity>-->
         <activity android:name="com.three.pmstore.activities.SuccessActivity"></activity>
