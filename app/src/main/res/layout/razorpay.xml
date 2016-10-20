@@ -58,7 +58,7 @@
                 android:layout_centerHorizontal="true"
                 android:padding="15dp"
                 android:id="@+id/imageCart"
-                android:src="@drawable/applogo"/>
+                android:src="@drawable/ic_launcher"/>
 
         </RelativeLayout>
 

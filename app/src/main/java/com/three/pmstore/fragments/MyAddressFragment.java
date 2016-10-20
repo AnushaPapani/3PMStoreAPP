@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +77,7 @@ public class MyAddressFragment extends Fragment {
         list = (ListView) rootView.findViewById(R.id.list);
         addnew = (TextView) rootView.findViewById(R.id.addanother);
         new GetAddress(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)).execute();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         addnew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

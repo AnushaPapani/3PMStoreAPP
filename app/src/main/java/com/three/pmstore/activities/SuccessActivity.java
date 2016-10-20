@@ -1,6 +1,7 @@
 package com.three.pmstore.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -98,7 +99,7 @@ public class SuccessActivity extends AppCompatActivity {
 			HomeActivity.mCartId = "";
 			HomeActivity.mCartItemsList = null;
 			ReviewOrderFragment.isPromoCodeApplied = false;
-			String newUrl = ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/codgcm.php?" +
+			String newUrl = ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/codgcm.php?" +
 					"totalcod="+totalcod+"&Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(newUrl);
 //                    gcmnames =globalVariable.getEmailid().toString();
@@ -118,7 +119,7 @@ public class SuccessActivity extends AppCompatActivity {
 			HomeActivity.mCartId = "";
 			HomeActivity.mCartItemsList = null;
 			ReviewOrderFragment.isPromoCodeApplied = false;
-			String url= ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/hurraygcm.php?" +
+			String url= ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/hurraygcm.php?" +
 					"Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(url);
 //                    gcmnames =globalVariable.getEmailid().toString();
@@ -303,15 +304,15 @@ public class SuccessActivity extends AppCompatActivity {
 		checkPlayServices();
 	}
 
-//	@Override
-//	public void onBackPressed() {
-//
-//		Intent i=new Intent(SuccessActivity.this, MyAddressFragment.class);
+	@Override
+	public void onBackPressed() {
+
+		Intent i=new Intent(SuccessActivity.this, HomeActivity.class);
 //		i.putExtra("MyOrderFragment","MyOrderFragment");
-//		startActivity(i);
-//		finish();
-//
-//	}
+		startActivity(i);
+		finish();
+
+	}
 
 //	@Override
 //	public void onBackPressed() {

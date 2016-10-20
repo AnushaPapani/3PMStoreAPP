@@ -55,7 +55,11 @@ public class StoreCashFragment extends Fragment {
         storeHead.setText(content);
         tv = (TextView) rootView.findViewById(R.id.fbwall);
         tv.setText(Html.fromHtml(getString(R.string.my_text)));
-        new GetCash("userid").execute();
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(),Constants.USER_ID))){
+            new GetCash("userid").execute();
+        }
+
+
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

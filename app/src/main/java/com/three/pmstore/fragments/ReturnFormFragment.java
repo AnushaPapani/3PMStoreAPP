@@ -72,6 +72,7 @@ public class ReturnFormFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.returnsform, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         orderid = MyOrderFragment.orderID;
         cartProdId = MyOrderFragment.CartPID;
         cartId = MyOrderFragment.cartID;

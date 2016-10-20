@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -81,6 +82,7 @@ public class PreviousProductFragment extends Fragment implements View.OnClickLis
         rootView = inflater.inflate(R.layout.fragment_previous_product, container, false);
         toastRoot = inflater.inflate(R.layout.toast, container, false);
         toastRoot2 =inflater.inflate(R.layout.error_toast, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initUI();
         return rootView;
     }
