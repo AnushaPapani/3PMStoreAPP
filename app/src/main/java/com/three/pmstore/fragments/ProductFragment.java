@@ -781,13 +781,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.mCartValue = jsonobject.optInt("cartCount");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
-                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                        t.setText("Product Added to Cart Successfully");
-                        toast.setView(toastRoot2);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.show();
-//                        Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
+
+                        Utility.showToastMessage(getActivity(), "Product Added to Cart Successfully");
                     }
                     else if(jsonobject.optString("success").equalsIgnoreCase("2"))
                     {
@@ -809,23 +804,13 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     }
                     else if(jsonobject.optString("success").equalsIgnoreCase("3"))
                     {
-                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-                        t.setText("Sorry! Product has reached maximum quantity per order.");
-                        toast.setView(toastRoot);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.show();
-//                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
+
+                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
                     }
                     else
                     {
-                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-                        t.setText("Some network error occurred please try again later.");
-                        toast.setView(toastRoot);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.show();
-//                        Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
+
+                        Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

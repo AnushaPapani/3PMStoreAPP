@@ -332,6 +332,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                             int success = jsonobject.getInt("success");
                             String url = jsonobject.getString("url");
                             System.out.println("url   previous  "+url);
+
                             if (success == 1) {
                                 products = jsonobject.getJSONObject("tbl_pproducts");
                                 dates = jsonobject.getJSONArray("dates");
@@ -355,9 +356,10 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                                     System.out.println("date" + date1);
                                 }
                                 homeScreenNavigation();
-                            } else {
-
-                                Intent i = new Intent(Previous_ProductsActivity.this, NoPrevious.class);
+                            }
+                            else
+                            {
+                                Intent i =new Intent(Previous_ProductsActivity.this, NoPrevious.class);
                                 i.putExtra("URL",url);
                                 startActivity(i);
                                 finish();
