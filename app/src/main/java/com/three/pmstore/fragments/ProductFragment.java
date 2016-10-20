@@ -83,12 +83,13 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     LinkedList<List<String>> columns = new LinkedList<List<String>>();
     private int mPosition = -1;
     private int mSelectedPosition = 0;
-    String preTable,postTable;
-    String out,out1;
+    String preTable, postTable;
+    String out, out1;
     String infor;
     View toastRoot;
     View toastRoot2;
     Toast toast;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +141,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_one = (Spinner) rootView.findViewById(R.id.spin_one);
         ArrayList<String> spinnerArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 0) {
-            spinnerArray.add("Select "+ HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0)+" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
+            spinnerArray.add("Select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
             String[] separated = HomeActivity.mProductItemsList.get(mPosition).getAttrValues().get(0).split(",");
             for (int i = 0; i < separated.length; i++) {
                 spinnerArray.add(separated[i]);
@@ -158,9 +159,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -177,7 +178,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_two = (Spinner) rootView.findViewById(R.id.spin_two);
         ArrayList<String> secondArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 1) {
-            secondArray.add("Select "+ HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1)+" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
+            secondArray.add("Select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
             String[] second_separated = HomeActivity.mProductItemsList.get(mPosition).getAttrValues().get(1).split(",");
             for (int i = 0; i < second_separated.length; i++) {
                 secondArray.add(second_separated[i]);
@@ -195,9 +196,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -214,7 +215,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_three = (Spinner) rootView.findViewById(R.id.spin_three);
         ArrayList<String> thirdArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 2) {
-            thirdArray.add("Select "+ HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2)+" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
+            thirdArray.add("Select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
             String[] third_separated = HomeActivity.mProductItemsList.get(mPosition).getAttrValues().get(2).split(",");
             for (int i = 0; i < third_separated.length; i++) {
                 thirdArray.add(third_separated[i]);
@@ -232,9 +233,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -252,7 +253,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         spin_four = (Spinner) rootView.findViewById(R.id.spin_four);
         ArrayList<String> fourArray = new ArrayList<>();
         if (HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes() != null && HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().size() > 3) {
-            fourArray.add("Select "+ HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(3)+" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3));
+            fourArray.add("Select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(3) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3));
             String[] four_separated = HomeActivity.mProductItemsList.get(mPosition).getAttrValues().get(3).split(",");
             for (int i = 0; i < four_separated.length; i++) {
                 fourArray.add(four_separated[i]);
@@ -270,9 +271,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) +Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -288,15 +289,13 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
 
         image_thumbnail = (ImageView) rootView.findViewById(R.id.image_thumbnail);
         image_VideoPlayButton = (ImageView) rootView.findViewById(R.id.img_VideoPreviewPlayButton);
-        if(HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.size()>0) {
-            if(!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getP_Video())) {
+        if (HomeActivity.mProductItemsList != null && HomeActivity.mProductItemsList.size() > 0) {
+            if (!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getP_Video())) {
                 image_thumbnail.setVisibility(View.VISIBLE);
                 image_VideoPlayButton.setVisibility(View.VISIBLE);
                 Picasso.with(getActivity()).load(getFullFilledImage("http://img.youtube.com/vi/" + HomeActivity.mProductItemsList.get(mPosition).getP_Video() + "/0.jpg")).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
                         .into(image_thumbnail);
-            }
-            else
-            {
+            } else {
                 image_thumbnail.setVisibility(View.GONE);
                 image_VideoPlayButton.setVisibility(View.GONE);
             }
@@ -307,15 +306,17 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             text_name.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             txt_name_bottom.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
-                txt_buy.setText("BUY for "+ Utility.getResourcesString(getActivity(), R.string.rs) + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
             } else {
                 txt_buy.setEnabled(false);
                 txt_buy.setText("Out Of Stock");
             }
             text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
-            txt_strike.setText("" + HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp());
-            txt_strike.setPaintFlags(txt_strike.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            infor =text_desc.getText().toString();
+            if (!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp())) {
+                txt_strike.setText("" + HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp());
+                txt_strike.setPaintFlags(txt_strike.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            infor = text_desc.getText().toString();
 
             Picasso.with(getActivity()).load(getFullFilledImage(HomeActivity.mProductItemsList.get(mPosition)
                     .getImages().get(0))).placeholder(Utility.getDrawable(getActivity(), R.drawable.logo))
@@ -513,6 +514,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
     private void BuildTable(LinkedList<List<String>> columns) {
 
         // outer for loop
@@ -560,13 +562,11 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 if (!text_one.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0))) {
                     return true;
                 } else {
-                    if(text_one.contains("Quantity"))
-                    {
+                    if (text_one.contains("Quantity")) {
                         spin_one.setSelection(1);
                         return true;
-                    }
-                    else {
-                        Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
+                    } else {
+                        Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
                         return false;
                     }
                 }
@@ -578,23 +578,19 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     return true;
                 } else {
                     if (text_one.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0))) {
-                        if(text_one.contains("Quantity"))
-                        {
+                        if (text_one.contains("Quantity")) {
                             spin_one.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
                             return false;
                         }
                     } else if (text_two.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1))) {
-                        if(text_two.contains("Quantity"))
-                        {
+                        if (text_two.contains("Quantity")) {
                             spin_two.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
                             return false;
                         }
                     } else {
@@ -611,33 +607,27 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     return true;
                 } else {
                     if (text_one.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0))) {
-                        if(text_one.contains("Quantity"))
-                        {
+                        if (text_one.contains("Quantity")) {
                             spin_one.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
                             return false;
                         }
                     } else if (text_two.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1))) {
-                        if(text_two.contains("Quantity"))
-                        {
+                        if (text_two.contains("Quantity")) {
                             spin_two.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
                             return false;
                         }
                     } else if (text_three.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2))) {
-                        if(text_three.contains("Quantity"))
-                        {
+                        if (text_three.contains("Quantity")) {
                             spin_three.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
                             return false;
                         }
                     } else {
@@ -657,43 +647,35 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     return true;
                 } else {
                     if (text_one.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0))) {
-                        if(text_one.contains("Quantity"))
-                        {
+                        if (text_one.contains("Quantity")) {
                             spin_one.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(0) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0));
                             return false;
                         }
                     } else if (text_two.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1))) {
-                        if(text_two.contains("Quantity"))
-                        {
+                        if (text_two.contains("Quantity")) {
                             spin_two.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(1) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1));
                             return false;
                         }
                     } else if (text_three.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2))) {
-                        if(text_three.contains("Quantity"))
-                        {
+                        if (text_three.contains("Quantity")) {
                             spin_three.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(2) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2));
                             return false;
                         }
                     } else if (text_four.contains(HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3))) {
-                        if(text_four.contains("Quantity"))
-                        {
+                        if (text_four.contains("Quantity")) {
                             spin_four.setSelection(1);
                             return true;
-                        }
-                        else {
-                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(3) +" "+ HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3));
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Please select " + HomeActivity.mProductItemsList.get(mPosition).getAttrNames().get(3) + " " + HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3));
                             return false;
                         }
                     } else {
@@ -776,16 +758,14 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    if(jsonobject.optString("success").equalsIgnoreCase("1")) {
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         HomeActivity.mCartId = jsonobject.optString("cartId");
                         HomeActivity.mCartValue = jsonobject.optInt("cartCount");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
 
                         Utility.showToastMessage(getActivity(), "Product Added to Cart Successfully");
-                    }
-                    else if(jsonobject.optString("success").equalsIgnoreCase("2"))
-                    {
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setMessage("This product has expired. Please check out todays product!")
                                 .setCancelable(false)
@@ -801,14 +781,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                                 });
                         AlertDialog alert = builder.create();
                         alert.show();
-                    }
-                    else if(jsonobject.optString("success").equalsIgnoreCase("3"))
-                    {
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("3")) {
 
                         Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
-                    }
-                    else
-                    {
+                    } else {
 
                         Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
                     }
