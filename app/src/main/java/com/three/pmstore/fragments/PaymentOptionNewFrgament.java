@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -101,6 +102,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         }
         rootView = inflater.inflate(R.layout.payment_option, container, false);
         initUI();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootView;
     }
 

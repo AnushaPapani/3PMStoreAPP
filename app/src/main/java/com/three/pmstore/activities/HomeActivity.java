@@ -102,6 +102,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
 
+
         initUI();
         //getIntentData();
     }
@@ -306,7 +307,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
         list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
-
+        leftMenuAdapter.notifyDataSetChanged();
 
         list_home_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -315,6 +316,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void run() {
                         mDrawerLayout.closeDrawers();
+                        leftMenuAdapter.notifyDataSetChanged();
                         if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_NAME))) {
                             navigateSideMenuClickAfterLogin(position);
                             if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
@@ -327,6 +329,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 }, 300);
+
 
             }
         });

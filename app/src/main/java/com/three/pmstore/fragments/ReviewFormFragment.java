@@ -60,7 +60,7 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
         pcost = MyOrderFragment.Pcost;
         Uname = MyOrderFragment.USername;
         U_id = MyOrderFragment.Uid;
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         reviewTitle= (EditText)rootView.findViewById(R.id.reviewTitle);
         head2=(TextView) rootView.findViewById(R.id.t2);
         head1 =(TextView) rootView.findViewById(R.id.t1);
@@ -129,6 +129,7 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
             }
         });
         initUI();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootView;
     }
 

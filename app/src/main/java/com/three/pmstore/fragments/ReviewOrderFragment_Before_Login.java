@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -71,6 +72,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_review_order, container, false);
         toastRoot = inflater.inflate(R.layout.toast, null);
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         initUI();
         return rootView;
     }

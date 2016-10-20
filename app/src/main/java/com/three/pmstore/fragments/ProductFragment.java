@@ -12,6 +12,7 @@ import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -84,6 +86,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     String preTable,postTable;
     String out,out1;
     String infor;
+    View toastRoot;
+    View toastRoot2;
+    Toast toast;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +103,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_product, container, false);
+        toastRoot = inflater.inflate(R.layout.toast, null);
+        toastRoot2 = inflater.inflate(R.layout.error_toast, null);
+        toast = new Toast(getActivity());
         initUI();
         return rootView;
     }
@@ -773,7 +781,13 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.mCartValue = jsonobject.optInt("cartCount");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
-                        Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
+                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                        t.setText("Product Added to Cart Successfully");
+                        toast.setView(toastRoot2);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.show();
+//                        Utility.showToastMessage(getActivity(), "Product Added Cart to Successfully");
                     }
                     else if(jsonobject.optString("success").equalsIgnoreCase("2"))
                     {
@@ -795,11 +809,23 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                     }
                     else if(jsonobject.optString("success").equalsIgnoreCase("3"))
                     {
-                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
+                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
+                        t.setText("Sorry! Product has reached maximum quantity per order.");
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.show();
+//                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
                     }
                     else
                     {
-                        Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
+                        TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
+                        t.setText("Some network error occurred please try again later.");
+                        toast.setView(toastRoot);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.show();
+//                        Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
