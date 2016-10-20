@@ -329,28 +329,39 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                     if (response != null) {
                         JSONObject jsonobject = new JSONObject(response);
                         if (jsonobject != null) {
-                            products =jsonobject.getJSONObject("tbl_pproducts");
-                            dates = jsonobject.getJSONArray("dates");
-                            for (int i = 0; i < dates.length(); i++) {
-                                String first_date = dates.getString(i).toString();
-                                JSONArray c = products.getJSONArray(first_date);
-                                System.out.println("All Dates" + dates);
-                                inProductItemsList = new ArrayList<Previous_ItemDetails>();
-                                for (int j = 0; j < c.length(); j++) {
+                            int success = jsonobject.getInt("success");
+                            String url = jsonobject.getString("url");
+                            System.out.println("url   previous  "+url);
+                            if (success == 1) {
+                                products = jsonobject.getJSONObject("tbl_pproducts");
+                                dates = jsonobject.getJSONArray("dates");
+                                for (int i = 0; i < dates.length(); i++) {
+                                    String first_date = dates.getString(i).toString();
+                                    JSONArray c = products.getJSONArray(first_date);
+                                    System.out.println("All Dates" + dates);
+                                    inProductItemsList = new ArrayList<Previous_ItemDetails>();
+                                    for (int j = 0; j < c.length(); j++) {
 
-                                    Previous_ItemDetails product_itemDetails_getters_setters = new Previous_ItemDetails();
-                                    JSONObject jsonResponse_tag = c.getJSONObject(j);
-                                    product_itemDetails_getters_setters.setP_P_Name(jsonResponse_tag.optString("P_Name"));
-                                    product_itemDetails_getters_setters.setP_P_Cost(jsonResponse_tag.optString("P_Cost"));
-                                    product_itemDetails_getters_setters.setP_ID(jsonResponse_tag.optString("P_ID"));
-                                    product_itemDetails_getters_setters.setP_Image(jsonResponse_tag.optString("P_Image"));
-                                    inProductItemsList.add(product_itemDetails_getters_setters);
+                                        Previous_ItemDetails product_itemDetails_getters_setters = new Previous_ItemDetails();
+                                        JSONObject jsonResponse_tag = c.getJSONObject(j);
+                                        product_itemDetails_getters_setters.setP_P_Name(jsonResponse_tag.optString("P_Name"));
+                                        product_itemDetails_getters_setters.setP_P_Cost(jsonResponse_tag.optString("P_Cost"));
+                                        product_itemDetails_getters_setters.setP_ID(jsonResponse_tag.optString("P_ID"));
+                                        product_itemDetails_getters_setters.setP_Image(jsonResponse_tag.optString("P_Image"));
+                                        inProductItemsList.add(product_itemDetails_getters_setters);
+                                    }
+                                    mProductItemsList.put(i, inProductItemsList);
+                                    System.out.println("All" + pname);
+                                    System.out.println("date" + date1);
                                 }
-                                mProductItemsList.put(i,inProductItemsList);
-                                System.out.println("All" + pname);
-                                System.out.println("date" + date1);
+                                homeScreenNavigation();
+                            } else {
+
+                                Intent i = new Intent(Previous_ProductsActivity.this, NoPrevious.class);
+                                i.putExtra("URL",url);
+                                startActivity(i);
+                                finish();
                             }
-                            homeScreenNavigation();
                         }
                 }
                 mCustomProgressDialog.dismissProgress();
