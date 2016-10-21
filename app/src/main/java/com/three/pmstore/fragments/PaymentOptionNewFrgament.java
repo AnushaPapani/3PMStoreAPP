@@ -332,8 +332,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
             }
         });
-        if(coddisable.equals("1"))
+        if(coddisable.equals("1") || ReviewOrderFragment.coddisablepromo.equals("1"))
         {
+            codText.setText(" COD is not available on this order ");
             otp.setVisibility(View.GONE);
             enterotp.setVisibility(View.GONE);
             sendOTP.setVisibility(View.GONE);
@@ -342,7 +343,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             resend.setVisibility(View.GONE);
             codText.setVisibility(View.VISIBLE);
         }
-        else {
+        else if(coddisable.equals("0")&&ReviewOrderFragment.coddisablepromo.equals("0")){
             confirmorder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

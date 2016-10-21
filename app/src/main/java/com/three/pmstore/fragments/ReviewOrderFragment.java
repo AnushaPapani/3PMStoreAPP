@@ -75,7 +75,12 @@ public class ReviewOrderFragment extends Fragment {
     public TextView txt_choose_another;
     private HomeActivity mParent;
     ReviewOrderModel reviewOrderModel;
+    public static String coddisablepromo;
 
+    TextView DiscountText;
+    TextView DiscountValue;
+    TextView GrandText ;
+    TextView GrandValue ;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -366,10 +371,10 @@ public class ReviewOrderFragment extends Fragment {
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
             try {
-                TextView DiscountText = (TextView) rootView.findViewById(R.id.DiscountText);
-                TextView DiscountValue = (TextView) rootView.findViewById(R.id.DiscountValue);
-                TextView GrandText = (TextView) rootView.findViewById(R.id.GrandText);
-                TextView GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
+                 DiscountText = (TextView) rootView.findViewById(R.id.DiscountText);
+                 DiscountValue = (TextView) rootView.findViewById(R.id.DiscountValue);
+                 GrandText = (TextView) rootView.findViewById(R.id.GrandText);
+                 GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     promotext.setText("");
@@ -377,6 +382,7 @@ public class ReviewOrderFragment extends Fragment {
                         String PromoType = jsonobject.optString("type");
                         if(PromoType.equals("BUY2GET1FREE"))
                         {
+                            coddisablepromo =jsonobject.optString("coddisablepromo");
                             //{"success":"1","price":748,"type":"BUY2GET1FREE","P_ID":"PM010247","CP_ID":"CP153843","remAmount":0,"minAmount":"199"}
                             int price = jsonobject.getInt("price");
                             String P_ID_DB = jsonobject.optString("P_ID");
@@ -399,6 +405,7 @@ public class ReviewOrderFragment extends Fragment {
                         }
                         else
                         {
+                            coddisablepromo ="0";
                             DiscountText.setVisibility(View.GONE);
                             DiscountValue.setVisibility(View.GONE);
                             GrandText.setVisibility(View.GONE);
@@ -417,6 +424,7 @@ public class ReviewOrderFragment extends Fragment {
                         isPromoCodeApplied = true;
                         reviewOrderAdapter.notifyDataSetChanged();
                     } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
+                        coddisablepromo ="0";
                         TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
                         t.setText(jsonobject.getString("status"));
                         toast.setView(toastRoot2);
@@ -427,6 +435,7 @@ public class ReviewOrderFragment extends Fragment {
                         promotext.setText(jsonobject.getString("status"));
                         reviewOrderAdapter.notifyDataSetChanged();
                     } else {
+                        coddisablepromo ="0";
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText(jsonobject.getString("status"));
                         toast.setView(toastRoot);
@@ -504,6 +513,11 @@ public class ReviewOrderFragment extends Fragment {
                         Grand_total.setText(jsonobject.optString("cartValue"));
                         HomeActivity.mCartTotal = Integer.parseInt(jsonobject.optString("cartValue"));
                         promotext.setText("");
+                        DiscountText.setVisibility(View.GONE);
+                        DiscountValue.setVisibility(View.GONE);
+                        GrandText.setVisibility(View.GONE);
+                        GrandValue.setVisibility(View.GONE);
+                        coddisablepromo ="0";
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }

@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 
+import static com.three.pmstore.activities.HomeActivity.mCartId;
 import static java.util.Calendar.DAY_OF_MONTH;
 
 
@@ -222,7 +223,7 @@ public class RegistrationFragment extends Fragment {
                 paramsList.put("fullname", name);
                 paramsList.put("password", password);
                 paramsList.put("gender", get_gender);
-                paramsList.put("cartId", HomeActivity.mCartId);
+                paramsList.put("cartId", mCartId);
                 result = Utility.httpPostRequestToServer(ApiConstants.REGISTER, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -253,16 +254,17 @@ public class RegistrationFragment extends Fragment {
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(20000);
                         toast.show();
-                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
+                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
 
-                        if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
+                        if (Utility.isValueNullOrEmpty(mCartId)) {
+                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
                         } else {
-                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+//                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
                         }
 
                     }
-                    if (jsonobject.optString("success").equalsIgnoreCase("0")) {
+                    else if (jsonobject.optString("success").equalsIgnoreCase("0")) {
                         //				Toast.makeText(getApplicationContext(), "Email ID Already Exists", 9000).show();
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText("Email ID Already Exists");
@@ -336,7 +338,7 @@ public class RegistrationFragment extends Fragment {
             toast.show();
             return isValidate;
         } else {
-
+            isValidate =true;
         }
 
 

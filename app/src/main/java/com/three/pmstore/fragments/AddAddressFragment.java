@@ -179,6 +179,7 @@ public class AddAddressFragment extends Fragment {
                     JSONObject jsonobject = new JSONObject(response);
                     Log.d("Create Response", jsonobject.toString());
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Utility.setSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT, "1");
                         Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
 
                     } else {
