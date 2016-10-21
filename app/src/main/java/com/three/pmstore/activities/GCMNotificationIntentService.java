@@ -96,9 +96,23 @@ public class GCMNotificationIntentService extends IntentService {
 					i, PendingIntent.FLAG_ONE_SHOT);
 			mNotifyBuilder.setContentIntent(resultPendingIntent2);
 		}
-		else {
+		else if(greetMsg.contains("confirmed")){
 			mNotifyBuilder = new NotificationCompat.Builder(this)
 					.setContentTitle("Updates from 3PMstore!!!")
+					.setContentText(greetMsg)
+					.setSmallIcon(R.drawable.cart)
+					.setStyle(new NotificationCompat.BigTextStyle().bigText(greetMsg))
+					.setDefaults(defaults);
+
+			Intent i =new Intent(getApplicationContext(),HomeActivity.class);
+			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			PendingIntent resultPendingIntent2 = PendingIntent.getActivity(this, 0,
+					i, PendingIntent.FLAG_ONE_SHOT);
+			mNotifyBuilder.setContentIntent(resultPendingIntent2);
+		}
+		else {
+			mNotifyBuilder = new NotificationCompat.Builder(this)
+					.setContentTitle("App Updates Available!!!")
 					.setContentText(greetMsg)
 					.setSmallIcon(R.drawable.cart)
 					.setStyle(new NotificationCompat.BigTextStyle().bigText(greetMsg))
