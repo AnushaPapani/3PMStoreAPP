@@ -54,7 +54,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     private LayoutInflater mInflater;
     private HomeActivity mParent;
     CheckBox pmcheckbutton;
-    TextView codchargesHead, codchargesValue, codchargesQuote, amounttotal, cashtext, pmamount, price;
+    TextView codchargesHead, codchargesValue, codchargesQuote, amounttotal, cashtext, pmamount, price, parentData5;
     private RelativeLayout expand1, expand2, expand3, expand4, expand5,
             childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
     Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely4,
@@ -221,6 +221,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         childexpand4 = (RelativeLayout) rootView.findViewById(R.id.childexpand4);
         childexpand5 = (RelativeLayout) rootView.findViewById(R.id.childexpand5);
 
+
         childexpand1.setVisibility(View.GONE);
         childexpand2.setVisibility(View.GONE);
         childexpand3.setVisibility(View.GONE);
@@ -237,7 +238,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         codchargesHead = (TextView) rootView.findViewById(R.id.codchargesHead);
         codchargesQuote = (TextView) rootView.findViewById(R.id.codchargesQuote);
         codchargesValue = (TextView) rootView.findViewById(R.id.codchargesValue);
-
+        parentData5 = (TextView) rootView.findViewById(R.id.parentData5);
         childpaysecurely1.setText("Pay Securely");
         childpaysecurely2.setText("Pay Securely");
         childpaysecurely3.setText("Pay Securely");
@@ -250,7 +251,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         otpText  = (TextView)rootView.findViewById(R.id.otpText);
         resend   = (TextView)rootView.findViewById(R.id.resend);
         otp =(EditText)rootView.findViewById(R.id.enterOTP);
-
+        parentData5.setText("Cash On Delivery ("+"extra"+getString(R.string.rs)+codcharge+")");
         String newString = "Resend OTP?";
         SpannableString content = new SpannableString(newString);
         content.setSpan(new UnderlineSpan(), 0, newString.length(), 0);
