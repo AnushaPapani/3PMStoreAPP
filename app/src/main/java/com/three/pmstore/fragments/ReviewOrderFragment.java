@@ -75,7 +75,7 @@ public class ReviewOrderFragment extends Fragment {
     public TextView txt_choose_another;
     private HomeActivity mParent;
     ReviewOrderModel reviewOrderModel;
-    public static String coddisablepromo;
+    public static String coddisablepromo = "0";
 
     TextView DiscountText;
     TextView DiscountValue;
