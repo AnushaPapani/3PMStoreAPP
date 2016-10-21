@@ -135,50 +135,51 @@
             android:id="@+id/rl_ll3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/view">
 
-            <com.three.pmstore.activities.BoldCustomTextView
-                android:id="@+id/txt_name_bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/txt_mrp"
-                android:paddingLeft="15dp"
-                android:paddingStart="15dp"
-                android:text="Cotton James Bond T-shirt"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/txt_mrp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="4dp"
-                android:layout_marginRight="15dp"
-                android:layout_toLeftOf="@+id/txt_strike"
-                android:layout_toStartOf="@+id/txt_strike"
                 android:gravity="center"
-                android:text="MRP:"
+                android:text="MRP"
+                android:layout_marginRight="10dp"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/txt_strike"
+                android:layout_toStartOf="@+id/txt_strike" />
+
+            <com.three.pmstore.activities.BoldCustomTextView
+                android:text="Ultimate Dead pool Tshirt "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/txt_mrp"
+                android:textColor="#414141"
+                android:textStyle="bold"
+                android:layout_marginRight="10dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/txt_name_bottom" />
 
             <TextView
                 android:id="@+id/txt_strike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="38dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:text="600"
+                android:layout_marginEnd="43dp"
+                android:text="698"
                 android:textColor="@color/black"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="43dp" />
 
         </RelativeLayout>
 
@@ -397,7 +398,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/text_desc"
                 android:shrinkColumns="*"
-                android:stretchColumns="*"></TableLayout>
+                android:stretchColumns="*">
+
+            </TableLayout>
 
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/text_desc"
