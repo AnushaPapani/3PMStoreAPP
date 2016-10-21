@@ -6,7 +6,9 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import com.three.pmstore.R;
 import com.three.pmstore.adapters.LeftMenuAdapter;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.customviews.DialogClass;
+import com.three.pmstore.fragments.AddAddressFragment;
 import com.three.pmstore.fragments.Blog;
 import com.three.pmstore.fragments.ContactUsFragment;
 import com.three.pmstore.fragments.Faqview;
@@ -92,10 +95,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     // start time of start blinking
     private boolean blink; // controls the blinking .. on and off
     int seconds, minutes;
-//    View toastRoot;
+    //    View toastRoot;
     LayoutInflater inflater;
     private static ListView list_home_left_drawer;
     Toast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +149,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tvSecond = (TextView) findViewById(R.id.txt_time_sec);
         s = (TextView) findViewById(R.id.txt_time_sec_s);
         setTimer();
-
 
 
     }
@@ -243,7 +246,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     String t = time.toString();
                     String t1 = time1.toString();
                     if (t.equals(t1)) {
-                        Intent i = new Intent(HomeActivity.this,HomeActivity.class);
+                        Intent i = new Intent(HomeActivity.this, HomeActivity.class);
                         startActivity(i);
                         finish();
                     }
@@ -319,11 +322,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         leftMenuAdapter.notifyDataSetChanged();
                         if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_NAME))) {
                             navigateSideMenuClickAfterLogin(position);
-                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
+                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")) {
 
                             }
-                        }
-                        else {
+                        } else {
                             navigateSideMenuClickBeforeLogin(position);
                         }
 
@@ -340,7 +342,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void navigateSideMenuClickBeforeLogin(int position) {
         switch (position) {
             case 1:
-                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+//                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(i);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
@@ -390,7 +394,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private void navigateSideMenuClickAfterLogin(int position) {
         switch (position) {
             case 1:
-                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+//                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+                startActivity(i);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, HomeActivity.this);
@@ -399,7 +405,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 break;
             case 4:
-               Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, HomeActivity.this);
                 break;
             case 5:
 //                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
@@ -433,7 +439,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     private void setHeader(ListView list_home_left_drawer) {
         LinearLayout layout_list_header = (LinearLayout) getLayoutInflater().inflate(R.layout.
@@ -473,20 +478,39 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.cart_layout:
             case R.id.cart_layout_button_set_text:
+//            case R.id.cart_icon:
+//                if ((mCartId == "")) {
+//                    Utility.showToastMessage(this, "Add at least one item to cart");
+//                } else if (Utility.getSharedPrefStringData(this, Constants.USER_ID)== "") {
+//                    Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
+//                } else if (Utility.getSharedPrefStringData(this, Constants.ADDRESS_COUNT)=="0") {
+//                    Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, HomeActivity.this);
+//                } else if (Utility.getSharedPrefStringData(this, Constants.USER_ID) != "") {
+//                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+//
+//                } else {
+//                    Utility.showToastMessage(this, "Add at least one item to cart");
+//                }
+//                //Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+//                break;
+
             case R.id.cart_icon:
+                String ccount =Utility.getSharedPrefStringData(this, Constants.ADDRESS_COUNT).toString();
+                System.out.println("ccount " + ccount);
                 if(mCartId == "")
                 {
-//                    TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-//                    t.setText("Add at least one item to cart");
-//                    toast.setView(toastRoot);
-//                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-//                    toast.setDuration(Toast.LENGTH_SHORT);
-//                    toast.show();
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
                 else if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
-                } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))) {
+                }
+                else if(ccount.equals("0")&&
+                        (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID))))
+                {
+                    Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null,HomeActivity.this);
+                }
+                else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID)) &&
+                        !ccount.equals("0")) {
                     Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
@@ -521,7 +545,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPaymentError(int code, String response) {
         try {
-            Toast.makeText(HomeActivity.this, response+"Error on payment", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, response + "Error on payment", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Exception in onPaymentError", e);
         }
@@ -662,7 +686,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(i);
     }
 
-    public static void updateNavigationDrawer(Context context){
+    public static void updateNavigationDrawer(Context context) {
         leftMenuList = new ArrayList<>();
         for (int i = 0; i < Utility.getSideMenuItemsListName(context).length; i++) {
             LeftMenuModel leftMenuModel = new LeftMenuModel();
@@ -688,10 +712,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             if (intent.getExtras().containsKey(TAG)) {
                 // mStrUserId = intent.getStringExtra("user_id");
                 // screenNavigation();
-                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG,null,HomeActivity.this);
-            }
-            else
-            {
+                Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
+            } else {
                 initUI();
             }
         }
