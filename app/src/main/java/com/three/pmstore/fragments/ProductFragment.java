@@ -460,7 +460,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_spec:
                 text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Information()).toString());
                 infor = (HomeActivity.mProductItemsList.get(mPosition).getP_Information()).toString();
-                columns = new LinkedList<>();
+                columns  =  new LinkedList<>();
                 if (infor.contains("<table")) {
                     preTable = infor.substring(0, infor.indexOf("<table"));
                     postTable = infor.substring(infor.indexOf("<table"));
