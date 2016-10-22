@@ -10,7 +10,6 @@
         android:id="@+id/srs"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:layout_alignParentTop="true" >
 
         <RelativeLayout
@@ -251,7 +250,7 @@
                     android:textColor="#000000" />
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="30dp"
                     android:layout_alignLeft="@+id/addpincode"
                     android:layout_below="@+id/addpincode"
@@ -270,16 +269,7 @@
                         android:maxLength="6" />
                 </RelativeLayout>
 
-                <Button
-                    android:id="@+id/addressbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/addpincode"
-                    android:background="@drawable/buttonorange"
-                    android:text="Save"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/grey" />
+
 
             </RelativeLayout>
 
@@ -291,6 +281,18 @@
                 android:layout_centerHorizontal="true"
                 android:text="New Address"
                 android:textSize="25dp"  />
+
+            <Button
+                android:id="@+id/addressbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/buttonorange"
+                android:text="Save"
+                android:textColor="@color/grey"
+                android:layout_below="@+id/addaddresslayout6"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@+id/addaddresslayout6"
+                android:layout_alignEnd="@+id/addaddresslayout6" />
 
         </RelativeLayout>
     </ScrollView>
