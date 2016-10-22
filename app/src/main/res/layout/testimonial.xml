@@ -44,12 +44,12 @@
         android:layout_marginRight="10dp"
         >
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/testimmonial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
             android:textSize="25dp"
+            android:textColor="@color/dark_gray_color"
             android:text="Testimonials"
             android:gravity="center"
             />

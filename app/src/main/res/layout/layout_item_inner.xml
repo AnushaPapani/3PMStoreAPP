@@ -76,7 +76,7 @@
                                 android:id="@+id/details"
                                 android:visibility="gone"/>
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/pstatus1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                                 android:textColor="#99d867"
                                 android:textSize="15dp" />
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/pdatetext1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                                 android:textColor="#414141"
                                 android:textSize="15dp" />
 
-                            <TextView
+                            <com.three.pmstore.activities.BoldCustomTextView
                                 android:id="@+id/proname1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -122,7 +122,7 @@
                                 android:textSize="18dp"
                                 android:layout_below="@+id/detailsbtn"/>
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/textViewSize"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -164,13 +164,12 @@
                                 android:text="sizeValue"
                                 android:textColor="#414141"/>
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/textViewColor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignLeft="@+id/textViewSize"
                                 android:layout_alignStart="@+id/textViewSize"
-
                                 android:layout_below="@+id/sizeValue"
                                 android:layout_marginTop="@dimen/_3dp"
                                 android:text="Color"
@@ -198,7 +197,7 @@
                                 android:text="colorValue"
                                 android:textColor="#414141"/>
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/textViewCustom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -234,7 +233,7 @@
                                 android:text="typeValue"
                                 android:textColor="#414141"/>
 
-                            <TextView
+                            <com.three.pmstore.activities.CustomTextView
                                 android:id="@+id/textViewGender"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -483,7 +482,7 @@
                                         android:src="@drawable/circle_shape"
                                         android:visibility="gone" />
 
-                                    <TextView
+                                    <com.three.pmstore.activities.CustomTextView
                                         android:id="@+id/exstatus1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -493,40 +492,43 @@
                                         android:layout_toEndOf="@+id/statusnode4"
                                         android:layout_toRightOf="@+id/statusnode4"
                                         android:text="Extra Status"
+                                        android:textColor="@color/dark_gray_color"
                                         android:visibility="gone" />
 
-                                    <TextView
+                                    <com.three.pmstore.activities.CustomTextView
                                         android:id="@+id/approved1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_above="@+id/statusnode1"
                                         android:text="Approved"
-
+                                        android:textColor="@color/dark_gray_color"
                                         />
 
-                                    <TextView
+                                    <com.three.pmstore.activities.CustomTextView
                                         android:id="@+id/Packed1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/statusnode2"
                                         android:layout_marginEnd="24dp"
                                         android:layout_marginRight="24dp"
+                                        android:textColor="@color/dark_gray_color"
                                         android:layout_toLeftOf="@+id/statusnode3"
                                         android:layout_toStartOf="@+id/statusnode3"
                                         android:text="Packed" />
 
-                                    <TextView
+                                    <com.three.pmstore.activities.CustomTextView
                                         android:id="@+id/delivered1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/statusnode4"
                                         android:layout_marginLeft="20dp"
                                         android:layout_marginStart="20dp"
+                                        android:textColor="@color/dark_gray_color"
                                         android:layout_toEndOf="@+id/statusnode3"
                                         android:layout_toRightOf="@+id/statusnode3"
                                         android:text="Delivered" />
 
-                                    <TextView
+                                    <com.three.pmstore.activities.CustomTextView
                                         android:id="@+id/Canceled1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -534,6 +536,7 @@
                                         android:layout_alignBottom="@+id/approved1"
                                         android:layout_marginLeft="21dp"
                                         android:layout_marginStart="21dp"
+                                        android:textColor="@color/dark_gray_color"
                                         android:layout_toEndOf="@+id/statusnode2"
                                         android:layout_toRightOf="@+id/statusnode2"
                                         android:text="Shipped" />

@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent">
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fillViewport="true"
-        android:layout_above="@+id/rtimer">
+        android:layout_above="@+id/rtimer"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:orientation="vertical"
-            android:weightSum="1" >
+            android:weightSum="1">
 
             <!-- Name Label -->
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
                 android:text="Register Here"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="25dp" />
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/inputName1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +37,7 @@
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:text="Full Name*"
-                android:textColor="#000" />
+                android:textColor="@color/dark_gray_color" />
 
             <!-- Input Name -->
 
@@ -47,7 +48,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:autoText="true"
-                android:background="@drawable/adresbg" >
+                android:background="@drawable/adresbg">
 
                 <EditText
                     android:id="@+id/inputName"
@@ -66,16 +67,16 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/inputName"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/gnder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
                     android:text="Gender*"
-                    android:textColor="#000" />
+                    android:textColor="@color/dark_gray_color" />
 
                 <RadioGroup
                     android:id="@+id/gender"
@@ -83,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="10dp"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <RadioButton
                         android:id="@+id/inputFemale"
@@ -92,8 +93,7 @@
                         android:layout_marginLeft="10dp"
                         android:button="@drawable/custom_radio"
                         android:text="  Female "
-                        android:textColor="#000" >
-                    </RadioButton>
+                        android:textColor="#000"></RadioButton>
 
                     <RadioButton
                         android:id="@+id/inputMale"
@@ -103,19 +103,18 @@
                         android:button="@drawable/custom_radio"
                         android:checked="false"
                         android:text="  Male "
-                        android:textColor="#000" >
-                    </RadioButton>
+                        android:textColor="#000"></RadioButton>
                 </RadioGroup>
             </LinearLayout>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:text="Email ID*"
-                android:textColor="#000" />
+                android:textColor="@color/dark_gray_color" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -124,7 +123,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:autoText="true"
-                android:background="@drawable/adresbg" >
+                android:background="@drawable/adresbg">
 
                 <EditText
                     android:id="@+id/inputEmail"
@@ -138,13 +137,13 @@
             </RelativeLayout>
             <!-- Password Label -->
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:text="Password*"
-                android:textColor="#000" />
+                android:textColor="@color/dark_gray_color" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -153,7 +152,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:autoText="true"
-                android:background="@drawable/adresbg" >
+                android:background="@drawable/adresbg">
 
                 <EditText
                     android:id="@+id/inputPassword"
@@ -166,23 +165,25 @@
                     android:singleLine="true"
                     android:textColor="#000" />
             </RelativeLayout>
-            <TextView
+
+            <com.three.pmstore.activities.CustomTextView
+                android:id="@+id/mobile"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:text="Mobile Number*"
-                android:textColor="#000"
-                android:id="@+id/mobile"/>
+                android:textColor="@color/dark_gray_color" />
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:autoText="true"
-                android:background="@drawable/adresbg"
                 android:layout_below="@+id/mobile"
+                android:layout_marginBottom="10dip"
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
-                android:layout_marginBottom="10dip">
+                android:autoText="true"
+                android:background="@drawable/adresbg">
 
                 <EditText
                     android:id="@+id/mobileET"
@@ -193,13 +194,14 @@
 
                     android:textColor="#000" />
             </RelativeLayout>
-            <TextView
+
+            <com.three.pmstore.activities.CustomTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dip"
                 android:paddingRight="10dip"
                 android:text="Date Of Birth"
-                android:textColor="#000" />
+                android:textColor="@color/dark_gray_color" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -208,7 +210,7 @@
                 android:layout_marginLeft="10dip"
                 android:layout_marginRight="10dip"
                 android:autoText="true"
-                android:background="@drawable/adresbg" >
+                android:background="@drawable/adresbg">
 
                 <EditText
                     android:id="@+id/editText"

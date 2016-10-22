@@ -11,31 +11,32 @@
         android:background="#fba81a"
         android:orientation="vertical">
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/loginNameTextViews"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingTop="15dp"
             android:text="Welcome"
-            android:textColor="#414141"
+            android:textStyle="bold"
+            android:textColor="@color/dark_gray_color"
             android:textSize="25dp" />
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/emails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/loginNameTextViews"
             android:paddingLeft="20dp"
-            android:textColor="#414141" />
+            android:textColor="@color/dark_gray_color" />
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/cashs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emails"
             android:paddingLeft="20dp"
-            android:textColor="#414141" />
+            android:textColor="@color/dark_gray_color" />
 
         <TextView
             android:id="@+id/div"

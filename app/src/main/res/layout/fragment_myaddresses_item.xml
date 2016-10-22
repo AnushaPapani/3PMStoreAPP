@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Name"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="18dp"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -47,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Addressline"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="15dp" />
         </RelativeLayout>
 
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="city"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="15dp" />
         </RelativeLayout>
 
@@ -77,6 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address Pincode"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="15dp" />
         </RelativeLayout>
 
@@ -91,6 +95,7 @@
                 android:id="@+id/addressesstate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dark_gray_color"
                 android:text="AddressState"
                 android:textSize="15dp" />
         </RelativeLayout>
@@ -107,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Address Mobile"
+                android:textColor="@color/dark_gray_color"
                 android:textSize="15dp" />
         </RelativeLayout>
 

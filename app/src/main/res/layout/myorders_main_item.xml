@@ -28,7 +28,7 @@
         android:background="@drawable/orderborder"
         >
 
-        <TextView
+        <com.three.pmstore.activities.BoldCustomTextView
             android:id="@+id/ordername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:textColor="#414141"
             android:textSize="18dp" />
 
-        <TextView
+        <com.three.pmstore.activities.BoldCustomTextView
             android:id="@+id/order_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:layout_marginBottom="@dimen/_5dp">
 
 
-            <TextView
+            <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cartheading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,10 +94,10 @@
                 android:layout_marginLeft="30dp"
                 android:text="Cart Summary"
                 android:textSize="18dp"
-                android:textColor="#414141"
+                android:textColor="@color/dark_gray_color"
                 android:textStyle="bold"/>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/totalvalue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
 
             </RelativeLayout>
 
-            <TextView
+            <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/grandTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -237,7 +237,7 @@
                 android:layout_alignEnd="@+id/totalcost"
                 android:textColor="#414141"/>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/textView39"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                 android:layout_alignStart="@+id/promocodediscount"
                 android:textColor="#414141"/>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/promocodediscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                 android:layout_below="@+id/pmcash"
                 android:textColor="#414141"/>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/pmcash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

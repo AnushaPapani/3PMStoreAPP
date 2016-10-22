@@ -227,7 +227,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/textView"
                 android:layout_marginRight="10dp"
-                android:text="796"
+                android:text=""
                 android:textStyle="bold"
                 android:textSize="20sp"
                 />

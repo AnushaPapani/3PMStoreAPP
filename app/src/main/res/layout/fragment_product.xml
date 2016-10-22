@@ -14,7 +14,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="7dp"
             android:text="Bond-James Bond T-shirt"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray_color"
             android:textSize="20sp"
             android:textStyle="bold" />
 

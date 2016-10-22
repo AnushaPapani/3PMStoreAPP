@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,6 +17,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:gravity="center"
+            android:textColor="@color/dark_gray_color"
             android:textSize="25dp"
             android:text="Order Review form" />
 
@@ -38,7 +39,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp" >
 
-                <TextView
+                <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/ordername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -103,7 +104,7 @@
                     android:paddingRight="8dp"
                     android:paddingTop="20dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/reviewTitleTextview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,6 +113,7 @@
                     android:gravity="center_vertical"
                     android:layout_marginTop="5dp"
                     android:text="Review Title"
+                    android:textColor="@color/dark_gray_color"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
 
@@ -133,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relativeLayout1" >
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -141,6 +143,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Rate this 3PMstore Product"
                     android:textSize="17dp"
+                    android:textColor="@color/dark_gray_color"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -190,12 +193,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView4" >
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textViewRate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
+                    android:textColor="@color/dark_gray_color"
                     android:text="Rate 3PMstore Customer Experience"
                     android:textSize="17dp"
                     android:textStyle="bold" />
@@ -215,7 +219,7 @@
                         android:stepSize="1.0" />
                 </RelativeLayout>
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/t2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -223,6 +227,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:visibility="gone"
+                    android:textColor="@color/dark_gray_color"
                     android:text="Tell us, what what went wrong"
                     android:layout_below="@+id/ratingRelative2"/>
 
@@ -249,7 +254,7 @@
                 android:layout_below="@+id/textView5"
                 android:gravity="center" >
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/TextView01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -258,6 +263,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Comments"
                     android:textSize="17dp"
+                    android:textColor="@color/dark_gray_color"
                     android:textStyle="bold" />
 
                 <EditText
@@ -291,7 +297,7 @@
                     android:layout_marginBottom="10dp"/>
             </RelativeLayout>
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

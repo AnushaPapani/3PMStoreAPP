@@ -10,7 +10,7 @@
     android:background="#E4E4E4"
     android:orientation="vertical" >
 
-    <com.three.pmstore.activities.BoldCustomTextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/textV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

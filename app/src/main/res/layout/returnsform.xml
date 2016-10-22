@@ -9,15 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" >
+        android:layout_marginTop="5dp">
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="Order Return Request"
+            android:textColor="@color/dark_gray_color"
             android:textSize="25dp" />
 
         <RelativeLayout
@@ -28,7 +29,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
-            android:background="@drawable/border" >
+            android:background="@drawable/border">
 
             <RelativeLayout
                 android:id="@+id/orderlayout"
@@ -37,9 +38,9 @@
                 android:layout_alignLeft="@+id/editText1"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp" >
+                android:layout_marginTop="5dp">
 
-                <TextView
+                <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/ordername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,8 +55,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/order"
                     android:layout_alignBottom="@+id/order"
-                    android:layout_marginLeft="2dp"
                     android:layout_alignParentRight="true"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginRight="16dp"
                     android:text="Total" />
 
@@ -80,17 +81,17 @@
                     android:id="@+id/rupee1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/rs"
                     android:layout_above="@+id/view"
                     android:layout_toLeftOf="@+id/total"
-                    android:layout_toStartOf="@+id/total" />
+                    android:layout_toStartOf="@+id/total"
+                    android:text="@string/rs" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/relative"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/orderlayout" >
+                android:layout_below="@+id/orderlayout">
 
                 <Spinner
                     android:id="@+id/returnIssueSpinner"
@@ -106,30 +107,30 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relative"
-                android:layout_marginTop="17dp" >
+                android:layout_marginTop="17dp">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/t1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="Issue Explaination*"
-                    />
+                    android:text="Issue Explaination*" />
+
                 <EditText
                     android:id="@+id/issueExplainET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
+                    android:layout_below="@+id/t1"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/border"
-                    android:layout_below="@+id/t1"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="20dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowissueET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -145,9 +146,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relative2"
-                android:visibility="gone" >
+                android:visibility="gone">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -158,7 +159,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -183,15 +184,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relative5"
-                android:visibility="gone" >
+                android:visibility="gone">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:layout_centerHorizontal="true"
                     android:text="Please Specify details for exchange*"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textStyle="bold" />
@@ -211,7 +212,7 @@
                     android:paddingTop="5dp"
                     android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowProductET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -221,7 +222,7 @@
                     android:textColor="#FF0000"
                     android:visibility="gone" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -241,7 +242,7 @@
                 android:layout_below="@+id/relative3"
                 android:layout_marginTop="23dp"
                 android:visibility="gone"
-                android:weightSum="1" >
+                android:weightSum="1">
 
                 <RadioButton
                     android:id="@+id/storeCash"
@@ -268,9 +269,9 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/radioGroup"
                 android:orientation="vertical"
-                android:visibility="gone" >
+                android:visibility="gone">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView11"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -282,31 +283,31 @@
                     android:textColor="#F07039"
                     android:textSize="18dp"
                     android:textStyle="bold" />
-                <TextView
+
+                <com.three.pmstore.activities.CustomTextView
+                    android:id="@+id/nameHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/nameHead"
                     android:layout_below="@+id/textView11"
                     android:layout_marginTop="10dp"
-                    android:text="Customer name* (as per bank records)"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
-                    android:textSize="18dp"
-                    />
+                    android:text="Customer name* (as per bank records)"
+                    android:textSize="18dp" />
+
                 <EditText
                     android:id="@+id/nameET"
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
-                    android:background="@drawable/adresbg"
-                    android:textSize="18dp"
-                    android:paddingLeft="10dp"
-                    android:ems="10"
                     android:layout_below="@+id/nameHead"
-                    />
+                    android:background="@drawable/adresbg"
+                    android:ems="10"
+                    android:paddingLeft="10dp"
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelownameET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -315,22 +316,24 @@
                     android:text="Please enter name as per Bank records"
                     android:textColor="#FF0000"
                     android:visibility="gone" />
-                <TextView
+
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/emailHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textBelownameET"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
-                    android:text="Email"
+                    android:layout_below="@+id/textBelownameET"
+                    android:layout_marginTop="10dp"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
+                    android:text="Email"
                     android:textSize="18dp"
-                    android:layout_marginTop="10dp"
 
                     />
+
                 <EditText
                     android:id="@+id/emailET"
                     android:layout_width="fill_parent"
@@ -338,11 +341,10 @@
                     android:layout_below="@+id/emailHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowemailET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -351,17 +353,18 @@
                     android:text="Please enter your email"
                     android:textColor="#FF0000"
                     android:visibility="gone" />
-                <TextView
+
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/branchHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textBelowemailET"
                     android:layout_marginTop="10dp"
-                    android:text="Branch Name*"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
+                    android:text="Branch Name*"
                     android:textSize="18dp" />
 
                 <EditText
@@ -372,11 +375,10 @@
                     android:layout_below="@+id/branchHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowbranchET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -385,18 +387,20 @@
                     android:text="Enter Bank branch name"
                     android:textColor="#FF0000"
                     android:visibility="gone" />
-                <TextView
+
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/bankHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textBelowbranchET"
                     android:layout_marginTop="10dp"
-                    android:text="Bank Name*"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
+                    android:text="Bank Name*"
                     android:textSize="18dp" />
+
                 <EditText
                     android:id="@+id/banknameET"
                     android:layout_width="fill_parent"
@@ -405,11 +409,10 @@
                     android:layout_below="@+id/bankHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowbankET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -418,31 +421,31 @@
                     android:text="Enter Bank branch name"
                     android:textColor="#FF0000"
                     android:visibility="gone" />
-                <TextView
+
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/ifsccodeHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@+id/textBelowbankET"
                     android:layout_marginTop="10dp"
-                    android:text="Bank IFSC Code*"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
-                     />
+                    android:text="Bank IFSC Code*" />
+
                 <EditText
                     android:id="@+id/ifsccodeET"
-                    android:layout_below="@+id/ifsccodeHead"
                     android:layout_width="fill_parent"
                     android:layout_height="30dp"
+                    android:layout_below="@+id/ifsccodeHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowifsccodeET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -452,20 +455,19 @@
                     android:textColor="#FF0000"
                     android:visibility="gone" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/accountnoHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/textBelowifsccodeET"
                     android:layout_alignParentLeft="true"
-                    android:text="Account Number*"
+                    android:layout_below="@+id/textBelowifsccodeET"
+                    android:layout_marginTop="10dp"
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
-                    android:textSize="18dp"
-                    android:layout_marginTop="10dp"
-                    />
+                    android:text="Account Number*"
+                    android:textSize="18dp" />
 
                 <EditText
                     android:id="@+id/accountnoET"
@@ -474,11 +476,10 @@
                     android:layout_below="@+id/accountnoHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowaccountnoET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -488,18 +489,18 @@
                     android:textColor="#FF0000"
                     android:visibility="gone" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/reenterHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textBelowaccountnoET"
-                    android:text="Re-enter Account Number*"
-
                     android:layout_marginTop="10dp"
+
                     android:paddingBottom="3dp"
                     android:paddingLeft="3dp"
                     android:paddingRight="3dp"
                     android:paddingTop="5dp"
+                    android:text="Re-enter Account Number*"
                     android:textSize="18dp" />
 
                 <EditText
@@ -510,11 +511,10 @@
                     android:layout_below="@+id/reenterHead"
                     android:background="@drawable/adresbg"
                     android:ems="10"
-                    android:textSize="18dp"
                     android:paddingLeft="10dp"
-                    />
+                    android:textSize="18dp" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textBelowreenterAccountnoET"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -533,7 +533,7 @@
                     android:layout_marginTop="22dp"
                     android:entries="@array/bankType" />
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -549,9 +549,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/relativeBank"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textAboveCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -566,8 +566,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textAboveCheckBox"
-                    android:gravity="center"
                     android:layout_marginTop="5dp"
+                    android:gravity="center"
                     android:text="I Confirm that the product is unused with original Packaging."
                     android:visibility="gone" />
 
@@ -579,7 +579,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:weightSum="2" >
+                    android:weightSum="2">
 
                     <Button
                         android:id="@+id/cancel"
@@ -587,30 +587,30 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/confirmBankBtn"
                         android:layout_alignBottom="@+id/confirmBankBtn"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginRight="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/buttonorange"
                         android:gravity="center"
                         android:text="Cancel"
                         android:textColor="@color/grey"
-                        android:visibility="gone"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="5dp"/>
+                        android:visibility="gone" />
 
                     <Button
                         android:id="@+id/confirm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginRight="2dp"
+                        android:layout_marginTop="5dp"
                         android:layout_toRightOf="@+id/cancel"
                         android:layout_weight="1"
                         android:background="@drawable/buttonorange"
                         android:gravity="center"
                         android:text="Confirm"
                         android:textColor="@color/grey"
-                        android:visibility="gone"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="5dp"/>
+                        android:visibility="gone" />
                 </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>

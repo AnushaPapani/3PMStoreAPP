@@ -12,13 +12,13 @@
         android:background="@android:color/white"
         android:padding="10dp">
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/testimmonial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Testimonials"
-            android:textColor="@android:color/black"
+            android:textColor="@color/dark_gray_color"
             android:textSize="25dp" />
     </LinearLayout>
 

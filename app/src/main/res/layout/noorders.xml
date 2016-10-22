@@ -14,7 +14,7 @@
         android:layout_marginTop="84dp"
         android:src="@drawable/noorders" />
 
-    <TextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         android:text="You have no Orders till date."
         android:textSize="18dp" />
 
-    <TextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="My Orders"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
 
 

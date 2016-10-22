@@ -13,7 +13,7 @@
         android:background="@drawable/orderborder"
         >
 
-        <TextView
+        <com.three.pmstore.activities.BoldCustomTextView
             android:id="@+id/ordername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +24,7 @@
             android:textColor="#414141"
             android:textSize="18dp" />
 
-        <TextView
+        <com.three.pmstore.activities.BoldCustomTextView
             android:id="@+id/order_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

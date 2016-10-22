@@ -60,7 +60,7 @@
             android:textSize="15dp" />
     </RelativeLayout>
 
-    <com.three.pmstore.activities.BoldCustomTextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/deliverytext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

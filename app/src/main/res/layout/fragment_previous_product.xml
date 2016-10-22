@@ -49,13 +49,13 @@
                     android:layout_alignTop="@+id/ppimage1"
                     android:layout_toRightOf="@+id/ppimage1" >
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/ppname1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Product Name"
-                        android:textColor="#414141"
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="18dp"
                         android:gravity="center"/>
                 </RelativeLayout>
@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relativeLayout_1"
                     android:layout_toRightOf="@+id/ppimage1">
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/textView_1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     android:layout_toRightOf="@+id/ppimage1"
                     android:gravity="center">
 
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/ppcost1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -172,13 +172,13 @@
                     android:layout_alignTop="@+id/ppimage3"
                     android:layout_toRightOf="@+id/ppimage3" >
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/ppname3"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Product Name"
-                        android:textColor="#414141"
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="18dp"
                         android:gravity="center"/>
                 </RelativeLayout>
@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relativeLayout_3"
                     android:layout_toRightOf="@+id/ppimage3">
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/textView2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -208,7 +208,7 @@
                     android:layout_toRightOf="@+id/ppimage3"
                     android:gravity="center">
 
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/ppcost3"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -296,13 +296,13 @@
                     android:layout_alignTop="@+id/ppimage2"
                     android:layout_toRightOf="@+id/ppimage2" >
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/ppname2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Product Name"
-                        android:textColor="#414141"
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="18dp"
                         android:gravity="center"/>
                 </RelativeLayout>
@@ -312,7 +312,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relativeLayout1"
                     android:layout_toRightOf="@+id/ppimage2">
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/textView1"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -332,7 +332,7 @@
                     android:layout_toRightOf="@+id/ppimage2"
                     android:gravity="center">
 
-                    <TextView
+                    <com.three.pmstore.activities.BoldCustomTextView
                         android:id="@+id/ppcost2"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"

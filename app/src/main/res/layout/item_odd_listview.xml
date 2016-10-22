@@ -22,7 +22,7 @@
         android:contentDescription="@string/app_name"
         android:layout_centerVertical="true"/>
 
-    <TextView
+    <com.three.pmstore.activities.BoldCustomTextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,18 +30,19 @@
         android:text="Name"
         android:textSize="18dp"
         android:textStyle="bold"
+        android:textColor="@color/dark_gray_color"
         android:layout_toLeftOf="@+id/gender_image"
         android:layout_alignLeft="@+id/message"
         android:layout_alignStart="@+id/message" />
 
-    <TextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/profession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_marginTop="-2dp"
         android:text="profession"
-
+        android:textColor="@color/dark_gray_color"
         android:layout_toLeftOf="@+id/gender_image"
         android:layout_alignLeft="@+id/name"
         android:layout_alignStart="@+id/name" />

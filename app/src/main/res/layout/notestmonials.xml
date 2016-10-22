@@ -5,23 +5,8 @@
     android:background="#ffffff"
     android:fillViewport="true" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:text="Testmonials"
-        android:textSize="20dp" />
 
-
-
-    <TextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,5 +23,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="75dp"
         android:src="@drawable/arrowback" />
+
+    <com.three.pmstore.activities.CustomTextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Testmonials"
+        android:textSize="25dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

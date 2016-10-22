@@ -5,13 +5,14 @@
     android:background="#FFF"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <com.three.pmstore.activities.BoldCustomTextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/pmstorecash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:gravity="center"
+        android:textColor="@color/dark_gray_color"
         android:text="3PMstore Cash"
         android:textSize="25dp" />
 

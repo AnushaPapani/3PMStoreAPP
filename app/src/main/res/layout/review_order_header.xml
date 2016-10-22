@@ -3,7 +3,7 @@
     android:background="@color/white"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.three.pmstore.activities.CustomTextView
         android:id="@+id/txt_review_your_order"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,6 +11,7 @@
         android:layout_marginTop="@dimen/_12dp"
         android:layout_marginBottom="@dimen/_12dp"
         android:gravity="center"
+        android:textColor="@color/dark_gray_color"
         android:text="@string/review_order"
         android:textSize="@dimen/sp_size_twenty_five" />
 
