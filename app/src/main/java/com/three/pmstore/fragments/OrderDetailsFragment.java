@@ -50,7 +50,7 @@ public class OrderDetailsFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url, GTOTAL;
+    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url, GTOTAL, Bmobile;
     private Activity activity;
     //    private Context getActivity();
     private View rootView;
@@ -674,13 +674,24 @@ public class OrderDetailsFragment extends Fragment {
                             cartID = mMovie.getCart_ID().toString();
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
-                            Pcost = mMovie.getP_Cost().toString();
+                            Pcost = mMovie.getGrandTotal().toString();
                             Orderstatus = mMovie.getStatus().toString();
                             Orderdate = mMovie.getOrder_Date().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null, getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Pimage",Pimage);
+                            b.putString("Pname",Pname);
+                            b.putString("Pcost",Pcost);
+                            b.putString("Orderstatus",Orderstatus);
+                            b.putString("Orderdate",Orderdate);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, b, getActivity());
                         }
                     });
                     btn_review1.setOnClickListener(new View.OnClickListener() {
@@ -693,7 +704,15 @@ public class OrderDetailsFragment extends Fragment {
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null, getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Pcost",Pcost);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+
+                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, b, getActivity());
                         }
                     });
                     btn_return1.setOnClickListener(new View.OnClickListener() {
@@ -707,7 +726,16 @@ public class OrderDetailsFragment extends Fragment {
                             PaymentType = mMovie.getPayment_Type().toString();
                             GTOTAL = mMovie.getGrandTotal().toString();
 
-                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("GTOTAL",GTOTAL);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+                            b.putString("PaymentType",PaymentType);
+
+                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, b,getActivity());
                         }
                     });
 
@@ -718,8 +746,16 @@ public class OrderDetailsFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
+                            Bmobile = mMovie.getBmobile().toString();
 
-                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Bmobile",Bmobile);
+
+                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, b, getActivity());
+//                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
                         }
                     });
                     btn_track1.setOnClickListener(new View.OnClickListener()
@@ -733,7 +769,6 @@ public class OrderDetailsFragment extends Fragment {
                         }
                     });
 
-//                    String
                     txt_addressname.setText(""+mMovie.getUsername());
                     txt_addressline.setText(""+mMovie.getBline());
                     txt_addresscity.setText(""+mMovie.getBcity());

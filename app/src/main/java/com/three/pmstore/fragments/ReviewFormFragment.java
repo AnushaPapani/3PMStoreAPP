@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.three.pmstore.R;
+import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
@@ -49,17 +50,34 @@ public class ReviewFormFragment extends Fragment implements RatingBar.OnRatingBa
     int count;
     float curRate;
     int rateFirst,rateSecond;
+    private HomeActivity mParent;
+
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+        if (getArguments() != null) {
+            orderid = getArguments().getString("orderID");
+            cartProdId = getArguments().getString("CartPID");
+            cartId = getArguments().getString("cartID");
+
+            pcost = getArguments().getString("Pcost");
+            Uname = getArguments().getString("USername");
+            U_id = getArguments().getString("Uid");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.reviewform, container, false);
-        orderid = MyOrderFragment.orderID;
-        cartProdId = MyOrderFragment.CartPID;
-        cartId = MyOrderFragment.cartID;
-        pcost = MyOrderFragment.Pcost;
-        Uname = MyOrderFragment.USername;
-        U_id = MyOrderFragment.Uid;
+
+//        orderid = MyOrderFragment.orderID;
+//        cartProdId = MyOrderFragment.CartPID;
+//        cartId = MyOrderFragment.cartID;
+//        pcost = MyOrderFragment.Pcost;
+//        Uname = MyOrderFragment.USername;
+//        U_id = MyOrderFragment.Uid;
 
         reviewTitle= (EditText)rootView.findViewById(R.id.reviewTitle);
         head2=(TextView) rootView.findViewById(R.id.t2);

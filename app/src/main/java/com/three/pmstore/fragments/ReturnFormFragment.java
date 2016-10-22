@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.three.pmstore.R;
+import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
@@ -59,6 +60,7 @@ public class ReturnFormFragment extends Fragment {
     RadioButton storeCash, bankDetails, rgbutton;
     ArrayList<String> returnIssue, returnType;
     Spinner issueSpinner, returnTypespinner, spinnerAccount;
+    private HomeActivity mParent;
 
     int pos, poss;
     String issue, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch, id, name,
@@ -68,18 +70,33 @@ public class ReturnFormFragment extends Fragment {
             textBelowifsccodeET, textBelowaccountnoET, textBelowreenterAccountnoET,odrid,cost;
 
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+        if (getArguments() != null) {
+            orderid = getArguments().getString("orderID");
+            cartProdId = getArguments().getString("CartPID");
+            cartId = getArguments().getString("cartID");
+            Uname = getArguments().getString("USername");
+            U_id = getArguments().getString("Uid");
+            payment = getArguments().getString("PaymentType");
+            total = getArguments().getString("GTOTAL");
+            System.out.println("amountPayable  val" +payment);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.returnsform, container, false);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        orderid = MyOrderFragment.orderID;
-        cartProdId = MyOrderFragment.CartPID;
-        cartId = MyOrderFragment.cartID;
-        Uname = MyOrderFragment.USername;
-        U_id = MyOrderFragment.Uid;
-        payment = MyOrderFragment.PaymentType;
-        total = MyOrderFragment.GTOTAL;
+//        orderid = MyOrderFragment.orderID;
+//        cartProdId = MyOrderFragment.CartPID;
+//        cartId = MyOrderFragment.cartID;
+//        Uname = MyOrderFragment.USername;
+//        U_id = MyOrderFragment.Uid;
+//        payment = MyOrderFragment.PaymentType;
+//        total = MyOrderFragment.GTOTAL;
 
         name = Utility.getSharedPrefStringData(getActivity(), Constants.USER_NAME);
         id = Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID);
@@ -269,7 +286,7 @@ public class ReturnFormFragment extends Fragment {
                             case R.id.bankAccount:
 //                                    System.out.println("payment" + payment);
                                 System.out.println("payment bank account" );
-
+                                System.out.println("payment Type" +payment);
                                 if (payment.equals("COD")) {
 //                                    getActivity().runOnUiThread(new Runnable() {
 //

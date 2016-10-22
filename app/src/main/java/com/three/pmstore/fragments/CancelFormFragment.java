@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.three.pmstore.R;
+import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
@@ -47,21 +48,41 @@ public class CancelFormFragment extends Fragment {
     ArrayList<String> spinnerdataList;
     EditText cancelComments;
     TextView issueAlert,commentAlert,odrid,name,cost,ostatus,odate;
+    private HomeActivity mParent;
 
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mParent = (HomeActivity) getActivity();
+        if (getArguments() != null) {
+
+            orderid = getArguments().getString("orderID");
+            cartId = getArguments().getString("cartID");
+            cartProdId = getArguments().getString("CartPID");
+            orderpimage = getArguments().getString("Pimage");
+            pname = getArguments().getString("Pname");
+            pcost = getArguments().getString("Pcost");
+            orderStatus = getArguments().getString("Orderstatus");
+            orderdate = getArguments().getString("Orderdate");
+            Uname = getArguments().getString("USername");
+            U_id = getArguments().getString("Uid");
+
+        }
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.cancelform, container, false);
-        orderid = MyOrderFragment.orderID;
-        cartId = MyOrderFragment.cartID;
-        cartProdId = MyOrderFragment.CartPID;
-        orderpimage = MyOrderFragment.Pimage;
-        pname = MyOrderFragment.Pname;
-        pcost = MyOrderFragment.Pcost;
-        orderStatus = MyOrderFragment.Orderstatus;
-        orderdate = MyOrderFragment.Orderdate;
-        Uname = MyOrderFragment.USername;
-        U_id = MyOrderFragment.Uid;
+//        orderid = MyOrderFragment.orderID;
+//        cartId = MyOrderFragment.cartID;
+//        cartProdId = MyOrderFragment.CartPID;
+//        orderpimage = MyOrderFragment.Pimage;
+//        pname = MyOrderFragment.Pname;
+//        pcost = MyOrderFragment.Pcost;
+//        orderStatus = MyOrderFragment.Orderstatus;
+//        orderdate = MyOrderFragment.Orderdate;
+//        Uname = MyOrderFragment.USername;
+//        U_id = MyOrderFragment.Uid;
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         spinnerdataList = new ArrayList<String>();
         m = new ArrayList<String>();
@@ -151,6 +172,7 @@ public class CancelFormFragment extends Fragment {
                 paramsList.put("cartId", cartId);
                 paramsList.put("Orderid", orderid);
                 paramsList.put("cartProdId", cartProdId);
+
                 result = Utility.httpPostRequestToServer(ApiConstants.FORMS_SUBMIT, Utility.getParams(paramsList));
 
 

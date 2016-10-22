@@ -50,7 +50,7 @@ public class MyOrderFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType, GTOTAL;
+    public static String orderID, CartPID, cartID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType, GTOTAL, Bmobile;
     private View rootView;
     private static String url;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -148,6 +148,7 @@ public class MyOrderFragment extends Fragment {
                                 movie.setPayment_Type(jsonObjectMovie.optString("Payment_Type"));
                                 movie.setReturn_RefundType(jsonObjectMovie.optString("Return_RefundType"));
                                 movie.setReturn_ExchangeType(jsonObjectMovie.optString("Return_ExchangeType"));
+                                movie.setBmobile(jsonObjectMovie.optString("bmobile"));
 
                                 movie.setCallmeback_IsSubmit(jsonObjectMovie.optString("Callmeback_IsSubmit"));
                                 movie.setCancelStatus(jsonObjectMovie.optString("CancelStatus"));
@@ -595,7 +596,6 @@ public class MyOrderFragment extends Fragment {
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
 
-
                             Utility.navigateDashBoardFragment(new OrderDetailsFragment(), OrderDetailsFragment.TAG, null, getActivity());
                         }
                     });
@@ -605,16 +605,26 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
-                            Pcost = mMovie.getP_Cost().toString();
+                            Pcost = mMovie.getGrandTotal().toString();
                             Orderstatus = mMovie.getStatus().toString();
                             Orderdate = mMovie.getOrder_Date().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, null, getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Pimage",Pimage);
+                            b.putString("Pname",Pname);
+                            b.putString("Pcost",Pcost);
+                            b.putString("Orderstatus",Orderstatus);
+                            b.putString("Orderdate",Orderdate);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+                            Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, b, getActivity());
                         }
                     });
                     btn_review1.setOnClickListener(new View.OnClickListener() {
@@ -623,14 +633,19 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
-
                             Pcost = mMovie.getP_Cost().toString();
                             USername = mMovie.getCustomerName().toString();
                             Uid = mMovie.getU_ID().toString();
 
-//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-//                            startActivity(i);
-                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, null, getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Pcost",Pcost);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+
+                            Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, b, getActivity());
                         }
                     });
                     btn_return1.setOnClickListener(new View.OnClickListener() {
@@ -644,9 +659,16 @@ public class MyOrderFragment extends Fragment {
                             Uid = mMovie.getU_ID().toString();
                             PaymentType = mMovie.getPayment_Type().toString();
 
-//                            Intent i = new Intent(getActivity(), ReturnFormNew.class);
-//                            startActivity(i);
-                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, null,getActivity());
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("GTOTAL",GTOTAL);
+                            b.putString("USername",USername);
+                            b.putString("Uid",Uid);
+                            b.putString("PaymentType",PaymentType);
+
+                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, b,getActivity());
                         }
                     });
 
@@ -657,9 +679,15 @@ public class MyOrderFragment extends Fragment {
                             orderID = modelArray.getOrderId().toString();
                             CartPID = mMovie.getCart_Prod_ID().toString();
                             cartID = mMovie.getCart_ID().toString();
+                            Bmobile = mMovie.getBmobile().toString();
 
+                            Bundle b = new Bundle();
+                            b.putString("orderID",orderID);
+                            b.putString("CartPID",CartPID);
+                            b.putString("cartID",cartID);
+                            b.putString("Bmobile",Bmobile);
 
-                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
+                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, b, getActivity());
                         }
                     });
 
