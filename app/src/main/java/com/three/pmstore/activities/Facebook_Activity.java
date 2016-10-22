@@ -1,5 +1,6 @@
 package com.three.pmstore.activities;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.hardware.camera2.params.Face;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -34,6 +36,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,7 +55,9 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.three.pmstore.R;
+import com.three.pmstore.fragments.AddAddressFragment;
 import com.three.pmstore.fragments.HomeFragment;
+import com.three.pmstore.fragments.ReviewOrderFragment;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
@@ -140,7 +145,7 @@ public class Facebook_Activity extends AppCompatActivity {
     Button resetpass;
     TextView tl1,tl2;
     ImageView buy;
-    Button mfacebook;
+//    Button mfacebook;
     String name = "";
     String names = "";
     String gender = "";
@@ -189,6 +194,7 @@ public class Facebook_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_NoActionBar);
 //        mParent = (HomeActivity) getApplicationContext();
         //mParent = (HomeActivity) getActivity();
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -198,13 +204,16 @@ public class Facebook_Activity extends AppCompatActivity {
                 .permitAll().build();
         AppEventsLogger logger = AppEventsLogger.newLogger(Facebook_Activity.this);
         logger.logEvent("pageview");
-
-
         StrictMode.setThreadPolicy(policy);
 
-        setContentView(R.layout.fragment_login);
+        setContentView(R.layout.toolbar);
+        TextView txt_home_left_drawer_icon = (TextView) findViewById(R.id.txt_home_left_drawer_icon);
 
 
+        txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
+
+//        final ActionBar bar = getActionBar();
+//        bar.setCustomView(R.layout.action);
 //		textCounter = (TextView)findViewById(R.id.textView3);
         tl1=(TextView)findViewById(R.id.loginNameTextViews);
         tl2=(TextView)findViewById(R.id.emails);
@@ -232,9 +241,9 @@ public class Facebook_Activity extends AppCompatActivity {
 //            //			startActivity(i);
 //            //			finish();
 //        }
+        accessTokenFacebook();
 
-
-        mfacebook =(Button)findViewById(R.id.btn_sign_up);
+//        mfacebook =(Button)findViewById(R.id.btn_sign_up);
         final Context context = getApplicationContext();
         // Create layout inflator object to inflate toast.xml file
         final LayoutInflater inflater = getLayoutInflater();
@@ -246,27 +255,27 @@ public class Facebook_Activity extends AppCompatActivity {
 
         // Set layout to toast
 
-        mfacebook.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                if (isNetworkAvailable(context) == true) {
-                    accessTokenFacebook();
-
-                } else {
-//                    Toast.makeText(Login.this, "No Network Connection",
-//                            Toast.LENGTH_SHORT).show();
-                }
-                //				loginToFacebook();
-
-                //				new Fblogin().execute();
-                //				Intent i=new Intent(Second.this,Facebookss.class);
-                //				startActivity(i);
-                //								Intent i=new Intent(Second.this,Example.class);
-                //								startActivity(i);
-            }
-        });
+//        mfacebook.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                // TODO Auto-generated method stub
+//                if (isNetworkAvailable(context) == true) {
+////                    accessTokenFacebook();
+//
+//                } else {
+////                    Toast.makeText(Login.this, "No Network Connection",
+////                            Toast.LENGTH_SHORT).show();
+//                }
+//                //				loginToFacebook();
+//
+//                //				new Fblogin().execute();
+//                //				Intent i=new Intent(Second.this,Facebookss.class);
+//                //				startActivity(i);
+//                //								Intent i=new Intent(Second.this,Example.class);
+//                //								startActivity(i);
+//            }
+//        });
 //        try {
 //            if (globalVariable.getUserid().toString() ==null) {
 //                //				Toast.makeText(getApplicationContext(), "No Userid", 9000).show();
@@ -508,10 +517,6 @@ public class Facebook_Activity extends AppCompatActivity {
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             get_old_email =userInput.getText().toString();
-//                                            globalVariable.setFbemail(""+get_old_email);
-//                                            //							globalVariable.setFb
-//                                            globalVariable.setFbgender(""+gender);
-//                                            globalVariable.setFbname(""+name);
                                             new Fblogin().execute();
                                         }
                                     });
@@ -531,7 +536,7 @@ public class Facebook_Activity extends AppCompatActivity {
                             .setPositiveButton("Submit",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
-                                            String get_email =userInput.getText().toString();
+                                             names =userInput.getText().toString();
 //                                            globalVariable.setFbemail(""+get_email);
 //                                            globalVariable.setFbgender(""+gender);
 //                                            globalVariable.setFbname(""+name);
@@ -612,8 +617,6 @@ public class Facebook_Activity extends AppCompatActivity {
         } catch (Exception e) {
             Connectiontimeout = true;
         }
-
-
     }
 
     @Override
@@ -733,6 +736,34 @@ public class Facebook_Activity extends AppCompatActivity {
 //                    HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                     HomeActivity.mCartId = json.optString("cartId");
                     HomeActivity.mCartTotal = json.optInt("cartValue");
+
+//                    String emailID = emailET.getText().toString();
+
+                    if (!TextUtils.isEmpty(names) && GCMUtility.validate(names)) {
+                        // Check if Google Play Service is installed in Device
+                        // Play services is needed to handle GCM stuffs
+                        if (checkPlayServices()) {
+                            // Register Device in GCM Server
+                            registerInBackground(names);
+                        }
+                    }
+                    if ((Utility.isValueNullOrEmpty(json.optString("count")))) {
+                        Intent i= new Intent(Facebook_Activity.this,AddAddressFragment.class);
+                        startActivity(i);
+//                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+                    } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
+//                        HomeActivity.updateNavigationDrawer(mParent);
+                        Intent i= new Intent(Facebook_Activity.this,HomeActivity.class);
+                        startActivity(i);
+//                        Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+                    } else {
+                        Intent i= new Intent(Facebook_Activity.this,ReviewOrderFragment.class);
+                        startActivity(i);
+//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
+                    }
+//                    Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
+//                    startActivity(i);
+
                         /*GCM*/
 //                    if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_EMAIL_ID))
 //                            && GCMUtility.validate(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_EMAIL_ID))) {
@@ -743,11 +774,14 @@ public class Facebook_Activity extends AppCompatActivity {
 //                            registerInBackground(Utility.getSharedPrefStringData(getApplicationContext(), Constants.USER_EMAIL_ID));
 //                        }
 //                    }
-                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Facebook_Activity.this);
-                        finish();
+//                    Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
+//                    startActivity(i);
+//                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, Facebook_Activity.this);
+//                        finish();
 //                    if (!mFrom.equalsIgnoreCase("cart")) {
 //                        mParent.onBackPressed();
 //                    }
+
 
 //                    if ((Utility.isValueNullOrEmpty(json.optString("count")))) {
 //                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, Facebook_Activity.this);
@@ -792,22 +826,22 @@ public class Facebook_Activity extends AppCompatActivity {
         protected void onPostExecute(String message) {
             pDialog3.dismiss();
 
-            if (message.contentEquals("Login Successfull!!!") ){
-                String emailID = emailET.getText().toString();
-
-
-                if (!TextUtils.isEmpty(emailID) && GCMUtility.validate(emailID)) {
-                    // Check if Google Play Service is installed in Device
-                    // Play services is needed to handle GCM stuffs
-                    if (checkPlayServices()) {
-
-
-                        // Register Device in GCM Server
-                        registerInBackground(emailID);
-                    }
-                }
-
-            }
+//            if (message.contentEquals("Login Successfull!!!") ){
+//                String emailID = emailET.getText().toString();
+//
+//
+//                if (!TextUtils.isEmpty(emailID) && GCMUtility.validate(emailID)) {
+//                    // Check if Google Play Service is installed in Device
+//                    // Play services is needed to handle GCM stuffs
+//                    if (checkPlayServices()) {
+//
+//
+//                        // Register Device in GCM Server
+//                        registerInBackground(emailID);
+//                    }
+//                }
+//
+//            }
 
         }
     }
@@ -1025,15 +1059,16 @@ public class Facebook_Activity extends AppCompatActivity {
         checkPlayServices();
     }
 
-    //	@Override
-    //	public boolean onKeyDown(int keyCode, KeyEvent event) {
-    //		// cleanup app, save preferences, etc.
-    //		//	    android.os.Process.killProcess(android.os.Process.myPid());
-    //		this.finishAffinity();
-    //		onDestroy();
-    //		finish();
-    //		// finish(); // not working properly, especially not with asynchronous tasks running
-    //		// return moveTaskToBack(true);
-    //		return super.onKeyDown(keyCode, event);
-    //	}
+    @Override
+    public void onBackPressed() {
+
+        Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+
+
+    }
+
 }

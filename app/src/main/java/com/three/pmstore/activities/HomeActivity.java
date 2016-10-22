@@ -133,7 +133,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         setLeftMenuData();
         getProductsList();
-
+        HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
         cart_layout.setOnClickListener(this);
         cart_layout_button_set_text.setOnClickListener(this);
         cart_icon.setOnClickListener(this);
@@ -344,6 +344,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
 //                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
                 Intent i = new Intent(HomeActivity.this, HomeActivity.class);
+
                 startActivity(i);
                 break;
             case 2:
