@@ -311,7 +311,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 txt_buy.setEnabled(false);
                 txt_buy.setText("Out Of Stock");
             }
-            text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
+            text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()).toString());
+            //text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Information()).toString());
             if (!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp())) {
                 txt_strike.setText("" + HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp());
                 txt_strike.setPaintFlags(txt_strike.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -337,37 +338,6 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             image_thumbnail.setOnClickListener(this);
             specifications.setOnClickListener(this);
             description.setOnClickListener(this);
-        }
-
-        if (infor.contains("<table")) {
-            preTable = infor.substring(0, infor.indexOf("<table"));
-            postTable = infor.substring(infor.indexOf("<table"));
-            //inforStrings = infor.split("<table");
-            out = Jsoup.parse(preTable).text();
-            out1 = Jsoup.parse(postTable).text();
-            Log.d("infor1", out);
-            Log.d("infor2", out1);
-
-            org.jsoup.nodes.Document doc = Jsoup.parseBodyFragment(postTable);
-
-            //List<String> headings = new LinkedList<String>();;
-
-            Element elementsByTag = doc.getElementsByTag("table").get(0);
-            Elements rows = elementsByTag.getElementsByTag("tr");
-            int rowCount = 0;
-            for (Element row : rows) {
-
-
-                List<String> individualColumn = new ArrayList<String>();
-                ;
-                for (int headerCount = 0; headerCount < row.getElementsByTag("td").size(); headerCount++) {
-                    individualColumn.add(row.getElementsByTag("td").get(headerCount).text());
-                }
-                columns.add(individualColumn);
-
-            }
-        } else {
-            out = Jsoup.parse(infor).text();
         }
     }
 
@@ -481,23 +451,54 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btn_desc:
-                if (infor.contains("<table")) {
-                    text_desc.setText(Html.fromHtml(preTable));
-                    table_layout.removeAllViews();
-                    BuildTable(columns);
-                } else {
-                    text_desc.setText(Html.fromHtml(infor));
-                }
+                text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()).toString());
                 description.setBackgroundResource(R.drawable.homeborders);
                 specifications.setBackgroundResource(R.drawable.borders);
                 table_layout.removeAllViews();
-                text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()));
+                text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Description()).toString());
                 break;
             case R.id.btn_spec:
-                table_layout.removeAllViews();
+                text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Information()).toString());
+                infor = (HomeActivity.mProductItemsList.get(mPosition).getP_Information()).toString();
+                columns = new LinkedList<>();
+                if (infor.contains("<table")) {
+                    preTable = infor.substring(0, infor.indexOf("<table"));
+                    postTable = infor.substring(infor.indexOf("<table"));
+                    out = Jsoup.parse(preTable).text();
+                    out1 = Jsoup.parse(postTable).text();
+                    Log.d("infor1", out);
+                    Log.d("infor2", out1);
+
+                    org.jsoup.nodes.Document doc = Jsoup.parseBodyFragment(postTable);
+
+                    //List<String> headings = new LinkedList<String>();;
+
+                    Element elementsByTag = doc.getElementsByTag("table").get(0);
+                    Elements rows = elementsByTag.getElementsByTag("tr");
+                    int rowCount = 0;
+                    for (Element row : rows) {
+
+
+                        List<String> individualColumn = new ArrayList<String>();
+                        ;
+                        for (int headerCount = 0; headerCount < row.getElementsByTag("td").size(); headerCount++) {
+                            individualColumn.add(row.getElementsByTag("td").get(headerCount).text());
+                        }
+                        columns.add(individualColumn);
+
+                    }
+
+                    text_desc.setText(Html.fromHtml(preTable).toString());
+                    table_layout.removeAllViews();
+                    BuildTable(columns);
+
+                } else {
+                    table_layout.removeAllViews();
+                    out = Jsoup.parse(infor).text();
+                }
+
                 description.setBackgroundResource(R.drawable.borders);
                 specifications.setBackgroundResource(R.drawable.homeborders);
-                text_desc.setText(Html.fromHtml(HomeActivity.mProductItemsList.get(mPosition).getP_Information()));
                 break;
         }
     }
@@ -520,6 +521,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         // outer for loop
         int rows = 5;
         int cols = 5;
+        table_layout.removeAllViews();
         for (int i = 0; i < columns.size(); i++) {
 
             TableRow row = new TableRow(getActivity());
