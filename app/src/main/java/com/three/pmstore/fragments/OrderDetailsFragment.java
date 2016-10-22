@@ -674,7 +674,7 @@ public class OrderDetailsFragment extends Fragment {
                             cartID = mMovie.getCart_ID().toString();
                             Pimage = mMovie.getP_Image().toString();
                             Pname = mMovie.getP_Name().toString();
-                            Pcost = mMovie.getGrandTotal().toString();
+                            Pcost = mMovie.getP_Cost().toString();
                             Orderstatus = mMovie.getStatus().toString();
                             Orderdate = mMovie.getOrder_Date().toString();
                             USername = mMovie.getCustomerName().toString();
