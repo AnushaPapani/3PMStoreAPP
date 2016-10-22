@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/price_layout"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:textColor="#FAA61A"
             android:text="Promo Code" />
 

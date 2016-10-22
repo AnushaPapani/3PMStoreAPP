@@ -10,7 +10,7 @@
     android:background="#E4E4E4"
     android:orientation="vertical" >
 
-    <TextView
+    <com.three.pmstore.activities.BoldCustomTextView
         android:id="@+id/textV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:layout_alignLeft="@+id/relative2"
             android:layout_marginTop="5dp" >
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/ordername"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@+id/relative2" >
 
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                 android:textSize="13dp" />
         </RelativeLayout>
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
             android:paddingTop="5dp"
             android:text="PlacedOn : " />
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/pname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -201,7 +201,7 @@
             android:textSize="20dp"
             android:layout_marginBottom="@dimen/_10dp"/>
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:id="@+id/TextView01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
             android:textColor="#FF0000"
             android:visibility="gone"/>
 
-        <TextView
+        <com.three.pmstore.activities.CustomTextView
             android:text="Comments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
