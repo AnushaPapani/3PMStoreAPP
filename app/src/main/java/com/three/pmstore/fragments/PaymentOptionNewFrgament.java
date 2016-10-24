@@ -64,8 +64,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     String FinalPriceToSend,cashused ,otprandom ,totalCOD;
     String updatedValue, updatedValue2;
     String orderid, CartProductId, U_id;
-    String P_Cost, Quantity;
-    String ProductId, P_Name, codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
+//    String P_Name,ProductId,P_Cost, Quantity;
+    String   codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
     private boolean fromCOD;
     public static String finalname,finalemail,finalOrderid;
 
@@ -115,7 +115,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
         try {
             JSONObject options = new JSONObject();
             options.put("name", "3PMstore");
-            options.put("description", P_Name);
+//            options.put("description", P_Name);
             options.put("currency", "INR");
             options.put("amount", FinalPriceToSend);
             JSONObject preFill = new JSONObject();
@@ -202,13 +202,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
 
     private void initUI() {
 
-        P_Cost = "599";
-        ProductId = "PM010247";
-        P_Name = "Ghost Busters Keychain";
-        Quantity = "3";
-        bline = "hyd";
-        bstate = "hyd";
-
+//        ProductId = "PM010247";
+//        P_Name = "Ghost Busters Keychain";
+//        Quantity = "3";
         expand1 = (RelativeLayout) rootView.findViewById(R.id.expand1);
         expand2 = (RelativeLayout) rootView.findViewById(R.id.expand2);
         expand3 = (RelativeLayout) rootView.findViewById(R.id.expand3);
@@ -281,8 +277,19 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 }
             }
         });
-        pmcheckbutton.setChecked(true);
 
+//        pmcheckbutton.setChecked(true);
+
+        if(pmcash.equals("0"))
+        {
+            pmcheckbutton.setChecked(false);
+            pmcheckbutton.setEnabled(false);
+            amounttotal.setText(amountPayable);
+        }
+        else
+        {
+            pmcheckbutton.setChecked(true);
+        }
         expand1.setOnClickListener(this);
         expand5.setOnClickListener(this);
         expand4.setOnClickListener(this);
@@ -314,7 +321,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
-                b.putString("Quantity",Quantity);
+//                b.putString("Quantity",Quantity);
                 b.putString("orderid",orderid);
                 b.putString("Promo",amounttotal.getText().toString());
                 b.putString("Pmprice",pmcash );
@@ -325,9 +332,9 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                 b.putString("Amount",amounttotal.getText().toString() );
                 b.putString("CodCash",codcharge);
                 b.putString("fname",fname);
-                b.putString("pname",P_Name);
+//                b.putString("pname",P_Name);
                 b.putString("UID",U_id);
-                b.putString("Pid",ProductId);
+//                b.putString("Pid",ProductId);
 //                Intent i = new Intent(getActivity(), PayUMoneyFragment.class);
 //                startActivity(i);
                 Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
@@ -718,7 +725,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         System.out.println();
                         if(success.equals("1")) {
                             Intent i = new Intent(getActivity(), SuccessActivity.class);
-                            i.putExtra("spiner", Quantity);
+//                            i.putExtra("spiner", Quantity);
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
                             i.putExtra("cost", amounttotal.getText().toString());
@@ -739,7 +746,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         }
                         else {
                             Intent i = new Intent(getActivity(), FailureActivity.class);
-                            i.putExtra("spiner", Quantity);
+//                            i.putExtra("spiner", Quantity);
                             i.putExtra("Promo",amountPayable);
                             i.putExtra("Pmprice",pmcash );
                             i.putExtra("cost", amounttotal.getText().toString());
@@ -808,7 +815,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         System.out.println("Details "+success+ " message");
                         if(success.equals("1")) {
                             Intent i = new Intent(getActivity(), SuccessActivity.class);
-                            i.putExtra("spiner", Quantity);
+//                            i.putExtra("spiner", Quantity);
                             i.putExtra("Promo", amountPayable);
                             i.putExtra("Pmprice", pmcash);
                             i.putExtra("amounttotal", amounttotal.getText().toString());
@@ -829,7 +836,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         else
                         {
                             Intent i = new Intent(getActivity(), FailureActivity.class);
-                            i.putExtra("spiner", Quantity);
+//                            i.putExtra("spiner", Quantity);
                             i.putExtra("Promo",amountPayable);
                             i.putExtra("Pmprice",pmcash );
                             i.putExtra("cost", amounttotal.getText().toString());

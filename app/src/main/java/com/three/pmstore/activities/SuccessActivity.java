@@ -52,6 +52,7 @@ public class SuccessActivity extends AppCompatActivity {
 	//	AppController globalVariable;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setTheme(R.style.AppTheme_NoActionBar);
 		setContentView(R.layout.success);
 
 		mWebView = (WebView) findViewById(R.id.successactivity_main_webview);
