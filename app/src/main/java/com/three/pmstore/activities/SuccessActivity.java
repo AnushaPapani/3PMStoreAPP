@@ -1,14 +1,20 @@
 package com.three.pmstore.activities;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.RelativeLayout;
@@ -32,7 +38,7 @@ import java.io.IOException;
 /**
  * Created by varma on 9/21/2015.
  */
-public class SuccessActivity extends AppCompatActivity {
+public class SuccessActivity extends Activity {
 
 	private WebView mWebView;
 	RequestParams params = new RequestParams();
@@ -54,6 +60,14 @@ public class SuccessActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setTheme(R.style.AppTheme_NoActionBar);
 		setContentView(R.layout.success);
+
+		if (Build.VERSION.SDK_INT >= 19) {
+			mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+		}
+		else {
+			mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+		}
+
 
 		mWebView = (WebView) findViewById(R.id.successactivity_main_webview);
 		spinner_item =getIntent().getStringExtra("spiner");

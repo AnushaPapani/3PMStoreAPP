@@ -766,6 +766,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
                         HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
 
+
                         Utility.showToastMessage(getActivity(), "Product Added to Cart Successfully");
                     } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -775,7 +776,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
                                     public void onClick(DialogInterface dialog, int id) {
                                         //do things
                                         dialog.cancel();
-//                                        Utility.navigateDashBoardFragment(new ProductFragment(), ProductFragment.TAG, null, getActivity());
+//                                      Utility.navigateDashBoardFragment(new ProductFragment(), ProductFragment.TAG, null, getActivity());
                                         Intent i = new Intent(getActivity(), HomeActivity.class);
                                         startActivity(i);
 //                                        finish();
