@@ -127,6 +127,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
          list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
+        leftMenuAdapter.notifyDataSetChanged();
 
         list_home_left_drawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
