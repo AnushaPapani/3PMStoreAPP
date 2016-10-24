@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -49,6 +50,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.three.pmstore.R;
+import com.three.pmstore.activities.Facebook_Activity;
 import com.three.pmstore.activities.GCMApplicationConstants;
 import com.three.pmstore.activities.GCMUtility;
 import com.three.pmstore.activities.HomeActivity;
@@ -220,18 +222,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     loginDataToServer(edt_email.getText().toString(), edt_password.getText().toString());
                 }
                 break;
-//            case R.id.btn_sign_up:
-//                if (isNetworkAvailable(getActivity()) == true) {
-//                    Intent i=new Intent(getActivity(),Facebook_Activity.class);
-//                    startActivity(i);
-////                    setUpFacebookLogin();
-////                    accessTokenFacebook();
-////                    printKeyHash(getActivity());
-//                } else {
-//                    Toast.makeText(getActivity(), "No Network Connection",
-//                            Toast.LENGTH_SHORT).show();
-//                }
-//                break;
+            case R.id.btn_sign_up:
+                if (isNetworkAvailable(getActivity()) == true) {
+                    Intent i=new Intent(getActivity(),Facebook_Activity.class);
+                    startActivity(i);
+//                    setUpFacebookLogin();
+//                    accessTokenFacebook();
+//                    printKeyHash(getActivity());
+                } else {
+                    Toast.makeText(getActivity(), "No Network Connection",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
@@ -938,6 +940,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                         HomeActivity.mCartId = jsonobject.optString("cartId");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+
                         /*GCM*/
                         if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))
                                 && GCMUtility.validate(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
