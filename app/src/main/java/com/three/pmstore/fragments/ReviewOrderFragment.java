@@ -1,5 +1,6 @@
 package com.three.pmstore.fragments;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -81,6 +82,7 @@ public class ReviewOrderFragment extends Fragment {
     TextView DiscountValue;
     TextView GrandText ;
     TextView GrandValue ;
+    Boolean isDiscount =true;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,12 @@ public class ReviewOrderFragment extends Fragment {
         txt_review_your_order.setPaintFlags(txt_review_your_order.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         getReviewOrderDetails();
 
+        if (applypromocode.getText().toString() == "Cancel"){
+            promotext.setText(Utility.getSharedPrefStringData(getActivity(),Constants.PROMOCODE));
+        }else if(isDiscount =false){
+            promotext.setText(Utility.getSharedPrefStringData(getActivity(),Constants.PROMOCODE));
+            applypromocode.setText("Cancel");
+        }
 
         applypromocode.setOnClickListener(new View.OnClickListener() {
 
@@ -360,6 +368,7 @@ public class ReviewOrderFragment extends Fragment {
                 result = Utility.httpPostRequestToServer(ApiConstants.PROMO_CHECK, Utility.getParams(paramsList));
                 HomeActivity.mCartTotal = Integer.parseInt(grandtotal.toString());
 
+
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -379,6 +388,8 @@ public class ReviewOrderFragment extends Fragment {
                     JSONObject jsonobject = new JSONObject(response);
                     promotext.setText("");
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Utility.setSharedPrefStringData(getActivity(),Constants.PROMOCODE,couponcode);
+                        isDiscount = false;
                         String PromoType = jsonobject.optString("type");
                         if(PromoType.equals("BUY2GET1FREE"))
                         {
@@ -456,7 +467,6 @@ public class ReviewOrderFragment extends Fragment {
         }
     }
 
-
     /*Delete Promocode*/
     private void cancelpromocode(String cartid, String cartvalue,String promoCode) {
         if (Utility.isNetworkAvailable(getActivity())) {
@@ -518,6 +528,7 @@ public class ReviewOrderFragment extends Fragment {
                         GrandText.setVisibility(View.GONE);
                         GrandValue.setVisibility(View.GONE);
                         coddisablepromo ="0";
+
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
                     }
@@ -622,6 +633,7 @@ public class ReviewOrderFragment extends Fragment {
                         } else {
                             listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
                             listView_selected_orders.addHeaderView(ll_header);
+                            HomeActivity.mCartValue =0;
                         }
                     }
                 }
@@ -718,6 +730,30 @@ public class ReviewOrderFragment extends Fragment {
         });
         listView_selected_orders.addFooterView(ll_fottor);
     }
+
+
+
+
+//    public void onBackPressed() {
+//        //		globalVariable.setNewprocode("");
+//        String emptycoupon ="";
+//        globalVariable.setCoupon("");
+//        globalVariable.setQuantity(-1);
+//
+//		/*Creating activity*/
+//        activityIntent = getIntent(); // First time through intent is used
+//		/*Get your Extra Intent data here. You will be capturing data on 1st creation. */
+//
+//        Intent i=new Intent(getActivity(),HomeActivity.class);
+//        globalVariable.setCoupon(emptycoupon);
+//        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(i);
+////		this.finishAffinity();
+//
+//
+//
+//    }
 
 
 }
