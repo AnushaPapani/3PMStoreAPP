@@ -20,6 +20,7 @@ import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.fragments.ReviewOrderFragment;
 import com.three.pmstore.models.ReviewOrderModel;
 import com.three.pmstore.utility.ApiConstants;
+import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
 
 import org.json.JSONException;
@@ -228,9 +229,11 @@ public class ReviewOrderAdapter extends BaseAdapter {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                         HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
+                        String cartvalue =jsonobject.optString("cartCount");
                         mReviewOrderModels.remove(position);
                         if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
-                            HomeActivity.cart_layout_button_set_text.setText(jsonobject.optString("cartCount"));
+                            HomeActivity.cart_layout_button_set_text.setText(cartvalue);
+//                            Utility.setSharedPrefStringData(Constants.CARTVALUE,jsonobject.optString("cartCount"));
                         } else {
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));

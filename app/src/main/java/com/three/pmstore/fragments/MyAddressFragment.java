@@ -34,7 +34,7 @@ Created by Shankar
  */
 public class MyAddressFragment extends Fragment {
     public static final String TAG = "MyAddressFragment";
-    private View rootView;
+    View rootView;
     ListView list;
     public static ArrayList<AddressesModel> addressesModels;
     private AddressAdapter addressAdapter;
@@ -50,8 +50,8 @@ public class MyAddressFragment extends Fragment {
     public static String edit_pincode ="";
     public static String edit_mobile ="";
     public static String addressid2 ="";
-
     private String mSelectedId;
+    private String mSelectedId2;
     private HomeActivity mParent;
 
     @Override
@@ -60,6 +60,8 @@ public class MyAddressFragment extends Fragment {
         mParent = (HomeActivity) getActivity();
         if (getArguments()!=null){
             mSelectedId = getArguments().getString("address_id");
+//            mSelectedId2 = getArguments().getString("address_id2");
+
         }
     }
 
@@ -151,4 +153,7 @@ public class MyAddressFragment extends Fragment {
         addressAdapter = new AddressAdapter(getActivity(), addressesModels, mSelectedId, mParent);
         list.setAdapter(addressAdapter);
     }
+
+
+
 }

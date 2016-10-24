@@ -97,31 +97,41 @@ public class AddressAdapter extends BaseAdapter {
         mAddressItemHolder.bstate.setText(Utility.capitalizeFirstLetter(leftMenuModel.getBstate()));
         mAddressItemHolder.bpincode.setText(leftMenuModel.getBpincode());
         mAddressItemHolder.bmobile.setText(leftMenuModel.getBmobile());
-        if (mSelectedId.equalsIgnoreCase(leftMenuModel.getID())) {
-            Utility.showLog("leftMenuModel.getID()", "leftMenuModel.getID() " + leftMenuModel.getID());
-            mAddressItemHolder.imageViewCheck.setImageDrawable(Utility.getDrawable(mContext, R.drawable.tickboxone));
-        } else {
-            mAddressItemHolder.imageViewCheck.setImageDrawable(Utility.getDrawable(mContext, R.drawable.ticktwo));
+        try {
+            if (mSelectedId.equalsIgnoreCase(leftMenuModel.getID())) {
+                Utility.showLog("leftMenuModel.getID()", "leftMenuModel.getID() " + leftMenuModel.getID());
+                mAddressItemHolder.imageViewCheck.setImageDrawable(Utility.getDrawable(mContext, R.drawable.tickboxone));
+            } else {
+                mAddressItemHolder.imageViewCheck.setImageDrawable(Utility.getDrawable(mContext, R.drawable.ticktwo));
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
+
 
         mAddressItemHolder.imageViewCheck.setTag(position);
         mAddressItemHolder.imageViewCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int position = (int) view.getTag();
-                if (mSelectedId.equalsIgnoreCase(addressesModels.get(position).getID())){
-                    mSelectedId = "-1";
-                } else {
-                    mSelectedId = addressesModels.get(position).getID();
-                    ReviewOrderFragment.addressId = addressesModels.get(position).getID();
-                    ReviewOrderFragment.txt_name.setText(addressesModels.get(position).getUsername());
-                    ReviewOrderFragment.txt_address_line.setText(addressesModels.get(position).getBline());
-                    ReviewOrderFragment.txt_city.setText(addressesModels.get(position).getBcity());
-                    ReviewOrderFragment.txt_address_state.setText(addressesModels.get(position).getBstate());
-                    ReviewOrderFragment.txt_pin_code.setText(addressesModels.get(position).getBpincode());
-                    ReviewOrderFragment.txt_mobile.setText(addressesModels.get(position).getBmobile());
-                    mParent.onBackPressed();
+                try {
+                    if (mSelectedId.equalsIgnoreCase(addressesModels.get(position).getID())){
+                        mSelectedId = "-1";
+                    } else {
+                        mSelectedId = addressesModels.get(position).getID();
+                        ReviewOrderFragment.addressId = addressesModels.get(position).getID();
+                        ReviewOrderFragment.txt_name.setText(addressesModels.get(position).getUsername());
+                        ReviewOrderFragment.txt_address_line.setText(addressesModels.get(position).getBline());
+                        ReviewOrderFragment.txt_city.setText(addressesModels.get(position).getBcity());
+                        ReviewOrderFragment.txt_address_state.setText(addressesModels.get(position).getBstate());
+                        ReviewOrderFragment.txt_pin_code.setText(addressesModels.get(position).getBpincode());
+                        ReviewOrderFragment.txt_mobile.setText(addressesModels.get(position).getBmobile());
+                        mParent.onBackPressed();
+                    }
+                }catch (NullPointerException e){
+                    e.printStackTrace();
                 }
+
                 notifyDataSetChanged();
 
             }

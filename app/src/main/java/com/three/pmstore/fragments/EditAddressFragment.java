@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 
+import static com.three.pmstore.fragments.MyAddressFragment.addressesModels;
+
 
 /**
  * Created by BabuRao.
@@ -158,6 +160,15 @@ public class EditAddressFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("address_id", "" + addressesModels.get(0).getID());
+                        Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, bundle, getActivity());
+                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
+                        t.setText("Address updated Successfully!");
+                        toast.setView(toastRoot2);
+                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                        toast.setDuration(Toast.LENGTH_SHORT);
+                        toast.show();
 
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
