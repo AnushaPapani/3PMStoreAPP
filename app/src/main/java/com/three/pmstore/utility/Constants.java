@@ -8,7 +8,7 @@ public class Constants {
 
     public static final String DEVICE_TYPE = "android";
     public static int SPLASH_TIME_OUT = 2000;
-
+    public static int SPLASH_TIME_OUT2 = 100;
     public static final int CONNECTION_TIMEOUT = 30000;
     /*for displaying logs*/
 
