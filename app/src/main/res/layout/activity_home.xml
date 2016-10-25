@@ -30,7 +30,7 @@
         <LinearLayout
             android:id="@+id/ll_layout_footer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_55dp"
+            android:layout_height="45dp"
             android:layout_alignParentBottom="true">
             <include layout="@layout/footerbar" />
         </LinearLayout>
