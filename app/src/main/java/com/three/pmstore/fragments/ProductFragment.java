@@ -64,8 +64,8 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
     private TextView txt_right_icon;
     private TextView text_name;
     private TextView txt_name_bottom;
-    private TextView txt_strike;
-    private TextView txt_buy;
+    private TextView txt_strike,txt_mrp;
+    private TextView txt_buy, txt_buynow, txt_pmpricevalue;
     private ImageView img_highlighted;
     private ImageView image_thumbnail;
     private ImageView image_VideoPlayButton;
@@ -122,7 +122,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         text_name = (TextView) rootView.findViewById(R.id.text_name);
         txt_name_bottom = (TextView) rootView.findViewById(R.id.txt_name_bottom);
         txt_strike = (TextView) rootView.findViewById(R.id.txt_strike);
+        txt_mrp = (TextView) rootView.findViewById(R.id.txt_mrp);
         txt_buy = (TextView) rootView.findViewById(R.id.txt_buy);
+        txt_buynow = (TextView) rootView.findViewById(R.id.txt_buynow);
+        txt_pmpricevalue = (TextView) rootView.findViewById(R.id.txt_pmpricevalue);
         img_highlighted = (ImageView) rootView.findViewById(R.id.img_highlighted);
         txt_left_icon = (TextView) rootView.findViewById(R.id.txt_left_icon);
         txt_right_icon = (TextView) rootView.findViewById(R.id.txt_right_icon);
@@ -131,7 +134,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         specifications = (Button) rootView.findViewById(R.id.btn_spec);
         text_desc = (TextView) rootView.findViewById(R.id.text_desc);
 
-
+        txt_pmpricevalue.setText(""+getString(R.string.rs)+HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
         img_first = (ImageView) rootView.findViewById(R.id.img_first);
         img_second = (ImageView) rootView.findViewById(R.id.img_second);
         img_third = (ImageView) rootView.findViewById(R.id.img_third);
@@ -159,9 +162,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(0).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_one.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -196,9 +199,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(1).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_two.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -233,9 +236,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(2).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_three.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -271,9 +274,9 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
                     if (HomeActivity.mProductItemsList.get(mPosition).getAttrTypes().get(3).equalsIgnoreCase("Quantity") && i != 0) {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + Integer.parseInt(spin_four.getSelectedItem().toString()) * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     } else {
-                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                        txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + 1 * HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
                     }
                 } else {
                     txt_buy.setEnabled(false);
@@ -306,7 +309,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             text_name.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             txt_name_bottom.setText("" + HomeActivity.mProductItemsList.get(mPosition).getP_Name());
             if (HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0") || !Utility.isValueNullOrEmpty("" + HomeActivity.mProductItemsList.get(mPosition).getP_Qty())) {
-                txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+//                txt_buy.setText("BUY for " + Utility.getResourcesString(getActivity(), R.string.rs) + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
             } else {
                 txt_buy.setEnabled(false);
                 txt_buy.setText("Out Of Stock");
@@ -316,6 +319,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             if (!Utility.isValueNullOrEmpty(HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp())) {
                 txt_strike.setText("" + HomeActivity.mProductItemsList.get(mPosition).getStrikeMrp());
                 txt_strike.setPaintFlags(txt_strike.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            else
+            {
+                txt_mrp.setVisibility(View.GONE);
             }
             infor = text_desc.getText().toString();
 
@@ -335,6 +342,7 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             img_four.setOnClickListener(this);
             img_five.setOnClickListener(this);
             txt_buy.setOnClickListener(this);
+            txt_buynow.setOnClickListener(this);
             image_thumbnail.setOnClickListener(this);
             specifications.setOnClickListener(this);
             description.setOnClickListener(this);
@@ -445,6 +453,10 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
             case R.id.txt_buy:
                 buyProduct();
                 break;
+            case R.id.txt_buynow:
+                buyProduct2();
+                break;
+
             case R.id.image_thumbnail:
                 Intent intent = new Intent(getActivity(), YoutubeVideoActivity.class);
                 intent.putExtra("videoId", HomeActivity.mProductItemsList.get(mPosition).getP_Video());
@@ -516,6 +528,19 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void buyProduct2() {
+        if (txt_buynow.getText().toString().equalsIgnoreCase("Out Of Stock") || HomeActivity.mProductItemsList.get(mPosition).getStock().equalsIgnoreCase("0")) {
+            txt_buynow.setEnabled(false);
+            txt_buynow.setText("Out of Stock!!");
+            txt_buynow.setBackgroundColor(Color.parseColor("#FF0000"));
+            Utility.showToastMessage(getActivity(), "Sorry! Out Of Stock..!");
+        } else {
+            if (isValidFields()) {
+                postSelectedItem2();
+            }
+        }
+    }
+
     private void BuildTable(LinkedList<List<String>> columns) {
 
         // outer for loop
@@ -547,10 +572,16 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-
     private void postSelectedItem() {
         if (Utility.isNetworkAvailable(getActivity())) {
             new PostProductAsyncTask().execute();
+        } else {
+            DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
+        }
+    }
+    private void postSelectedItem2() {
+        if (Utility.isNetworkAvailable(getActivity())) {
+            new PostProductAsyncTask2().execute();
         } else {
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
@@ -814,4 +845,102 @@ public class ProductFragment extends Fragment implements View.OnClickListener {
         }
         return mSelectedThing;
     }
+
+    private class PostProductAsyncTask2 extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+
+        public PostProductAsyncTask2() {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                paramsList.put("U_ID", Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID));
+                paramsList.put("P_ID", HomeActivity.mProductItemsList.get(mPosition).getP_id());
+                paramsList.put("cartValue", "" + HomeActivity.mCartTotal);
+                paramsList.put("P_Name", HomeActivity.mProductItemsList.get(mPosition).getP_Name());
+                paramsList.put("P_Cost", "" + HomeActivity.mProductItemsList.get(mPosition).getP_Cost());
+                paramsList.put("P_Qty", getSelectedSpinner("Quantity"));
+                paramsList.put("gender", getSelectedSpinner("Gender"));
+                paramsList.put("customattribute", getSelectedSpinner("Custom"));
+                paramsList.put("color", getSelectedSpinner("Color"));
+                paramsList.put("size", getSelectedSpinner("Size"));
+                paramsList.put("cartId", HomeActivity.mCartId);
+
+                result = Utility.httpPostRequestToServer(ApiConstants.INSERT_CHECK_PRODUCTS, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        HomeActivity.mCartId = jsonobject.optString("cartId");
+                        HomeActivity.mCartValue = jsonobject.optInt("cartCount");
+                        HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+//                        HomeActivity.cart_layout_button_set_text.setText("" + HomeActivity.mCartValue);
+
+//                        Utility.showToastMessage(getActivity(), "Product Added to Cart Successfully");
+
+                        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID))) {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, getActivity());
+                        }
+                        else if(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT).toString().equals("0")&&
+                                (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID))))
+                        {
+                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null,getActivity());
+                        }
+                        else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID)) &&
+                                !Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT).toString().equals("0")) {
+                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+                        } else {
+                            Utility.showToastMessage(getActivity(), "Add at least one item to cart");
+                        }
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("This product has expired. Please check out todays product!")
+                                .setCancelable(false)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //do things
+                                        dialog.cancel();
+//                                        Utility.navigateDashBoardFragment(new ProductFragment(), ProductFragment.TAG, null, getActivity());
+                                        Intent i = new Intent(getActivity(), HomeActivity.class);
+                                        startActivity(i);
+//                                        finish();
+                                    }
+                                });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("3")) {
+
+                        Utility.showToastMessage(getActivity(), "Sorry! Product has reached maximum quantity per order.");
+                    } else {
+
+                        Utility.showToastMessage(getActivity(), "Some network error occurred please try again later.");
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

@@ -141,25 +141,11 @@
 
 
             <com.three.pmstore.activities.BoldCustomTextView
-                android:id="@+id/txt_mrp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="MRP"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:layout_toLeftOf="@+id/txt_strike"
-                android:layout_toStartOf="@+id/txt_strike" />
-
-            <com.three.pmstore.activities.BoldCustomTextView
                 android:text="Ultimate Dead pool Tshirt "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/txt_mrp"
+                android:layout_toLeftOf="@+id/txt_pmpricehead"
                 android:textColor="#414141"
                 android:textStyle="bold"
                 android:layout_marginRight="10dp"
@@ -167,19 +153,60 @@
                 android:layout_marginLeft="10dp"
                 android:id="@+id/txt_name_bottom" />
 
+            <com.three.pmstore.activities.BoldCustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3PMstore price"
+                android:layout_below="@+id/txt_mrp"
+                android:textColor="#FAA61A"
+                android:textSize="18sp"
+                android:id="@+id/txt_pmpricehead"
+                android:layout_alignParentEnd="true"/>
+
+            <com.three.pmstore.activities.BoldCustomTextView
+                android:id="@+id/txt_mrp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="MRP"
+                android:layout_marginRight="9dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/txt_strike"
+                android:layout_toStartOf="@+id/txt_strike"
+                android:layout_marginEnd="5dp" />
+
             <TextView
                 android:id="@+id/txt_strike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="43dp"
-                android:text="698"
+                android:layout_marginEnd="21dp"
+                android:text="  "
+
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_alignParentBottom="true"
+                android:layout_marginRight="21dp"
+                android:layout_alignBaseline="@+id/txt_mrp"
+                android:layout_alignBottom="@+id/txt_mrp"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <com.three.pmstore.activities.BoldCustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="18sp"
+                android:textColor="#FAA61A"
+                android:id="@+id/txt_pmpricevalue"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="43dp" />
+                android:layout_marginRight="@dimen/_42dp"
+                android:layout_below="@+id/txt_pmpricehead"
+                android:layout_alignRight="@+id/txt_mrp"
+                android:layout_alignEnd="@+id/txt_mrp"
+                />
 
         </RelativeLayout>
 
@@ -190,50 +217,75 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/rl_ll3"
-            android:layout_marginBottom="@dimen/_10dp">
+            android:layout_marginBottom="@dimen/_10dp"
+            android:layout_marginTop="@dimen/_5dp">
 
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_free"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/txt_buy"
                 android:paddingBottom="0dp"
                 android:paddingLeft="15dp"
                 android:text="Free Shipping"
                 android:textColor="#7fbf4d"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="@dimen/_5dp"/>
 
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/txt_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="15dp"
-                android:background="#7fbf4d"
+                android:background="@drawable/buttonorange"
                 android:paddingBottom="@dimen/_6dp"
-                android:paddingEnd="@dimen/_10dp"
+                android:paddingEnd="@dimen/_20dp"
                 android:paddingLeft="@dimen/_10dp"
                 android:paddingRight="@dimen/_10dp"
-                android:paddingStart="@dimen/_10dp"
+                android:paddingStart="@dimen/_20dp"
                 android:paddingTop="@dimen/_6dp"
-                android:text="BUY for 299"
+                android:text="Add to Cart"
                 android:textColor="#fff"
-                android:textSize="26dp"
-                android:textStyle="bold" />
+                android:textSize="25dp"
+                android:layout_marginLeft="8dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/txt_deli"
+                android:layout_alignStart="@+id/txt_deli" />
 
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_deli"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:text="Delivered in 5-9 Days"
                 android:textSize="15dp"
-                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/txt_free"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="15dp" />
+                android:layout_marginStart="15dp"
+                android:paddingLeft="10dp"
+                />
+
+            <com.three.pmstore.activities.BoldCustomTextView
+                android:id="@+id/txt_buynow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/buttongreenbuy"
+                android:paddingBottom="@dimen/_6dp"
+                android:paddingEnd="@dimen/_30dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingStart="@dimen/_30dp"
+                android:paddingTop="@dimen/_6dp"
+                android:text="Buy Now"
+                android:textColor="#fff"
+                android:textSize="25dp"
+                android:layout_marginRight="33dp"
+                android:layout_marginEnd="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
 
         <LinearLayout
