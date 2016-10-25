@@ -60,16 +60,13 @@ public class SuccessActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setTheme(R.style.AppTheme_NoActionBar);
 		setContentView(R.layout.success);
-
+		mWebView = (WebView) findViewById(R.id.successactivity_main_webview);
 		if (Build.VERSION.SDK_INT >= 19) {
 			mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 		}
 		else {
 			mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		}
-
-
-		mWebView = (WebView) findViewById(R.id.successactivity_main_webview);
 		spinner_item =getIntent().getStringExtra("spiner");
 		Intentcost =getIntent().getStringExtra("amounttotal");
 		otpmob= getIntent().getStringExtra("bmobile");

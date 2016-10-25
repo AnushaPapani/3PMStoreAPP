@@ -108,7 +108,7 @@ public class Facebook_Activity extends AppCompatActivity {
     TextView forgotpass;
     private String[] menuItemTitles;
     ListView listView;
-    private ArrayAdapter<String> listAdapter ;
+    private ArrayAdapter<String> listAdapter;
     AlertDialog.Builder alertDialogBuilder;
     String uids;
     String adcount;
@@ -127,25 +127,25 @@ public class Facebook_Activity extends AppCompatActivity {
 
     EditText userInput;
 
-    String mystring ="Sign up with 3PMstore";
+    String mystring = "Sign up with 3PMstore";
     TextView Register;
     JSONArray users = null;
     JSONObject json;
-    TextView pmrp,pcost,shortdesc,head,thour,tvHour,tminutes,tvMinute,tvSecond,s,info,descrip;
+    TextView pmrp, pcost, shortdesc, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
     //	private SessionManager session;
 
-    TextView h,minutes,m,seconds;
-    String hour,minutess,secondss;
+    TextView h, minutes, m, seconds;
+    String hour, minutess, secondss;
     private static String KEY_SUCCESS = "success";
     private static String KEY_ERROR = "error";
     String mailid;
     //	EditText email;
     TextView alert;
-//    AppController globalVariable;
+    //    AppController globalVariable;
     Button resetpass;
-    TextView tl1,tl2;
+    TextView tl1, tl2;
     ImageView buy;
-//    Button mfacebook;
+    //    Button mfacebook;
     String name = "";
     String names = "";
     String gender = "";
@@ -163,7 +163,7 @@ public class Facebook_Activity extends AppCompatActivity {
     Boolean Connectiontimeout = true;
     //	private LoginButton loginBtn;
     String access_token;
-    int position =5;
+    int position = 5;
     Toast toast;
     View toastRoot;
     View toastRoot2;
@@ -188,7 +188,8 @@ public class Facebook_Activity extends AppCompatActivity {
     public static final String EMAIL_ID = "eMailId";
     EditText emailET;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    String logintext ="Login";
+    String logintext = "Login";
+
     @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
@@ -212,83 +213,28 @@ public class Facebook_Activity extends AppCompatActivity {
 
         txt_home_left_drawer_icon.setTypeface(Utility.setTypeFace_fontawesome(this));
 
-//        final ActionBar bar = getActionBar();
-//        bar.setCustomView(R.layout.action);
-//		textCounter = (TextView)findViewById(R.id.textView3);
-        tl1=(TextView)findViewById(R.id.loginNameTextViews);
-        tl2=(TextView)findViewById(R.id.emails);
+        tl1 = (TextView) findViewById(R.id.loginNameTextViews);
+        tl2 = (TextView) findViewById(R.id.emails);
 
-
-//		timer = new Timer();
-
-		/*GCM Integration*/
         applicationContext = getApplicationContext();
         emailET = (EditText) findViewById(R.id.editText);
 
-        //		prgDialog = new ProgressDialog(this);
-        //		// Set Progress Dialog Text
-        //		prgDialog.setMessage("Please wait...");
-        //		// Set Cancelable as False
-        //		prgDialog.setCancelable(false);
 
         SharedPreferences prefs = getSharedPreferences("UserDetails",
                 Context.MODE_PRIVATE);
         String registrationId = prefs.getString(REG_ID, "");
 
-//        if (!TextUtils.isEmpty(registrationId)) {
-//            Intent i = new Intent(applicationContext, ProductsPage.class);
-//            i.putExtra("regId", registrationId);
-//            //			startActivity(i);
-//            //			finish();
-//        }
         accessTokenFacebook();
 
-//        mfacebook =(Button)findViewById(R.id.btn_sign_up);
         final Context context = getApplicationContext();
         // Create layout inflator object to inflate toast.xml file
         final LayoutInflater inflater = getLayoutInflater();
 
         // Call toast.xml file for toast layout
         toastRoot = inflater.inflate(R.layout.toast, null);
-        toastRoot2 =inflater.inflate(R.layout.error_toast, null);
+        toastRoot2 = inflater.inflate(R.layout.error_toast, null);
         toast = new Toast(context);
 
-        // Set layout to toast
-
-//        mfacebook.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                if (isNetworkAvailable(context) == true) {
-////                    accessTokenFacebook();
-//
-//                } else {
-////                    Toast.makeText(Login.this, "No Network Connection",
-////                            Toast.LENGTH_SHORT).show();
-//                }
-//                //				loginToFacebook();
-//
-//                //				new Fblogin().execute();
-//                //				Intent i=new Intent(Second.this,Facebookss.class);
-//                //				startActivity(i);
-//                //								Intent i=new Intent(Second.this,Example.class);
-//                //								startActivity(i);
-//            }
-//        });
-//        try {
-//            if (globalVariable.getUserid().toString() ==null) {
-//                //				Toast.makeText(getApplicationContext(), "No Userid", 9000).show();
-//            }else {
-//                userid =globalVariable.getUserid().toString();
-//            }
-//        } catch (NullPointerException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-
-
-        //        }
 		/* to get the Hash key for Facebook*/
         PackageInfo info;
         try {
@@ -309,91 +255,9 @@ public class Facebook_Activity extends AppCompatActivity {
             Log.e("exception", e.toString());
         }
 
-        inputmail = (EditText)findViewById(R.id.editText);
-
-//        inputpasswd=(EditText)findViewById(R.id.psds);
-//
-//        Register=(TextView)findViewById(R.id.registerlink);
-//        SpannableString textcontent = new SpannableString(mystring);
-//        textcontent.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
-//        Register.setText(textcontent);
-//        Register.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                Intent i= new Intent(getApplicationContext(),NewUserActivity.class);
-//                startActivity(i);
-//            }
-//        });
-//
-//        login=(Button)findViewById(R.id.logins);
-//        forgotpass=(TextView)findViewById(R.id.forgotpasswordlink);
-//        forgotpass.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//                Intent i= new Intent(getApplicationContext(),ForgotPassword.class);
-//                startActivity(i);
-//
-//
-//            }
-//        });
-
-        //		inputmail.setText(duser);
-        //		inputpasswd.setText(dpasswd);
-//        login.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                // TODO Auto-generated method stub
-//
-//                if (((inputmail.getText().toString().length()<1)) && (inputpasswd.getText().toString().length()<1) )
-//                {
-//                    TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
-//                    t.setText("Please enter fields");
-//                    toast.setView(toastRoot);
-//                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
-//                    toast.setDuration(20000);
-//                    toast.show();
-//                }
-//                else if (((inputmail.getText().toString().length()<1))){
-//                    TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
-//                    t.setText("Please enter Email ID");
-//                    toast.setView(toastRoot);
-//                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
-//                    toast.setDuration(20000);
-//                    toast.show();
-//                }else if (!inputmail.getText().toString().matches(emailPattern)) {
-//                    TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
-//                    t.setText("Please enter Valid Email ID");
-//                    toast.setView(toastRoot);
-//                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
-//                    toast.setDuration(20000);
-//                    toast.show();
-//                }
-//                else if (((inputpasswd.getText().toString().length()<1))){
-//                    TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
-//                    t.setText("Please enter Password");
-//                    toast.setView(toastRoot);
-//                    toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
-//                    toast.setDuration(20000);
-//                    toast.show();
-//                }
-//                else
-//                {
-//
-//                    new loginUser().execute();
-//
-//                }
-//
-//            }
-//        });
-
+        inputmail = (EditText) findViewById(R.id.editText);
         loadDrawer(mDrawerToggle, mDrawerLayout);
 
-//        setTimer();
     }
 
     public static boolean isNetworkAvailable(Context mContext) {
@@ -429,7 +293,7 @@ public class Facebook_Activity extends AppCompatActivity {
          */
         if (!facebook.isSessionValid()) {
 
-            facebook.authorize(this, new String[] {"email"}, new DialogListener() {
+            facebook.authorize(this, new String[]{"email"}, new DialogListener() {
                 public void onComplete(Bundle values) {
                     try {
                         JSONObject me = new JSONObject(facebook.request("me"));
@@ -515,8 +379,8 @@ public class Facebook_Activity extends AppCompatActivity {
                             .setCancelable(false)
                             .setPositiveButton("Submit",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            get_old_email =userInput.getText().toString();
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            get_old_email = userInput.getText().toString();
                                             new Fblogin().execute();
                                         }
                                     });
@@ -535,11 +399,8 @@ public class Facebook_Activity extends AppCompatActivity {
                             .setCancelable(false)
                             .setPositiveButton("Submit",
                                     new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                             names =userInput.getText().toString();
-//                                            globalVariable.setFbemail(""+get_email);
-//                                            globalVariable.setFbgender(""+gender);
-//                                            globalVariable.setFbname(""+name);
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            names = userInput.getText().toString();
                                             new Fblogin().execute();
                                         }
                                     });
@@ -549,15 +410,14 @@ public class Facebook_Activity extends AppCompatActivity {
                     // show it
                     alertDialog.show();
 
-                }
-                else {
+                } else {
 
                 }
             } else {
-                TextView t =(TextView)toastRoot.findViewById(R.id.errortoast);
+                TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                 t.setText("Connection Time out");
                 toast.setView(toastRoot);
-                toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL|Gravity.FILL_HORIZONTAL, 0, 80);
+                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                 toast.setDuration(20000);
                 toast.show();
 
@@ -565,6 +425,7 @@ public class Facebook_Activity extends AppCompatActivity {
         }
 
     }
+
     public void fbUserProfile() {
 
         try {
@@ -581,7 +442,7 @@ public class Facebook_Activity extends AppCompatActivity {
             String requestURL = "https://graph.facebook.com/me?fields=picture,id,name,gender,age_range,email&access_token="
                     + access_token;
             Log.i("Request URL:", "---" + requestURL);
-            System.out.print("Request URL:"+requestURL);
+            System.out.print("Request URL:" + requestURL);
             HttpGet request = new HttpGet(requestURL);
 
             HttpResponse response = client.execute(request);
@@ -594,25 +455,25 @@ public class Facebook_Activity extends AppCompatActivity {
                 jsonObj = new JSONObject(webServiceInfo);
                 jsonObjData = jsonObj.getJSONObject("picture");
                 jsonObjUrl = jsonObjData.getJSONObject("data");
-                FBID =jsonObj.getLong("id");
-                System.out.println("facebook user id "+FBID);
+                FBID = jsonObj.getLong("id");
+                System.out.println("facebook user id " + FBID);
                 name = jsonObj.getString("name");
                 names = jsonObj.getString("email");
                 gender = jsonObj.getString("gender");
                 imageURL = jsonObjUrl.getString("url");
 
-                System.out.print("Request URL:"+name);
-                System.out.print("Request URL:"+names);
-                System.out.print("Request URL:"+gender);
-                System.out.print("Request URL:"+imageURL);
-                new Handler().postDelayed(new Runnable(){
+                System.out.print("Request URL:" + name);
+                System.out.print("Request URL:" + names);
+                System.out.print("Request URL:" + gender);
+                System.out.print("Request URL:" + imageURL);
+                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-						/* Create an Intent that will start the Menu-Activity. */
+                        /* Create an Intent that will start the Menu-Activity. */
                     }
                 }, SPLASH_DISPLAY_LENGTH);
             }
-            Toast.makeText(getApplicationContext(), ""+gender, 9000).show();
+            Toast.makeText(getApplicationContext(), "" + gender, 9000).show();
 
         } catch (Exception e) {
             Connectiontimeout = true;
@@ -623,16 +484,15 @@ public class Facebook_Activity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         facebook.authorizeCallback(requestCode, resultCode, data);
-        Toast.makeText(getApplicationContext(), ""+gender, 9000).show();
+        Toast.makeText(getApplicationContext(), "" + gender, 9000).show();
     }
 
     /**
      * Get Profile information by making request to Facebook Graph API
-     * */
+     */
 
 
-
-    public void getProfileInformation()  {
+    public void getProfileInformation() {
         mAsyncRunner.request("me", new RequestListener() {
             @Override
             public void onComplete(String response, Object state) {
@@ -686,13 +546,15 @@ public class Facebook_Activity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    class Fblogin extends AsyncTask<String, String, String>
-    {
+    class Fblogin extends AsyncTask<String, String, String> {
         String ordersid;
         ProgressDialog pDialog3;
-        /** * Before starting background thread Show Progress Dialog * */
+        /**
+         * Before starting background thread Show Progress Dialog *
+         */
         boolean failure = false;
         String password;
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -720,7 +582,7 @@ public class Facebook_Activity extends AppCompatActivity {
                 json = jsonParser.makeHttpRequest(ApiConstants.LOGIN, "POST", params);
                 Log.d("Login attempt", json.toString());
                 String suces = json.toString();
-                System.out.println("**********"+suces);
+                System.out.println("**********" + suces);
                 // success tag for json
                 success = json.getInt(TAG_SUCCESS);
                 if (json.optString("success").equalsIgnoreCase("1")) {
@@ -747,19 +609,21 @@ public class Facebook_Activity extends AppCompatActivity {
                             registerInBackground(names);
                         }
                     }
-                    if ((Utility.isValueNullOrEmpty(json.optString("count")))) {
-                        Intent i= new Intent(Facebook_Activity.this,AddAddressFragment.class);
-                        startActivity(i);
-//                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
-                    } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-//                        HomeActivity.updateNavigationDrawer(mParent);
-                        Intent i= new Intent(Facebook_Activity.this,HomeActivity.class);
-                        startActivity(i);
-//                        Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+
+                    if (!(json.optString("cartId").equalsIgnoreCase("0"))) {
+                        if (json.optString("count").equalsIgnoreCase("0")) {
+//                            Intent i = new Intent(Facebook_Activity.this, AddAddressFragment.class);
+//                            startActivity(i);
+                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, Facebook_Activity.this);
+                        } else {
+                            Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+                            i.putExtra("Facebook","Facebook");
+                            startActivity(i);
+//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, Facebook_Activity.this);
+                        }
                     } else {
-                        Intent i= new Intent(Facebook_Activity.this,ReviewOrderFragment.class);
+                        Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
                         startActivity(i);
-//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
                     }
 //                    Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
 //                    startActivity(i);
@@ -814,15 +678,15 @@ public class Facebook_Activity extends AppCompatActivity {
                     toast.show();
                 }
 
-            }
-            catch (JSONException e)
-            {
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
-        /** * Once the background process is done we need to Dismiss the progress dialog asap * **/
+        /**
+         * Once the background process is done we need to Dismiss the progress dialog asap *
+         **/
         protected void onPostExecute(String message) {
             pDialog3.dismiss();
 
@@ -845,8 +709,6 @@ public class Facebook_Activity extends AppCompatActivity {
 
         }
     }
-
-
 
 
     /**
@@ -913,7 +775,7 @@ public class Facebook_Activity extends AppCompatActivity {
 
                 } catch (IOException ex) {
                     msg = "Error :" + ex.getMessage();
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                     // TODO: handle exception
                 }
                 return msg;
@@ -1043,7 +905,7 @@ public class Facebook_Activity extends AppCompatActivity {
             // TODO Auto-generated catch block
             e.printStackTrace();
             // TODO: handle exception
-        }catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             // TODO: handle exception
         }
@@ -1062,7 +924,7 @@ public class Facebook_Activity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
+        Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
