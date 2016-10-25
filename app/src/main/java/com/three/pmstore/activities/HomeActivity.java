@@ -1,8 +1,10 @@
 package com.three.pmstore.activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -61,9 +64,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
-//import com.store.storeapps.fragments.TestimonialsFragment;
-
-
 /**
  * Created by Shankar.
  */
@@ -105,8 +105,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_home);
-
-
         initUI();
         //getIntentData();
     }
@@ -149,7 +147,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         tvSecond = (TextView) findViewById(R.id.txt_time_sec);
         s = (TextView) findViewById(R.id.txt_time_sec_s);
         setTimer();
-
 
     }
 
@@ -518,7 +515,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 //Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
                 break;
-
         }
     }
 
@@ -577,10 +573,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-
             return result;
         }
-
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
@@ -588,8 +582,39 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
+                        int Success = jsonobject.getInt("success");
+                        int update = jsonobject.getInt("update");
+                        String updateMessage = jsonobject.getString("updateMessage");
+                        if (update == 1)
+                        {
+                            final Dialog dialog = new Dialog(HomeActivity.this);
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setContentView(R.layout.successform);
+                            Button button = (Button)dialog.findViewById(R.id.button1);
+                            TextView data = (TextView) dialog.findViewById(R.id.textView1);
+                            data.setText(updateMessage);
+                            dialog.setCancelable(false);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // TODO Auto-generated method stub
+                                    try {
+//                                        ImageView imageViewUpadte = (ImageView)findViewById(R.id.imageViewUpadte);
+//                                        imageViewUpadte.setVisibility(View.VISIBLE);
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + "com.three.pmstore")));
+                                    } catch (android.content.ActivityNotFoundException anfe) {
+                                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + "com.three.pmstore")));
+                                    }
+                                }
+                            });
+                            dialog.show();
+                        }
+                        else
+                        {
+                        if(Success == 1)
+                        {
                         JSONArray products = jsonobject.optJSONArray("tbl_products");
-
+                        System.out.println("responce    "+response);
                         for (int i = 0; i < products.length(); i++) {
                             JSONObject jsonResponse_tag = products.optJSONObject(i);
                             ItemDetails product_itemDetails_getters_setters = new ItemDetails();
@@ -651,6 +676,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         }
 
                         homeScreenNavigation();
+                        }
+                    }
                     }
                     mCustomProgressDialog.dismissProgress();
                 }
