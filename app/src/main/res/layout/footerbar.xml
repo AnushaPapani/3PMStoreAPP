@@ -6,100 +6,118 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/timer_head"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/time_left_caps"
-        android:textColor="@color/titlbar"
-        android:textSize="@dimen/sp_size_sixteen" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_time_hour"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_hour"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_thirty" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_time_hour_h"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_hour_h"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_eighteen" />
+            <TextView
+                android:id="@+id/timer_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="left|bottom"
+                android:paddingRight="20dp"
+                android:text="@string/time_left_caps"
+                android:textColor="@color/titlbar"
+                android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txt_time_hour_h1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text=":"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_eighteen" />
+            <TextView
+                android:id="@+id/txt_time_hour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_hour"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_thirty" />
 
-        <TextView
-            android:id="@+id/txt_time_minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_minutes"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_thirty" />
+            <TextView
+                android:id="@+id/txt_time_hour_h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_hour_h"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_eighteen" />
 
-        <TextView
-            android:id="@+id/txt_time_minutes_m"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_minutes_m"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_eighteen" />
+            <TextView
+                android:id="@+id/txt_time_hour_h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text=":"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_eighteen" />
 
-        <TextView
-            android:id="@+id/txt_time_hour_h2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text=":"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_eighteen" />
+            <TextView
+                android:id="@+id/txt_time_minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_minutes"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_thirty" />
 
-        <TextView
-            android:id="@+id/txt_time_sec"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_sec"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_thirty" />
+            <TextView
+                android:id="@+id/txt_time_minutes_m"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_minutes_m"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_eighteen" />
 
-        <TextView
-            android:id="@+id/txt_time_sec_s"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="bottom"
-            android:text="@string/time_sec_s"
-            android:textColor="@color/titlbar"
-            android:textSize="@dimen/sp_size_eighteen" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txt_time_hour_h2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text=":"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_eighteen" />
+
+            <TextView
+                android:id="@+id/txt_time_sec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_sec"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_thirty" />
+
+            <TextView
+                android:id="@+id/txt_time_sec_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="bottom"
+                android:text="@string/time_sec_s"
+                android:textColor="@color/titlbar"
+                android:textSize="@dimen/sp_size_eighteen" />
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
