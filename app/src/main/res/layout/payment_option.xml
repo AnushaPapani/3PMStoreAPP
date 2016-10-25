@@ -26,13 +26,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:text="Payment Summary"
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="25dp" />
 
                 </RelativeLayout>
@@ -91,14 +92,15 @@
                         android:layout_marginRight="8dp"
                         android:text=" 0"
                         android:textSize="15dp" />
+
                     <TextView
                         android:id="@+id/minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignBaseline="@+id/pmstorecash"
                         android:layout_alignBottom="@+id/pmstorecash"
                         android:layout_toLeftOf="@+id/pmstorecashamount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-"/>
+                        android:text="-" />
 
                     <TextView
                         android:id="@+id/amountpaycash"
@@ -112,7 +114,7 @@
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/amountpay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -120,6 +122,7 @@
                         android:layout_below="@+id/codchargesHead"
                         android:layout_marginTop="10dp"
                         android:text="Amount Payable "
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -145,7 +148,7 @@
                         android:text="  3PMstore Cash "
                         android:textSize="15dp" />
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/currentcash"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -153,9 +156,10 @@
                         android:layout_below="@+id/pmcheck"
                         android:layout_marginTop="10dp"
                         android:text="(Your Current Balance is  \u20B9 "
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="12dp" />
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/codchargesHead"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -163,6 +167,7 @@
                         android:layout_below="@+id/currentcash"
                         android:layout_marginTop="10dp"
                         android:text="COD Charges "
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
@@ -179,13 +184,14 @@
                         android:textSize="15dp"
                         android:visibility="gone" />
 
-                    <TextView
+                    <com.three.pmstore.activities.CustomTextView
                         android:id="@+id/pricetext"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@+id/pmcheck"
                         android:layout_alignParentTop="true"
                         android:text="Total Price "
+                        android:textColor="@color/dark_gray_color"
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
@@ -244,14 +250,14 @@
                         android:id="@+id/confirmorder"
                         android:layout_width="fill_parent"
                         android:layout_height="40dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="10dp"
                         android:layout_below="@+id/amountpay"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/buttonorange"
                         android:orientation="horizontal"
                         android:text="Confirm Order"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
                         android:textColor="@color/grey"
                         android:textSize="18dp" />
 
@@ -276,13 +282,14 @@
                 android:layout_marginTop="5dp"
                 android:background="#ffffff">
 
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView2"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:text="Select Payment Options:"
+                    android:textColor="@color/dark_gray_color"
                     android:textSize="25dp" />
 
                 <View
@@ -313,7 +320,7 @@
                         android:layout_height="35dp"
                         android:background="@drawable/border">
 
-                        <TextView
+                        <com.three.pmstore.activities.CustomTextView
                             android:id="@+id/parentData1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -324,6 +331,7 @@
                             android:gravity="center"
                             android:text="Credit/Debit Card/NetBanking"
                             android:textAlignment="center"
+                            android:textColor="@color/dark_gray_color"
                             android:textSize="16dp" />
 
                         <ImageView
@@ -535,10 +543,9 @@
                         android:layout_height="35dp"
                         android:layout_below="@+id/childexpand4"
                         android:layout_marginTop="@dimen/_10dp"
-                        android:background="@drawable/border"
-                        >
+                        android:background="@drawable/border">
 
-                        <TextView
+                        <com.three.pmstore.activities.CustomTextView
                             android:id="@+id/parentData5"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -549,6 +556,7 @@
                             android:gravity="center"
                             android:text="Cash On Delivery"
                             android:textAlignment="center"
+                            android:textColor="@color/dark_gray_color"
                             android:textSize="16dp" />
 
                         <ImageView
@@ -572,55 +580,57 @@
                         android:layout_below="@+id/expand5"
                         android:background="@drawable/paymentborder"
                         android:visibility="gone">
-                         <TextView
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:text="OTP is send to this number"
-                             android:id="@+id/otpText"
-                             android:layout_centerHorizontal="true"
-                             android:layout_marginTop="@dimen/_5dp"/>
+
+                        <TextView
+                            android:id="@+id/otpText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/_5dp"
+                            android:text="OTP is send to this number" />
+
                         <Button
                             android:id="@+id/sendOTP"
                             android:layout_width="@dimen/_150dp"
                             android:layout_height="40dp"
-                            android:layout_centerHorizontal="true"
                             android:layout_below="@+id/otpText"
-                            android:layout_marginTop="@dimen/_10dp"
+                            android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/buttonorange"
                             android:textAllCaps="false"
                             android:textColor="@color/grey"
-                            android:textSize="16dp"
-                            />
+                            android:textSize="16dp" />
 
                         <Button
                             android:id="@+id/confirmOTP"
                             android:layout_width="@dimen/_150dp"
                             android:layout_height="40dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/otpText"
+                            android:layout_marginEnd="17dp"
+                            android:layout_marginRight="17dp"
+                            android:layout_marginTop="10dp"
                             android:background="@drawable/buttonorange"
+                            android:text="Confirm OTP"
                             android:textAllCaps="false"
                             android:textColor="@color/grey"
                             android:textSize="16dp"
-                            android:text="Confirm OTP"
-                            android:layout_below="@+id/otpText"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginRight="17dp"
-                            android:layout_marginEnd="17dp"
-                            android:layout_marginTop="10dp"
                             android:visibility="gone" />
 
                         <TextView
-                            android:text="Enter OTP"
+                            android:id="@+id/enterOTPtext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:layout_marginStart="12dp"
-                            android:id="@+id/enterOTPtext"
-                            android:layout_below="@+id/otpText"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
-                            android:visibility="gone"/>
+                            android:layout_below="@+id/otpText"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginStart="12dp"
+                            android:text="Enter OTP"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/resend"
                             android:layout_width="wrap_content"
@@ -633,30 +643,31 @@
                             android:textColor="#FF7700"
                             android:textSize="16dp"
                             android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/codTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBaseline="@+id/enterOTPtext"
                             android:layout_alignBottom="@+id/enterOTPtext"
-                            android:gravity="center"
                             android:layout_marginTop="@dimen/_15dp"
+                            android:gravity="center"
                             android:text="COD is currently not available for this PINCODE"
                             android:textAlignment="center"
                             android:textAppearance="?android:attr/textAppearanceMedium"
                             android:visibility="gone" />
 
                         <EditText
+                            android:id="@+id/enterOTP"
                             android:layout_width="fill_parent"
                             android:layout_height="25dp"
-                            android:id="@+id/enterOTP"
-                            android:background="@drawable/adresbg"
+                            android:layout_alignLeft="@+id/enterOTPtext"
+                            android:layout_alignStart="@+id/enterOTPtext"
                             android:layout_below="@+id/enterOTPtext"
                             android:layout_marginRight="@dimen/_20dp"
                             android:layout_toLeftOf="@+id/confirmOTP"
-                            android:layout_alignLeft="@+id/enterOTPtext"
-                            android:layout_alignStart="@+id/enterOTPtext"
-                            android:visibility="gone"/>
+                            android:background="@drawable/adresbg"
+                            android:visibility="gone" />
                     </RelativeLayout>
 
 

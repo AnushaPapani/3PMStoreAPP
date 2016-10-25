@@ -108,7 +108,6 @@ public class AddressAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-
         mAddressItemHolder.imageViewCheck.setTag(position);
         mAddressItemHolder.imageViewCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,6 +116,7 @@ public class AddressAdapter extends BaseAdapter {
                 try {
                     if (mSelectedId.equalsIgnoreCase(addressesModels.get(position).getID())){
                         mSelectedId = "-1";
+
                     } else {
                         mSelectedId = addressesModels.get(position).getID();
                         ReviewOrderFragment.addressId = addressesModels.get(position).getID();
@@ -126,6 +126,7 @@ public class AddressAdapter extends BaseAdapter {
                         ReviewOrderFragment.txt_address_state.setText(addressesModels.get(position).getBstate());
                         ReviewOrderFragment.txt_pin_code.setText(addressesModels.get(position).getBpincode());
                         ReviewOrderFragment.txt_mobile.setText(addressesModels.get(position).getBmobile());
+//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
                         mParent.onBackPressed();
                     }
                 }catch (NullPointerException e){
@@ -149,7 +150,6 @@ public class AddressAdapter extends BaseAdapter {
                 MyAddressFragment.edit_state= addressesModels.get(position).getBstate();
                 MyAddressFragment.edit_pincode= addressesModels.get(position).getBpincode();
                 MyAddressFragment.edit_mobile= addressesModels.get(position).getBmobile();
-
                 Utility.navigateDashBoardFragment(new EditAddressFragment(), EditAddressFragment.TAG, null, mParent);
             }
         });

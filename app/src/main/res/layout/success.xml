@@ -6,8 +6,9 @@
     android:background="#ffffff"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-<include
-    layout="@layout/success_toolbar"/>
+
+    <include
+        layout="@layout/success_toolbar"/>
 
     <WebView
         android:id="@+id/successactivity_main_webview"

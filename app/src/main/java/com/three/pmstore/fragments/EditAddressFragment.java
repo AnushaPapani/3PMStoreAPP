@@ -4,6 +4,7 @@ package com.three.pmstore.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.three.pmstore.R;
 import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.utility.ApiConstants;
+import com.three.pmstore.utility.AppController;
 import com.three.pmstore.utility.Utility;
 
 import org.json.JSONException;
@@ -145,6 +147,13 @@ public class EditAddressFragment extends Fragment {
                 paramsList.put("ecity",getCity);
                 paramsList.put("estate", getState);
                 paramsList.put("epincode", getPincode);
+                AppController global =new AppController();
+                global.setAddressID(MyAddressFragment.addressid2);
+                global.setBmobile(getMobile);
+                global.setBaddress(getAddress1);
+                global.setBcity(getCity);
+                global.setBstate(getState);
+                global.setBpincode(getPincode);
                 result = Utility.httpPostRequestToServer(ApiConstants.UPDATE_ADDRESS, Utility.getParams(paramsList));
             } catch (Exception exception) {
                 exception.printStackTrace();
@@ -162,7 +171,7 @@ public class EditAddressFragment extends Fragment {
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         Bundle bundle = new Bundle();
                         bundle.putString("address_id", "" + addressesModels.get(0).getID());
-                        Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, bundle, getActivity());
+                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, bundle, getActivity());
                         TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
                         t.setText("Address updated Successfully!");
                         toast.setView(toastRoot2);
@@ -241,6 +250,8 @@ public class EditAddressFragment extends Fragment {
         }
         return isValidate;
     }
+
+
 
 
 }
