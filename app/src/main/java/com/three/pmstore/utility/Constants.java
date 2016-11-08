@@ -36,5 +36,17 @@ public class Constants {
     public static final String GCM_REGID = "GCM_REGID";
     public static final String GCM_REGEMAILID = "GCM_REGEMAILID";
     public static final String PROMOCODE = "PROMOCODE";
+    public static final String CARTCOUNT = "CARTCOUNT";
+    public static final String CARTID = "CARTID";
+    public static final String PRICE_PROMO = "PRICE_PROMO";
+    public static final String PROMO_STATUS = "PROMO_STATUS";
+    public static final String PRICE_CODE_TEXT = "PRICE_CODE_TEXT";
+    public static final String PROMO = "PROMO";
+    public static final String PROMOSUCCESS = "PROMOSUCCESS";
+
+    public static final String KEY_FCM_TOKEN = "KEY_FCM_TOKEN";
+    public static final String KEY_TOKEN_RECEIVER = "KEY_TOKEN_RECEIVER";
+    public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
+
 
 }

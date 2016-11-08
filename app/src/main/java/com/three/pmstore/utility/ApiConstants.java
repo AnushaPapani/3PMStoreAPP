@@ -9,8 +9,9 @@ public class ApiConstants {
     /*base URL*/
     public static final String BASE_URL = "http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/";
     public static final String URL_FORMS= "http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/";
+    public static final String GET_ALL_PRODUCTS = BASE_URL + "get_all_products_25Oct2016_2.php";
 
-    public static final String GET_ALL_PRODUCTS = BASE_URL + "get_all_products.php";
+//    public static final String GET_ALL_PRODUCTS = BASE_URL + "get_all_prods_new.php";
     public static final String INSERT_CHECK_PRODUCTS = BASE_URL + "insert_check_products.php";
     public static final String CHECKOUT_NEW = BASE_URL + "checkout_new.php";
     public static final String DELETE_FROM_CART = BASE_URL + "DeleteFromCart.php";
@@ -40,4 +41,6 @@ public class ApiConstants {
     public static final String FORGOT_PASSWORD =BASE_URL +"forgotpassword.php";
     public static final String COD_SUCCESS =BASE_URL +"3pminvoicetoemail/cod.php";
     public static final String HURRAY_NOTIFICATION =BASE_URL +"3pminvoicetoemail/hurray.php";
+    public static final String DYNAMIC_PROMOCODE =BASE_URL +"promocodeData.php";
+
 }

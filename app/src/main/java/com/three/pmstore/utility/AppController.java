@@ -19,6 +19,8 @@ public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
 
+    String Cart_Value;
+
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     LruBitmapCache mLruBitmapCache;
@@ -88,6 +90,14 @@ public class AppController extends Application {
     List<String> img = new LinkedList<String>();
     List<String> Tcity = new LinkedList<String>();
     List<String> Tprofession = new LinkedList<String>();
+
+    public String getCart_Value() {
+        return Cart_Value;
+    }
+
+    public void setCart_Value(String cart_Value) {
+        Cart_Value = cart_Value;
+    }
 
     public String getPromoType() {
         return PromoType;
