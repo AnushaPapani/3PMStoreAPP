@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * Created by shankar on 10/1/2016.
  */
 
-public class ReviewOrderModel_Before_Login {
+public class ReviewOrderModel_Before_Login extends ReviewOrderModel {
 
     private int Max_Quantity;
     private String P_ID;
