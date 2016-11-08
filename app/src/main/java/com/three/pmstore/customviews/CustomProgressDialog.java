@@ -41,6 +41,7 @@ public class CustomProgressDialog {
 			mTxtMessage.setText(""+message);
 		}
 
+
 		if(mDialog != null) {
 			mDialog.show();
 		}
