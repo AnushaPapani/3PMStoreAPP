@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="#E4E4E4"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <com.three.pmstore.activities.CustomTextView
         android:id="@+id/textView1"
@@ -17,16 +17,47 @@
         android:textSize="25dp" />
 
     <RelativeLayout
+        android:id="@+id/orderbg"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@drawable/orderborder">
+
+        <com.three.pmstore.activities.BoldCustomTextView
+            android:id="@+id/ordername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="2dp"
+            android:text="ORDER -"
+            android:textColor="#414141"
+            android:textSize="18dp" />
+
+        <com.three.pmstore.activities.BoldCustomTextView
+            android:id="@+id/order_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/ordername"
+            android:text="ORDER ID"
+            android:textColor="#414141"
+            android:textSize="18dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/textView1"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/border"
-        android:orientation="vertical"
-        android:id="@+id/relativeLayout">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/orderlayout"
@@ -35,10 +66,11 @@
             android:layout_alignLeft="@+id/primaryMobile"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/primaryMobile"
-            android:layout_marginTop="5dp" >
+            android:layout_marginTop="5dp"
+            android:visibility="gone">
 
             <com.three.pmstore.activities.CustomTextView
-                android:id="@+id/ordername"
+                android:id="@+id/ordernames"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -53,9 +85,10 @@
                 android:layout_alignBaseline="@+id/order"
                 android:layout_alignBottom="@+id/order"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
                 android:layout_marginLeft="2dp"
-                android:text="Total" />
+                android:layout_marginRight="16dp"
+                android:text="Total"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/rupee1"
@@ -63,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/total"
-                android:text="@string/rs" />
+                android:text="@string/rs"
+                android:visibility="invisible" />
 
             <View
                 android:id="@+id/view"
@@ -77,9 +111,9 @@
                 android:id="@+id/order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/ordername"
-                android:layout_alignBottom="@+id/ordername"
-                android:layout_toRightOf="@+id/ordername"
+                android:layout_alignBaseline="@+id/ordernames"
+                android:layout_alignBottom="@+id/ordernames"
+                android:layout_toRightOf="@+id/ordernames"
                 android:text="Order ID"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -110,7 +144,8 @@
             android:ems="10"
             android:paddingLeft="3dp"
             android:paddingRight="3dp"
-            android:paddingTop="10dp" >
+            android:paddingTop="10dp">
+
         </EditText>
 
         <Button
@@ -119,9 +154,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/secondaryText"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/buttonorange"
             android:gravity="center"
             android:orientation="horizontal"
@@ -150,36 +185,36 @@
             android:visibility="gone" />
 
         <com.three.pmstore.activities.CustomTextView
-            android:text="Your Primary Phone"
+            android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/orderlayout"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="13dp"
             android:layout_marginTop="8dp"
-            android:id="@+id/textView23" />
+            android:text="Your Primary Phone" />
 
         <com.three.pmstore.activities.CustomTextView
-            android:text="Provide Alternate Phone"
+            android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/primaryText"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="11dp"
-            android:id="@+id/textView25" />
+            android:layout_marginTop="10dp"
+            android:text="Provide Alternate Phone" />
 
         <!--<TextView-->
-            <!--android:text="Provide Alternate Number"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:layout_marginRight="14dp"-->
-            <!--android:layout_marginEnd="14dp"-->
-            <!--android:layout_marginTop="18dp"-->
-            <!--android:visibility="gone"-->
-            <!--android:id="@+id/textView26" />-->
+        <!--android:text="Provide Alternate Number"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginRight="14dp"-->
+        <!--android:layout_marginEnd="14dp"-->
+        <!--android:layout_marginTop="18dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/textView26" />-->
     </RelativeLayout>
 
 </RelativeLayout>

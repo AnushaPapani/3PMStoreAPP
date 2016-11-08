@@ -53,6 +53,7 @@
                 android:layout_alignBaseline="@+id/order"
                 android:layout_alignBottom="@+id/order"
                 android:layout_alignParentRight="true"
+                android:visibility="invisible"
                 android:layout_marginRight="16dp"
                 android:text="Total" />
 
@@ -62,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@+id/total"
+                android:visibility="invisible"
                 android:text="@string/rs" />
 
             <TextView

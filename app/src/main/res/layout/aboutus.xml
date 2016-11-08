@@ -1,63 +1,22 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" />
 
-    <RelativeLayout
-        android:id="@+id/aboutuslayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/aboutustext"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="30dp" >
+    <!--<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:visibility="gone"--><!--android:layout_height="match_parent">--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="#FFF"--><!--android:orientation="vertical">-->
 
-        <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/aboutus1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="3PMstore is a unique concept founded in 2015 over an overload of pizzas! It promotes a sense of curiosity amongst large audiences to indulge in a range of mysterious shopping! "
-            android:textSize="15dp" />
-    </RelativeLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/aboutuslayout1"--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_below="@+id/aboutustext"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginTop="30dp" >-->
 
-    <RelativeLayout
-        android:id="@+id/aboutuslayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/aboutuslayout1"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="12dp" >
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/aboutus1"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentTop="true"--><!--android:text="3PMstore is a unique concept founded in 2015 over an overload of pizzas! It promotes a sense of curiosity amongst large audiences to indulge in a range of mysterious shopping! "--><!--android:textSize="15dp" />--><!--</RelativeLayout>-->
 
-        <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/aboutus2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="You can call quits on your boring / lazy afternoons and count on 3PMstore to surprise you with some mysterious products. All you have to do is log on to 3PMstore.com @3PM and experience the quickest shopping experience. We promise to keep you curious and thrilled for life! :D"
-            android:textSize="15dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-    </RelativeLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/aboutuslayout2"--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_below="@+id/aboutuslayout1"--><!--android:layout_centerVertical="true"--><!--android:layout_marginTop="12dp" >-->
+
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/aboutus2"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="You can call quits on your boring / lazy afternoons and count on 3PMstore to surprise you with some mysterious products. All you have to do is log on to 3PMstore.com @3PM and experience the quickest shopping experience. We promise to keep you curious and thrilled for life! :D"--><!--android:textSize="15dp"--><!--android:layout_marginEnd="12dp"--><!--android:layout_marginStart="12dp"--><!--android:layout_alignParentTop="true"--><!--android:layout_centerHorizontal="true" />--><!--</RelativeLayout>-->
 
 
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/aboutustext"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentTop="true"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginTop="10dp"--><!--android:gravity="center_horizontal"--><!--android:text="About Us"--><!--android:textSize="25dp" />-->
 
-    <com.three.pmstore.activities.CustomTextView
-        android:id="@+id/aboutustext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="About Us"
-        android:textSize="25dp" />
+    <!--</RelativeLayout>-->
 
-</RelativeLayout>
-
-</android.support.v4.widget.NestedScrollView>
+    <!--</android.support.v4.widget.NestedScrollView>-->

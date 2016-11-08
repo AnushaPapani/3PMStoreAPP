@@ -16,11 +16,18 @@
                 layout="@layout/toolbar" />
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/img_banner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_below="@+id/container_toolbar"
+            android:visibility="gone"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/ll_layout_footer"
-            android:layout_below="@+id/container_toolbar">
+            android:layout_below="@+id/img_banner">
 
             <FrameLayout
                 android:id="@+id/content_frame"

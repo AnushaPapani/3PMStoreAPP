@@ -1,75 +1,28 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFF"
-    android:orientation="vertical" >
+<?xml version="1.0" encoding="utf-8"?>
+<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webView1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" />
 
-    <RelativeLayout
-        android:id="@+id/deliveryLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/deliverytext"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp" >
 
-        <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/deliverytexts1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All Products can be sent to you, directly to the recipient address."
-            android:textSize="15dp" />
-    </RelativeLayout>
+    <!--<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:visibility="gone"--><!--android:layout_height="match_parent">-->
 
-    <RelativeLayout
-        android:id="@+id/deliveryLayout3"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/deliveryLayout2"
-        android:layout_marginTop="12dp" >
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="fill_parent"--><!--android:background="#FFF"--><!--android:visibility="gone"--><!--android:orientation="vertical">-->
 
-        <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/deliverytexts3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:text="There are no guarantees for courier shipments - we try and deliver to you as required however in various conditions beyond our control there could be delays. Standard delivery is 5-9 days, we follow the principle of Under promise and over deliver in terms of smiles."
-            android:textSize="15dp" />
-    </RelativeLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/deliveryLayout1"--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_below="@+id/deliverytext"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginTop="20dp">-->
 
-    <RelativeLayout
-        android:id="@+id/deliveryLayout2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/deliveryLayout1"
-        android:layout_marginTop="16dp" >
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/deliverytexts1"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:visibility="gone"--><!--android:text="All Products can be sent to you, directly to the recipient address."--><!--android:textSize="15dp" />--><!--</RelativeLayout>-->
 
-        <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/deliverytexts2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:text="Please ensure the correct delivery address with phone number in your order. We are not responsible for any delays or non-delivery that results from incorrect addresses, or in case premises are locked."
-            android:textSize="15dp" />
-    </RelativeLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/deliveryLayout3"--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_below="@+id/deliveryLayout2"--><!--android:layout_marginTop="12dp">-->
 
-    <com.three.pmstore.activities.CustomTextView
-        android:id="@+id/deliverytext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:text="Delivery"
-        android:textSize="25dp" />
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/deliverytexts3"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginEnd="12dp"--><!--android:layout_marginStart="12dp"--><!--android:visibility="gone"--><!--android:text="There are no guarantees for courier shipments - we try and deliver to you as required however in various conditions beyond our control there could be delays. Standard delivery is 5-9 days, we follow the principle of Under promise and over deliver in terms of smiles."--><!--android:textSize="15dp" />--><!--</RelativeLayout>-->
 
-</RelativeLayout>
+    <!--<RelativeLayout--><!--android:id="@+id/deliveryLayout2"--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_below="@+id/deliveryLayout1"--><!--android:layout_marginTop="16dp">-->
 
-</android.support.v4.widget.NestedScrollView>
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/deliverytexts2"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_marginEnd="12dp"--><!--android:layout_marginStart="12dp"--><!--android:visibility="gone"--><!--android:text="Please ensure the correct delivery address with phone number in your order. We are not responsible for any delays or non-delivery that results from incorrect addresses, or in case premises are locked."--><!--android:textSize="15dp" />--><!--</RelativeLayout>-->
+
+    <!--<com.three.pmstore.activities.CustomTextView--><!--android:id="@+id/deliverytext"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentTop="true"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginTop="10dp"--><!--android:text="Delivery"--><!--android:textSize="25dp" />-->
+
+    <!--</RelativeLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->

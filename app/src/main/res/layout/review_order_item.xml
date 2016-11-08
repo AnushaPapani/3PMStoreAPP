@@ -6,8 +6,10 @@
         android:id="@+id/rr_list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_5dp"
-        android:background="#f0f0f0">
+        android:background="#f0f0f0"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:id="@+id/linear_img"
@@ -56,19 +58,6 @@
             android:src="@drawable/cancel" />
 
         <TextView
-            android:id="@+id/rupee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/txt_unitPrice"
-            android:layout_alignBottom="@+id/txt_unitPrice"
-            android:layout_toEndOf="@+id/txt_unitPrice"
-            android:layout_toRightOf="@+id/txt_unitPrice"
-            android:layout_marginLeft="5dp"
-            android:text="\u20B9"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/txt_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,31 +68,6 @@
             android:text="200"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_price_two"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/txt_price"
-            android:layout_alignStart="@+id/txt_price"
-            android:layout_alignTop="@+id/rupee2"
-            android:text="200"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/rupee2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/rupee"
-            android:layout_toEndOf="@+id/txt_unitPrice"
-            android:layout_toRightOf="@+id/txt_unitPrice"
-            android:layout_marginLeft="5dp"
-            android:text="\u20B9"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -141,18 +105,6 @@
         </RelativeLayout>
 
         <com.three.pmstore.activities.CustomTextView
-            android:id="@+id/txt_unitPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/_20dp"
-            android:text="Unit Price"
-            android:textSize="15sp"
-            android:textColor="#3f3f3f"
-            android:layout_below="@+id/rela"
-            android:layout_toRightOf="@+id/linear_img"
-            android:layout_toEndOf="@+id/linear_img" />
-
-        <com.three.pmstore.activities.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Qty :"
@@ -162,7 +114,7 @@
             android:layout_toRightOf="@+id/linear_img"
             android:paddingLeft="@dimen/_20dp"
             android:layout_below="@+id/txt_product_name"
-             />
+            />
 
         <com.three.pmstore.activities.CustomTextView
             android:id="@+id/txt_subtotal"
@@ -175,6 +127,187 @@
             android:layout_below="@+id/txt_unitPrice"
             android:layout_toRightOf="@+id/linear_img"
             android:layout_toEndOf="@+id/linear_img" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attributes"
+            android:layout_below="@+id/rela"
+            android:layout_toRightOf="@+id/linear_img"
+            android:paddingLeft="@dimen/_20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true">
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorQuote"
+                android:layout_toRightOf="@+id/colorHead"
+                android:layout_toEndOf="@+id/colorHead"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="colorValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorValue"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/colorQuote"
+                android:layout_toEndOf="@+id/colorQuote"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeHead"
+                android:layout_below="@+id/colorHead"
+                android:layout_alignLeft="@+id/colorHead"
+                android:layout_alignStart="@+id/colorHead"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Custom  :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CustomHead"
+                android:layout_below="@+id/sizeValue"
+                android:layout_alignLeft="@+id/sizeHead"
+                android:layout_alignStart="@+id/sizeHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="CutomValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customValue"
+                android:layout_below="@+id/sizeValue"
+                android:layout_toRightOf="@+id/CustomHead"
+                android:layout_toEndOf="@+id/CustomHead"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderHead"
+                android:layout_below="@+id/customValue"
+                android:layout_alignLeft="@+id/CustomHead"
+                android:layout_alignStart="@+id/CustomHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderQuote"
+                android:layout_below="@+id/CustomHead"
+                android:layout_toEndOf="@+id/genderHead"
+                android:layout_toRightOf="@+id/genderHead"
+                android:layout_marginLeft="@dimen/_8dp"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="genderValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderValue"
+                android:layout_below="@+id/customValue"
+                android:layout_toRightOf="@+id/genderHead"
+                android:layout_toEndOf="@+id/genderHead"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeQuote"
+                android:textColor="#3f3f3f"
+                android:layout_alignBaseline="@+id/sizeHead"
+                android:layout_alignBottom="@+id/sizeHead"
+                android:layout_toEndOf="@+id/sizeHead"
+                android:layout_alignLeft="@+id/colorQuote"
+                android:layout_alignStart="@+id/colorQuote" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="SizeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeValue"
+                android:textColor="#3f3f3f"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/colorValue"
+                android:layout_toRightOf="@+id/sizeQuote"
+                android:layout_toEndOf="@+id/sizeQuote" />
+
+
+        </RelativeLayout>
+
+        <com.three.pmstore.activities.CustomTextView
+            android:id="@+id/txt_unitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Unit Price"
+            android:textSize="15sp"
+            android:textColor="#3f3f3f"
+            android:layout_below="@+id/attributes"
+            android:layout_alignRight="@+id/rela"
+            android:layout_alignEnd="@+id/rela"
+            android:layout_marginRight="11dp"
+            android:layout_marginEnd="11dp" />
+
+        <TextView
+            android:id="@+id/rupee2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/txt_subtotal"
+            android:layout_alignRight="@+id/rela"
+            android:layout_alignEnd="@+id/rela" />
+
+        <TextView
+            android:id="@+id/rupee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/txt_unitPrice"
+            android:layout_alignBottom="@+id/txt_unitPrice"
+            android:layout_alignLeft="@+id/rupee2"
+            android:layout_alignStart="@+id/rupee2" />
+
+        <TextView
+            android:id="@+id/txt_price_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/rupee2"
+            android:layout_alignBottom="@+id/rupee2"
+            android:layout_alignLeft="@+id/txt_price"
+            android:layout_alignStart="@+id/txt_price" />
+
 
     </RelativeLayout>
 </RelativeLayout>
