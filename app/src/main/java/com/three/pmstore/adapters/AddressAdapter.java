@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.three.pmstore.R;
 import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
+import com.three.pmstore.fragments.AddAddressFragment;
 import com.three.pmstore.fragments.EditAddressFragment;
 import com.three.pmstore.fragments.MyAddressFragment;
 import com.three.pmstore.fragments.ReviewOrderFragment;
@@ -219,12 +220,20 @@ public class AddressAdapter extends BaseAdapter {
                         addressesModels.remove(position);
                         MyAddressFragment.addressesModels.remove(position);
                         notifyDataSetChanged();
+                        if (MyAddressFragment.addressesModels.equals("") || (MyAddressFragment.addressesModels.equals("0"))){
+                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+                        }
+                    }else {
+
                     }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
                 e.printStackTrace();
             } catch (NullPointerException e) {
+                e.printStackTrace();
+            } catch (IndexOutOfBoundsException e){
+//                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
                 e.printStackTrace();
             }
         }

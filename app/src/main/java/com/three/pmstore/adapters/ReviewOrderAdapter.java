@@ -82,6 +82,19 @@ public class ReviewOrderAdapter extends BaseAdapter {
             mReviewOrderItemHolder.txt_price_two = (TextView) convertView.findViewById(R.id.txt_price_two);
             mReviewOrderItemHolder.img_remove = (ImageView) convertView.findViewById(R.id.img_remove);
 
+            mReviewOrderItemHolder.colorValue = (TextView) convertView.findViewById(R.id.colorValue);
+            mReviewOrderItemHolder.customValue = (TextView) convertView.findViewById(R.id.customValue);
+            mReviewOrderItemHolder.sizeValue = (TextView) convertView.findViewById(R.id.sizeValue);
+            mReviewOrderItemHolder.genderValue = (TextView) convertView.findViewById(R.id.genderValue);
+
+            mReviewOrderItemHolder.colorHead = (TextView) convertView.findViewById(R.id.colorHead);
+            mReviewOrderItemHolder.customHead = (TextView) convertView.findViewById(R.id.CustomHead);
+            mReviewOrderItemHolder.sizeHead = (TextView) convertView.findViewById(R.id.sizeHead);
+            mReviewOrderItemHolder.genderHead = (TextView) convertView.findViewById(R.id.genderHead);
+            mReviewOrderItemHolder.colorQuote = (TextView) convertView.findViewById(R.id.colorQuote);
+            mReviewOrderItemHolder.genderQuote = (TextView) convertView.findViewById(R.id.genderQuote);
+            mReviewOrderItemHolder.sizeQuote = (TextView) convertView.findViewById(R.id.sizeQuote);
+
             convertView.setTag(mReviewOrderItemHolder);
         } else {
             mReviewOrderItemHolder = (ReviewOrderItemHolder) convertView.getTag();
@@ -104,6 +117,62 @@ public class ReviewOrderAdapter extends BaseAdapter {
         mReviewOrderItemHolder.spin_qty.setAdapter(spinnerArrayAdapter);
         mReviewOrderItemHolder.spin_qty.setSelection(reviewOrderModel.getP_Qty() - 1);
         mReviewOrderItemHolder.txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+
+        ArrayList<String> attributeType = reviewOrderModel.getAttribute_Type();
+        ArrayList<String> attributeValue = reviewOrderModel.getAttribute_Value();
+        System.out.println("attributeType   " + attributeType + "     " + attributeValue);
+        mReviewOrderItemHolder.sizeHead.setVisibility(View.GONE);
+        mReviewOrderItemHolder.sizeValue.setVisibility(View.GONE);
+
+        mReviewOrderItemHolder.colorHead.setVisibility(View.GONE);
+        mReviewOrderItemHolder.colorValue.setVisibility(View.GONE);
+
+        mReviewOrderItemHolder.genderHead.setVisibility(View.GONE);
+        mReviewOrderItemHolder.genderValue.setVisibility(View.GONE);
+
+        mReviewOrderItemHolder.customHead.setVisibility(View.GONE);
+        mReviewOrderItemHolder.customValue.setVisibility(View.GONE);
+
+        mReviewOrderItemHolder.colorQuote.setVisibility(View.GONE);
+        mReviewOrderItemHolder.genderQuote.setVisibility(View.GONE);
+        mReviewOrderItemHolder.sizeQuote.setVisibility(View.GONE);
+
+        if (attributeType != null && attributeType.size() > 0) {
+            System.out.println(attributeType + "     " + attributeValue);
+            for (int attrCount = 0; attrCount < attributeType.size(); attrCount++) {
+                if (attributeType.get(attrCount).equalsIgnoreCase("Size")) {
+                    mReviewOrderItemHolder.sizeHead.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.sizeValue.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.sizeQuote.setVisibility(View.VISIBLE);
+                    String s = attributeValue.get(attrCount);
+                    String upToNCharacters = s.substring(0, Math.min(s.length(), 14));
+                    mReviewOrderItemHolder.sizeValue.setText(upToNCharacters + "....");
+                    //                    mReviewOrderItemHolder.sizeValue.setText(attributeValue.get(attrCount));
+                }
+                if (attributeType.get(attrCount).equalsIgnoreCase("Color")) {
+                    mReviewOrderItemHolder.colorHead.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.colorValue.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.colorQuote.setVisibility(View.VISIBLE);
+
+                    System.out.println("color value" + attributeValue.get(attrCount));
+                    mReviewOrderItemHolder.colorValue.setText(attributeValue.get(attrCount));
+                }
+                if (attributeType.get(attrCount).equalsIgnoreCase("Gender")) {
+                    mReviewOrderItemHolder.genderHead.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.genderValue.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.genderQuote.setVisibility(View.VISIBLE);
+
+                    mReviewOrderItemHolder.genderValue.setText(attributeValue.get(attrCount));
+                }
+                if (attributeType.get(attrCount).equalsIgnoreCase("Custom")) {
+                    System.out.println("Custom value" + attributeValue.get(attrCount));
+                    mReviewOrderItemHolder.customHead.setVisibility(View.VISIBLE);
+                    mReviewOrderItemHolder.customValue.setVisibility(View.VISIBLE);
+
+                    mReviewOrderItemHolder.customValue.setText(attributeValue.get(attrCount));
+                }
+            }
+        }
         mReviewOrderItemHolder.spin_qty.setTag(position);
         mReviewOrderItemHolder.spin_qty.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -132,13 +201,10 @@ public class ReviewOrderAdapter extends BaseAdapter {
             }
         });
 
-        if(ReviewOrderFragment.isPromoCodeApplied)
-        {
+        if (ReviewOrderFragment.isPromoCodeApplied) {
             mReviewOrderItemHolder.spin_qty.setEnabled(false);
             mReviewOrderItemHolder.img_remove.setEnabled(false);
-        }
-        else
-        {
+        } else {
             mReviewOrderItemHolder.spin_qty.setEnabled(true);
             mReviewOrderItemHolder.img_remove.setEnabled(true);
         }
@@ -176,6 +242,10 @@ public class ReviewOrderAdapter extends BaseAdapter {
         private TextView txt_subtotal;
         private TextView txt_price_two;
         private ImageView img_remove;
+        private TextView colorValue, colorHead;
+        private TextView customValue, customHead, colorQuote;
+        private TextView sizeValue, sizeHead, sizeQuote;
+        private TextView genderValue, genderHead, genderQuote;
     }
 
     class DeleteCartAsyncTask extends AsyncTask<String, String, String> {
@@ -229,12 +299,25 @@ public class ReviewOrderAdapter extends BaseAdapter {
                         Utility.showToastMessage(mContext, "Successfully Deleted");
                         ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
                         HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
-                        String cartvalue =jsonobject.optString("cartCount");
+//                        String cartcount = Utility.getSharedPrefStringData(mContext, Constants.CARTCOUNT).toString();
+                        Utility.setSharedPrefStringData(mContext, Constants.CARTCOUNT, jsonobject.optString("cartCount"));
                         mReviewOrderModels.remove(position);
-                        if (!Utility.isValueNullOrEmpty(jsonobject.optString("cartCount"))) {
-                            HomeActivity.cart_layout_button_set_text.setText(cartvalue);
+                        String cartcount = jsonobject.getString("cartCount");
+                        if (!cartcount.equals("0")) {
+                            Utility.setSharedPrefStringData(mContext, Constants.CARTCOUNT, jsonobject.getString("cartCount"));
+                            HomeActivity.cart_layout_button_set_text.setText(Utility.getSharedPrefStringData(mContext, Constants.CARTCOUNT));
 //                            Utility.setSharedPrefStringData(Constants.CARTVALUE,jsonobject.optString("cartCount"));
+                        } else if (cartcount.equals("0")) {
+                            Utility.setSharedPrefStringData(mContext, Constants.CARTCOUNT, "0");
+                            HomeActivity.cart_layout_button_set_text.setText("" + Utility.getSharedPrefStringData(mContext, Constants.CARTCOUNT));
+//                            HomeActivity.cart_layout_button_set_text.setText("0");
+                            ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
+                            ReviewOrderFragment.Grand_total.setText("0");
+                            ReviewOrderFragment.proceedtopay.setEnabled(false);
+                            ReviewOrderFragment.proceedtopay.setText("Oops Cart Empty");
                         } else {
+                            Utility.setSharedPrefStringData(mContext, Constants.CARTCOUNT, "0");
+                            HomeActivity.cart_layout_button_set_text.setText("" + Utility.getSharedPrefStringData(mContext, Constants.CARTCOUNT));
                             HomeActivity.cart_layout_button_set_text.setText("0");
                             ReviewOrderFragment.listView_selected_orders.setAdapter(new NoOrderFoundAdapter(homeActivity));
                             ReviewOrderFragment.Grand_total.setText("0");
@@ -310,10 +393,12 @@ public class ReviewOrderAdapter extends BaseAdapter {
                         for (int i = 0; i < mReviewOrderModels.size(); i++) {
                             ReviewOrderFragment.total_cartvalue = jsonobject.getString("cartValue");
                             ReviewOrderFragment.Grand_total.setText(jsonobject.getString("cartValue"));
-                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))){
+                            if (mReviewOrderModels.get(i).getCart_Prod_ID().equalsIgnoreCase(jsonobject.optString("CartProdId"))) {
                                 ReviewOrderModel reviewOrderModel = mReviewOrderModels.get(i);
                                 reviewOrderModel.setP_Qty(jsonobject.optInt("quantity"));
                                 HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
+                                Utility.setSharedPrefStringData(mContext, Constants.CARTCOUNT, jsonobject.getString("cartCount"));
+                                HomeActivity.cart_layout_button_set_text.setText("" + Utility.getSharedPrefStringData(mContext, Constants.CARTCOUNT));
                                 ReviewOrderFragment.Grand_total.setText(String.valueOf(HomeActivity.mCartTotal));
                                 mReviewOrderModels.set(i, reviewOrderModel);
                                 ReviewOrderFragment.reviewOrderModels.set(i, reviewOrderModel);
