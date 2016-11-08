@@ -19,9 +19,7 @@
     <permission
         android:name="com.store.pmstore.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
+
 
     <uses-permission android:name="com.store.storeapps.permission.C2D_MESSAGE" />
 
@@ -56,6 +54,23 @@
             android:name="com.three.pmstore.activities.NoPrevious"
             android:screenOrientation="portrait">
 
+        </activity>
+        <activity
+            android:name="com.three.pmstore.activities.VideoActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.three.pmstore.activities.GooglePlus_Activity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
         </activity>
         <activity
             android:name="com.three.pmstore.activities.Previous_ProductsActivity"
