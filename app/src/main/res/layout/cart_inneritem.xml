@@ -1,0 +1,326 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rr_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f0f0f0"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:id="@+id/linear_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_order"
+                android:layout_width="140dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:paddingBottom="@dimen/_10dp"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp"
+                android:paddingTop="@dimen/_10dp"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
+
+        <com.three.pmstore.activities.CustomTextView
+            android:id="@+id/txt_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/_20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/linear_img"
+            android:paddingLeft="@dimen/_20dp"
+            android:text="Blade Bottel Opener"
+            android:textColor="#3f3f3f"
+            android:textSize="@dimen/sp_size_eighteen"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_remove"
+            android:layout_width="@dimen/_25dp"
+            android:layout_height="@dimen/_25dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:src="@drawable/cancel"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/rela"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/qty_heading"
+            android:layout_below="@+id/txt_product_name"
+            android:background="@drawable/spinner_borders"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spin_qty"
+                android:layout_width="40dp"
+                android:layout_height="1dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="1dp"
+                android:background="@null"
+                android:dropDownVerticalOffset="-5dp"
+                android:prompt="@string/prompt"
+                android:spinnerMode="dropdown"
+                />
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@+id/spin_qty"
+                android:layout_toStartOf="@+id/spin_qty"
+                android:src="@drawable/arow">
+
+            </ImageView>
+        </RelativeLayout>
+
+        <com.three.pmstore.activities.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Qty          :"
+            android:layout_marginTop="5dp"
+            android:id="@+id/qty_heading"
+            android:textColor="#3f3f3f"
+            android:layout_toRightOf="@+id/linear_img"
+            android:paddingLeft="@dimen/_20dp"
+            android:layout_below="@+id/txt_product_name"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/attributes"
+            android:layout_below="@+id/qty_heading"
+            android:layout_toRightOf="@+id/linear_img"
+            android:paddingLeft="@dimen/_20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            >
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorQuote"
+                android:layout_toRightOf="@+id/colorHead"
+                android:layout_toEndOf="@+id/colorHead"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="colorValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorValue"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/colorQuote"
+                android:layout_toEndOf="@+id/colorQuote"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeHead"
+                android:layout_below="@+id/colorHead"
+                android:layout_alignLeft="@+id/colorHead"
+                android:layout_alignStart="@+id/colorHead"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Custom  :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/CustomHead"
+                android:layout_below="@+id/sizeValue"
+                android:layout_alignLeft="@+id/sizeHead"
+                android:layout_alignStart="@+id/sizeHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="CutomValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customValue"
+                android:layout_below="@+id/sizeValue"
+                android:layout_toRightOf="@+id/CustomHead"
+                android:layout_toEndOf="@+id/CustomHead"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="Gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderHead"
+                android:layout_below="@+id/customValue"
+                android:layout_alignLeft="@+id/CustomHead"
+                android:layout_alignStart="@+id/CustomHead"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderQuote"
+                android:layout_below="@+id/CustomHead"
+                android:layout_toEndOf="@+id/genderHead"
+                android:layout_toRightOf="@+id/genderHead"
+                android:layout_marginLeft="@dimen/_8dp"
+                android:textColor="#3f3f3f"
+                />
+            <com.three.pmstore.activities.CustomTextView
+                android:text="genderValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderValue"
+                android:layout_below="@+id/customValue"
+                android:layout_toRightOf="@+id/genderHead"
+                android:layout_toEndOf="@+id/genderHead"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:textColor="#3f3f3f"
+                />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text=":"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeQuote"
+                android:textColor="#3f3f3f"
+                android:layout_alignBaseline="@+id/sizeHead"
+                android:layout_alignBottom="@+id/sizeHead"
+                android:layout_toEndOf="@+id/sizeHead"
+                android:layout_alignLeft="@+id/colorQuote"
+                android:layout_alignStart="@+id/colorQuote" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:text="SizeValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sizeValue"
+                android:textColor="#3f3f3f"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/colorValue"
+                android:layout_toRightOf="@+id/sizeQuote"
+                android:layout_toEndOf="@+id/sizeQuote" />
+
+
+        </RelativeLayout>
+
+        <com.three.pmstore.activities.CustomTextView
+            android:id="@+id/txt_unitPrice"
+            android:text="UnitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/attributes"
+            android:layout_toRightOf="@+id/linear_img"
+            android:layout_toEndOf="@+id/linear_img"
+            android:layout_marginLeft="21dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="@dimen/_3dp"
+            android:textColor="#3f3f3f"/>
+
+        <TextView
+            android:id="@+id/rupee2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_below="@+id/attributes"
+            android:layout_toRightOf="@+id/txt_unitPrice"
+            android:layout_toEndOf="@+id/txt_unitPrice"
+            android:layout_marginTop="@dimen/_2dp"
+            android:layout_marginLeft="@dimen/_5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/attributes"
+            android:layout_toRightOf="@+id/rupee2"
+            android:layout_toEndOf="@+id/rupee2"
+            android:id="@+id/txt_price"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_2dp"
+            android:layout_marginLeft="@dimen/_2dp"/>
+        <com.three.pmstore.activities.CustomTextView
+            android:id="@+id/txt_subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_20dp"
+            android:text="Subtotal"
+            android:textColor="#3f3f3f"
+            android:layout_below="@+id/txt_unitPrice"
+            android:layout_toRightOf="@+id/linear_img"
+            android:layout_toEndOf="@+id/linear_img"/>
+        <TextView
+            android:id="@+id/rupee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/txt_subtotal"
+            android:layout_alignBottom="@+id/txt_subtotal"
+            android:layout_alignLeft="@+id/rupee2"
+            android:layout_alignStart="@+id/rupee2" />
+        <TextView
+            android:id="@+id/txt_price_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_alignBaseline="@+id/rupee"
+            android:layout_alignBottom="@+id/rupee"
+
+            android:layout_toRightOf="@+id/rupee"
+            android:layout_toEndOf="@+id/rupee"
+            android:layout_marginLeft="@dimen/_2dp"/>
+
+        <com.three.pmstore.activities.CustomTextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:id="@+id/txt_qty"
+            android:textColor="#3f3f3f"
+            android:layout_alignTop="@+id/qty_heading"
+            android:layout_toRightOf="@+id/qty_heading"
+            android:layout_toEndOf="@+id/qty_heading" />
+
+    </RelativeLayout>
+</RelativeLayout>
