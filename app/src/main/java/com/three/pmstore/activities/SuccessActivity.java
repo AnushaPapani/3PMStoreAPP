@@ -1,22 +1,19 @@
 package com.three.pmstore.activities;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +26,8 @@ import com.loopj.android.http.RequestParams;
 import com.three.pmstore.R;
 import com.three.pmstore.fragments.PaymentOptionNewFrgament;
 import com.three.pmstore.fragments.ReviewOrderFragment;
+import com.three.pmstore.utility.Constants;
+import com.three.pmstore.utility.Utility;
 
 import org.json.JSONArray;
 
@@ -67,6 +66,15 @@ public class SuccessActivity extends Activity {
 		else {
 			mWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		}
+
+		ImageView logo = (ImageView) findViewById(R.id.i4);
+		logo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+				startActivity(i);
+			}
+		});
 		spinner_item =getIntent().getStringExtra("spiner");
 		Intentcost =getIntent().getStringExtra("amounttotal");
 		otpmob= getIntent().getStringExtra("bmobile");
@@ -111,6 +119,8 @@ public class SuccessActivity extends Activity {
 			HomeActivity.mCartId = "";
 			HomeActivity.mCartItemsList = null;
 			ReviewOrderFragment.isPromoCodeApplied = false;
+			Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTCOUNT,"0");
+			Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTID,"");
 			String newUrl = ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/codgcm.php?" +
 					"totalcod="+totalcod+"&Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(newUrl);
@@ -131,6 +141,8 @@ public class SuccessActivity extends Activity {
 			HomeActivity.mCartId = "";
 			HomeActivity.mCartItemsList = null;
 			ReviewOrderFragment.isPromoCodeApplied = false;
+			Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTCOUNT,"0");
+			Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTID,"");
 			String url= ("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/3pminvoicetoemail/hurraygcm.php?" +
 					"Ordders="+Ordders+"&name="+name+"&EmailID="+EmailID+"").replace(" ","%20");
 			mWebView.loadUrl(url);
@@ -320,7 +332,7 @@ public class SuccessActivity extends Activity {
 	public void onBackPressed() {
 
 		Intent i=new Intent(SuccessActivity.this, HomeActivity.class);
-//		i.putExtra("MyOrderFragment","MyOrderFragment");
+		i.putExtra("MyOrderFragment","MyOrderFragment");
 		startActivity(i);
 		finish();
 

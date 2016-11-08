@@ -1,8 +1,11 @@
 package com.three.pmstore.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -41,7 +44,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -60,23 +67,35 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     public RelativeLayout cart_layout;
     public static Button cart_layout_button_set_text;
     public ImageView cart_icon;
-    public Previous_ItemDetails alldates  =new Previous_ItemDetails();
-    public static HashMap<Integer , ArrayList<Previous_ItemDetails>> mProductItemsList;
+    public Previous_ItemDetails alldates = new Previous_ItemDetails();
+    public static HashMap<Integer, ArrayList<Previous_ItemDetails>> mProductItemsList;
     public static ArrayList<Previous_ItemDetails> inProductItemsList;
-    private ArrayList<LeftMenuModel> leftMenuList;
-   // public static ArrayList<CartItemModel> mCartItemsList;
+    private static ArrayList<LeftMenuModel> leftMenuList;
+    // public static ArrayList<CartItemModel> mCartItemsList;
     public static JSONArray dates;
     public static JSONObject products;
     public static boolean isLogged = false;
     public static String loggedUserEmail;
     private static ListView list_home_left_drawer;
 
+    TextView textCounter, head, thour, tvHour, tminutes, tvMinute, tvSecond, s, info, descrip;
+    private CountDownTimer countDownTimer; // built in android class
+    // CountDownTimer
+    private long totalTimeCountInMilliseconds; // total count down time in
+    // milliseconds
+    private long timeBlinkInMilliseconds;
+    private static final String FORMAT = "%02d:%02d:%02d";
+    // start time of start blinking
+    private boolean blink; // controls the blinking .. on and off
+    int seconds, minutes;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_previous);
         initUI();
+        bundle =new Bundle();
         globalVariable = (AppController) getApplicationContext();
     }
 
@@ -103,6 +122,17 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         cart_layout.setOnClickListener(this);
         cart_layout_button_set_text.setOnClickListener(this);
         cart_icon.setOnClickListener(this);
+        head = (TextView) findViewById(R.id.timer_head);
+        //		lgender =(LinearLayout)findViewById(R.id.radio);
+        head.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+        head.setTextSize(20);
+        thour = (TextView) findViewById(R.id.txt_time_hour);
+        tvHour = (TextView) findViewById(R.id.txt_time_hour_h);
+        tvMinute = (TextView) findViewById(R.id.txt_time_minutes);
+        tminutes = (TextView) findViewById(R.id.txt_time_minutes_m);
+        tvSecond = (TextView) findViewById(R.id.txt_time_sec);
+        s = (TextView) findViewById(R.id.txt_time_sec_s);
+        setTimer();
     }
 
     private void setLeftMenuData() {
@@ -114,18 +144,16 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             leftMenuList.add(leftMenuModel);
         }
 
-        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME)))
-        {
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_NAME))) {
             loggedUserEmail = Constants.USER_EMAIL_ID;
             isLogged = true;
-        }
-        else
-        {
+        } else {
             loggedUserEmail = "";
             isLogged = false;
         }
         final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(this, leftMenuList);
-         list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+        list_home_left_drawer = (ListView) findViewById(R.id.list_home_left_drawer);
+        setHeader(list_home_left_drawer);
         list_home_left_drawer.setAdapter(leftMenuAdapter);
         leftMenuAdapter.notifyDataSetChanged();
 
@@ -137,13 +165,12 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                     public void run() {
                         mDrawerLayout.closeDrawers();
 
-                        if(isLogged) {
+                        if (isLogged) {
                             navigateSideMenuClickAfterLogin(position);
-                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")){
+                            if (list_home_left_drawer.getItemAtPosition(position).equals("2")) {
 
                             }
-                        }
-                        else {
+                        } else {
                             navigateSideMenuClickBeforeLogin(position);
                         }
                     }
@@ -151,29 +178,38 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
 
             }
         });
-        setHeader(list_home_left_drawer);
+//        setHeader(list_home_left_drawer);
     }
 
     private void navigateSideMenuClickBeforeLogin(int position) {
         switch (position) {
             case 1:
-                Intent homeAct = new Intent(this, HomeActivity.class);
-                startActivity(homeAct);
+//                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+
+                startActivity(i);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 3:
-                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, Previous_ProductsActivity.this);
+
+                bundle.putString("previouslogin", "previouslogin");
+                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, bundle, Previous_ProductsActivity.this);
                 break;
             case 4:
+
+                bundle.putString("previousregister", "previousregister");
                 Utility.navigateDashBoardFragment(new RegistrationFragment(), RegistrationFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
+                bundle.putString("previoustestimonials", "previoustestimonials");
                 Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 6:
                 Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
+
+
                 break;
             case 7:
                 Intent share = new Intent(Intent.ACTION_SEND);
@@ -188,6 +224,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             case 8:
                 Intent prevProds = new Intent(this, Previous_ProductsActivity.class);
                 startActivity(prevProds);
+                //Utility.navigateDashBoardFragment(new PreviousProductFragment(), PreviousProductFragment.TAG, null, HomeActivity.this);
                 break;
             case 9:
                 Utility.navigateDashBoardFragment(new TermsAndComditionsFragment(), TermsAndComditionsFragment.TAG, null, Previous_ProductsActivity.this);
@@ -205,8 +242,9 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
     private void navigateSideMenuClickAfterLogin(int position) {
         switch (position) {
             case 1:
-                Intent homeAct = new Intent(this, HomeActivity.class);
-                startActivity(homeAct);
+//                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, HomeActivity.this);
+                Intent i = new Intent(Previous_ProductsActivity.this, HomeActivity.class);
+                startActivity(i);
                 break;
             case 2:
                 Utility.navigateDashBoardFragment(new StoreCashFragment(), StoreCashFragment.TAG, null, Previous_ProductsActivity.this);
@@ -215,10 +253,12 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 4:
-                 Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
+                Utility.navigateDashBoardFragment(new TestimonialsFragment(), TestimonialsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 5:
-                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, Previous_ProductsActivity.this);
+//                Utility.navigateDashBoardFragment(new Blog(), Blog.TAG, null, HomeActivity.this);
+
+                Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, Previous_ProductsActivity.this);
                 break;
             case 6:
                 Intent share = new Intent(Intent.ACTION_SEND);
@@ -239,13 +279,163 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             case 9:
                 Utility.navigateDashBoardFragment(new ContactUsFragment(), ContactUsFragment.TAG, null, Previous_ProductsActivity.this);
                 break;
-            case 11:
+            case 10:
                 Utility.navigateDashBoardFragment(new Faqview(), Faqview.TAG, null, Previous_ProductsActivity.this);
                 break;
-            case 10:
+            case 11:
                 signOut();
                 break;
         }
+    }
+
+    private void setTimer() {
+        long minutesLeft = 0;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+            SimpleDateFormat dateFormat1 = new SimpleDateFormat("kk:mm:ss");
+            Calendar calendar = Calendar.getInstance();
+            String currenttime = new SimpleDateFormat("kk:mm:ss").format(Calendar.getInstance().getTime());
+            System.out.println("CURRENT TIME FOR TIMER" + currenttime);
+
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
+            Date tomorrow = calendar.getTime();
+            String tomorrowAsString = dateFormat.format(tomorrow);
+
+            System.out.println(tomorrowAsString);
+
+            try {
+                String dateStart = dateFormat.format(System.currentTimeMillis());
+                Date date1 = dateFormat.parse(dateStart);
+
+                Date date2 = dateFormat.parse(tomorrowAsString);
+                Date time = dateFormat1.parse("15:00:00");
+                Date time1 = dateFormat1.parse(currenttime);
+                if (time1.getTime() > time.getTime() || time1.getTime() == time.getTime()) {
+                    long different = (date2.getTime() + time.getTime()) - (date1.getTime() + time1.getTime());
+                    long seconds = different / 1000;
+                    minutesLeft = seconds / 60;
+                    //printDifference(date1, date2, time, time1);
+                } else {
+                    long different = (date2.getTime() + time.getTime()) - (date1.getTime() + time1.getTime());
+                    long seconds = different / 1000;
+                    minutesLeft = seconds / 60;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (minutesLeft > 1440) {
+            minutesLeft = minutesLeft - 1440;
+        }
+
+        totalTimeCountInMilliseconds = 60 * minutesLeft * 1000;
+        timeBlinkInMilliseconds = 30 * 1000;
+        startTimer();
+    }
+
+    private void startTimer() {
+        countDownTimer = new CountDownTimer(totalTimeCountInMilliseconds, 500) {
+            // 500 means, onTick function will be called at every 500
+            // milliseconds
+
+            @Override
+            public void onTick(long leftTimeInMilliseconds) {
+                long seconds = leftTimeInMilliseconds / 1000;
+
+				/*set Timer and font type to Timer Texts*/
+                thour.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tminutes.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                s.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvHour.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvMinute.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+                tvSecond.setTypeface(Typeface.createFromAsset(getAssets(), "LED.ttf"));
+
+                AppController app = (AppController) getApplicationContext();
+                long hh = app.getHour();
+                long mm = app.getMin();
+                long ss = app.getSec();
+
+
+                thour.setText("" + hh);
+                tvHour.setText("H");
+                tvMinute.setText("" + mm);
+                tminutes.setText("M");
+                tvSecond.setText("" + ss);
+                s.setText("S");
+
+                try {
+                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("hh:mm:ss");
+                    Calendar calendar = Calendar.getInstance();
+                    String currenttime = new SimpleDateFormat("hh:mm:ss").format(Calendar.getInstance().getTime());
+//					System.out.println("CURRENT TIME FOR TIMER" +currenttime);
+
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+
+                    Date time = dateFormat1.parse("15:00:00");
+                    Date time1 = dateFormat1.parse(currenttime);
+
+
+                    String t = time.toString();
+                    String t1 = time1.toString();
+                    if (thour.equals("23") && tvMinute.equals("0") && tvSecond.equals("0")) {
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTCOUNT, "0");
+                        Intent i = new Intent(Previous_ProductsActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    if (t.equals(t1)) {
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTCOUNT, "0");
+                        Intent i = new Intent(Previous_ProductsActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                    if (t.length() > t1.length()) {
+                        Utility.setSharedPrefStringData(getApplicationContext(), Constants.CARTCOUNT, "0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (hh < 10) {
+                    thour.setText("" + "0" + hh);
+                } else {
+                    thour.setText("" + hh);
+
+                }
+                if (mm < 10) {
+                    tvMinute.setText("" + "0" + mm);
+
+                } else {
+                    tvMinute.setText("" + mm);
+
+                }
+
+                if (ss < 10) {
+                    tvSecond.setText("" + "0" + ss);
+                } else {
+                    tvSecond.setText("" + ss);
+                }
+
+
+                AppController app2 = (AppController) getApplicationContext();
+                app.setHour(seconds / 3600);
+                app.setMin((seconds / 60) % 60);
+                app.setSec(seconds % 60);
+
+                thour.setTextSize(30);
+                tvMinute.setTextSize(30);
+                tvSecond.setTextSize(30);
+                // format the textview to show the easily readable format
+            }
+
+            @Override
+            public void onFinish() {
+            }
+
+        }.start();
+
     }
 
     private void setHeader(ListView list_home_left_drawer) {
@@ -297,6 +487,7 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         String date1;
 
         String pname;
+
         public GetProductListAsyncTask() {
             mCustomProgressDialog = new CustomProgressDialog(Previous_ProductsActivity.this);
         }
@@ -327,45 +518,42 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
             super.onPostExecute(response);
             try {
                 ArrayList<String> mylist = new ArrayList<String>();
-                    if (response != null) {
-                        JSONObject jsonobject = new JSONObject(response);
-                        if (jsonobject != null) {
-                            int success = jsonobject.getInt("success");
-                            String url = jsonobject.getString("url");
-                            System.out.println("url   previous  "+url);
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    if (jsonobject != null) {
+                        int success = jsonobject.getInt("success");
+                        String url = jsonobject.getString("url");
+                        System.out.println("url   previous  " + url);
 
-                            if (success == 1) {
-                                products = jsonobject.getJSONObject("tbl_pproducts");
-                                dates = jsonobject.getJSONArray("dates");
-                                for (int i = 0; i < dates.length(); i++) {
-                                    String first_date = dates.getString(i).toString();
-                                    JSONArray c = products.getJSONArray(first_date);
-                                    System.out.println("All Dates" + dates);
-                                    inProductItemsList = new ArrayList<Previous_ItemDetails>();
-                                    for (int j = 0; j < c.length(); j++) {
-
-                                        Previous_ItemDetails product_itemDetails_getters_setters = new Previous_ItemDetails();
-                                        JSONObject jsonResponse_tag = c.getJSONObject(j);
-                                        product_itemDetails_getters_setters.setP_P_Name(jsonResponse_tag.optString("P_Name"));
-                                        product_itemDetails_getters_setters.setP_P_Cost(jsonResponse_tag.optString("P_Cost"));
-                                        product_itemDetails_getters_setters.setP_ID(jsonResponse_tag.optString("P_ID"));
-                                        product_itemDetails_getters_setters.setP_Image(jsonResponse_tag.optString("P_Image"));
-                                        inProductItemsList.add(product_itemDetails_getters_setters);
-                                    }
-                                    mProductItemsList.put(i, inProductItemsList);
-                                    System.out.println("All" + pname);
-                                    System.out.println("date" + date1);
+                        if (success == 1) {
+                            products = jsonobject.getJSONObject("tbl_pproducts");
+                            dates = jsonobject.getJSONArray("dates");
+                            for (int i = 0; i < dates.length(); i++) {
+                                String first_date = dates.getString(i).toString();
+                                JSONArray c = products.getJSONArray(first_date);
+                                System.out.println("All Dates" + dates);
+                                inProductItemsList = new ArrayList<Previous_ItemDetails>();
+                                for (int j = 0; j < c.length(); j++) {
+                                    Previous_ItemDetails product_itemDetails_getters_setters = new Previous_ItemDetails();
+                                    JSONObject jsonResponse_tag = c.getJSONObject(j);
+                                    product_itemDetails_getters_setters.setP_P_Name(jsonResponse_tag.optString("P_Name"));
+                                    product_itemDetails_getters_setters.setP_P_Cost(jsonResponse_tag.optString("P_Cost"));
+                                    product_itemDetails_getters_setters.setP_ID(jsonResponse_tag.optString("P_ID"));
+                                    product_itemDetails_getters_setters.setP_Image(jsonResponse_tag.optString("P_Image"));
+                                    inProductItemsList.add(product_itemDetails_getters_setters);
                                 }
-                                homeScreenNavigation();
+                                mProductItemsList.put(i, inProductItemsList);
+                                System.out.println("All" + pname);
+                                System.out.println("date" + date1);
                             }
-                            else
-                            {
-                                Intent i =new Intent(Previous_ProductsActivity.this, NoPrevious.class);
-                                i.putExtra("URL",url);
-                                startActivity(i);
-                                finish();
-                            }
+                            homeScreenNavigation();
+                        } else {
+                            Intent i = new Intent(Previous_ProductsActivity.this, NoPrevious.class);
+                            i.putExtra("URL", url);
+                            startActivity(i);
+                            finish();
                         }
+                    }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
@@ -392,10 +580,29 @@ public class Previous_ProductsActivity extends AppCompatActivity implements View
         Utility.setSharedPrefStringData(this, Constants.USER_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_EMAIL_ID, "");
         Utility.setSharedPrefStringData(this, Constants.USER_NAME, "");
-
-        Intent i= new Intent(getApplicationContext(),HomeActivity.class);
+        Utility.setSharedPrefStringData(this, Constants.USER_CASH, "");
+        Utility.setSharedPrefStringData(this, Constants.CARTCOUNT, "0");
+        Utility.setSharedPrefStringData(this, Constants.CARTID, "");
+        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(i);
+    }
 
+    public static void updateNavigationDrawer(Context context) {
+        leftMenuList = new ArrayList<>();
+        for (int i = 0; i < Utility.getSideMenuItemsListName(context).length; i++) {
+            LeftMenuModel leftMenuModel = new LeftMenuModel();
+            leftMenuModel.setmName(Utility.getSideMenuItemsListName(context)[i]);
+            leftMenuModel.setmImage(Utility.getSideMenuItemsListIcons(context)[i]);
+            leftMenuList.add(leftMenuModel);
+        }
+
+        if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(context, Constants.USER_NAME))) {
+            isLogged = true;
+        } else {
+            isLogged = false;
+        }
+        final LeftMenuAdapter leftMenuAdapter = new LeftMenuAdapter(context, leftMenuList);
+        list_home_left_drawer.setAdapter(leftMenuAdapter);
 
     }
 }

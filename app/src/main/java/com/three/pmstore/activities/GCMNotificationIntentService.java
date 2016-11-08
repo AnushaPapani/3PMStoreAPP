@@ -33,7 +33,7 @@ public class GCMNotificationIntentService extends IntentService {
 	}
 
 	public static final String TAG = "GCMNotificationIntentService";
-
+	PendingIntent resultPendingIntent2;
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		Bundle extras = intent.getExtras();
@@ -87,9 +87,14 @@ public class GCMNotificationIntentService extends IntentService {
 			mNotifyBuilder = new NotificationCompat.Builder(this)
 					.setContentTitle("Product Updates from 3PMstore!!!")
 					.setContentText(message)
-					.setSmallIcon(R.drawable.cart)
+					.setSmallIcon(R.drawable.gcmcart)
 					.setStyle(new NotificationCompat.BigTextStyle().bigText(greetMsg))
-					.setDefaults(defaults);
+					.setDefaults(defaults)
+					.addAction(R.drawable.cart_icon, "Next", resultPendingIntent2)
+					.setContentIntent(resultPendingIntent2)
+					// Dismiss Notification
+					.setAutoCancel(true);
+			;
 			Intent i =new Intent(getApplicationContext(),HomeActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			PendingIntent resultPendingIntent2 = PendingIntent.getActivity(this, 0,
@@ -100,13 +105,13 @@ public class GCMNotificationIntentService extends IntentService {
 			mNotifyBuilder = new NotificationCompat.Builder(this)
 					.setContentTitle("Updates from 3PMstore!!!")
 					.setContentText(greetMsg)
-					.setSmallIcon(R.drawable.cart)
+					.setSmallIcon(R.drawable.gcmcart)
 					.setStyle(new NotificationCompat.BigTextStyle().bigText(greetMsg))
 					.setDefaults(defaults);
 
 			Intent i =new Intent(getApplicationContext(),HomeActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			PendingIntent resultPendingIntent2 = PendingIntent.getActivity(this, 0,
+			resultPendingIntent2 = PendingIntent.getActivity(this, 0,
 					i, PendingIntent.FLAG_ONE_SHOT);
 			mNotifyBuilder.setContentIntent(resultPendingIntent2);
 		}
@@ -114,7 +119,7 @@ public class GCMNotificationIntentService extends IntentService {
 			mNotifyBuilder = new NotificationCompat.Builder(this)
 					.setContentTitle("App Updates Available!!!")
 					.setContentText(greetMsg)
-					.setSmallIcon(R.drawable.cart)
+					.setSmallIcon(R.drawable.gcmcart)
 					.setStyle(new NotificationCompat.BigTextStyle().bigText(greetMsg))
 					.setDefaults(defaults);
 

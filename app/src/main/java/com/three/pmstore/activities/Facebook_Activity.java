@@ -1,6 +1,5 @@
 package com.three.pmstore.activities;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,7 +12,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.hardware.camera2.params.Face;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -30,13 +28,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,9 +51,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.three.pmstore.R;
-import com.three.pmstore.fragments.AddAddressFragment;
-import com.three.pmstore.fragments.HomeFragment;
-import com.three.pmstore.fragments.ReviewOrderFragment;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
@@ -598,7 +591,7 @@ public class Facebook_Activity extends AppCompatActivity {
 //                    HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                     HomeActivity.mCartId = json.optString("cartId");
                     HomeActivity.mCartTotal = json.optInt("cartValue");
-
+//                    HomeActivity.leftMenuAdapter.notifyDataSetChanged();
 //                    String emailID = emailET.getText().toString();
 
                     if (!TextUtils.isEmpty(names) && GCMUtility.validate(names)) {
@@ -609,22 +602,36 @@ public class Facebook_Activity extends AppCompatActivity {
                             registerInBackground(names);
                         }
                     }
+                    if ((Utility.isValueNullOrEmpty(json.optString("count")))) {
+                        Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+                        i.putExtra("Address","Address");
+                        startActivity(i);
+                    } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
 
-                    if (!(json.optString("cartId").equalsIgnoreCase("0"))) {
-                        if (json.optString("count").equalsIgnoreCase("0")) {
-//                            Intent i = new Intent(Facebook_Activity.this, AddAddressFragment.class);
-//                            startActivity(i);
-                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, Facebook_Activity.this);
-                        } else {
-                            Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
-                            i.putExtra("Facebook","Facebook");
-                            startActivity(i);
-//                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, Facebook_Activity.this);
-                        }
-                    } else {
                         Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
                         startActivity(i);
+                    } else {
+                        Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+                        i.putExtra("Facebook","Facebook");
+                        startActivity(i);
                     }
+
+//                    if (!(json.optString("cartId").equalsIgnoreCase("0"))) {
+//                        if (json.optString("count").equalsIgnoreCase("0")) {
+//                            Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+//                            i.putExtra("Address","Address");
+//                            startActivity(i);
+////                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, Facebook_Activity.this);
+//                        } else {
+//                            Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+//                            i.putExtra("Facebook","Facebook");
+//                            startActivity(i);
+////                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, Facebook_Activity.this);
+//                        }
+//                    } else if ((json.optString("cartId").equalsIgnoreCase("0")) && (json.optString("cartId").equalsIgnoreCase(""))){
+//                        Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
+//                        startActivity(i);
+//                    }
 //                    Intent i=new Intent(Facebook_Activity.this,HomeActivity.class);
 //                    startActivity(i);
 
