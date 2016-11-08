@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.three.pmstore.R;
 import com.three.pmstore.activities.HomeActivity;
+import com.three.pmstore.activities.Previous_ProductsActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.utility.ApiConstants;
@@ -45,6 +46,7 @@ public class RegistrationFragment extends Fragment {
 
     public static final String TAG = "RegistrationFragment";
     private HomeActivity mParent;
+    private Previous_ProductsActivity mParent2;
     private View rootView;
     private EditText inputName;
     private RadioButton inputMale;
@@ -67,10 +69,23 @@ public class RegistrationFragment extends Fragment {
     RadioButton selectRadio;
 //    String getGender;
     String get_gender="";
+    Bundle bundle;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParent = (HomeActivity) getActivity();
+        bundle =new Bundle();
+        try {
+            if (bundle.containsKey("previouslogin")){
+//            Previous_ProductsActivity mParent;
+                mParent2 = (Previous_ProductsActivity) getActivity();
+            }else {
+//            HomeActivity mParent;
+                mParent = (HomeActivity) getActivity();
+            }
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }
+
         if (getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
@@ -124,7 +139,7 @@ public class RegistrationFragment extends Fragment {
                     RadioButton btn = (RadioButton) group.getChildAt(x);
 
 
-                    if(btn.getId()==R.id.inputMale){
+                    if(btn.getId()== R.id.inputMale){
                         btn.setText("Male");
                     }else{
                         btn.setText("Female");

@@ -3,12 +3,10 @@ package com.three.pmstore.fragments;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -22,7 +20,7 @@ public class AboutusFragment extends Fragment {
     public static final String TAG = "AboutusFragment";
     private View rootView;
     String Aboutus="About Us";
-
+    WebView webView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,9 +37,9 @@ public class AboutusFragment extends Fragment {
                 .permitAll().build();
         AppEventsLogger logger = AppEventsLogger.newLogger(getActivity());
         logger.logEvent("pageview");
-        TextView aboutustext =(TextView) rootView.findViewById(R.id.aboutustext);
-        SpannableString content = new SpannableString(Aboutus);
-        content.setSpan(new UnderlineSpan(), 0, Aboutus.length(), 0);
-        aboutustext.setText(content);
+        webView = (WebView)rootView.findViewById(R.id.webView1);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/aboutus.php");
     }
+
 }

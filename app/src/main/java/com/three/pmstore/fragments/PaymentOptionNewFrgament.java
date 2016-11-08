@@ -25,7 +25,6 @@ import com.paytm.pgsdk.PaytmPGService;
 import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
 import com.three.pmstore.R;
-import com.three.pmstore.activities.FailureActivity;
 import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.activities.StatusActivity;
 import com.three.pmstore.activities.SuccessActivity;
@@ -68,14 +67,14 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
     String   codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
     private boolean fromCOD;
     public static String finalname,finalemail,finalOrderid;
-
+//    String failure;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
         if (getArguments() != null) {
+
             orderid = getArguments().getString("OrderID");
             pmcash = getArguments().getString("pm_Cash");
-
             amountPayable = getArguments().getString("TotalCost");
             codcharge = getArguments().getString("ADMIN_COD");
             coddisable = getArguments().getString("coddisable");
@@ -285,6 +284,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             pmcheckbutton.setChecked(false);
             pmcheckbutton.setEnabled(false);
             amounttotal.setText(amountPayable);
+            confirmorder.setVisibility(View.GONE);
         }
         else
         {
@@ -351,7 +351,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             resend.setVisibility(View.GONE);
             codText.setVisibility(View.VISIBLE);
         }
-        else if(coddisable.equals("0")&&ReviewOrderFragment.coddisablepromo.equals("0")){
+        /*CODDISABLE and TTFT COUPONCODE*/
+        else if(coddisable.equals("0")&& ReviewOrderFragment.coddisablepromo.equals("0")){
             confirmorder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -409,7 +410,7 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
             if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
                 pmamount.setText("" + Integer.parseInt(amountPayable));
                 amounttotal.setText("0");
-                cashtext.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable)));
+                cashtext.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
                 confirmorder.setVisibility(View.VISIBLE);
                 expand1.setEnabled(false);
                 expand2.setEnabled(false);
@@ -745,16 +746,29 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                             System.out.println("Details " + success + " message");
                         }
                         else {
-                            Intent i = new Intent(getActivity(), FailureActivity.class);
-//                            i.putExtra("spiner", Quantity);
-                            i.putExtra("Promo",amountPayable);
-                            i.putExtra("Pmprice",pmcash );
-                            i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", "");
-                            i.putExtra("otpmob",bmobile);
-                            i.putExtra("Amount",amounttotal.getText().toString() );
-                            i.putExtra("CodCash",codcharge);
-                            startActivity(i);
+                            Utility.navigateDashBoardFragment(new FailureFragment(), FailureFragment.TAG, null, getActivity());
+//                            Intent i = new Intent(getActivity(), FailureActivity.class);
+////                            i.putExtra("spiner", Quantity);
+////                            orderid = getArguments().getString("OrderID");
+////                            pmcash = getArguments().getString("pm_Cash");
+////                            amountPayable = getArguments().getString("TotalCost");
+////                            codcharge = getArguments().getString("ADMIN_COD");
+////                            coddisable = getArguments().getString("coddisable");
+////                            fname = getArguments().getString("name");
+////                            email = getArguments().getString("email");
+////                            U_id = getArguments().getString("U_ID");
+////                            bpincode = getArguments().getString("pincode");
+////                            bmobile = getArguments().getString("bmobile");
+//
+//                            i.putExtra("TotalCost",amountPayable);
+//                            i.putExtra("pm_Cash",pmcash);
+//                            i.putExtra("ADMIN_COD", codcharge);
+//                            i.putExtra("OrderID", orderid);
+//                            i.putExtra("bmobile",bmobile);
+//                            i.putExtra("U_ID",U_id);
+//                            i.putExtra("CodCash",codcharge);
+//                            i.putExtra("Name",fname);
+//                            startActivity(i);
                         }
                     }
                 }
@@ -835,17 +849,8 @@ public class PaymentOptionNewFrgament extends Fragment implements View.OnClickLi
                         }
                         else
                         {
-                            Intent i = new Intent(getActivity(), FailureActivity.class);
-//                            i.putExtra("spiner", Quantity);
-                            i.putExtra("Promo",amountPayable);
-                            i.putExtra("Pmprice",pmcash );
-                            i.putExtra("cost", amounttotal.getText().toString());
-                            i.putExtra("coddisable", coddisable);
-                            i.putExtra("otpmob",bmobile);
-                            i.putExtra("Amount",amounttotal.getText().toString() );
-                            i.putExtra("CodCash",codcharge);
+                            Utility.navigateDashBoardFragment(new FailureFragment(), FailureFragment.TAG, null, getActivity());
 
-                            startActivity(i);
                         }
                     }
                 }

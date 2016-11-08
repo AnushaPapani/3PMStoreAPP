@@ -1,6 +1,6 @@
 package com.three.pmstore.fragments;
 
-import android.content.Intent;
+import android.app.Dialog;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,7 +30,6 @@ import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.models.AddressesModel;
 import com.three.pmstore.models.ReviewOrderModel;
 import com.three.pmstore.utility.ApiConstants;
-import com.three.pmstore.utility.AppController;
 import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
 
@@ -50,6 +50,7 @@ public class ReviewOrderFragment extends Fragment {
     public static ListView listView_selected_orders;
     private RelativeLayout ll_header;
     private LinearLayout ll_fottor;
+    private RelativeLayout RL_footer;
     private TextView txt_review_your_order;
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     private static ArrayList<AddressesModel> addressesModels;
@@ -59,6 +60,7 @@ public class ReviewOrderFragment extends Fragment {
     public static boolean isPromoCodeApplied = false;
     private EditText Promocode;
     private TextView promotext;
+    TextView promoDescription;
     private TextView applypromocode;
     View toastRoot;
     View toastRoot2;
@@ -85,11 +87,15 @@ public class ReviewOrderFragment extends Fragment {
     TextView GrandText;
     TextView GrandValue;
     Boolean isDiscount = true;
-
+    String failure;
+    String afterPromocode;
+    String descriiption;
+    String get_promo;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
+
     }
 
     @Override
@@ -103,6 +109,8 @@ public class ReviewOrderFragment extends Fragment {
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
         toast = new Toast(getActivity());
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
         initUI();
 
         return rootView;
@@ -115,6 +123,9 @@ public class ReviewOrderFragment extends Fragment {
 
         ll_fottor = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.
                 footer_revieworder, null);
+        RL_footer = (RelativeLayout) ll_fottor.findViewById(R.id.promo_banner);
+        promoDescription = (TextView) ll_fottor.findViewById(R.id.promo_description);
+
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
@@ -128,6 +139,21 @@ public class ReviewOrderFragment extends Fragment {
         txt_pin_code = (TextView) ll_fottor.findViewById(R.id.txt_pin_code);
         txt_mobile = (TextView) ll_fottor.findViewById(R.id.txt_mobile);
         txt_choose_another = (TextView) ll_fottor.findViewById(R.id.txt_choose_another);
+        String promovalue = Utility.getSharedPrefStringData(getActivity(), Constants.PROMO);
+        String promotexts = Utility.getSharedPrefStringData(getActivity(), Constants.PROMOSUCCESS);
+        if (!(promovalue.equals(""))) {
+            String promovalues = Utility.getSharedPrefStringData(getActivity(), Constants.PROMO);
+            System.out.println("promo " + promovalue);
+            System.out.println("promotext " + promotexts);
+            applypromocode.setText("Cancel");
+            promotext.setVisibility(View.VISIBLE);
+            promotext.setText(promotexts);
+            Promocode.setEnabled(false);
+        } else {
+            Promocode.setEnabled(true);
+            applypromocode.setText("Apply");
+        }
+
         getAddress();
 //        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)) > 0) {
 //            ll_address_layout.setVisibility(View.VISIBLE);
@@ -146,13 +172,47 @@ public class ReviewOrderFragment extends Fragment {
         txt_review_your_order.setPaintFlags(txt_review_your_order.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         getReviewOrderDetails();
 
-        if (applypromocode.getText().toString() == "Cancel") {
-            promotext.setText(Utility.getSharedPrefStringData(getActivity(), Constants.PROMOCODE));
-        } else if (isDiscount = false) {
-            promotext.setText(Utility.getSharedPrefStringData(getActivity(), Constants.PROMOCODE));
-            applypromocode.setText("Cancel");
-        }
+//        if (applypromocode.getText().toString() == "Cancel") {
+//            promotext.setText(Utility.getSharedPrefStringData(getActivity(), Constants.PROMOCODE));
+//        } else if (isDiscount = false) {
+//            promotext.setText(Utility.getSharedPrefStringData(getActivity(), Constants.PROMOCODE));
+//            applypromocode.setText("Cancel");
+//        }
+        new Promo_Description("").execute();
 
+        RL_footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Promocode.setText(""+get_promo);
+                if (applypromocode.getText().equals("Apply") && Promocode.getText().toString().length() > 1) {
+                    applypromocode.setText("Cancel");
+                    promotext.setVisibility(View.VISIBLE);
+//                    cart_id =HomeActivity.mCartId.toString();
+                    Promocode.setEnabled(false);
+                    promocodeToServer(Promocode.getText().toString(), String.valueOf(HomeActivity.mCartTotal), HomeActivity.mCartId.toString());
+
+                } else if (applypromocode.getText().equals("Cancel")) {
+                    applypromocode.setText("Apply");
+                    cancelpromocode(HomeActivity.mCartId.toString(), String.valueOf(HomeActivity.mCartTotal), Promocode.getText().toString());
+                    Promocode.setText("");
+                    promotext.setVisibility(View.GONE);
+                    Promocode.setEnabled(true);
+                    Promocode.setText("");
+                    isPromoCodeApplied = false;
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_PROMO, "0");
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "0");
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, "");
+                    reviewOrderAdapter.notifyDataSetChanged();
+                } else {
+                    TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
+                    t.setText("Please enter Promo code");
+                    toast.setView(toastRoot);
+                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        });
         applypromocode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -173,6 +233,9 @@ public class ReviewOrderFragment extends Fragment {
                     Promocode.setEnabled(true);
                     Promocode.setText("");
                     isPromoCodeApplied = false;
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_PROMO, "0");
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "0");
+                    Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, "");
                     reviewOrderAdapter.notifyDataSetChanged();
                 } else {
                     TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
@@ -193,6 +256,59 @@ public class ReviewOrderFragment extends Fragment {
                         Promocode.getText().toString());
             }
         });
+
+
+    }
+
+    class Promo_Description extends AsyncTask<String, String, String> {
+        private CustomProgressDialog mCustomProgressDialog;
+        private String userid;
+        JSONArray cashArray = null;
+
+        public Promo_Description(String userid) {
+            mCustomProgressDialog = new CustomProgressDialog(getActivity());
+            this.userid = userid;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String result = null;
+            try {
+                LinkedHashMap<String, String> paramsList = new LinkedHashMap<String, String>();
+                result = Utility.httpPostRequestToServer(ApiConstants.DYNAMIC_PROMOCODE, Utility.getParams(paramsList));
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            super.onPostExecute(response);
+            try {
+                if (response != null) {
+                    JSONObject jsonobject = new JSONObject(response);
+                    promotext.setText("");
+                    if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        descriiption = jsonobject.optString("beforeDescription");
+                        String code = jsonobject.optString("promocode");
+                        afterPromocode =jsonobject.optString("afterPromocode");
+                        get_promo =jsonobject.optString("promocode");
+                        promoDescription.setText(get_promo+" "+descriiption);
+                    }
+                }
+                mCustomProgressDialog.dismissProgress();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void Insert_reviewOrder(String name, String addressline, String city, String state, String pincode, String mobile,
@@ -291,6 +407,7 @@ public class ReviewOrderFragment extends Fragment {
                         String coddisable = jsonobject.optString("coddisable");
                         b.putString("pincode", pincode);
                         b.putString("coddisable", coddisable);
+                        System.out.println("coddisable    " + coddisable);
                         JSONArray tbl_delivery = jsonobject.getJSONArray("tbl_delivery");
                         for (int i = 0; i < tbl_delivery.length(); i++) {
                             String TotalCost = tbl_delivery.getJSONObject(i).getString("TotalCost").toString();
@@ -316,9 +433,12 @@ public class ReviewOrderFragment extends Fragment {
                             System.out.println("pm_Cash  " + pm_Cash);
                         }
                         Utility.navigateDashBoardFragment(new PaymentOptionNewFrgament(), PaymentOptionNewFrgament.TAG, b, getActivity());
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("2")) {
+
                     }
                     if (jsonobject.optString("success").equalsIgnoreCase("0")) {
-
+                        String message = jsonobject.getString("pincodemessage");
+                        Toast.makeText(getActivity(), "" + message, Toast.LENGTH_LONG).show();
                     }
 //                    else {
 //
@@ -371,7 +491,6 @@ public class ReviewOrderFragment extends Fragment {
                 result = Utility.httpPostRequestToServer(ApiConstants.PROMO_CHECK, Utility.getParams(paramsList));
                 HomeActivity.mCartTotal = Integer.parseInt(grandtotal.toString());
 
-
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
@@ -382,16 +501,23 @@ public class ReviewOrderFragment extends Fragment {
         @Override
         protected void onPostExecute(String response) {
             super.onPostExecute(response);
+            DiscountText = (TextView) rootView.findViewById(R.id.DiscountText);
+            DiscountValue = (TextView) rootView.findViewById(R.id.DiscountValue);
+            GrandText = (TextView) rootView.findViewById(R.id.GrandText);
+            GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
             try {
-                DiscountText = (TextView) rootView.findViewById(R.id.DiscountText);
-                DiscountValue = (TextView) rootView.findViewById(R.id.DiscountValue);
-                GrandText = (TextView) rootView.findViewById(R.id.GrandText);
-                GrandValue = (TextView) rootView.findViewById(R.id.GrandValue);
+
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     promotext.setText("");
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        String priceofPromo = jsonobject.optString("price");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "1");
+//                        Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, Promocode.getText().toString());
                         Utility.setSharedPrefStringData(getActivity(), Constants.PROMOCODE, couponcode);
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMO, couponcode);
+                        promoDescription.setText(afterPromocode);
+
                         isDiscount = false;
                         String PromoType = jsonobject.optString("type");
                         if (PromoType.equals("BUY2GET1FREE")) {
@@ -415,6 +541,7 @@ public class ReviewOrderFragment extends Fragment {
                             Grand_total.setText("" + amt);
                             HomeActivity.mCartTotal = price;
                             promotext.setText(jsonobject.getString("status"));
+                            Utility.setSharedPrefStringData(getActivity(), Constants.PROMOSUCCESS, jsonobject.getString("status"));
                         } else {
                             coddisablepromo = "0";
                             DiscountText.setVisibility(View.GONE);
@@ -431,6 +558,7 @@ public class ReviewOrderFragment extends Fragment {
                             Grand_total.setText(discount_price);
                             HomeActivity.mCartTotal = Integer.parseInt(discount_price);
                             promotext.setText(jsonobject.getString("status"));
+                            Utility.setSharedPrefStringData(getActivity(), Constants.PROMOSUCCESS, jsonobject.getString("status"));
                         }
                         isPromoCodeApplied = true;
                         reviewOrderAdapter.notifyDataSetChanged();
@@ -443,9 +571,14 @@ public class ReviewOrderFragment extends Fragment {
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
                         isPromoCodeApplied = false;
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_PROMO, "0");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "0");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, "");
                         promotext.setText(jsonobject.getString("status"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMOSUCCESS, jsonobject.getString("status"));
                         reviewOrderAdapter.notifyDataSetChanged();
                     } else {
+                        promoDescription.setText(" "+jsonobject.getString("status"));
                         coddisablepromo = "0";
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText(jsonobject.getString("status"));
@@ -453,8 +586,12 @@ public class ReviewOrderFragment extends Fragment {
                         toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_PROMO, "0");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "0");
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, "");
                         isPromoCodeApplied = false;
                         promotext.setText(jsonobject.getString("status"));
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMOSUCCESS, jsonobject.getString("status"));
                         reviewOrderAdapter.notifyDataSetChanged();
                     }
                 }
@@ -520,14 +657,21 @@ public class ReviewOrderFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                        promoDescription.setText(descriiption);
                         Grand_total.setText(jsonobject.optString("cartValue"));
                         HomeActivity.mCartTotal = Integer.parseInt(jsonobject.optString("cartValue"));
                         promotext.setText("");
-                        DiscountText.setVisibility(View.GONE);
-                        DiscountValue.setVisibility(View.GONE);
-                        GrandText.setVisibility(View.GONE);
-                        GrandValue.setVisibility(View.GONE);
+                        try {
+                            DiscountText.setVisibility(View.GONE);
+                            DiscountValue.setVisibility(View.GONE);
+                            GrandText.setVisibility(View.GONE);
+                            GrandValue.setVisibility(View.GONE);
+
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
                         coddisablepromo = "0";
+                        Utility.setSharedPrefStringData(getActivity(), Constants.PROMO, "");
 
                     } else {
                         Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
@@ -586,54 +730,84 @@ public class ReviewOrderFragment extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
-                        JSONArray reviewOrdersArray = jsonobject.optJSONArray("tbl_cart");
-                        for (int i = 0; i < reviewOrdersArray.length(); i++) {
-                            JSONObject jsonObject = reviewOrdersArray.getJSONObject(i);
-                            reviewOrderModel = new ReviewOrderModel();
-                            reviewOrderModel.setP_ID(jsonObject.getString("P_ID"));
-                            reviewOrderModel.setMax_Quantity(jsonObject.optInt("Max_Quantity"));
-                            reviewOrderModel.setP_Cost(jsonObject.optInt("P_Cost"));
-                            reviewOrderModel.setP_Qty(jsonObject.optInt("P_Qty"));
-                            reviewOrderModel.setP_Name(jsonObject.getString("P_Name"));
-                            reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
-                            reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
+                        if (jsonobject.optString("success").equalsIgnoreCase("1")) {
+                            JSONArray reviewOrdersArray = jsonobject.optJSONArray("tbl_cart");
+                            for (int i = 0; i < reviewOrdersArray.length(); i++) {
+                                JSONObject jsonObject = reviewOrdersArray.getJSONObject(i);
+                                reviewOrderModel = new ReviewOrderModel();
+                                reviewOrderModel.setP_ID(jsonObject.getString("P_ID"));
+                                reviewOrderModel.setMax_Quantity(jsonObject.optInt("Max_Quantity"));
+                                reviewOrderModel.setP_Cost(jsonObject.optInt("P_Cost"));
+                                reviewOrderModel.setP_Qty(jsonObject.optInt("P_Qty"));
+                                reviewOrderModel.setP_Name(jsonObject.getString("P_Name"));
+                                reviewOrderModel.setP_Image(jsonObject.getString("P_Image"));
+                                reviewOrderModel.setCart_Prod_ID(jsonObject.getString("Cart_Prod_ID"));
 //                            reviewOrderModel.setPR_ID(jsonObject.getString("Cart_Prod_ID"));
 //                            reviewOrderModel.setCP_ID(jsonObject.getString("Cart_Prod_ID"));
-                            total_cartvalue = jsonobject.getString("cartValue");
-                            HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
+                                total_cartvalue = jsonobject.getString("cartValue");
+                                HomeActivity.mCartTotal = jsonobject.getInt("cartValue");
 
-                            JSONArray attrType = jsonObject.optJSONArray("Attribute_Type");
-                            ArrayList<String> attrValuesArray = new ArrayList<>();
-                            if (attrType != null) {
-                                for (int j = 0; j < attrType.length(); j++) {
-                                    attrValuesArray.add(attrType.optString(j));
+                                JSONArray attrType = jsonObject.optJSONArray("Attribute_Type");
+                                ArrayList<String> attrValuesArray = new ArrayList<>();
+                                if (attrType != null) {
+                                    for (int j = 0; j < attrType.length(); j++) {
+                                        attrValuesArray.add(attrType.optString(j));
+                                    }
                                 }
-                            }
-                            reviewOrderModel.setAttribute_Type(attrValuesArray);
+                                reviewOrderModel.setAttribute_Type(attrValuesArray);
 
-                            JSONArray attrValue = jsonObject.optJSONArray("Attribute_Value");
-                            ArrayList<String> attrValueArray = new ArrayList<>();
-                            if (attrType != null) {
-                                for (int j = 0; j < attrValue.length(); j++) {
-                                    attrValueArray.add(attrValue.optString(j));
+                                JSONArray attrValue = jsonObject.optJSONArray("Attribute_Value");
+                                ArrayList<String> attrValueArray = new ArrayList<>();
+                                if (attrType != null) {
+                                    for (int j = 0; j < attrValue.length(); j++) {
+                                        attrValueArray.add(attrValue.optString(j));
+                                    }
                                 }
+                                reviewOrderModel.setAttribute_Value(attrValueArray);
+
+                                reviewOrderModels.add(reviewOrderModel);
                             }
-                            reviewOrderModel.setAttribute_Value(attrValueArray);
+                            System.out.println("cartvalue " + total_cartvalue);
+                            Grand_total.setText(total_cartvalue);
+                            Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_PROMO, "0");
+                            Utility.setSharedPrefStringData(getActivity(), Constants.PROMO_STATUS, "0");
+                            Utility.setSharedPrefStringData(getActivity(), Constants.PRICE_CODE_TEXT, "");
+                            HomeActivity.mCartTotal = Integer.parseInt(total_cartvalue);
+                            if (reviewOrderModels.size() > 0) {
+                                reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels, mParent);
+                                listView_selected_orders.setAdapter(reviewOrderAdapter);
+                                listView_selected_orders.addHeaderView(ll_header);
 
-                            reviewOrderModels.add(reviewOrderModel);
-                        }
-                        System.out.println("cartvalue " + total_cartvalue);
-                        Grand_total.setText(total_cartvalue);
-                        HomeActivity.mCartTotal = Integer.parseInt(total_cartvalue);
-                        if (reviewOrderModels.size() > 0) {
-                            reviewOrderAdapter = new ReviewOrderAdapter(getActivity(), reviewOrderModels, mParent);
-                            listView_selected_orders.setAdapter(reviewOrderAdapter);
-                            listView_selected_orders.addHeaderView(ll_header);
+                            } else {
+                                listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
+                                listView_selected_orders.addHeaderView(ll_header);
+                                Utility.setSharedPrefStringData(getActivity(), Constants.CARTCOUNT, "0");
+//                            HomeActivity.mCartValue = 0;
+                            }
+                        } else if ((jsonobject.optString("success").equalsIgnoreCase("2"))) {
+                            final Dialog dialog = new Dialog(getActivity());
+                            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                            dialog.setCancelable(false);
+                            dialog.setContentView(R.layout.expired_popup_screen);
+                            Button button = (Button) dialog.findViewById(R.id.button1);
+                            final TextView textView = (TextView) dialog.findViewById(R.id.textView1);
+                            button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    // TODO Auto-generated method stub
+                                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+                                    Utility.setSharedPrefStringData(getActivity(), Constants.CARTCOUNT, "0");
+                                    Utility.setSharedPrefStringData(getActivity(), Constants.CARTID, "");
+                                    Utility.setSharedPrefStringData(getActivity(), Constants.PROMO, "");
+//                                    Utility.setSharedPrefStringData(getActivity(), Constants.CARTCOUNT,"");
+                                    HomeActivity.cart_layout_button_set_text.setText(Utility.getSharedPrefStringData(getActivity(), Constants.CARTCOUNT));
+                                    dialog.dismiss();
+                                }
+                            });
 
-                        } else {
-                            listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
-                            listView_selected_orders.addHeaderView(ll_header);
-                            HomeActivity.mCartValue = 0;
+                            dialog.show();
+
+
                         }
                     }
                 }
@@ -686,7 +860,7 @@ public class ReviewOrderFragment extends Fragment {
             try {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
-                    if (jsonobject != null) {
+                    if ((jsonobject.optString("success").equalsIgnoreCase("1"))) {
                         JSONArray tbl_addresses = jsonobject.optJSONArray("tbl_addresses");
                         for (int i = 0; i < tbl_addresses.length(); i++) {
                             JSONObject jsonTblAddresses = tbl_addresses.optJSONObject(i);
@@ -714,7 +888,10 @@ public class ReviewOrderFragment extends Fragment {
 //                            txt_mobile.setText(HomeActivity.global.getBmobile().toString());
 //                            addressId = HomeActivity.global.getAddressID().toString();
 //                        }
+                    } else if ((jsonobject.optString("success").equalsIgnoreCase("0"))) {
+                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
                     }
+
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {

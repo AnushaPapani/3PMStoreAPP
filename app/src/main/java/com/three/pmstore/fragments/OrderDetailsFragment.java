@@ -50,11 +50,12 @@ public class OrderDetailsFragment extends Fragment {
     private LinearLayout myOrderslinearLayout;
     private MyOrdersModel myOrdersModel;
     private LayoutInflater mInflater;
-    public static String orderID, cartID , CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate ,USername ,Uid ,PaymentType, url, GTOTAL, Bmobile;
+    public static String orderID, cartID, CartPID, Pimage, Pname, Pcost, Orderstatus, Orderdate, USername, Uid, PaymentType, url, GTOTAL, Bmobile;
     private Activity activity;
     //    private Context getActivity();
     private View rootView;
-    String orderid,CartProductId;
+    String orderid, CartProductId;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.ll, container, false);
@@ -63,6 +64,7 @@ public class OrderDetailsFragment extends Fragment {
         initUI();
         return rootView;
     }
+
     private void initUI() {
         myOrderslinearLayout = (LinearLayout) rootView.findViewById(R.id.ll);
         mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -120,7 +122,7 @@ public class OrderDetailsFragment extends Fragment {
                         ArrayList<String> orderIds = new ArrayList<>();
                         for (int i = 0; i < jsonArray.length(); i++) {
                             String s = jsonArray.getString(i);
-                            if(s.equals(orderid)) {
+                            if (s.equals(orderid)) {
                                 orderIds.add(s);
                             }
                         }
@@ -233,8 +235,7 @@ public class OrderDetailsFragment extends Fragment {
                                 }
                                 movie.setAttribute_Value(attrNamesArray);
 
-                                if(CartProductId.equals(jsonObjectMovie.optString("Cart_Prod_ID").toString()))
-                                {
+                                if (CartProductId.equals(jsonObjectMovie.optString("Cart_Prod_ID").toString())) {
                                     mMovie.add(movie);
                                 }
                             }
@@ -253,6 +254,7 @@ public class OrderDetailsFragment extends Fragment {
             }
         }
     }
+
     private void setDataTotheLayout() {
         if (myOrdersModel.getMovies() != null) {
             for (int l = 0; l < myOrdersModel.getMovies().size(); l++) {
@@ -314,21 +316,21 @@ public class OrderDetailsFragment extends Fragment {
 //                        }
 //                    });
 
-                    final TextView textViewSize= (TextView) inneritem.findViewById(R.id.textViewSize);
-                    final TextView sizeQuote= (TextView) inneritem.findViewById(R.id.sizeQuote);
-                    final TextView sizeValue= (TextView) inneritem.findViewById(R.id.sizeValue);
+                    final TextView textViewSize = (TextView) inneritem.findViewById(R.id.textViewSize);
+                    final TextView sizeQuote = (TextView) inneritem.findViewById(R.id.sizeQuote);
+                    final TextView sizeValue = (TextView) inneritem.findViewById(R.id.sizeValue);
 
-                    final TextView textViewColor= (TextView) inneritem.findViewById(R.id.textViewColor);
-                    final TextView colorQuote= (TextView) inneritem.findViewById(R.id.colorQuote);
-                    final TextView colorValue= (TextView) inneritem.findViewById(R.id.colorValue);
+                    final TextView textViewColor = (TextView) inneritem.findViewById(R.id.textViewColor);
+                    final TextView colorQuote = (TextView) inneritem.findViewById(R.id.colorQuote);
+                    final TextView colorValue = (TextView) inneritem.findViewById(R.id.colorValue);
 
-                    final TextView textViewCustom= (TextView) inneritem.findViewById(R.id.textViewCustom);
-                    final TextView typeQuote= (TextView) inneritem.findViewById(R.id.typeQuote);
-                    final TextView typeValue= (TextView) inneritem.findViewById(R.id.typeValue);
+                    final TextView textViewCustom = (TextView) inneritem.findViewById(R.id.textViewCustom);
+                    final TextView typeQuote = (TextView) inneritem.findViewById(R.id.typeQuote);
+                    final TextView typeValue = (TextView) inneritem.findViewById(R.id.typeValue);
 
-                    final TextView textViewGender= (TextView) inneritem.findViewById(R.id.textViewGender);
-                    final TextView genderQuote= (TextView) inneritem.findViewById(R.id.genderQuote);
-                    final TextView genderValue= (TextView) inneritem.findViewById(R.id.genderValue);
+                    final TextView textViewGender = (TextView) inneritem.findViewById(R.id.textViewGender);
+                    final TextView genderQuote = (TextView) inneritem.findViewById(R.id.genderQuote);
+                    final TextView genderValue = (TextView) inneritem.findViewById(R.id.genderValue);
 
                     ArrayList<String> attributeType = mMovie.getAttribute_Type();
                     ArrayList<String> attributeValue = mMovie.getAttribute_Value();
@@ -394,30 +396,25 @@ public class OrderDetailsFragment extends Fragment {
                     String returndisabledate = mMovie.getReturndisabledate().toString();
 
 
-                    if(orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||
-                            orderstatus.equals("Packed & Ready")||orderstatus.equals("Dispatched") ||
-                            orderstatus.equals("Canceled")|| orderstatus.equals("Pre-dispatch Cancellation")
-                            ||orderstatus.equals("Post-dispatch Cancellation"))
-                    {
+                    if (orderstatus.equals("Order Placed") || orderstatus.equals("Preparation in progress") ||
+                            orderstatus.equals("Packed & Ready") || orderstatus.equals("Dispatched") ||
+                            orderstatus.equals("Canceled") || orderstatus.equals("Pre-dispatch Cancellation")
+                            || orderstatus.equals("Post-dispatch Cancellation")) {
                         btn_cancel1.setVisibility(View.VISIBLE);
                         btn_track1.setVisibility(View.VISIBLE);
                         btn_callme1.setVisibility(View.GONE);
                         btn_return1.setVisibility(View.GONE);
                         btn_review1.setVisibility(View.GONE);
-                    }
-                    else if(orderstatus.equals("Order Held"))
-                    {
+                    } else if (orderstatus.equals("Order Held")) {
                         btn_callme1.setVisibility(View.VISIBLE);
                         btn_cancel1.setVisibility(View.GONE);
                         btn_track1.setVisibility(View.GONE);
                         btn_return1.setVisibility(View.GONE);
                         btn_review1.setVisibility(View.GONE);
-                    }
-                    else if(orderstatus.equals("Delivered") || orderstatus.equals("Return Request Received") ||
+                    } else if (orderstatus.equals("Delivered") || orderstatus.equals("Return Request Received") ||
                             orderstatus.equals("Return process initiated") || orderstatus.equals("Reverse pick-up done") ||
                             orderstatus.equals("Refund done Successfully") || orderstatus.equals("Next product dispatched") ||
-                            orderstatus.equals("Exchange done Successfully"))
-                    {
+                            orderstatus.equals("Exchange done Successfully")) {
                         btn_return1.setVisibility(View.VISIBLE);
                         btn_review1.setVisibility(View.VISIBLE);
                         btn_cancel1.setVisibility(View.GONE);
@@ -427,13 +424,12 @@ public class OrderDetailsFragment extends Fragment {
 
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     Date date = new Date();
-                    String date1= dateFormat.format(date);
+                    String date1 = dateFormat.format(date);
 
                     try {
                         Date returnDisableDate = dateFormat.parse(returndisabledate);
-                        if(Refund_Issubmit.equals("1") ||Refund_Issubmit.equals("0")|| Exchange_Issubmit.equals("1")
-                                ||Exchange_Issubmit.equals("0")|| date.compareTo(returnDisableDate)>0)
-                        {
+                        if (Refund_Issubmit.equals("1") || Refund_Issubmit.equals("0") || Exchange_Issubmit.equals("1")
+                                || Exchange_Issubmit.equals("0") || date.compareTo(returnDisableDate) > 0) {
                             btn_return1.setEnabled(false);
                             btn_return1.setBackgroundResource(R.drawable.order_buttongrey);
                         }
@@ -445,54 +441,42 @@ public class OrderDetailsFragment extends Fragment {
                         Date trackDate = dateFormat.parse(trackenabledate);
                         Date currentDate = dateFormat.parse(date1);
 
-                        System.out.println("trackenable date String --"+trackDate);
-                        if(orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate)>0 )
-                        {
+                        System.out.println("trackenable date String --" + trackDate);
+                        if (orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate) > 0) {
                             btn_track1.setEnabled(true);
-                        }
-                        else if(orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate)<0 )
-                        {
+                        } else if (orderstatus.equals("Dispatched") && currentDate.compareTo(trackDate) < 0) {
+                            btn_track1.setEnabled(false);
+                            btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
+                        } else {
                             btn_track1.setEnabled(false);
                             btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
                         }
-                        else
-                        {
-                            btn_track1.setEnabled(false);
-                            btn_track1.setBackgroundResource(R.drawable.order_buttongrey);
-                        }
-                    }
-                    catch (ParseException e1) {
+                    } catch (ParseException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-                    if(Cancel_Issubmit.equals("1") || Cancel_Issubmit.equals("0"))
-                    {
+                    if (Cancel_Issubmit.equals("1") || Cancel_Issubmit.equals("0")) {
                         btn_cancel1.setEnabled(false);
                         btn_cancel1.setBackgroundResource(R.drawable.order_buttongrey);
-                    }
-                    else  if(CancelStatus.equals("Canceled") || CancelStatus.equals("Pre-dispatch Cancellation") ||
-                            CancelStatus.equals("Post-dispatch Cancellation") || Cancel_Issubmit.equals("0"))
-                    {
+                    } else if (CancelStatus.equals("Canceled") || CancelStatus.equals("Pre-dispatch Cancellation") ||
+                            CancelStatus.equals("Post-dispatch Cancellation") || Cancel_Issubmit.equals("0")) {
                         btn_cancel1.setVisibility(View.GONE);
-                    }
-                    else
-                    {
+                    } else if (btn_track1.isEnabled()) {
+                        btn_cancel1.setEnabled(false);
+                        btn_cancel1.setBackgroundResource(R.drawable.order_buttongrey);
+                    } else {
                         btn_cancel1.setEnabled(true);
                     }
 
-
-                    if(!(orderstatus.equals("Order Held")) || Callme_Issubmit.equals("1")|| Cancel_Issubmit.equals("0"))
-                    {
+                    if (!(orderstatus.equals("Order Held")) || Callme_Issubmit.equals("1") || Cancel_Issubmit.equals("0")) {
                         btn_callme1.setEnabled(false);
                         btn_callme1.setBackgroundResource(R.drawable.order_buttongrey);
-                    } else
-                    {
+                    } else {
                         btn_callme1.setEnabled(true);
                     }
 
 
-                    if(Review_Issubmit.equals("1")||Review_Issubmit.equals("0"))
-                    {
+                    if (Review_Issubmit.equals("1") || Review_Issubmit.equals("0")) {
                         btn_review1.setEnabled(false);
                         btn_review1.setBackgroundResource(R.drawable.order_buttongrey);
                     }
@@ -509,26 +493,25 @@ public class OrderDetailsFragment extends Fragment {
                         statusBar12.setVisibility(View.INVISIBLE);
                         statusBar13.setVisibility(View.INVISIBLE);
                         statusBar14.setVisibility(View.INVISIBLE);
-                    }else if (orderstatus.contentEquals("Preparation in progress")) {
+                    } else if (orderstatus.contentEquals("Preparation in progress")) {
                         img_statusnode2.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar12.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
 
-                    }else if (orderstatus.contentEquals("Packed & Ready")) {
+                    } else if (orderstatus.contentEquals("Packed & Ready")) {
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
                         statusBar12.setVisibility(View.VISIBLE);
 //                        statusBar13.setVisibility(View.VISIBLE);
-                    }else if (orderstatus.contentEquals("Dispatched")) {
+                    } else if (orderstatus.contentEquals("Dispatched")) {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar11.setVisibility(View.VISIBLE);
                         statusBar12.setVisibility(View.VISIBLE);
                         statusBar13.setVisibility(View.VISIBLE);
-                    }
-                    else if (orderstatus.contains("Delivered")) {
+                    } else if (orderstatus.contains("Delivered")) {
                         img_statusnode2.setVisibility(View.VISIBLE);
                         img_statusnode3.setVisibility(View.VISIBLE);
                         img_statusnode4.setVisibility(View.VISIBLE);
@@ -536,17 +519,20 @@ public class OrderDetailsFragment extends Fragment {
                         statusBar12.setVisibility(View.VISIBLE);
                         statusBar13.setVisibility(View.VISIBLE);
 
-                    }else if (orderstatus.contains("Pre-dispatch Cancellation")) {
+                    } else if (orderstatus.contains("Pre-dispatch Cancellation")) {
                         txt_cancelled1.setText("Canceled");
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }else if (orderstatus.contains("Canceled")) {
+                    } else if (orderstatus.contains("Canceled")) {
                         txt_cancelled1.setText("Canceled");
+                        img_statusnode4.setVisibility(View.GONE);
+                        statusBar13.setVisibility(View.GONE);
+                        txt_delivered1.setVisibility(View.GONE);
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }else if (orderstatus.contains("Post-dispatch Cancellation")) {
+                    } else if (orderstatus.contains("Post-dispatch Cancellation")) {
                         txt_delivered1.setText("Canceled");
-                    }else if (orderstatus.contains("Return Request Received")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Return Request Received") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -564,7 +550,7 @@ public class OrderDetailsFragment extends Fragment {
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
 
-                    }else if (orderstatus.contains("Return Request Received")&&(Return_RefundTypes.contentEquals("Refund"))) {
+                    } else if (orderstatus.contains("Return Request Received") && (Return_RefundTypes.contentEquals("Refund"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -578,9 +564,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar12.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-
-                    else if (orderstatus.contains("Return process initiated")&&(Return_RefundTypes.contentEquals("Refund"))) {
+                    } else if (orderstatus.contains("Return process initiated") && (Return_RefundTypes.contentEquals("Refund"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -592,8 +576,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode3.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Return process initiated")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Return process initiated") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
 
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
@@ -609,8 +592,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Exchange done Successfully")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Exchange done Successfully") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -619,8 +601,7 @@ public class OrderDetailsFragment extends Fragment {
                         statusBar14.setVisibility(View.VISIBLE);
                         txt_exstatus1.setVisibility(View.VISIBLE);
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
-                    }
-                    else if (orderstatus.contains("Reverse pick-up done")&&((Return_RefundTypes.contentEquals("Refund")))) {
+                    } else if (orderstatus.contains("Reverse pick-up done") && ((Return_RefundTypes.contentEquals("Refund")))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -631,8 +612,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Reverse pick-up done")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Reverse pick-up done") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -644,8 +624,7 @@ public class OrderDetailsFragment extends Fragment {
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         img_statusnode5.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar14.setBackgroundColor(Color.parseColor("#D3D3D3"));
-                    }
-                    else if (orderstatus.contains("Next product dispatched")&&(Return_ExchangeTypes.contentEquals("A New Product"))) {
+                    } else if (orderstatus.contains("Next product dispatched") && (Return_ExchangeTypes.contentEquals("A New Product"))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -656,8 +635,7 @@ public class OrderDetailsFragment extends Fragment {
                         statusBar14.setVisibility(View.VISIBLE);
                         txt_exstatus1.setVisibility(View.VISIBLE);
                         txt_exstatus1.setText("Exchange done \nSuccessfully");
-                    }
-                    else if ((orderstatus.contains("Refund done Successfully")&&(Return_RefundTypes.contentEquals("Refund")))) {
+                    } else if ((orderstatus.contains("Refund done Successfully") && (Return_RefundTypes.contentEquals("Refund")))) {
                         txt_approved1.setText("Return \nRequest");
                         txt_packed1.setText("Return \nprocess");
                         txt_cancelled1.setText("Reverse \npick-up");
@@ -681,16 +659,16 @@ public class OrderDetailsFragment extends Fragment {
                             Uid = mMovie.getU_ID().toString();
 
                             Bundle b = new Bundle();
-                            b.putString("orderID",orderID);
-                            b.putString("CartPID",CartPID);
-                            b.putString("cartID",cartID);
-                            b.putString("Pimage",Pimage);
-                            b.putString("Pname",Pname);
-                            b.putString("Pcost",Pcost);
-                            b.putString("Orderstatus",Orderstatus);
-                            b.putString("Orderdate",Orderdate);
-                            b.putString("USername",USername);
-                            b.putString("Uid",Uid);
+                            b.putString("orderID", orderID);
+                            b.putString("CartPID", CartPID);
+                            b.putString("cartID", cartID);
+                            b.putString("Pimage", Pimage);
+                            b.putString("Pname", Pname);
+                            b.putString("Pcost", Pcost);
+                            b.putString("Orderstatus", Orderstatus);
+                            b.putString("Orderdate", Orderdate);
+                            b.putString("USername", USername);
+                            b.putString("Uid", Uid);
                             Utility.navigateDashBoardFragment(new CancelFormFragment(), CancelFormFragment.TAG, b, getActivity());
                         }
                     });
@@ -705,12 +683,12 @@ public class OrderDetailsFragment extends Fragment {
                             Uid = mMovie.getU_ID().toString();
 
                             Bundle b = new Bundle();
-                            b.putString("orderID",orderID);
-                            b.putString("CartPID",CartPID);
-                            b.putString("cartID",cartID);
-                            b.putString("Pcost",Pcost);
-                            b.putString("USername",USername);
-                            b.putString("Uid",Uid);
+                            b.putString("orderID", orderID);
+                            b.putString("CartPID", CartPID);
+                            b.putString("cartID", cartID);
+                            b.putString("Pcost", Pcost);
+                            b.putString("USername", USername);
+                            b.putString("Uid", Uid);
 
                             Utility.navigateDashBoardFragment(new ReviewFormFragment(), ReviewFormFragment.TAG, b, getActivity());
                         }
@@ -727,15 +705,15 @@ public class OrderDetailsFragment extends Fragment {
                             GTOTAL = mMovie.getGrandTotal().toString();
 
                             Bundle b = new Bundle();
-                            b.putString("orderID",orderID);
-                            b.putString("CartPID",CartPID);
-                            b.putString("cartID",cartID);
-                            b.putString("GTOTAL",GTOTAL);
-                            b.putString("USername",USername);
-                            b.putString("Uid",Uid);
-                            b.putString("PaymentType",PaymentType);
+                            b.putString("orderID", orderID);
+                            b.putString("CartPID", CartPID);
+                            b.putString("cartID", cartID);
+                            b.putString("GTOTAL", GTOTAL);
+                            b.putString("USername", USername);
+                            b.putString("Uid", Uid);
+                            b.putString("PaymentType", PaymentType);
 
-                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, b,getActivity());
+                            Utility.navigateDashBoardFragment(new ReturnFormFragment(), ReturnFormFragment.TAG, b, getActivity());
                         }
                     });
 
@@ -749,38 +727,37 @@ public class OrderDetailsFragment extends Fragment {
                             Bmobile = mMovie.getBmobile().toString();
 
                             Bundle b = new Bundle();
-                            b.putString("orderID",orderID);
-                            b.putString("CartPID",CartPID);
-                            b.putString("cartID",cartID);
-                            b.putString("Bmobile",Bmobile);
+                            b.putString("orderID", orderID);
+                            b.putString("CartPID", CartPID);
+                            b.putString("cartID", cartID);
+                            b.putString("Bmobile", Bmobile);
 
                             Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, b, getActivity());
 //                            Utility.navigateDashBoardFragment(new CallMeFormFragment(), CallMeFormFragment.TAG, null, getActivity());
                         }
                     });
-                    btn_track1.setOnClickListener(new View.OnClickListener()
-                    {
-                        public void onClick(View v)  {
+                    btn_track1.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
                             url = mMovie.getTrackurl().toString();
-                            System.out.println("url before "+url);
+                            System.out.println("url before " + url);
                             Bundle b = new Bundle();
-                            b.putString("URL",url);
+                            b.putString("URL", url);
                             Utility.navigateDashBoardFragment(new TrackWebView(), TrackWebView.TAG, b, getActivity());
                         }
                     });
 
-                    txt_addressname.setText(""+mMovie.getUsername());
-                    txt_addressline.setText(""+mMovie.getBline());
-                    txt_addresscity.setText(""+mMovie.getBcity());
-                    txt_addressstate.setText(""+mMovie.getBstate());
-                    txt_addresspin.setText(""+mMovie.getBpincode());
-                    txt_addressmobile.setText(""+mMovie.getBmobile());
+                    txt_addressname.setText("" + mMovie.getUsername());
+                    txt_addressline.setText("" + mMovie.getBline());
+                    txt_addresscity.setText("" + mMovie.getBcity());
+                    txt_addressstate.setText("" + mMovie.getBstate());
+                    txt_addresspin.setText("" + mMovie.getBpincode());
+                    txt_addressmobile.setText("" + mMovie.getBmobile());
 
                     txt_product_name.setText("" + mMovie.getP_Name());
                     txt_status.setText("" + mMovie.getStatus());
-                    txt_qty.setText(""+mMovie.getP_Qty());
-                    txt_subtotal.setText(""+mMovie.getTotalCost());
-                    txt_grandtotal.setText(""+mMovie.getGrandTotal());
+                    txt_qty.setText("" + mMovie.getP_Qty());
+                    txt_subtotal.setText("" + mMovie.getTotalCost());
+                    txt_grandtotal.setText("" + mMovie.getGrandTotal());
                     String imgStr = mMovie.getP_Image().toString().replace(" ", "%20");
                     System.out.println("imgString " + imgStr);
                     Picasso.with(getActivity()).load(imgStr).into(img_P_Image);

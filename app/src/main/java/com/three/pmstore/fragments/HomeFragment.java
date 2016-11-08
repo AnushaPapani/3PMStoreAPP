@@ -71,7 +71,12 @@ public class HomeFragment extends Fragment {
         LinearLayout tabOne = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
         TextView textview = (TextView) tabOne.findViewById(R.id.txt_image);
         ImageView img_icon = (ImageView) tabOne.findViewById(R.id.img_icon);
-        textview.setText(HomeActivity.mProductItemsList.get(0).getCategory().toUpperCase());
+        try {
+            textview.setText(HomeActivity.mProductItemsList.get(0).getCategory().toUpperCase());
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
+
         Picasso.with(getActivity()).load((HomeActivity.mProductItemsList.get(0).getCategory_Icon())).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh)).into(img_icon);
         //img_icon.setImageDrawable(getResources().getDrawable(R.drawable.image_first_gray));
         tabLayout.getTabAt(0).setCustomView(tabOne);

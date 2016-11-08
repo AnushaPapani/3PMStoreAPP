@@ -1,14 +1,15 @@
 package com.three.pmstore.fragments;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.webkit.WebView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.three.pmstore.R;
 
 
@@ -20,7 +21,7 @@ public class PrivacyPolicyFragment extends Fragment {
     public static final String TAG = "PrivacyPolicyFragment";
     private View rootView;
     String Privacy = "Privacy Policy";
-
+    WebView webView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,9 +31,16 @@ public class PrivacyPolicyFragment extends Fragment {
     }
 
     private void initUI() {
-        TextView privacy = (TextView) rootView.findViewById(R.id.privacypolicytext);
-        SpannableString content = new SpannableString(Privacy);
-        content.setSpan(new UnderlineSpan(), 0, Privacy.length(), 0);
-        privacy.setText(content);
+        FacebookSdk.sdkInitialize(getActivity());
+        AppEventsLogger.activateApp(getActivity());
+        //		setContentView(R.layout.secs);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        AppEventsLogger logger = AppEventsLogger.newLogger(getActivity());
+        logger.logEvent("pageview");
+        webView = (WebView)rootView.findViewById(R.id.webView1);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/privacypolicy.php");
     }
+
 }

@@ -415,7 +415,11 @@ public class MyOrderFragment extends Fragment {
                     } else if (CancelStatus.equals("Canceled") || CancelStatus.equals("Pre-dispatch Cancellation") ||
                             CancelStatus.equals("Post-dispatch Cancellation") || Cancel_Issubmit.equals("0")) {
                         btn_cancel1.setVisibility(View.GONE);
-                    } else {
+                    } else if(btn_track1.isEnabled()){
+                        btn_cancel1.setEnabled(false);
+                        btn_cancel1.setBackgroundResource(R.drawable.order_buttongrey);
+                    }
+                    else {
                         btn_cancel1.setEnabled(true);
                     }
 
@@ -473,6 +477,9 @@ public class MyOrderFragment extends Fragment {
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                     } else if (orderstatus.contains("Canceled")) {
                         txt_cancelled1.setText("Canceled");
+                        img_statusnode4.setVisibility(View.GONE);
+                        statusBar13.setVisibility(View.GONE);
+                        txt_delivered1.setVisibility(View.GONE);
                         img_statusnode4.setImageDrawable(getResources().getDrawable(R.drawable.circle_change));
                         statusBar13.setBackgroundColor(Color.parseColor("#D3D3D3"));
                     } else if (orderstatus.contains("Post-dispatch Cancellation")) {
@@ -706,7 +713,7 @@ public class MyOrderFragment extends Fragment {
                     txt_product_name.setText("" + mMovie.getP_Name());
                     txt_status.setText("" + mMovie.getStatus());
                     txt_date.setText("" + mMovie.getOrder_Date().toString().replace("-", "/"));
-                    String imgStr = mMovie.getP_Image();
+                    String imgStr = mMovie.getP_Image().replace(" ","%20");
                     System.out.println("imgString " + imgStr);
                     Picasso.with(getActivity()).load(imgStr).into(img_P_Image);
 

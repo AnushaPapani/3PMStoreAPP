@@ -1,9 +1,8 @@
 package com.three.pmstore.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -31,20 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.android.AsyncFacebookRunner;
-import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
-import com.facebook.android.FacebookError;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -55,37 +47,25 @@ import com.three.pmstore.activities.GCMApplicationConstants;
 import com.three.pmstore.activities.GCMUtility;
 import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.activities.JSONParser;
+import com.three.pmstore.activities.Previous_ProductsActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.three.pmstore.activities.GCMMainActivity.EMAIL_ID;
 import static com.three.pmstore.activities.GCMMainActivity.REG_ID;
+
+//import com.three.pmstore.activities.GooglePlus_Activity;
 
 
 /**
@@ -94,8 +74,10 @@ import static com.three.pmstore.activities.GCMMainActivity.REG_ID;
 public class LoginFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "LoginFragment";
+    Activity Acontext;
 
     private HomeActivity mParent;
+    private Previous_ProductsActivity mParent2;
     private View rootView;
     // Instance of Facebook_Activity Class
     private TextView txt_password;
@@ -106,6 +88,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     String access_token;
     private Button btn_login;
     private Button btn_sign_up;
+    private SignInButton gPlus_sign_up;
     private SharedPreferences mPrefs;
     private String mFrom = "";
     View toastRoot;
@@ -135,6 +118,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     String signup = "Sign up with 3PMstore";
     String login = "Login";
     CallbackManager callbackManager;
+    Bundle bundle;
     private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private View otherView;
@@ -142,7 +126,18 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mParent = (HomeActivity) getActivity();
+        bundle = new Bundle();
+        try {
+            if (bundle.containsKey("previouslogin")) {
+//            Previous_ProductsActivity mParent;
+                mParent2 = (Previous_ProductsActivity) getActivity();
+            } else {
+//            HomeActivity mParent;
+                mParent = (HomeActivity) getActivity();
+            }
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
 
         if (getArguments() != null) {
             mFrom = getArguments().getString("from");
@@ -197,9 +192,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         edt_email = (EditText) rootView.findViewById(R.id.edt_email);
         edt_password = (EditText) rootView.findViewById(R.id.edt_password);
         btn_login = (Button) rootView.findViewById(R.id.btn_login);
+        gPlus_sign_up = (SignInButton) rootView.findViewById(R.id.sign_in_button);
         btn_sign_up = (Button) rootView.findViewById(R.id.btn_sign_up);
         btn_login.setOnClickListener(this);
         btn_sign_up.setOnClickListener(this);
+        gPlus_sign_up.setOnClickListener(this);
         txt_register_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,11 +221,20 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.btn_sign_up:
                 if (isNetworkAvailable(getActivity()) == true) {
-                    Intent i=new Intent(getActivity(),Facebook_Activity.class);
+                    Intent i = new Intent(getActivity(), Facebook_Activity.class);
                     startActivity(i);
-//                    setUpFacebookLogin();
-//                    accessTokenFacebook();
 //                    printKeyHash(getActivity());
+                } else {
+                    Toast.makeText(getActivity(), "No Network Connection",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+
+            case R.id.sign_in_button:
+                if (isNetworkAvailable(getActivity()) == true) {
+//                    Intent i = new Intent(getActivity(), GooglePlus_Activity.class);
+//                    startActivity(i);
                 } else {
                     Toast.makeText(getActivity(), "No Network Connection",
                             Toast.LENGTH_SHORT).show();
@@ -237,63 +243,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void setUpFacebookLogin() {
-        LoginManager.getInstance().logInWithReadPermissions(getActivity(),
-                Collections.singletonList("public_profile"));
-
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                try {
-                                    String name = object.getString("name");
-                                    String mEmainId = object.getString("email");
-                                    String mFaceBookUniqueId = object.getString("id");
-
-                                    String token = loginResult.getAccessToken().getToken();
-                                    System.out.println("fname"+name);
-//                                    Utility.showLog("name", "name" + name);
-//                                    Utility.showLog("token", "token" + token);
-
-//                                    if (mFromLogin.equals("fromlogin")) {
-//                                        signInforNextstar(mEmainId, mFaceBookUniqueId, "", "facebook");
-//                                    } else if (mFromLogin.equals("fromsingup")) {
-//                                        if (!Utility.isValueNullOrEmpty(mEmainId)) {
-//                                            checkisUsernameAviableOrNot();
-//                                        } else {
-//                                            Bundle bundle = new Bundle();
-//                                            bundle.putString("useremail", "");
-//                                            bundle.putString("password", etAccountPassword.getText().toString());
-//                                            bundle.putString("logintype", mLoginType);
-//                                            bundle.putString("facebookuniqueid", mFaceBookUniqueId);
-//                                        /*parent.tvTermsPrivacy.setVisibility(View.VISIBLE);*/
-//                                            parent.llPrivacy.setVisibility(View.GONE);
-//                                            Utility.navigateFragment(new RolesFragment(), RolesFragment.TAG, bundle, getActivity());
-//                                        }
-//                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "name,email");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-            @Override
-            public void onCancel() {
-            }
-            @Override
-            public void onError(FacebookException error) {
-            }
-
-        });
-    }
 
     public static boolean isNetworkAvailable(Context mContext) {
 
@@ -306,415 +255,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
         Log.e("Network Testing", "***Not Available***");
         return false;
-    }
-
-    @SuppressWarnings("deprecation")
-    public void accessTokenFacebook() {
-
-        mPrefs = getActivity().getPreferences(MODE_PRIVATE);
-        access_token = mPrefs.getString("access_token", null);
-        long expires = mPrefs.getLong("access_expires", 0);
-        // Log.e("Facebook_Activity token", access_token);
-
-        if (access_token != null) {
-            facebook.setAccessToken(access_token);
-        }
-        if (expires != 0) {
-            facebook.setAccessExpires(expires);
-        }
-
-        /**
-         * Only call authorize if the access_token has expired.
-         */
-        if (!facebook.isSessionValid()) {
-
-            facebook.authorize(getActivity(), new String[]{"email"}, new Facebook.DialogListener() {
-                public void onComplete(Bundle values) {
-                    try {
-                        JSONObject me = new JSONObject(facebook.request("me"));
-
-                        SharedPreferences.Editor editor = mPrefs.edit();
-                        String id = me.getString("id");
-                        System.out
-                                .println("******facebook.getAccessToken()****"
-                                        + facebook.getAccessToken());
-                        editor.putString("userid", id);
-                        editor.putString("access_token",
-                                facebook.getAccessToken());
-                        editor.putLong("access_expires",
-                                facebook.getAccessExpires());
-                        editor.commit();
-                        new getFacebookData().execute();
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                    }
-                }
-
-                public void onFacebookError(FacebookError error) {
-                }
-
-                public void onError(DialogError e) {
-                }
-
-                public void onCancel() {
-                }
-            });
-        } else {
-            new getFacebookData().execute();
-        }
-
-    }
-
-    /*Facebook_Activity*/
-    public class getFacebookData extends AsyncTask<String, Void, String> {
-
-        ProgressDialog pd;
-
-        @Override
-        protected void onPreExecute() {
-            pd = ProgressDialog.show(getActivity(), "Please wait",
-                    "Loading please wait..", true);
-            pd.setCancelable(true);
-
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            fbUserProfile();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            pd.dismiss();
-            // get prompts.xml view
-            LayoutInflater li = LayoutInflater.from(getActivity());
-            View promptsView = li.inflate(R.layout.fb_dialog, null);
-            alertDialogBuilder = new AlertDialog.Builder(
-                    getActivity());
-
-            // set prompts.xml to alertdialog builder
-            alertDialogBuilder.setView(promptsView);
-
-            userInput = (EditText) promptsView
-                    .findViewById(R.id.editTextDialogUserInput);
-            if (isNetworkAvailable(getActivity()) == true) {
-                if (TextUtils.isEmpty(names)) {
-                    LayoutInflater li1 = LayoutInflater.from(getActivity());
-                    View promptsView1 = li1.inflate(R.layout.fb_dialog, null);
-                    alertDialogBuilder = new AlertDialog.Builder(
-                            getActivity());
-
-                    // set prompts.xml to alertdialog builder
-                    alertDialogBuilder.setView(promptsView1);
-
-                    userInput = (EditText) promptsView1
-                            .findViewById(R.id.editTextDialogUserInput);
-                    userInput.setText(names);
-
-                    alertDialogBuilder
-                            .setCancelable(false)
-                            .setPositiveButton("Submit",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            get_old_email = userInput.getText().toString();
-
-                                            new Fblogin().execute();
-                                        }
-                                    });
-
-
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-
-                }
-                if (!TextUtils.isEmpty(names)) {
-                    userInput.setText(names);
-                    alertDialogBuilder
-                            .setCancelable(false)
-                            .setPositiveButton("Submit",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            String get_email = userInput.getText().toString();
-//                                            globalVariable.setFbemail(""+get_email);
-//                                            globalVariable.setFbgender(""+gender);
-//                                            globalVariable.setFbname(""+name);
-                                            new Fblogin().execute();
-                                        }
-                                    });
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-
-                    // show it
-                    alertDialog.show();
-
-                } else {
-//                    globalVariable.setFbemail(""+names);
-//                    globalVariable.setFbgender(""+gender);
-//                    globalVariable.setFbname(""+name);
-                }
-            } else {
-                TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
-                t.setText("Connection Time out");
-                toast.setView(toastRoot);
-                toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                toast.setDuration(Toast.LENGTH_SHORT);
-                toast.show();
-
-            }
-        }
-
-    }
-
-    /*Facebook_Activity Userprofile*/
-    public void fbUserProfile() {
-
-        try {
-            access_token = mPrefs.getString("access_token", null);
-            JSONObject jsonObj = null;
-            JSONObject jsonObjData = null;
-            JSONObject jsonObjUrl = null;
-            HttpParams httpParameters = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpParameters, 50000);
-            HttpConnectionParams.setSoTimeout(httpParameters, 50000);
-
-            HttpClient client = new DefaultHttpClient(httpParameters);
-
-            String requestURL = "https://graph.facebook.com/me?fields=picture,id,name,gender,age_range,email&access_token="
-                    + access_token;
-            Log.i("Request URL:", "---" + requestURL);
-            System.out.print("Request URL:" + requestURL);
-            HttpGet request = new HttpGet(requestURL);
-
-            HttpResponse response = client.execute(request);
-            BufferedReader rd = new BufferedReader(new InputStreamReader(
-                    response.getEntity().getContent()));
-            String webServiceInfo = "";
-
-            while ((webServiceInfo = rd.readLine()) != null) {
-                Log.i("Service Response:", "---" + webServiceInfo);
-                jsonObj = new JSONObject(webServiceInfo);
-                jsonObjData = jsonObj.getJSONObject("picture");
-                jsonObjUrl = jsonObjData.getJSONObject("data");
-                FBID = jsonObj.getLong("id");
-                System.out.println("facebook user id " + FBID);
-                name = jsonObj.getString("name");
-                names = jsonObj.getString("email");
-                gender = jsonObj.getString("gender");
-                Utility.setSharedPrefStringData(getActivity(), Constants.FB_GENDER, gender);
-                String imageURL = jsonObjUrl.getString("url");
-
-//                new Handler().postDelayed(new Runnable(){
-//                    @Override
-//                    public void run() {
-//						/* Create an Intent that will start the Menu-Activity. */
-//                    }
-//                }, SPLASH_DISPLAY_LENGTH);
-            }
-
-
-        } catch (Exception e) {
-            Connectiontimeout = true;
-        }
-
-
-    }
-
-    /*Facebook_Activity Login*/
-    class Fblogin extends AsyncTask<String, String, String> {
-
-        ProgressDialog pDialog3;
-        /**
-         * Before starting background thread Show Progress Dialog *
-         */
-        boolean failure = false;
-        String password;
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog3 = new ProgressDialog(getActivity());
-            pDialog3.setMessage("Attempting for facebook login...");
-            pDialog3.show();
-        }
-
-        protected String doInBackground(String... args) {
-            // TODO Auto-generated method stub
-
-            int success;
-
-            String res = null;
-//            String fbmail =globalVariable.getFbemail().toString();
-//            String fbgender =globalVariable.getFbgender().toString();
-//            String fbname =globalVariable.getFbname().toString();
-
-//            System.out.println("fbmail id1"+fbmail);
-            //			String fbid =globalVariable.getFbid().toString();
-            //			System.out.println("IDIDIDIss  "+fbid);
-            if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-                HomeActivity.mCartId = HomeActivity.mCartId.toString();
-            }
-
-//            System.out.println("emaild fb  "+fbmail);
-//            System.out.println("gender fb  "+fbgender);
-//            System.out.println("IDIDIDI  "+ordersid);
-//            System.out.println("FACEBOOKddd   "+FBID);
-            String faceid = String.valueOf(FBID);
-
-            try {
-                List<NameValuePair> params = new ArrayList<NameValuePair>();
-
-                params.add(new BasicNameValuePair("fbname", Utility.getSharedPrefStringData(getActivity(), Constants.FB_NAME)));
-                params.add(new BasicNameValuePair("fbemail", Utility.getSharedPrefStringData(getActivity(), Constants.FB_EMAIL)));
-                params.add(new BasicNameValuePair("fbid", faceid));
-                params.add(new BasicNameValuePair("fbgender", Utility.getSharedPrefStringData(getActivity(), Constants.FB_GENDER)));
-                params.add(new BasicNameValuePair("cartId", HomeActivity.mCartId));
-                Log.d("request!", "starting");
-                json = jsonParser.makeHttpRequest(ApiConstants.LOGIN, "POST", params);
-                Log.d("Login attempt", json.toString());
-                String suces = json.toString();
-                System.out.println("**********" + suces);
-                // success tag for json
-                success = json.getInt("success");
-                if (success == 1) {
-                    Log.d("Successfully Login!", json.toString());
-                    if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.FB_EMAIL))
-                            && GCMUtility.validate(Utility.getSharedPrefStringData(getActivity(), Constants.FB_EMAIL))) {
-                        // Check if Google Play Service is installed in Device
-                        // Play services is needed to handle GCM stuffs
-                        if (checkPlayServices()) {
-                            // Register Device in GCM Server
-                            registerInBackground(Utility.getSharedPrefStringData(getActivity(), Constants.FB_EMAIL));
-                        }
-                    }
-                    // When Email is invalid
-                    else {
-                        Toast.makeText(getActivity(), "Please enter valid email",
-                                Toast.LENGTH_LONG).show();
-                    }
-                    try {
-                        JSONObject jObj = new JSONObject(suces);
-                        //						Long uids = jObj.getLong("fb_ID");
-                        String userid = jObj.getString("ID");
-                        String Count = jObj.getString("count");
-                        JSONObject user = jObj.getJSONObject("user");
-                        Long uids = user.getLong("fb_ID");
-                        String namess = user.getString("fullname");
-                        String emailsss = user.getString("email");
-                        Log.d("LoginUserid", userid);
-                        System.out.println("**********   UIDFB" + userid);
-                        System.out.println("**********" + user);
-                        System.out.println("**********" + namess);
-                        System.out.println("**********" + emailsss);
-                        Utility.setSharedPrefStringData(getActivity(), Constants.FB_NAME, namess);
-                        Utility.setSharedPrefStringData(getActivity(), Constants.FB_EMAIL, emailsss);
-
-//                        String Name =globalVariable.getName().toString();
-//                        System.out.println("UNAME "+Name);
-//                        String UID =globalVariable.getUserid().toString();
-//                        System.out.println("UNAMEID"+UID);
-//                        String MAIL =globalVariable.getEmailid().toString();
-//                        System.out.println("UNAMEMAIL "+MAIL);
-
-
-                        //						System.out.println("Globalname"+globalVariable.getFbname());
-                        //						System.out.println("Globalemail"+globalVariable.getFbemail());
-                        //
-                        //						String Name =globalVariable.getName().toString();
-                        //						System.out.println("UNAME "+Name);
-                        //						String UID =globalVariable.getUserid().toString();
-                        //						System.out.println("UNAMEID"+UID);
-                        //						String MAIL =globalVariable.getEmailid().toString();
-                        //						System.out.println("UNAMEMAIL "+MAIL);
-                        //						String ORDERID =globalVariable.getOrderid().toString();
-                        //						System.out.println("ORDERS "+ORDERID);
-                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-
-                        // Inserting row in users table
-
-
-                    } catch (JSONException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    } catch (NullPointerException e) {
-                        // TODO: handle exception
-                        e.printStackTrace();
-                    }
-                    return json.getString("message");
-                } else {
-                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-                    return json.getString(TAG_MESSAGE);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        /**
-         * Once the background process is done we need to Dismiss the progress dialog asap *
-         **/
-        protected void onPostExecute(String message) {
-            pDialog3.dismiss();
-
-            if (message.contentEquals("Login Successfull!!!")) {
-//                String emailID = emailET.getText().toString();
-
-
-                if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))
-                        && GCMUtility.validate(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
-                    // Check if Google Play Service is installed in Device
-                    // Play services is needed to handle GCM stuffs
-                    if (checkPlayServices()) {
-
-
-                        // Register Device in GCM Server
-                        registerInBackground(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID));
-                    }
-                }
-                if (HomeActivity.mCartId != null) {
-                    if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))) {
-                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                        t.setText("Login Successfull!");
-                        toast.setView(toastRoot2);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_SHORT);
-
-                        toast.show();
-                        Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
-
-
-                    } else {
-                        TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                        t.setText("Login Successfull!");
-                        toast.setView(toastRoot2);
-                        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                        toast.setDuration(Toast.LENGTH_SHORT);
-                        toast.show();
-
-                        Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-
-//                        new Postdaata().execute();
-//                        Intent i = new Intent(Login.this, ReviewOrder.class);
-//                        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//                        startActivity(i);
-//                        finish();
-                    }
-                } else {
-                    TextView t = (TextView) toastRoot2.findViewById(R.id.validtoast);
-                    t.setText("Login Successfull!");
-                    toast.setView(toastRoot2);
-                    toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL | Gravity.FILL_HORIZONTAL, 0, 80);
-                    toast.setDuration(Toast.LENGTH_SHORT);
-                    toast.show();
-                    Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, getActivity());
-                }
-            }
-
-        }
     }
 
     // AsyncTask to register Device in GCM Server
@@ -940,7 +480,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                         HomeActivity.mCartId = jsonobject.optString("cartId");
                         HomeActivity.mCartTotal = jsonobject.optInt("cartValue");
-
+                        HomeActivity.leftMenuAdapter.notifyDataSetChanged();
+                        String count = Utility.getSharedPrefStringData(getActivity(), Constants.CARTCOUNT);
                         /*GCM*/
                         if (!TextUtils.isEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))
                                 && GCMUtility.validate(Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID))) {
@@ -953,31 +494,93 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                         }
 
                         if (!mFrom.equalsIgnoreCase("cart")) {
-                            mParent.onBackPressed();
+                            if (bundle.containsKey("previouslogin")) {
+//                                Previous_ProductsActivity mParent;
+                                mParent2 = (Previous_ProductsActivity) getActivity();
+                                mParent2.onBackPressed();
+                            } else {
+//                                HomeActivity mParent;
+                                mParent = (HomeActivity) getActivity();
+                                mParent.onBackPressed();
+                            }
                         }
-
-                        if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
-                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
-                        } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-                            HomeActivity.updateNavigationDrawer(mParent);
-                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
-                        } else {
-                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
-                        }
-
-//                        }else if ((!Utility.isValueNullOrEmpty(HomeActivity.mCartId)&&
-//                                (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))))){
-//                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
+//                        if (!(jsonobject.optString("cartId").equalsIgnoreCase("0")) && (!(jsonobject.optString("cartId").equalsIgnoreCase("")))){
+//                            if (json.optString("count").equalsIgnoreCase("0")){
+//                                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+//                            }else if ((!(jsonobject.optString("cartId").equalsIgnoreCase("0")) && (!(jsonobject.optString("cartId").equalsIgnoreCase(""))))){
+//                                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
+//                            }
+//
+//                        }else {
+//                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
 //                        }
+//                        if (bundle.containsKey("previouslogin")){
+//                            Previous_ProductsActivity mParent;
+//                            mParent = (Previous_ProductsActivity) getActivity();
+//                        }else {
+//                            HomeActivity mParent;
+//                            mParent = (HomeActivity) getActivity();
+//                        }
+                        if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
+                            if (bundle.containsKey("previouslogin")) {
+//                                Previous_ProductsActivity mParent;
+                                mParent2 = (Previous_ProductsActivity) getActivity();
+                                Previous_ProductsActivity.updateNavigationDrawer(mParent2);
+                                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent2);
+                            } else {
+//                                HomeActivity mParent;
+                                mParent = (HomeActivity) getActivity();
+                                HomeActivity.updateNavigationDrawer(mParent);
+                                Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+                            }
 
-                        /*If Address is Zero*//*
-                        if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT))) {
-                            Utility.navigateDashBoardFragment(new MyAddressFragment(), MyAddressFragment.TAG, null, getActivity());
+                        } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
+                            if (bundle.containsKey("previouslogin")) {
+//                                Previous_ProductsActivity mParent;
+                                mParent2 = (Previous_ProductsActivity) getActivity();
+                                Previous_ProductsActivity.updateNavigationDrawer(mParent2);
+                                Intent i = new Intent(getActivity(), HomeActivity.class);
+                                startActivity(i);
+                                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent2);
+                            } else {
+//                                HomeActivity mParent;
+                                mParent = (HomeActivity) getActivity();
+                                HomeActivity.updateNavigationDrawer(mParent);
+                                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+                            }
+
                         } else {
-                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
-                        }*/
+                            if (bundle.containsKey("previouslogin")) {
+//                                Previous_ProductsActivity mParent;
+                                mParent2 = (Previous_ProductsActivity) getActivity();
+                                Previous_ProductsActivity.updateNavigationDrawer(mParent2);
+                                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent2);
+                            } else {
+//                                HomeActivity mParent;
+                                mParent = (HomeActivity) getActivity();
+                                HomeActivity.updateNavigationDrawer(mParent);
+                                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
+                            }
+//                            HomeActivity.updateNavigationDrawer(mParent);
+                        }
 
-
+//                        if ((Utility.isValueNullOrEmpty(jsonobject.optString("count")))) {
+//                            Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, mParent);
+//                        } else if ((Utility.isValueNullOrEmpty(jsonobject.optString("cartId"))) && (jsonobject.getString("cartId").equals(""))) {
+////                            HomeActivity.updateNavigationDrawer(mParent);
+////                            Intent i=new Intent(mContext,HomeActivity.class);
+////                            startActivity(i);
+//                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+////                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+//                        } else if (count.equals("0")) {
+//                            HomeActivity.updateNavigationDrawer(mParent);
+//                            Intent i=new Intent(mContext,HomeActivity.class);
+//                            startActivity(i);
+////                            Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+//                        } else if (!(count.equals("0")) && !(HomeActivity.mCartId.equals("0"))){
+//                            Toast.makeText(mContext,"Revieworder",Toast.LENGTH_LONG).show();
+////                            Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, mParent);
+//                        }
                     } else {
                         TextView t = (TextView) toastRoot.findViewById(R.id.errortoast);
                         t.setText("Incorrect Credentials");

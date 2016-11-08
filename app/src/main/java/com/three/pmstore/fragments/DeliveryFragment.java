@@ -1,14 +1,16 @@
 package com.three.pmstore.fragments;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.three.pmstore.R;
 
 
@@ -21,7 +23,7 @@ public class DeliveryFragment extends Fragment {
     private View rootView;
     TextView deliverytext;
     String Delivery = "Delivery";
-
+    WebView webView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,9 +33,16 @@ public class DeliveryFragment extends Fragment {
     }
 
     private void initUI() {
-        deliverytext = (TextView) rootView.findViewById(R.id.deliverytext);
-        SpannableString content = new SpannableString(Delivery);
-        content.setSpan(new UnderlineSpan(), 0, Delivery.length(), 0);
-        deliverytext.setText(content);
+        FacebookSdk.sdkInitialize(getActivity());
+        AppEventsLogger.activateApp(getActivity());
+        //		setContentView(R.layout.secs);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        AppEventsLogger logger = AppEventsLogger.newLogger(getActivity());
+        logger.logEvent("pageview");
+        webView = (WebView)rootView.findViewById(R.id.webView1);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://www.3pmstore.com/3PMstoreApp/3PMstore5189062/delivery.php");
     }
+
 }

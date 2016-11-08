@@ -54,11 +54,17 @@ public class AddAddressFragment extends Fragment {
     private View toastRoot2;
     private Toast toast;
     Button btnAddAddress;
-
+    CustomProgressDialog mCustomProgressDialog;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
+        mCustomProgressDialog =new CustomProgressDialog(getActivity());
+        if (mCustomProgressDialog.showProgress("")){
+            mCustomProgressDialog.dismissProgress();
+        }else {
+            mCustomProgressDialog.dismissProgress();
+        }
         if (getArguments() != null) {
             mFrom = getArguments().getString("from");
         }
@@ -182,8 +188,9 @@ public class AddAddressFragment extends Fragment {
                         Utility.setSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT, "1");
                         Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, getActivity());
 
-                    } else {
-//                        Utility.showToastMessage(getActivity(), jsonobject.optString("message"));
+                    } else if (jsonobject.optString("success").equalsIgnoreCase("0")){
+                        String mesage =jsonobject.getString("message");
+                        Utility.showToastMessage(getActivity(), mesage);
                     }
                 }
                 mCustomProgressDialog.dismissProgress();

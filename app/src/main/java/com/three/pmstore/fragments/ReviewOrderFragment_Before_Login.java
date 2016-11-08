@@ -1,5 +1,6 @@
 package com.three.pmstore.fragments;
 
+import android.app.Dialog;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +25,7 @@ import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.models.ReviewOrderModel_Before_Login;
 import com.three.pmstore.utility.ApiConstants;
+import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
 
 import org.json.JSONArray;
@@ -104,7 +107,25 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
         Checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, getActivity());
+//                if (mCartId == "") {
+//                    Utility.showToastMessage(this, "Add at least one item to cart");
+//                } else if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID)) && !cartcount.equals("0")) {
+//                    Utility.navigateDashBoardFragment(new ReviewOrderFragment_Before_Login(), ReviewOrderFragment_Before_Login.TAG, null, HomeActivity.this);
+//                } else if (ccount.equals("0") &&
+//                        (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID)))) {
+//                    Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, HomeActivity.this);
+//                } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID)) &&
+//                        !ccount.equals("0") && !cartcount.equals("0")) {
+//                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+//                } else {
+//                    Utility.showToastMessage(this, "Add at least one item to cart");
+//                }
+                if (Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(getActivity(), Constants.USER_ID))){
+                    Utility.navigateDashBoardFragment(new LoginFragment(), LoginFragment.TAG, null, getActivity());
+                }else {
+                    Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, getActivity());
+                }
+
             }
         });
     }
@@ -153,6 +174,7 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                 if (response != null) {
                     JSONObject jsonobject = new JSONObject(response);
                     if (jsonobject != null) {
+                        if (jsonobject.optString("success").equalsIgnoreCase("1")) {
                         JSONArray reviewOrdersArray = jsonobject.optJSONArray("tbl_cart");
                         for (int i = 0; i < reviewOrdersArray.length(); i++) {
                             JSONObject jsonObject = reviewOrdersArray.getJSONObject(i);
@@ -188,14 +210,39 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
                         Grand_total.setText(total_cartvalue);
                         if (reviewOrderModels.size() > 0) {
                             reviewOrderAdapter = new ReviewOrderAdapter_Before_Login(getActivity(), reviewOrderModels, mParent);
-                            listView_selected_orders.setAdapter(reviewOrderAdapter);
                             listView_selected_orders.addHeaderView(ll_header);
                             listView_selected_orders.addFooterView(ll_fottor);
+                            listView_selected_orders.setAdapter(reviewOrderAdapter);
                         } else {
                             listView_selected_orders.setAdapter(new NoOrderFoundAdapter(mParent));
                             listView_selected_orders.addHeaderView(ll_header);
                         }
+                    } else if ((jsonobject.optString("success").equalsIgnoreCase("2"))) {
+                        final Dialog dialog = new Dialog(getActivity());
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setCancelable(false);
+                        dialog.setContentView(R.layout.expired_popup_screen);
+                        Button button = (Button) dialog.findViewById(R.id.button1);
+                        final TextView textView = (TextView) dialog.findViewById(R.id.textView1);
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // TODO Auto-generated method stub
+                                Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
+                                Utility.setSharedPrefStringData(getActivity(), Constants.CARTCOUNT, "0");
+                                Utility.setSharedPrefStringData(getActivity(), Constants.CARTID, "");
+                                Utility.setSharedPrefStringData(getActivity(), Constants.PROMO, "");
+//                                    Utility.setSharedPrefStringData(getActivity(), Constants.CARTCOUNT,"");
+                                HomeActivity.cart_layout_button_set_text.setText(Utility.getSharedPrefStringData(getActivity(), Constants.CARTCOUNT));
+                                dialog.dismiss();
+                            }
+                        });
+
+                        dialog.show();
+
+
                     }
+                }
                 }
                 mCustomProgressDialog.dismissProgress();
             } catch (JSONException e) {
