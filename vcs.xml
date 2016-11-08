@@ -10,8 +10,12 @@
           <option name="url" value="http://github.com" />
           <option name="userName" value="Baburao4790" />
         </UrlAndUserName>
+        <UrlAndUserName>
+          <option name="url" value="https://github.com/AnushaPapani/3PMStoreAPP.git" />
+          <option name="userName" value="" />
+        </UrlAndUserName>
       </list>
     </option>
-    <option name="cloneParentDir" value="E:\Studio\Updated GIT" />
+    <option name="cloneParentDir" value="E:\Studio\Sprint 01" />
   </component>
 </application>
