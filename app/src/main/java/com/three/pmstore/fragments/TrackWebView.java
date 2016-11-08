@@ -14,7 +14,7 @@ import com.three.pmstore.activities.HomeActivity;
  * Created by satyanarayana pdv on 10/18/2016.
  */
 
-public class TrackWebView extends Fragment{
+public class TrackWebView extends Fragment {
     WebView webView;
     public static final String TAG = "TrackWebView";
     private View rootView;
