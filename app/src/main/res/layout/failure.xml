@@ -1,13 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffffff"
     android:fillViewport="true">
 
-    <WebView
-        android:id="@+id/failureactivity_main_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="3PMStore Failure Page"/>
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/failureactivity_main_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/retry_layout"
+            android:text="3PMStore Failure Page"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:text="Payment Failure"
+                android:textColor="#000000"
+                android:textSize="30dp" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="for the Current Transaction"
+                android:textColor="#000000"
+                android:textSize="30dp" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10dp"
+                android:gravity="center_horizontal"
+                android:text="Thak You!! But your Order"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="wasn't Placed."
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Please Order again with"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <com.three.pmstore.activities.CustomTextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Correct details"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/sadcart" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/retry_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/retry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Retry" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 </ScrollView>
