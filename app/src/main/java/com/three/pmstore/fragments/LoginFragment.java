@@ -548,7 +548,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                 HomeActivity.updateNavigationDrawer(mParent);
                                 Utility.navigateDashBoardFragment(new HomeFragment(), HomeFragment.TAG, null, mParent);
                             }
-
                         } else {
                             if (bundle.containsKey("previouslogin")) {
 //                                Previous_ProductsActivity mParent;
