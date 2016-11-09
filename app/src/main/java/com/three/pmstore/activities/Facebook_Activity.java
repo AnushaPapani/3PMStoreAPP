@@ -607,7 +607,6 @@ public class Facebook_Activity extends AppCompatActivity {
                         i.putExtra("Address","Address");
                         startActivity(i);
                     } else if (Utility.isValueNullOrEmpty(HomeActivity.mCartId)) {
-
                         Intent i = new Intent(Facebook_Activity.this, HomeActivity.class);
                         startActivity(i);
                     } else {
