@@ -38,6 +38,7 @@ import com.three.pmstore.fragments.Faqview;
 import com.three.pmstore.fragments.HomeFragment;
 import com.three.pmstore.fragments.LoginFragment;
 import com.three.pmstore.fragments.MyOrderFragment;
+import com.three.pmstore.fragments.PaymentCartFragment;
 import com.three.pmstore.fragments.RegistrationFragment;
 import com.three.pmstore.fragments.ReviewOrderFragment;
 import com.three.pmstore.fragments.ReviewOrderFragment_Before_Login;
@@ -122,7 +123,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 Utility.navigateDashBoardFragment(new MyOrderFragment(), MyOrderFragment.TAG, null, HomeActivity.this);
                 initUI_1();
             } else if (intent.getExtras().containsKey("Facebook")) {
-                Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                Utility.navigateDashBoardFragment(new PaymentCartFragment(), PaymentCartFragment.TAG, null, HomeActivity.this);
                 initUI_1();
             } else if (intent.getExtras().containsKey("Address")) {
                 Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, HomeActivity.this);
@@ -627,7 +628,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     Utility.navigateDashBoardFragment(new AddAddressFragment(), AddAddressFragment.TAG, null, HomeActivity.this);
                 } else if (!Utility.isValueNullOrEmpty(Utility.getSharedPrefStringData(this, Constants.USER_ID)) &&
                         !ccount.equals("0") && !cartcount.equals("0")) {
-                    Utility.navigateDashBoardFragment(new ReviewOrderFragment(), ReviewOrderFragment.TAG, null, HomeActivity.this);
+                    Utility.navigateDashBoardFragment(new PaymentCartFragment(), PaymentCartFragment.TAG, null, HomeActivity.this);
                 } else {
                     Utility.showToastMessage(this, "Add at least one item to cart");
                 }
