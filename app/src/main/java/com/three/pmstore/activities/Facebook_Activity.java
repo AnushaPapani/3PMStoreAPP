@@ -591,7 +591,7 @@ public class Facebook_Activity extends AppCompatActivity {
 //                    HomeActivity.txt_user_name.setText(userjsonobject.optString("fullname"));
                     HomeActivity.mCartId = json.optString("cartId");
                     HomeActivity.mCartTotal = json.optInt("cartValue");
-//                    HomeActivity.leftMenuAdapter.notifyDataSetChanged();
+                    HomeActivity.leftMenuAdapter.notifyDataSetChanged();
 //                    String emailID = emailET.getText().toString();
 
                     if (!TextUtils.isEmpty(names) && GCMUtility.validate(names)) {

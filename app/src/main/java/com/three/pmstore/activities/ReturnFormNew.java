@@ -42,7 +42,7 @@ import java.util.StringTokenizer;
  * Created by satyanarayana pdv on 10/4/2016.
  */
 
-public class ReturnFormNew extends AppCompatActivity  {
+public class ReturnFormNew extends AppCompatActivity {
 
     private LayoutInflater mInflater;
     String issue, orderid, CartProductId, payment, returnTypeString, accountType, issueExplain, newProduct, bname, bemaill, branch,

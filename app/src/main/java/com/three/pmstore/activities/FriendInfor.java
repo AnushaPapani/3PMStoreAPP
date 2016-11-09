@@ -2,7 +2,7 @@ package com.three.pmstore.activities;
 
 import android.support.v7.app.AppCompatActivity;
 
-public class FriendInfor extends AppCompatActivity{
+public class FriendInfor extends AppCompatActivity {
 
 	private String name;
 	private boolean gender;
