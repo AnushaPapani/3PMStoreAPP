@@ -51,7 +51,7 @@ import static com.three.pmstore.fragments.MyAddressFragment.addressesModels;
  * Created by satyanarayana pdv on 11/4/2016.
  */
 
-public class PaymentCartFragment extends Fragment{
+public class PaymentCartFragment extends Fragment {
     public static final String TAG = "PaymentCartFragment";
     private View rootView;
     private LayoutInflater mInflater;
@@ -65,19 +65,22 @@ public class PaymentCartFragment extends Fragment{
     public static TextView txt_mobile;
     public static TextView txt_choose_another;
     public static String addressId;
-    public static TextView totalprice,pmstorecash, pmcashcurrentbal, codchargesValue, codchargesHead, codchargesQuote, amounttoPAY;
+    public static TextView totalprice, pmstorecash, pmcashcurrentbal, codchargesValue, codchargesHead, codchargesQuote, amounttoPAY;
     CheckBox pmcheckbutton;
-    String   codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
+    String codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
     private boolean fromCOD;
     String orderid, CartProductId, U_id;
     Button confirmorder;
     ReviewOrderModel reviewOrderModel;
-    private RelativeLayout layout_summary, divider3,divider4,divider5,layout_ordersummary, layout_cart_payment, layout_cart_paymentMethods,
+    private RelativeLayout layout_summary, divider3, divider4, divider5, layout_ordersummary, layout_cart_payment, layout_cart_paymentMethods,
             cart_ordersummarychild, layout_address;
     private LinearLayout cart_linearlayout;
     private MyOrdersModel cartModel;
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     public static int count;
+    private RelativeLayout expand1, expand2, expand3, expand4, expand5,
+            childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
+    Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely5;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
@@ -102,6 +105,7 @@ public class PaymentCartFragment extends Fragment{
 
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -130,8 +134,8 @@ public class PaymentCartFragment extends Fragment{
         codchargesQuote = (TextView) rootView.findViewById(R.id.codchargesQuote);
         confirmorder = (Button) rootView.findViewById(R.id.confirmorder);
 
-        totalprice.setText(""+amountPayable);
-        pmcashcurrentbal.setText(""+pmcash+")");
+        totalprice.setText("" + amountPayable);
+        pmcashcurrentbal.setText("" + pmcash + ")");
 
         layout_summary = (RelativeLayout) rootView.findViewById(R.id.layout_summary);
         divider3 = (RelativeLayout) rootView.findViewById(R.id.divider3);
@@ -142,11 +146,38 @@ public class PaymentCartFragment extends Fragment{
         layout_cart_paymentMethods = (RelativeLayout) rootView.findViewById(R.id.layout_cart_paymentMethods);
         cart_ordersummarychild = (RelativeLayout) rootView.findViewById(R.id.cart_ordersummarychild);
         layout_address = (RelativeLayout) rootView.findViewById(R.id.layout_address);
+//        private RelativeLayout expand1, expand2, expand3, expand4, expand5,
+//                childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
+//        Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely5;
+        expand1 = (RelativeLayout) rootView.findViewById(R.id.expand1);
+        expand2 = (RelativeLayout) rootView.findViewById(R.id.expand2);
+        expand3 = (RelativeLayout) rootView.findViewById(R.id.expand3);
+        expand4 = (RelativeLayout) rootView.findViewById(R.id.expand4);
+        expand5 = (RelativeLayout) rootView.findViewById(R.id.expand5);
+
+        childexpand1 = (RelativeLayout) rootView.findViewById(R.id.childexpand1);
+        childexpand2 = (RelativeLayout) rootView.findViewById(R.id.childexpand2);
+        childexpand3 = (RelativeLayout) rootView.findViewById(R.id.childexpand3);
+        childexpand4 = (RelativeLayout) rootView.findViewById(R.id.childexpand4);
+        childexpand5 = (RelativeLayout) rootView.findViewById(R.id.childexpand5);
+
+
+        childexpand1.setVisibility(View.GONE);
+        childexpand2.setVisibility(View.GONE);
+        childexpand3.setVisibility(View.GONE);
+        childexpand4.setVisibility(View.GONE);
+        childexpand5.setVisibility(View.GONE);
+
+        childpaysecurely1 = (Button) rootView.findViewById(R.id.childpaysecurely1);
+        childpaysecurely2 = (Button) rootView.findViewById(R.id.childpaysecurely2);
+        childpaysecurely3 = (Button) rootView.findViewById(R.id.childpaysecurely3);
+        childpaysecurely5 = (Button) rootView.findViewById(R.id.childpaysecurely5);
 
         initUI();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootView;
     }
+
     private void initUI() {
 
         mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -251,6 +282,7 @@ public class PaymentCartFragment extends Fragment{
             DialogClass.createDAlertDialog(getActivity(), "The Internet connection appears to be offline.");
         }
     }
+
     class GetCartAsyncTask extends AsyncTask<String, String, String> {
         private CustomProgressDialog mCustomProgressDialog;
 
@@ -334,107 +366,312 @@ public class PaymentCartFragment extends Fragment{
 
     private void setDataTotheLayout() {
 
-        if(count >0)
-            System.out.println("count "+PaymentCartFragment.count);
-            {
-                View inneritem = mInflater.inflate(R.layout.cart_inneritem, null);
+        if (count > 0)
+            System.out.println("count " + PaymentCartFragment.count);
+        {
+            View inneritem = mInflater.inflate(R.layout.cart_inneritem, null);
+            final ImageView img_order = (ImageView) inneritem.findViewById(R.id.img_order);
+            final TextView txt_product_name = (TextView) inneritem.findViewById(R.id.txt_product_name);
+            final Spinner spin_qty = (Spinner) inneritem.findViewById(R.id.spin_qty);
+            final TextView txt_unitPrice = (TextView) inneritem.findViewById(R.id.txt_unitPrice);
+            final TextView txt_price = (TextView) inneritem.findViewById(R.id.txt_price);
+            final TextView txt_subtotal = (TextView) inneritem.findViewById(R.id.txt_subtotal);
+            final TextView txt_price_two = (TextView) inneritem.findViewById(R.id.txt_price_two);
+            final TextView txt_qty = (TextView) inneritem.findViewById(R.id.txt_qty);
+            final TextView colorValue = (TextView) inneritem.findViewById(R.id.colorValue);
+            final TextView customValue = (TextView) inneritem.findViewById(R.id.customValue);
+            final TextView sizeValue = (TextView) inneritem.findViewById(R.id.sizeValue);
+            final TextView genderValue = (TextView) inneritem.findViewById(R.id.genderValue);
+            final TextView colorHead = (TextView) inneritem.findViewById(R.id.colorHead);
+            final TextView customHead = (TextView) inneritem.findViewById(R.id.CustomHead);
+            final TextView sizeHead = (TextView) inneritem.findViewById(R.id.sizeHead);
+            final TextView genderHead = (TextView) inneritem.findViewById(R.id.genderHead);
+            final TextView colorQuote = (TextView) inneritem.findViewById(R.id.colorQuote);
+            final TextView genderQuote = (TextView) inneritem.findViewById(R.id.genderQuote);
+            final TextView sizeQuote = (TextView) inneritem.findViewById(R.id.sizeQuote);
 
-                final ImageView img_order = (ImageView) inneritem.findViewById(R.id.img_order);
-                final TextView txt_product_name = (TextView) inneritem.findViewById(R.id.txt_product_name);
-                final Spinner spin_qty = (Spinner) inneritem.findViewById(R.id.spin_qty);
-                final TextView txt_unitPrice = (TextView) inneritem.findViewById(R.id.txt_unitPrice);
-                final TextView txt_price = (TextView) inneritem.findViewById(R.id.txt_price);
-                final TextView txt_subtotal = (TextView) inneritem.findViewById(R.id.txt_subtotal);
-                final TextView txt_price_two = (TextView) inneritem.findViewById(R.id.txt_price_two);
-                final TextView txt_qty = (TextView) inneritem.findViewById(R.id.txt_qty);
-                final TextView colorValue = (TextView) inneritem.findViewById(R.id.colorValue);
-                final TextView customValue = (TextView) inneritem.findViewById(R.id.customValue);
-                final TextView sizeValue = (TextView) inneritem.findViewById(R.id.sizeValue);
-                final TextView genderValue = (TextView) inneritem.findViewById(R.id.genderValue);
-                final TextView colorHead = (TextView) inneritem.findViewById(R.id.colorHead);
-                final TextView customHead = (TextView) inneritem.findViewById(R.id.CustomHead);
-                final TextView sizeHead = (TextView) inneritem.findViewById(R.id.sizeHead);
-                final TextView genderHead = (TextView) inneritem.findViewById(R.id.genderHead);
-                final TextView colorQuote = (TextView) inneritem.findViewById(R.id.colorQuote);
-                final TextView genderQuote = (TextView) inneritem.findViewById(R.id.genderQuote);
-                final TextView sizeQuote = (TextView) inneritem.findViewById(R.id.sizeQuote);
+            Picasso.with(getActivity()).load(reviewOrderModel.getP_Image()).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
+                    .into(img_order);
+            txt_product_name.setText(reviewOrderModel.getP_Name());
+            txt_price.setText("" + reviewOrderModel.getP_Cost());
+            txt_qty.setText("" + reviewOrderModel.getP_Qty());
 
-                Picasso.with(getActivity()).load(reviewOrderModel.getP_Image()).placeholder(Utility.getDrawable(getActivity(), R.drawable.refresh))
-                        .into( img_order);
-                 txt_product_name.setText(reviewOrderModel.getP_Name());
-                 txt_price.setText("" + reviewOrderModel.getP_Cost());
-                 txt_qty.setText(""+reviewOrderModel.getP_Qty());
+            ArrayList<String> spinnerArray = new ArrayList<>();
+            for (int i = 0; i < reviewOrderModel.getMax_Quantity(); i++) {
+                spinnerArray.add("" + (i + 1));
+            }
+            txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
 
-                ArrayList<String> spinnerArray = new ArrayList<>();
-                for (int i = 0; i < reviewOrderModel.getMax_Quantity(); i++) {
-                    spinnerArray.add("" + (i + 1));
-                }
-                 txt_price_two.setText("" + (reviewOrderModel.getP_Qty() * reviewOrderModel.getP_Cost()));
+            ArrayList<String> attributeType = reviewOrderModel.getAttribute_Type();
+            ArrayList<String> attributeValue = reviewOrderModel.getAttribute_Value();
+            System.out.println("attributeType   " + attributeType + "     " + attributeValue);
 
-                ArrayList<String> attributeType = reviewOrderModel.getAttribute_Type();
-                ArrayList<String> attributeValue = reviewOrderModel.getAttribute_Value();
-                System.out.println("attributeType   "+attributeType  +"     "+ attributeValue);
+            sizeHead.setVisibility(View.GONE);
+            sizeValue.setVisibility(View.GONE);
 
-                 sizeHead.setVisibility(View.GONE);
-                 sizeValue.setVisibility(View.GONE);
+            colorHead.setVisibility(View.GONE);
+            colorValue.setVisibility(View.GONE);
 
-                 colorHead.setVisibility(View.GONE);
-                 colorValue.setVisibility(View.GONE);
+            genderHead.setVisibility(View.GONE);
+            genderValue.setVisibility(View.GONE);
 
-                 genderHead.setVisibility(View.GONE);
-                 genderValue.setVisibility(View.GONE);
+            customHead.setVisibility(View.GONE);
+            customValue.setVisibility(View.GONE);
 
-                 customHead.setVisibility(View.GONE);
-                 customValue.setVisibility(View.GONE);
+            colorQuote.setVisibility(View.GONE);
+            genderQuote.setVisibility(View.GONE);
+            sizeQuote.setVisibility(View.GONE);
 
-                 colorQuote.setVisibility(View.GONE);
-                 genderQuote.setVisibility(View.GONE);
-                sizeQuote.setVisibility(View.GONE);
-
-                if (attributeType != null && attributeType.size() > 0) {
-                    System.out.println(attributeType  +"     "+ attributeValue);
-                    for (int attrCount = 0; attrCount < attributeType.size(); attrCount++) {
-                        if (attributeType.get(attrCount).equalsIgnoreCase("Size")) {
-                             sizeHead.setVisibility(View.VISIBLE);
-                             sizeValue.setVisibility(View.VISIBLE);
-                            sizeQuote.setVisibility(View.VISIBLE);
-                            String s = attributeValue.get(attrCount);
-                            String upToNCharacters = s.substring(0, Math.min(s.length(), 14));
-                             sizeValue.setText(upToNCharacters+"....");
+            if (attributeType != null && attributeType.size() > 0) {
+                System.out.println(attributeType + "     " + attributeValue);
+                for (int attrCount = 0; attrCount < attributeType.size(); attrCount++) {
+                    if (attributeType.get(attrCount).equalsIgnoreCase("Size")) {
+                        sizeHead.setVisibility(View.VISIBLE);
+                        sizeValue.setVisibility(View.VISIBLE);
+                        sizeQuote.setVisibility(View.VISIBLE);
+                        String s = attributeValue.get(attrCount);
+                        String upToNCharacters = s.substring(0, Math.min(s.length(), 14));
+                        sizeValue.setText(upToNCharacters + "....");
 //                     sizeValue.setText(attributeValue.get(attrCount));
-                        }
-                        if (attributeType.get(attrCount).equalsIgnoreCase("Color")) {
-                             colorHead.setVisibility(View.VISIBLE);
-                             colorValue.setVisibility(View.VISIBLE);
-                             colorQuote.setVisibility(View.VISIBLE);
+                    }
+                    if (attributeType.get(attrCount).equalsIgnoreCase("Color")) {
+                        colorHead.setVisibility(View.VISIBLE);
+                        colorValue.setVisibility(View.VISIBLE);
+                        colorQuote.setVisibility(View.VISIBLE);
 
-                            System.out.println("color value"+attributeValue.get(attrCount));
-                             colorValue.setText(attributeValue.get(attrCount));
-                        }
-                        if (attributeType.get(attrCount).equalsIgnoreCase("Gender")) {
-                             genderHead.setVisibility(View.VISIBLE);
-                             genderValue.setVisibility(View.VISIBLE);
-                             genderQuote.setVisibility(View.VISIBLE);
+                        System.out.println("color value" + attributeValue.get(attrCount));
+                        colorValue.setText(attributeValue.get(attrCount));
+                    }
+                    if (attributeType.get(attrCount).equalsIgnoreCase("Gender")) {
+                        genderHead.setVisibility(View.VISIBLE);
+                        genderValue.setVisibility(View.VISIBLE);
+                        genderQuote.setVisibility(View.VISIBLE);
 
-                             genderValue.setText(attributeValue.get(attrCount));
-                        }
-                        if (attributeType.get(attrCount).equalsIgnoreCase("Custom")) {
-                            System.out.println("Custom value"+attributeValue.get(attrCount));
-                             customHead.setVisibility(View.VISIBLE);
-                             customValue.setVisibility(View.VISIBLE);
+                        genderValue.setText(attributeValue.get(attrCount));
+                    }
+                    if (attributeType.get(attrCount).equalsIgnoreCase("Custom")) {
+                        System.out.println("Custom value" + attributeValue.get(attrCount));
+                        customHead.setVisibility(View.VISIBLE);
+                        customValue.setVisibility(View.VISIBLE);
 
-                             customValue.setText(attributeValue.get(attrCount));
-                        }
+                        customValue.setText(attributeValue.get(attrCount));
                     }
                 }
-                
-                cart_linearlayout.addView(inneritem);
             }
+
+            cart_linearlayout.addView(inneritem);
+        }
     }
 
-                    
+    private void calculateTotalFare(String from, int number) {
+        int total = Integer.parseInt(amountPayable);
+        if (pmcheckbutton.isChecked()) {
+            if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
+                pmstorecash.setText("" + Integer.parseInt(amountPayable));
+                amounttoPAY.setText("0");
+                pmcashcurrentbal.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
+                confirmorder.setVisibility(View.VISIBLE);
+                expand1.setEnabled(false);
+                expand2.setEnabled(false);
+                expand3.setEnabled(false);
+                expand4.setEnabled(false);
+                expand5.setEnabled(false);
 
+                childexpand1.setVisibility(View.GONE);
+                childexpand2.setVisibility(View.GONE);
+                childexpand3.setVisibility(View.GONE);
+                childexpand4.setVisibility(View.GONE);
+                childexpand5.setVisibility(View.GONE);
 
+                codchargesHead.setVisibility(View.GONE);
+                codchargesQuote.setVisibility(View.GONE);
+                codchargesValue.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.border);
+                expand2.setBackgroundResource(R.drawable.border);
+                expand3.setBackgroundResource(R.drawable.border);
+                expand4.setBackgroundResource(R.drawable.border);
+                expand5.setBackgroundResource(R.drawable.border);
+            } else {
+                expand1.setEnabled(true);
+                expand2.setEnabled(true);
+                expand3.setEnabled(true);
+                expand4.setEnabled(true);
+                expand5.setEnabled(true);
+                confirmorder.setVisibility(View.GONE);
+
+//                if (from.equalsIgnoreCase("COD")) {
+//                    total = total - Integer.parseInt(pmcash) + number;
+//                    pmamount.setText("" + Integer.parseInt(pmcash));
+//                    amounttotal.setText("" + total);
+//                    pmcashcurrentbal.setText("0");
+//                    codchargesValue.setText("" + number);
+//                } else {
+                    total = total - Integer.parseInt(pmcash);
+                pmstorecash.setText("" + Integer.parseInt(pmcash));
+                    amounttoPAY.setText("" + total);
+                pmcashcurrentbal.setText("0");
+//                }
+            }
+        } else {
+            expand1.setEnabled(true);
+            expand2.setEnabled(true);
+            expand3.setEnabled(true);
+            expand4.setEnabled(true);
+            expand5.setEnabled(true);
+            confirmorder.setVisibility(View.GONE);
+
+//            if (from.equalsIgnoreCase("COD")) {
+//                total = total + number;
+//                pmcashcurrentbal.setText("" + Integer.parseInt(pmcash));
+//                amounttotal.setText("" + total);
+//                pmamount.setText("0");
+//                codchargesValue.setText("" + number);
+//            } else {
+            pmcashcurrentbal.setText("" + Integer.parseInt(pmcash));
+                amounttoPAY.setText("" + total);
+            pmstorecash.setText("0");
+                codchargesValue.setText("0");
+//            }
+        }
+    }
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.expand1:
+                visablityHanlde(childexpand1, 1);
+                break;
+            case R.id.expand2:
+                visablityHanlde(childexpand2, 2);
+                break;
+            case R.id.expand3:
+                visablityHanlde(childexpand3, 3);
+                break;
+            case R.id.expand4:
+                visablityHanlde(childexpand4, 4);
+                break;
+            case R.id.expand5:
+                visablityHanlde(childexpand5, 5);
+                break;
+        }
+    }
+    private void visablityHanlde(View child, int position) {
+        fromCOD = false;
+        if (child.getVisibility() == View.VISIBLE) {
+            childexpand1.setVisibility(View.GONE);
+            childexpand2.setVisibility(View.GONE);
+            childexpand3.setVisibility(View.GONE);
+            childexpand4.setVisibility(View.GONE);
+            childexpand5.setVisibility(View.GONE);
+
+            codchargesHead.setVisibility(View.GONE);
+            codchargesQuote.setVisibility(View.GONE);
+            codchargesValue.setVisibility(View.GONE);
+            confirmorder.setVisibility(View.GONE);
+
+            expand1.setBackgroundResource(R.drawable.border);
+            expand2.setBackgroundResource(R.drawable.border);
+            expand3.setBackgroundResource(R.drawable.border);
+            expand4.setBackgroundResource(R.drawable.border);
+            expand5.setBackgroundResource(R.drawable.border);
+            calculateTotalFare("Default", 0);
+        } else {
+            if (position == 1) {
+                childexpand1.setVisibility(View.VISIBLE);
+                childexpand2.setVisibility(View.GONE);
+                childexpand3.setVisibility(View.GONE);
+                childexpand4.setVisibility(View.GONE);
+                childexpand5.setVisibility(View.GONE);
+
+                codchargesHead.setVisibility(View.GONE);
+                codchargesQuote.setVisibility(View.GONE);
+                codchargesValue.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.paymentparentbackground);
+                expand2.setBackgroundResource(R.drawable.border);
+                expand3.setBackgroundResource(R.drawable.border);
+                expand4.setBackgroundResource(R.drawable.border);
+                expand5.setBackgroundResource(R.drawable.border);
+                calculateTotalFare("DEFULT", 0);
+            } else if (position == 2) {
+                childexpand1.setVisibility(View.GONE);
+                childexpand2.setVisibility(View.VISIBLE);
+                childexpand3.setVisibility(View.GONE);
+                childexpand4.setVisibility(View.GONE);
+                childexpand5.setVisibility(View.GONE);
+
+                codchargesHead.setVisibility(View.GONE);
+                codchargesQuote.setVisibility(View.GONE);
+                codchargesValue.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.border);
+                expand2.setBackgroundResource(R.drawable.paymentparentbackground);
+                expand3.setBackgroundResource(R.drawable.border);
+                expand4.setBackgroundResource(R.drawable.border);
+                expand5.setBackgroundResource(R.drawable.border);
+                calculateTotalFare("DEFULT", 0);
+            } else if (position == 3) {
+                childexpand1.setVisibility(View.GONE);
+                childexpand2.setVisibility(View.GONE);
+                childexpand3.setVisibility(View.VISIBLE);
+                childexpand4.setVisibility(View.GONE);
+                childexpand5.setVisibility(View.GONE);
+
+                codchargesHead.setVisibility(View.GONE);
+                codchargesQuote.setVisibility(View.GONE);
+                codchargesValue.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.border);
+                expand2.setBackgroundResource(R.drawable.border);
+                expand3.setBackgroundResource(R.drawable.paymentparentbackground);
+                expand4.setBackgroundResource(R.drawable.border);
+                expand5.setBackgroundResource(R.drawable.border);
+                calculateTotalFare("DEFULT", 0);
+            } else if (position == 4) {
+                fromCOD = true;
+                childexpand1.setVisibility(View.GONE);
+                childexpand2.setVisibility(View.GONE);
+                childexpand3.setVisibility(View.GONE);
+                childexpand4.setVisibility(View.VISIBLE);
+                childexpand5.setVisibility(View.GONE);
+
+                codchargesHead.setVisibility(View.VISIBLE);
+                codchargesQuote.setVisibility(View.VISIBLE);
+                codchargesValue.setVisibility(View.VISIBLE);
+                confirmorder.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.border);
+                expand2.setBackgroundResource(R.drawable.border);
+                expand3.setBackgroundResource(R.drawable.border);
+                expand4.setBackgroundResource(R.drawable.paymentparentbackground);
+                expand5.setBackgroundResource(R.drawable.border);
+                calculateTotalFare("COD", Integer.parseInt(codcharge));
+
+            } else if (position == 5) {
+                childexpand1.setVisibility(View.GONE);
+                childexpand2.setVisibility(View.GONE);
+                childexpand3.setVisibility(View.GONE);
+                childexpand4.setVisibility(View.GONE);
+                childexpand5.setVisibility(View.VISIBLE);
+
+                codchargesHead.setVisibility(View.GONE);
+                codchargesQuote.setVisibility(View.GONE);
+                codchargesValue.setVisibility(View.GONE);
+                confirmorder.setVisibility(View.GONE);
+
+                expand1.setBackgroundResource(R.drawable.border);
+                expand2.setBackgroundResource(R.drawable.border);
+                expand3.setBackgroundResource(R.drawable.border);
+                expand4.setBackgroundResource(R.drawable.border);
+                expand5.setBackgroundResource(R.drawable.paymentparentbackground);
+                calculateTotalFare("DEFULT", 0);
+            }
+
+        }
+    }
 
 
 }

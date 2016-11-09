@@ -34,6 +34,7 @@
                 android:layout_toRightOf="@+id/imageView1"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="PERSONAL"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
 
         </RelativeLayout>
@@ -98,6 +99,7 @@
                 android:layout_toRightOf="@+id/imageView2"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="SHIPPING"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
 
         </RelativeLayout>
@@ -244,6 +246,7 @@
                 android:layout_toRightOf="@+id/imageView5"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="CART SUMMARY"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
@@ -285,6 +288,7 @@
                 android:layout_toRightOf="@+id/imageView7"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="ORDER SUMMARY"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
@@ -489,7 +493,8 @@
                     android:orientation="horizontal"
                     android:text="Confirm Order"
                     android:textColor="@color/grey"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:textAllCaps="false"/>
             </RelativeLayout>
 
         </RelativeLayout>
@@ -524,6 +529,7 @@
                 android:layout_toRightOf="@+id/imageView6"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="PAYMENT DETAILS"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
@@ -534,6 +540,325 @@
             android:layout_below="@+id/layout_cart_payment"
             android:layout_marginBottom="@dimen/_10dp"
             android:background="#ffffff">
+            <RelativeLayout
+                android:id="@+id/rexpand"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView2"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp">
+
+                <RelativeLayout
+                    android:id="@+id/expand1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:background="@drawable/border">
+
+                    <com.three.pmstore.activities.CustomTextView
+                        android:id="@+id/parentData1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10dp"
+                        android:gravity="center"
+                        android:text="Credit/Debit Card"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_20dp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/childexpand1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="85dp"
+                    android:layout_below="@+id/expand1"
+                    android:background="@drawable/paymentborder"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/childpaysecurely1"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/buttongreenbuy"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_20dp"
+                        android:text="Pay Securely"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expand2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/childexpand1"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/border">
+
+                    <com.three.pmstore.activities.CustomTextView
+                        android:id="@+id/parentData2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="Net Banking"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_10dp"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/childexpand2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="85dp"
+                    android:layout_below="@+id/expand2"
+                    android:background="@drawable/paymentborder"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/childpaysecurely2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/buttongreenbuy"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_20dp"
+                        android:text="Pay Securely"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expand3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/childexpand2"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/border"
+                    >
+
+                    <com.three.pmstore.activities.CustomTextView
+                        android:id="@+id/parentData3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="Paytm"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_10dp"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/childexpand3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="85dp"
+                    android:layout_below="@+id/expand3"
+                    android:background="@drawable/paymentborder"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/childpaysecurely3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/buttongreenbuy"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_20dp"
+                        android:text="Pay Securely"/>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expand4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/childexpand3"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/border">
+
+                    <com.three.pmstore.activities.CustomTextView
+                        android:id="@+id/parentData4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:text="COD"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_20dp"
+                        android:layout_marginLeft="@dimen/_10dp"/>
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/childexpand4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="95dp"
+                    android:layout_below="@+id/expand4"
+                    android:background="@drawable/paymentborder"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/otpText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:text="OTP is send to this number" />
+
+                    <Button
+                        android:id="@+id/sendOTP"
+                        android:layout_width="@dimen/_150dp"
+                        android:layout_height="40dp"
+                        android:layout_below="@+id/otpText"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:background="@drawable/buttonorange"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="16dp" />
+
+                    <Button
+                        android:id="@+id/confirmOTP"
+                        android:layout_width="@dimen/_150dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@+id/otpText"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/buttonorange"
+                        android:text="Confirm OTP"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/enterOTPtext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/otpText"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginStart="12dp"
+                        android:text="Enter OTP"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/resend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/enterOTP"
+                        android:layout_below="@+id/enterOTP"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="3dp"
+                        android:text="Resend OTP?"
+                        android:textColor="#FF7700"
+                        android:textSize="16dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/codTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/enterOTPtext"
+                        android:layout_alignBottom="@+id/enterOTPtext"
+                        android:layout_marginTop="@dimen/_15dp"
+                        android:gravity="center"
+                        android:text="COD is currently not available for this PINCODE"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:visibility="gone" />
+
+                    <EditText
+                        android:id="@+id/enterOTP"
+                        android:layout_width="fill_parent"
+                        android:layout_height="25dp"
+                        android:layout_alignLeft="@+id/enterOTPtext"
+                        android:layout_alignStart="@+id/enterOTPtext"
+                        android:layout_below="@+id/enterOTPtext"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_toLeftOf="@+id/confirmOTP"
+                        android:background="@drawable/adresbg"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/expand5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="35dp"
+                    android:layout_below="@+id/childexpand4"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:background="@drawable/border">
+
+                    <com.three.pmstore.activities.CustomTextView
+                        android:id="@+id/parentData5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10dp"
+                        android:gravity="center"
+                        android:text="PayUmoney"
+                        android:textAlignment="center"
+                        android:textSize="@dimen/_20dp"
+                        />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/childexpand5"
+                    android:layout_width="fill_parent"
+                    android:layout_height="85dp"
+                    android:layout_below="@+id/expand5"
+                    android:background="@drawable/paymentborder"
+                    android:visibility="gone">
+                    <Button
+                        android:id="@+id/childpaysecurely5"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="@dimen/_20dp"
+                        android:layout_marginRight="@dimen/_20dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/buttongreenbuy"
+                        android:textAllCaps="false"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/_20dp"
+                        android:text="Pay Securely"/>
+                </RelativeLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
