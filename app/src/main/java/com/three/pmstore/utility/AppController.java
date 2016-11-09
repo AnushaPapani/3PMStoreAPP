@@ -20,7 +20,6 @@ public class AppController extends Application {
     public static final String TAG = AppController.class.getSimpleName();
 
     String Cart_Value;
-
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     LruBitmapCache mLruBitmapCache;
@@ -38,7 +37,6 @@ public class AppController extends Application {
     long sec;
     long hour;
     long h;
-
     String Coupon = "";
     String Orderid;
     String RegName;
