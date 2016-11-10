@@ -109,8 +109,6 @@ public class ReviewOrderFragment extends Fragment {
         toastRoot2 = inflater.inflate(R.layout.error_toast, null);
         toast = new Toast(getActivity());
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-
         initUI();
 
         return rootView;
@@ -129,6 +127,7 @@ public class ReviewOrderFragment extends Fragment {
         Promocode = (EditText) ll_fottor.findViewById(R.id.editText1);
         applypromocode = (TextView) ll_fottor.findViewById(R.id.applypromo);
         proceedtopay = (Button) ll_fottor.findViewById(R.id.proceedtopay);
+//        proceedtopay.setText(Checkout
         Grand_total = (TextView) ll_fottor.findViewById(R.id.grandtotal);
         promotext = (TextView) ll_fottor.findViewById(R.id.promotext);
         ll_address_layout = (LinearLayout) ll_fottor.findViewById(R.id.ll_address_layout);
@@ -154,7 +153,7 @@ public class ReviewOrderFragment extends Fragment {
             applypromocode.setText("Apply");
         }
 
-        getAddress();
+//        getAddress();
 //        if (Integer.parseInt(Utility.getSharedPrefStringData(getActivity(), Constants.ADDRESS_COUNT)) > 0) {
 //            ll_address_layout.setVisibility(View.VISIBLE);
 //        } else {

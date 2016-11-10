@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.three.pmstore.R;
 import com.three.pmstore.activities.HomeActivity;
 import com.three.pmstore.adapters.NoOrderFoundAdapter;
@@ -27,11 +26,9 @@ import com.three.pmstore.models.ReviewOrderModel_Before_Login;
 import com.three.pmstore.utility.ApiConstants;
 import com.three.pmstore.utility.Constants;
 import com.three.pmstore.utility.Utility;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -49,7 +46,6 @@ public class ReviewOrderFragment_Before_Login extends Fragment {
     private ReviewOrderAdapter_Before_Login reviewOrderAdapter;
     public static Button Checkout;
     private HomeActivity mParent;
-
     View toastRoot;
     View toastRoot2;
     Toast toast;
