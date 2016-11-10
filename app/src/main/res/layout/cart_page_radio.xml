@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_alignParentTop="true"
-    android:background="#ffffff">
+    android:background="#f2f2f2">
 
     <RelativeLayout
         android:id="@+id/head"
@@ -15,7 +15,7 @@
             android:id="@+id/head_personal"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@drawable/border_orange">
+            >
 
             <ImageView
                 android:id="@+id/imageView1"
@@ -23,7 +23,7 @@
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:background="@drawable/arrownew" />
+                android:background="@drawable/cart_one" />
 
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cart_personal"
@@ -34,7 +34,7 @@
                 android:layout_toRightOf="@+id/imageView1"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="PERSONAL"
-
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
 
         </RelativeLayout>
@@ -43,8 +43,8 @@
             android:id="@+id/personal_inner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/head_personal">
-
+            android:layout_below="@+id/head_personal"
+            android:background="#ffffff">
 
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/signedin"
@@ -56,7 +56,6 @@
                 android:layout_marginLeft="@dimen/_15dp"
                 android:layout_marginTop="10dp"
                 android:text="Signed in as:" />
-
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/txt_email"
                 android:layout_width="wrap_content"
@@ -72,10 +71,10 @@
         <RelativeLayout
             android:id="@+id/divider1"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/_2dp"
+            android:layout_height="@dimen/_1dp"
             android:layout_below="@+id/personal_inner"
-            android:background="#e3e4e5">
-
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="#000000">
         </RelativeLayout>
 
         <RelativeLayout
@@ -83,17 +82,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/divider1"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="@drawable/border_orange">
-
+            >
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:background="@drawable/arrownew" />
-
+                android:background="@drawable/cart_two" />
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cart_shipping"
                 android:layout_width="wrap_content"
@@ -103,7 +99,7 @@
                 android:layout_toRightOf="@+id/imageView2"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="SHIPPING"
-
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
 
         </RelativeLayout>
@@ -113,30 +109,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/head_shipping"
-            android:layout_marginLeft="@dimen/_5dp"
-            android:layout_marginRight="@dimen/_5dp"
+            android:layout_marginLeft="@dimen/_2dp"
+            android:layout_marginRight="@dimen/_2dp"
             android:layout_marginTop="@dimen/_5dp"
-            android:background="@drawable/border">
-
+            android:background="#ffffff">
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginTop="@dimen/_5dp"
                 android:background="@drawable/addressicon" />
-
-            <com.three.pmstore.activities.BoldCustomTextView
-                android:id="@+id/txt_choose_another"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_mobile"
-                android:layout_marginTop="@dimen/_5dp"
-                android:gravity="right"
-                android:text="@string/choose_another_address"
-                android:textColor="#FAA61A"
-                android:textSize="@dimen/sp_size_sixteen"
-                android:visibility="gone" />
-
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_address_line"
                 android:layout_width="wrap_content"
@@ -148,7 +130,6 @@
                 android:text="@string/address_line"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="@dimen/sp_size_sixteen" />
-
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_city"
                 android:layout_width="wrap_content"
@@ -160,7 +141,6 @@
                 android:text="@string/city"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="@dimen/sp_size_sixteen" />
-
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_mobile"
                 android:layout_width="wrap_content"
@@ -172,7 +152,6 @@
                 android:text="@string/mobile"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="@dimen/sp_size_sixteen" />
-
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
@@ -184,7 +163,6 @@
                 android:text="@string/name"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="@dimen/sp_size_twenty" />
-
             <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_pin_code"
                 android:layout_width="wrap_content"
@@ -196,8 +174,7 @@
                 android:text="@string/pin_code"
                 android:textColor="@color/dark_gray_color"
                 android:textSize="@dimen/sp_size_sixteen" />
-
-            <TextView
+            <com.three.pmstore.activities.CustomTextView
                 android:id="@+id/txt_address_state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,17 +196,16 @@
             android:layout_marginRight="@dimen/_5dp"
             android:layout_marginTop="@dimen/_10dp"
             android:background="@drawable/border"
-            android:gravity="center">
-
+            android:gravity="center"
+            android:visibility="gone">
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:background="@drawable/add_addresssymbol" />
-
             <com.three.pmstore.activities.BoldCustomTextView
-                android:id="@+id/txt_choose_anotheraddress"
+                android:id="@+id/txt_choose_another"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/imageView3"
@@ -240,31 +216,27 @@
                 android:textColor="#FAA61A"
                 android:textSize="@dimen/_20dp" />
         </LinearLayout>
-
         <RelativeLayout
             android:id="@+id/divider2"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/_2dp"
-            android:layout_below="@+id/layout_chooseanother"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="#e3e4e5"></RelativeLayout>
-
+            android:layout_height="@dimen/_1dp"
+            android:layout_below="@+id/layout_address"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="#000000"></RelativeLayout>
         <RelativeLayout
             android:id="@+id/layout_summary"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/divider2"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="@drawable/border_orange">
 
+            >
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:background="@drawable/arrownew" />
-
+                android:background="@drawable/cart_three" />
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cart_summaryHead"
                 android:layout_width="wrap_content"
@@ -274,40 +246,39 @@
                 android:layout_toRightOf="@+id/imageView5"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="CART SUMMARY"
-
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/ll"
+            android:id="@+id/cart_linearlayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_summary"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            android:background="#ffffff"></LinearLayout>
 
         <RelativeLayout
             android:id="@+id/divider3"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/_2dp"
-            android:layout_below="@+id/ll"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="#e3e4e5"></RelativeLayout>
+            android:layout_height="@dimen/_1dp"
+            android:layout_below="@+id/cart_linearlayout"
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="#000000"></RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/layout_ordersummary"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/divider3"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="@drawable/border_orange">
-
+            >
             <ImageView
                 android:id="@+id/imageView7"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:background="@drawable/arrownew" />
-
+                android:background="@drawable/cart_four" />
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cart_ordersummaryHead"
                 android:layout_width="wrap_content"
@@ -317,15 +288,15 @@
                 android:layout_toRightOf="@+id/imageView7"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="ORDER SUMMARY"
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
             android:id="@+id/cart_ordersummarychild"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/layout_ordersummary">
-
             <RelativeLayout
                 android:id="@+id/relativeLayout1"
                 android:layout_width="fill_parent"
@@ -334,8 +305,8 @@
                 android:layout_below="@+id/headborder"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
-                android:paddingBottom="5dp">
-
+                android:paddingBottom="5dp"
+                android:background="#ffffff">
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/totalprice"
                     android:layout_width="wrap_content"
@@ -346,7 +317,6 @@
                     android:layout_marginRight="8dp"
                     android:text="0"
                     android:textSize="15dp" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/pmstorecash"
                     android:layout_width="wrap_content"
@@ -358,7 +328,6 @@
                     android:layout_toRightOf="@+id/pmcheck"
                     android:text="3PM Store Cash :"
                     android:visibility="gone" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/pmstorecashamount"
                     android:layout_width="wrap_content"
@@ -369,7 +338,6 @@
                     android:layout_marginRight="8dp"
                     android:text=" 0"
                     android:textSize="15dp" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/minus"
                     android:layout_width="wrap_content"
@@ -378,8 +346,7 @@
                     android:layout_alignBottom="@+id/pmstorecash"
                     android:layout_toLeftOf="@+id/pmstorecashamount"
                     android:text="-" />
-
-                <com.three.pmstore.activities.CustomTextView
+                <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/amountpaycash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -390,7 +357,6 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:textStyle="bold" />
-
                 <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/amountpay"
                     android:layout_width="wrap_content"
@@ -402,17 +368,16 @@
                     android:textColor="@color/dark_gray_color"
                     android:textSize="16dp"
                     android:textStyle="bold" />
-
-                <TextView
+                <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/currentcashbal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/currentcash"
                     android:layout_alignBottom="@+id/currentcash"
                     android:layout_toRightOf="@+id/currentcash"
-                    android:text=" 0"
-                    android:textSize="10dp" />
-
+                    android:text=" 0)"
+                    android:textColor="@color/dark_gray_color"
+                    android:textSize="12dp" />
                 <CheckBox
                     android:id="@+id/pmcheck"
                     android:layout_width="wrap_content"
@@ -424,7 +389,6 @@
                     android:button="@drawable/custom_checkbox"
                     android:text="  3PMstore Cash "
                     android:textSize="15dp" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/currentcash"
                     android:layout_width="wrap_content"
@@ -435,7 +399,6 @@
                     android:text="(Your Current Balance is  \u20B9 "
                     android:textColor="@color/dark_gray_color"
                     android:textSize="12dp" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/codchargesHead"
                     android:layout_width="wrap_content"
@@ -446,8 +409,8 @@
                     android:text="COD Charges "
                     android:textColor="@color/dark_gray_color"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
-
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
                 <TextView
                     android:id="@+id/codchargesValueoldd"
                     android:layout_width="wrap_content"
@@ -460,7 +423,6 @@
                     android:text="0"
                     android:textSize="15dp"
                     android:visibility="gone" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/pricetext"
                     android:layout_width="wrap_content"
@@ -471,7 +433,6 @@
                     android:textColor="@color/dark_gray_color"
                     android:textSize="15dp"
                     android:textStyle="bold" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView19"
                     android:layout_width="wrap_content"
@@ -481,7 +442,6 @@
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/totalprice"
                     android:text=":" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/textView20"
                     android:layout_width="wrap_content"
@@ -491,7 +451,6 @@
                     android:layout_alignLeft="@+id/textView19"
                     android:layout_alignStart="@+id/textView19"
                     android:text=":" />
-
                 <com.three.pmstore.activities.BoldCustomTextView
                     android:id="@+id/textView24"
                     android:layout_width="wrap_content"
@@ -500,7 +459,6 @@
                     android:layout_alignStart="@+id/codchargesQuote"
                     android:layout_alignTop="@+id/amountpay"
                     android:text=":" />
-
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/codchargesQuote"
                     android:layout_width="wrap_content"
@@ -511,8 +469,8 @@
                     android:layout_alignLeft="@+id/textView20"
                     android:layout_alignRight="@+id/textView20"
                     android:layout_alignStart="@+id/textView20"
-                    android:text=":" />
-
+                    android:text=":"
+                    android:visibility="gone"/>
                 <com.three.pmstore.activities.CustomTextView
                     android:id="@+id/codchargesValue"
                     android:layout_width="wrap_content"
@@ -521,8 +479,8 @@
                     android:layout_alignBottom="@+id/codchargesQuote"
                     android:layout_alignEnd="@+id/amountpaycash"
                     android:layout_alignRight="@+id/amountpaycash"
-                    android:text="0" />
-
+                    android:text="0"
+                    android:visibility="gone"/>
                 <Button
                     android:id="@+id/confirmorder"
                     android:layout_width="fill_parent"
@@ -536,34 +494,33 @@
                     android:orientation="horizontal"
                     android:text="Confirm Order"
                     android:textColor="@color/grey"
-                    android:textSize="18dp" />
-
+                    android:textSize="18dp"
+                    android:textAllCaps="false"/>
             </RelativeLayout>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/divider4"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/_2dp"
+            android:layout_height="@dimen/_1dp"
             android:layout_below="@+id/cart_ordersummarychild"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="#e3e4e5"></RelativeLayout>
+            android:layout_marginTop="@dimen/_15dp"
+            android:background="#000000"></RelativeLayout>
+
         <RelativeLayout
-            android:id="@+id/cart_payment"
+            android:id="@+id/layout_cart_payment"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_below="@+id/divider4"
-            android:layout_marginTop="@dimen/_5dp"
-            android:background="@drawable/border_orange">
-
+            >
             <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginLeft="@dimen/_10dp"
                 android:layout_marginTop="@dimen/_8dp"
-                android:background="@drawable/arrownew" />
-
+                android:background="@drawable/cart_five" />
             <com.three.pmstore.activities.BoldCustomTextView
                 android:id="@+id/cart_paymentHead"
                 android:layout_width="wrap_content"
@@ -573,187 +530,207 @@
                 android:layout_toRightOf="@+id/imageView6"
                 android:paddingLeft="@dimen/_10dp"
                 android:text="PAYMENT DETAILS"
-
+                android:textStyle="bold"
                 android:textSize="@dimen/_20dp" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/cart_paymentMethods"
+            android:id="@+id/layout_cart_paymentMethods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cart_payment"
-            android:layout_marginBottom="@dimen/_10dp">
+            android:layout_below="@+id/layout_cart_payment"
+            android:layout_marginBottom="@dimen/_10dp"
+            android:background="#ffffff"
+            android:layout_marginLeft="@dimen/_5dp"
+            android:layout_marginRight="@dimen/_5dp">
 
-            <RadioGroup
-                android:id="@+id/radioGroup1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <RadioButton
-                    android:id="@+id/radio_card"
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Credit/Debit/NetBanking"
-                    android:background="@drawable/border"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/radio_card"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Credit/Debit Card"
+                        android:background="@null"/>
                     <RelativeLayout
-                        android:layout_width="@dimen/_150dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/_5dp"
-                        android:background="@drawable/buttonorange"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/childlayout1">
-                        <com.three.pmstore.activities.CustomTextView
-                            android:id="@+id/childpaysecurely1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Pay Securely"
-                            android:textAllCaps="false"
-                            android:textColor="@color/grey"
-                            android:textSize="18dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+                        <RelativeLayout
+                            android:id="@+id/childexpand1"
+                            android:layout_width="fill_parent"
+                            android:layout_height="85dp"
+                            android:layout_below="@+id/expand1"
+                            android:background="@drawable/paymentborder"
+                            android:visibility="gone">
+                            <Button
+                                android:id="@+id/childpaysecurely1"
+                                android:layout_width="fill_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/_20dp"
+                                android:layout_marginRight="@dimen/_20dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/buttongreenbuy"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_20dp"
+                                android:text="Pay Securely"/>
+                        </RelativeLayout>
+
                     </RelativeLayout>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/_2dp"
-                    android:background="#e4e5e6"></RelativeLayout>
-
-                <RadioButton
-                    android:id="@+id/radio_payumoney"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="PayUmoney"
-                    android:background="@drawable/border"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
                     <RelativeLayout
-                        android:layout_width="@dimen/_150dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/_5dp"
-                        android:background="@drawable/buttonorange"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/childlayout2">
-                        <com.three.pmstore.activities.CustomTextView
-                            android:id="@+id/childpaysecurely2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Pay Securely"
-                            android:textAllCaps="false"
-                            android:textColor="@color/grey"
-                            android:textSize="18dp" />
-                    </RelativeLayout>
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/_2dp"
-                    android:background="#e4e5e6"></RelativeLayout>
-                <RadioButton
-                    android:id="@+id/radio_paytm"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="Paytm"
-                    android:background="@drawable/border"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:background="#e4e5e6"></RelativeLayout>
+                    <RadioButton
+                        android:id="@+id/radio_netbanking"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Net Banking"
+                        android:background="@null"/>
                     <RelativeLayout
-                        android:layout_width="@dimen/_150dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/_5dp"
-                        android:background="@drawable/buttonorange"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/childlayout3">
-                        <com.three.pmstore.activities.CustomTextView
-                            android:id="@+id/childpaysecurely3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Pay Securely"
-                            android:textAllCaps="false"
-                            android:textColor="@color/grey"
-                            android:textSize="18dp" />
-                    </RelativeLayout>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+                        <RelativeLayout
+                            android:id="@+id/childexpand2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="85dp"
+                            android:layout_below="@+id/expand1"
+                            android:background="@drawable/paymentborder"
+                            android:visibility="gone">
+                            <Button
+                                android:id="@+id/childpaysecurely2"
+                                android:layout_width="fill_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/_20dp"
+                                android:layout_marginRight="@dimen/_20dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/buttongreenbuy"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_20dp"
+                                android:text="Pay Securely"/>
+                        </RelativeLayout>
 
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/_2dp"
-                    android:background="#e4e5e6"></RelativeLayout>
-                <RadioButton
-                    android:id="@+id/radio_cod"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:text="COD"
-                    android:background="@drawable/border"/>
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    </RelativeLayout>
                     <RelativeLayout
-                        android:layout_width="@dimen/_150dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/_5dp"
-                        android:background="@drawable/buttonorange"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/childlayout4">
-                        <com.three.pmstore.activities.CustomTextView
-                            android:id="@+id/sendOTP"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Send OTP"
-                            android:textAllCaps="false"
-                            android:textColor="@color/grey"
-                            android:textSize="18dp"
-                            />
-                    </RelativeLayout>
-                </RelativeLayout>
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:background="#e4e5e6"></RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/_2dp"
-                    android:background="#e4e5e6"></RelativeLayout>
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/radio_paytm"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Paytm"
+                        android:background="@null"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+                        <RelativeLayout
+                            android:id="@+id/childexpand3"
+                            android:layout_width="fill_parent"
+                            android:layout_height="85dp"
+                            android:layout_below="@+id/expand1"
+                            android:background="@drawable/paymentborder"
+                            android:visibility="gone">
+                            <Button
+                                android:id="@+id/childpaysecurely4"
+                                android:layout_width="fill_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/_20dp"
+                                android:layout_marginRight="@dimen/_20dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/buttongreenbuy"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_20dp"
+                                android:text="Pay Securely"/>
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:background="#e4e5e6"></RelativeLayout>
+
+                    <RadioButton
+                        android:id="@+id/radio_cod"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="COD"
+                        android:background="@null"/>
+
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/_1dp"
+                        android:layout_marginTop="@dimen/_5dp"
+                        android:background="#e4e5e6"></RelativeLayout>
+
+                    <RadioButton
+                        android:id="@+id/radio_payumoney"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="PayUmoney"
+                        android:background="@null"/>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+                        <RelativeLayout
+                            android:id="@+id/childexpand4"
+                            android:layout_width="fill_parent"
+                            android:layout_height="85dp"
+                            android:layout_below="@+id/expand1"
+                            android:background="@drawable/paymentborder"
+                            android:visibility="gone">
+                            <Button
+                                android:id="@+id/childpaysecurely3"
+                                android:layout_width="fill_parent"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="@dimen/_20dp"
+                                android:layout_marginRight="@dimen/_20dp"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/buttongreenbuy"
+                                android:textAllCaps="false"
+                                android:textColor="@color/grey"
+                                android:textSize="@dimen/_20dp"
+                                android:text="Pay Securely"/>
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                </RadioGroup>
+
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btn_pay"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_below="@+id/cart_paymentMethods"
+            android:layout_below="@+id/layout_cart_paymentMethods"
             android:layout_marginBottom="@dimen/_10dp"
             android:layout_marginLeft="@dimen/_5dp"
             android:layout_marginRight="@dimen/_5dp"
             android:background="@drawable/buttongreenbuy"
             android:gravity="center"
             android:visibility="gone">
-
             <com.three.pmstore.activities.CustomTextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

@@ -1,19 +1,18 @@
 package com.three.pmstore.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -21,17 +20,20 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.paytm.pgsdk.PaytmMerchant;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
+import com.razorpay.Checkout;
 import com.squareup.picasso.Picasso;
 import com.three.pmstore.R;
 import com.three.pmstore.activities.HomeActivity;
-import com.three.pmstore.adapters.NoOrderFoundAdapter;
-import com.three.pmstore.adapters.ReviewOrderAdapter;
+import com.three.pmstore.activities.StatusActivity;
 import com.three.pmstore.customviews.CustomProgressDialog;
 import com.three.pmstore.customviews.DialogClass;
 import com.three.pmstore.models.AddressesModel;
-import com.three.pmstore.models.ModelArray;
-import com.three.pmstore.models.Movie;
 import com.three.pmstore.models.MyOrdersModel;
 import com.three.pmstore.models.ReviewOrderModel;
 import com.three.pmstore.utility.ApiConstants;
@@ -43,7 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static com.three.pmstore.fragments.MyAddressFragment.addressesModels;
 
@@ -51,7 +55,7 @@ import static com.three.pmstore.fragments.MyAddressFragment.addressesModels;
  * Created by satyanarayana pdv on 11/4/2016.
  */
 
-public class PaymentCartFragment extends Fragment {
+public class PaymentCartFragment extends Fragment{
     public static final String TAG = "PaymentCartFragment";
     private View rootView;
     private LayoutInflater mInflater;
@@ -68,7 +72,6 @@ public class PaymentCartFragment extends Fragment {
     public static TextView totalprice, pmstorecash, pmcashcurrentbal, codchargesValue, codchargesHead, codchargesQuote, amounttoPAY;
     CheckBox pmcheckbutton;
     String codcharge, amountPayable, Promocode, fname, bline, bcity, bstate, bpincode, bmobile, email, cartId, pmcash, coddisable;
-    private boolean fromCOD;
     String orderid, CartProductId, U_id;
     Button confirmorder;
     ReviewOrderModel reviewOrderModel;
@@ -78,9 +81,12 @@ public class PaymentCartFragment extends Fragment {
     private MyOrdersModel cartModel;
     public static ArrayList<ReviewOrderModel> reviewOrderModels;
     public static int count;
-    private RelativeLayout expand1, expand2, expand3, expand4, expand5,
-            childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
-    Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely5;
+    private RelativeLayout childexpand1, childexpand2, childexpand3, childexpand4;
+    Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely4;
+    RadioGroup radioGroup;
+    RadioButton radio_card,radio_netbanking, radio_payumoney, radio_paytm, radio_cod;
+    public static String finalname,finalemail,finalOrderid;
+//int  FinalPriceToSend;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mParent = (HomeActivity) getActivity();
@@ -102,7 +108,9 @@ public class PaymentCartFragment extends Fragment {
 
             email = Utility.getSharedPrefStringData(getActivity(), Constants.USER_EMAIL_ID);
             cartId = HomeActivity.mCartId.toString();
-
+            finalemail = email;
+            finalname = fname;
+            finalOrderid = orderid;
         }
     }
 
@@ -112,7 +120,7 @@ public class PaymentCartFragment extends Fragment {
         if (rootView != null) {
             return rootView;
         }
-        rootView = inflater.inflate(R.layout.cart_page, container, false);
+        rootView = inflater.inflate(R.layout.cart_page_radio, container, false);
 
         txt_name = (TextView) rootView.findViewById(R.id.txt_name);
         txt_address_line = (TextView) rootView.findViewById(R.id.txt_address_line);
@@ -146,32 +154,196 @@ public class PaymentCartFragment extends Fragment {
         layout_cart_paymentMethods = (RelativeLayout) rootView.findViewById(R.id.layout_cart_paymentMethods);
         cart_ordersummarychild = (RelativeLayout) rootView.findViewById(R.id.cart_ordersummarychild);
         layout_address = (RelativeLayout) rootView.findViewById(R.id.layout_address);
-//        private RelativeLayout expand1, expand2, expand3, expand4, expand5,
-//                childexpand1, childexpand2, childexpand3, childexpand4, childexpand5;
-//        Button childpaysecurely1, childpaysecurely2, childpaysecurely3, childpaysecurely5;
-        expand1 = (RelativeLayout) rootView.findViewById(R.id.expand1);
-        expand2 = (RelativeLayout) rootView.findViewById(R.id.expand2);
-        expand3 = (RelativeLayout) rootView.findViewById(R.id.expand3);
-        expand4 = (RelativeLayout) rootView.findViewById(R.id.expand4);
-        expand5 = (RelativeLayout) rootView.findViewById(R.id.expand5);
 
         childexpand1 = (RelativeLayout) rootView.findViewById(R.id.childexpand1);
         childexpand2 = (RelativeLayout) rootView.findViewById(R.id.childexpand2);
         childexpand3 = (RelativeLayout) rootView.findViewById(R.id.childexpand3);
         childexpand4 = (RelativeLayout) rootView.findViewById(R.id.childexpand4);
-        childexpand5 = (RelativeLayout) rootView.findViewById(R.id.childexpand5);
-
 
         childexpand1.setVisibility(View.GONE);
         childexpand2.setVisibility(View.GONE);
         childexpand3.setVisibility(View.GONE);
         childexpand4.setVisibility(View.GONE);
-        childexpand5.setVisibility(View.GONE);
 
         childpaysecurely1 = (Button) rootView.findViewById(R.id.childpaysecurely1);
         childpaysecurely2 = (Button) rootView.findViewById(R.id.childpaysecurely2);
         childpaysecurely3 = (Button) rootView.findViewById(R.id.childpaysecurely3);
-        childpaysecurely5 = (Button) rootView.findViewById(R.id.childpaysecurely5);
+        childpaysecurely4 = (Button) rootView.findViewById(R.id.childpaysecurely4);
+
+        childpaysecurely1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int costValue = Integer.parseInt(amounttoPAY.getText().toString());
+                int FinalPrice = costValue * 100;
+//                FinalPriceToSend = Integer.toString(FinalPrice);
+                startPayment();
+            }
+        });
+        childpaysecurely2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startPayment();
+            }
+        });
+        childpaysecurely4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStartTransaction();
+            }
+        });
+        childpaysecurely3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+//                b.putString("Quantity",Quantity);
+                b.putString("orderid",orderid);
+                b.putString("Promo",amounttoPAY.getText().toString());
+                b.putString("Pmprice",pmcash );
+                b.putString("cost", amounttoPAY.getText().toString());
+                b.putString("coddisable", "");
+                b.putString("otpmob",bmobile);
+                b.putString("email",email);
+                b.putString("Amount",amounttoPAY.getText().toString() );
+                b.putString("CodCash",codcharge);
+                b.putString("fname",fname);
+//                b.putString("pname",P_Name);
+                b.putString("UID",U_id);
+//                b.putString("Pid",ProductId);
+//                Intent i = new Intent(getActivity(), PayUMoneyFragment.class);
+//                startActivity(i);
+                Utility.navigateDashBoardFragment(new PayUMoneyFragment(), PayUMoneyFragment.TAG, b, getActivity());
+            }
+        });
+
+        radioGroup = (RadioGroup) rootView.findViewById(R.id.radioGroup1);
+        radio_card = (RadioButton) rootView.findViewById(R.id.radio_card);
+        radio_netbanking = (RadioButton) rootView.findViewById(R.id.radio_netbanking);
+        radio_payumoney = (RadioButton) rootView.findViewById(R.id.radio_payumoney);
+        radio_paytm = (RadioButton) rootView.findViewById(R.id.radio_paytm);
+        radio_cod = (RadioButton) rootView.findViewById(R.id.radio_cod);
+        confirmorder.setVisibility(View.GONE);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_card:
+                        radio_payumoney.setChecked(false);
+                        radio_paytm.setChecked(false);
+                        radio_cod.setChecked(false);
+                        radio_netbanking.setChecked(false);
+//                        if(childexpand1.getVisibility()== View.VISIBLE)
+//                        {
+//                            childexpand1.setVisibility(View.GONE);
+//                            childexpand2.setVisibility(View.GONE);
+//                            childexpand3.setVisibility(View.GONE);
+//                            childexpand4.setVisibility(View.GONE);
+//
+//                            radio_card.setBackgroundResource(0);
+//                            radio_netbanking.setBackgroundResource(0);
+//                            radio_payumoney.setBackgroundResource(0);
+//                            radio_paytm.setBackgroundResource(0);
+//                            radio_cod.setBackgroundResource(0);
+//
+//                        }
+//                        else
+                        {
+                            childexpand1.setVisibility(View.VISIBLE);
+                            childexpand2.setVisibility(View.GONE);
+                            childexpand3.setVisibility(View.GONE);
+                            childexpand4.setVisibility(View.GONE);
+
+                            radio_card.setBackgroundResource(R.drawable.paymentparentbackground);
+                            radio_netbanking.setBackgroundResource(0);
+                            radio_payumoney.setBackgroundResource(0);
+                            radio_paytm.setBackgroundResource(0);
+                            radio_cod.setBackgroundResource(0);
+                        }
+                        break;
+
+                    case R.id.radio_netbanking:
+                        radio_card.setChecked(false);
+                        radio_paytm.setChecked(false);
+                        radio_cod.setChecked(false);
+                        radio_payumoney.setChecked(false);
+
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.VISIBLE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.GONE);
+
+                        radio_netbanking.setBackgroundResource(R.drawable.paymentparentbackground);
+                        radio_card.setBackgroundResource(0);
+                        radio_payumoney.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                        break;
+
+                    case R.id.radio_paytm:
+                        radio_payumoney.setChecked(false);
+                        radio_card.setChecked(false);
+                        radio_cod.setChecked(false);
+                        radio_netbanking.setChecked(false);
+
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.VISIBLE);
+                        childexpand4.setVisibility(View.GONE);
+
+                        radio_paytm.setBackgroundResource(R.drawable.paymentparentbackground);
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_payumoney.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                        break;
+
+                    case R.id.radio_cod:
+                        radio_payumoney.setChecked(false);
+                        radio_paytm.setChecked(false);
+                        radio_card.setChecked(false);
+                        radio_netbanking.setChecked(false);
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.GONE);
+
+                        radio_cod.setBackgroundResource(R.drawable.paymentparentbackground);
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_payumoney.setBackgroundResource(0);
+                        break;
+
+                    case R.id.radio_payumoney:
+                        radio_card.setChecked(false);
+                        radio_paytm.setChecked(false);
+                        radio_cod.setChecked(false);
+                        radio_netbanking.setChecked(false);
+
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.VISIBLE);
+
+                        radio_payumoney.setBackgroundResource(R.drawable.paymentparentbackground);
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                        break;
+                    default:
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.GONE);
+
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_payumoney.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                }
+            }
+        });
 
         initUI();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -179,13 +351,153 @@ public class PaymentCartFragment extends Fragment {
     }
 
     private void initUI() {
-
         mInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         getAddress();
         getCartData();
 
-    }
 
+        if(pmcash.equals("0"))
+        {
+            pmcheckbutton.setChecked(false);
+            pmcheckbutton.setEnabled(false);
+            for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                radioGroup.getChildAt(i).setEnabled(true);
+            }
+            amounttoPAY.setText(amountPayable);
+            confirmorder.setVisibility(View.GONE);
+            childexpand1.setVisibility(View.VISIBLE);
+            childexpand2.setVisibility(View.GONE);
+            childexpand3.setVisibility(View.GONE);
+            childexpand4.setVisibility(View.GONE);
+            radio_card.setBackgroundResource(R.drawable.paymentparentbackground);
+            radio_payumoney.setBackgroundResource(0);
+            radio_netbanking.setBackgroundResource(0);
+            radio_paytm.setBackgroundResource(0);
+            radio_cod.setBackgroundResource(0);
+
+            radio_card.setChecked(true);
+            radio_netbanking.setChecked(false);
+            radio_paytm.setChecked(false);
+            radio_payumoney.setChecked(false);
+            radio_cod.setChecked(false);
+        }
+        else if(Integer.parseInt(pmcash) >= Integer.parseInt(amountPayable))
+        {
+            pmcheckbutton.setChecked(true);
+            for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                radioGroup.getChildAt(i).setEnabled(false);
+                radioGroup.clearCheck();
+            }
+            amounttoPAY.setText(""+0);
+            pmstorecash.setText(""+amountPayable);
+            pmcashcurrentbal.setText(""+(Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
+            confirmorder.setVisibility(View.VISIBLE);
+        }
+        else if(Integer.parseInt(amountPayable) > Integer.parseInt(pmcash))
+        {
+            pmcheckbutton.setChecked(true);
+            amounttoPAY.setText(""+(Integer.parseInt(amountPayable) - Integer.parseInt(pmcash)));
+            pmstorecash.setText(""+pmcash);
+            pmcashcurrentbal.setText(""+0+")");
+            confirmorder.setVisibility(View.GONE);
+            childexpand1.setVisibility(View.VISIBLE);
+            childexpand2.setVisibility(View.GONE);
+            childexpand3.setVisibility(View.GONE);
+            childexpand4.setVisibility(View.GONE);
+            radio_card.setBackgroundResource(R.drawable.paymentparentbackground);
+            radio_payumoney.setBackgroundResource(0);
+            radio_netbanking.setBackgroundResource(0);
+            radio_paytm.setBackgroundResource(0);
+            radio_cod.setBackgroundResource(0);
+            for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                radioGroup.getChildAt(i).setEnabled(true);
+            }
+            radio_card.setChecked(true);
+            radio_netbanking.setChecked(false);
+            radio_paytm.setChecked(false);
+            radio_payumoney.setChecked(false);
+            radio_cod.setChecked(false);
+        }
+
+        pmcheckbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (pmcheckbutton.isChecked()) {
+                    if(Integer.parseInt(pmcash) >= Integer.parseInt(amountPayable))
+                    {
+                        for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                            radioGroup.getChildAt(i).setEnabled(false);
+                            radioGroup.clearCheck();
+                        }
+                        amounttoPAY.setText(""+0);
+                        pmstorecash.setText(""+amountPayable);
+                        pmcashcurrentbal.setText(""+(Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
+                        confirmorder.setVisibility(View.VISIBLE);
+
+                        childexpand1.setVisibility(View.GONE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.GONE);
+                        radio_payumoney.setBackgroundResource(0);
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                    }
+                    else if(Integer.parseInt(amountPayable) > Integer.parseInt(pmcash))
+                    {
+                        amounttoPAY.setText(""+(Integer.parseInt(amountPayable) - Integer.parseInt(pmcash)));
+                        pmstorecash.setText(""+pmcash);
+                        pmcashcurrentbal.setText(""+0+")");
+                        confirmorder.setVisibility(View.GONE);
+                        childexpand1.setVisibility(View.VISIBLE);
+                        childexpand2.setVisibility(View.GONE);
+                        childexpand3.setVisibility(View.GONE);
+                        childexpand4.setVisibility(View.GONE);
+                        radio_payumoney.setBackgroundResource(R.drawable.paymentparentbackground);
+                        radio_card.setBackgroundResource(0);
+                        radio_netbanking.setBackgroundResource(0);
+                        radio_paytm.setBackgroundResource(0);
+                        radio_cod.setBackgroundResource(0);
+                        for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                            radioGroup.getChildAt(i).setEnabled(true);
+                        }
+                        radio_card.setChecked(true);
+                        radio_netbanking.setChecked(false);
+                        radio_paytm.setChecked(false);
+                        radio_payumoney.setChecked(false);
+                        radio_cod.setChecked(false);
+                    }
+                }
+                else {
+                    for (int i = 0; i < radioGroup.getChildCount(); i++) {
+                        radioGroup.getChildAt(i).setEnabled(true);
+                    }
+                    amounttoPAY.setText(""+amountPayable);
+                    pmcashcurrentbal.setText(""+pmcash+")");
+                    pmstorecash.setText(""+0);
+                    confirmorder.setVisibility(View.GONE);
+                    childexpand1.setVisibility(View.VISIBLE);
+                    childexpand2.setVisibility(View.GONE);
+                    childexpand3.setVisibility(View.GONE);
+                    childexpand4.setVisibility(View.GONE);
+                    radio_card.setBackgroundResource(R.drawable.paymentparentbackground);
+                    radio_payumoney.setBackgroundResource(0);
+                    radio_netbanking.setBackgroundResource(0);
+                    radio_paytm.setBackgroundResource(0);
+                    radio_cod.setBackgroundResource(0);
+
+                    radio_card.setChecked(true);
+                    radio_netbanking.setChecked(false);
+                    radio_paytm.setChecked(false);
+                    radio_payumoney.setChecked(false);
+                    radio_cod.setChecked(false);
+                  }
+            }
+        });
+
+    }
     private void getAddress() {
         if (Utility.isNetworkAvailable(getActivity())) {
             new GetCheckout_AddressAsyncTask().execute();
@@ -206,7 +518,6 @@ public class PaymentCartFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mCustomProgressDialog.showProgress(Utility.getResourcesString(getActivity(), R.string.please_wait));
-
         }
 
         @Override
@@ -217,7 +528,6 @@ public class PaymentCartFragment extends Fragment {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-
             return result;
         }
 
@@ -308,7 +618,6 @@ public class PaymentCartFragment extends Fragment {
             } catch (Exception exception) {
                 exception.printStackTrace();
             }
-
             return result;
         }
 
@@ -458,220 +767,104 @@ public class PaymentCartFragment extends Fragment {
                     }
                 }
             }
-
             cart_linearlayout.addView(inneritem);
         }
     }
 
-    private void calculateTotalFare(String from, int number) {
-        int total = Integer.parseInt(amountPayable);
-        if (pmcheckbutton.isChecked()) {
-            if (Integer.parseInt(pmcash) > Integer.parseInt(amountPayable)) {
-                pmstorecash.setText("" + Integer.parseInt(amountPayable));
-                amounttoPAY.setText("0");
-                pmcashcurrentbal.setText("" + (Integer.parseInt(pmcash) - Integer.parseInt(amountPayable))+")");
-                confirmorder.setVisibility(View.VISIBLE);
-                expand1.setEnabled(false);
-                expand2.setEnabled(false);
-                expand3.setEnabled(false);
-                expand4.setEnabled(false);
-                expand5.setEnabled(false);
 
-                childexpand1.setVisibility(View.GONE);
-                childexpand2.setVisibility(View.GONE);
-                childexpand3.setVisibility(View.GONE);
-                childexpand4.setVisibility(View.GONE);
-                childexpand5.setVisibility(View.GONE);
 
-                codchargesHead.setVisibility(View.GONE);
-                codchargesQuote.setVisibility(View.GONE);
-                codchargesValue.setVisibility(View.GONE);
+    public void startPayment() {
+        /**
+         * You need to pass current activity in order to let Razorpay create CheckoutActivity
+         */
+        final Checkout co = new Checkout();
 
-                expand1.setBackgroundResource(R.drawable.border);
-                expand2.setBackgroundResource(R.drawable.border);
-                expand3.setBackgroundResource(R.drawable.border);
-                expand4.setBackgroundResource(R.drawable.border);
-                expand5.setBackgroundResource(R.drawable.border);
-            } else {
-                expand1.setEnabled(true);
-                expand2.setEnabled(true);
-                expand3.setEnabled(true);
-                expand4.setEnabled(true);
-                expand5.setEnabled(true);
-                confirmorder.setVisibility(View.GONE);
-
-//                if (from.equalsIgnoreCase("COD")) {
-//                    total = total - Integer.parseInt(pmcash) + number;
-//                    pmamount.setText("" + Integer.parseInt(pmcash));
-//                    amounttotal.setText("" + total);
-//                    pmcashcurrentbal.setText("0");
-//                    codchargesValue.setText("" + number);
-//                } else {
-                    total = total - Integer.parseInt(pmcash);
-                pmstorecash.setText("" + Integer.parseInt(pmcash));
-                    amounttoPAY.setText("" + total);
-                pmcashcurrentbal.setText("0");
-//                }
-            }
-        } else {
-            expand1.setEnabled(true);
-            expand2.setEnabled(true);
-            expand3.setEnabled(true);
-            expand4.setEnabled(true);
-            expand5.setEnabled(true);
-            confirmorder.setVisibility(View.GONE);
-
-//            if (from.equalsIgnoreCase("COD")) {
-//                total = total + number;
-//                pmcashcurrentbal.setText("" + Integer.parseInt(pmcash));
-//                amounttotal.setText("" + total);
-//                pmamount.setText("0");
-//                codchargesValue.setText("" + number);
-//            } else {
-            pmcashcurrentbal.setText("" + Integer.parseInt(pmcash));
-                amounttoPAY.setText("" + total);
-            pmstorecash.setText("0");
-                codchargesValue.setText("0");
-//            }
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", "3PMstore");
+//            options.put("description", P_Name);
+            options.put("currency", "INR");
+            options.put("amount", amounttoPAY.getText().toString());
+            JSONObject preFill = new JSONObject();
+            preFill.put("email",email );
+            preFill.put("contact", bmobile);
+            options.put("prefill", preFill);
+            finalname = fname;
+            finalemail = email;
+            co.setPublicKey("rzp_live_bKbvbtZ8byoBY9");
+            co.open(getActivity(), options);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.expand1:
-                visablityHanlde(childexpand1, 1);
-                break;
-            case R.id.expand2:
-                visablityHanlde(childexpand2, 2);
-                break;
-            case R.id.expand3:
-                visablityHanlde(childexpand3, 3);
-                break;
-            case R.id.expand4:
-                visablityHanlde(childexpand4, 4);
-                break;
-            case R.id.expand5:
-                visablityHanlde(childexpand5, 5);
-                break;
-        }
+    public void onStartTransaction() {
+        PaytmPGService Service = PaytmPGService.getProductionService();
+        //		getStagingService();
+        Map<String, String> paramMap = new HashMap<String, String>();
+
+        // these are mandatory parameters
+        paramMap.put("ORDER_ID", orderid);
+        paramMap.put("MID", "Mersey83050553367323");
+        paramMap.put("CUST_ID", U_id);
+        paramMap.put("CHANNEL_ID", "WEB");
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail120");
+        paramMap.put("WEBSITE", "Merseywap");
+        paramMap.put("TXN_AMOUNT", amounttoPAY.getText().toString());
+        paramMap.put("THEME", "merchant");
+        paramMap.put("EMAIL", email);
+        paramMap.put("MOBILE_NO", bmobile);
+        PaytmOrder Order = new PaytmOrder(paramMap);
+
+        PaytmMerchant Merchant = new PaytmMerchant(
+                "https://3pmstore.com/android/android_connect/paytm/generateChecksum.php",
+                "https://3pmstore.com/android/android_connect/paytm/verifyChecksum.php");
+        Service.initialize(Order, Merchant, null);
+
+        Service.startPaymentTransaction(getActivity(), true, true,
+                new PaytmPaymentTransactionCallback() {
+                    @Override
+                    public void someUIErrorOccurred(String inErrorMessage) {
+                    }
+
+                    @Override
+                    public void onTransactionSuccess(Bundle inResponse) {
+                        Log.d("LOG", "Payment Transaction is successful " + inResponse);
+                        String status = "Paytm Transaction Successful!";
+                        String P_Type = "PayTM";
+                        Intent intent = new Intent(getActivity(),StatusActivity.class);
+                        intent.putExtra("transStatus", status);
+                        intent.putExtra("Orderid", orderid);
+                        intent.putExtra("EmailID", email);
+                        intent.putExtra("name", fname);
+                        intent.putExtra("P_Type", "PayTM");
+                        intent.putExtra("amount", HomeActivity.mCartTotal);
+                        intent.putExtra("3pmcashused", pmstorecash.getText().toString());
+                        finalname = fname;
+                        finalemail = email;
+                        startActivity(intent);
+                        Toast.makeText(getActivity(), "Payment Transaction is successful ", Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void onTransactionFailure(String inErrorMessage,Bundle inResponse) {
+                        Log.d("LOG", "Payment Transaction Failed " + inErrorMessage);
+                        Toast.makeText(getActivity(), "Payment Transaction Failed ", Toast.LENGTH_LONG).show();
+                    }
+                    @Override
+                    public void networkNotAvailable() {
+                    }
+                    @Override
+                    public void clientAuthenticationFailed(String inErrorMessage) {
+                    }
+                    @Override
+                    public void onErrorLoadingWebPage(int iniErrorCode,String inErrorMessage, String inFailingUrl) {
+                    }
+                    @Override
+                    public void onBackPressedCancelTransaction() {
+                    }
+
+                });
     }
-    private void visablityHanlde(View child, int position) {
-        fromCOD = false;
-        if (child.getVisibility() == View.VISIBLE) {
-            childexpand1.setVisibility(View.GONE);
-            childexpand2.setVisibility(View.GONE);
-            childexpand3.setVisibility(View.GONE);
-            childexpand4.setVisibility(View.GONE);
-            childexpand5.setVisibility(View.GONE);
-
-            codchargesHead.setVisibility(View.GONE);
-            codchargesQuote.setVisibility(View.GONE);
-            codchargesValue.setVisibility(View.GONE);
-            confirmorder.setVisibility(View.GONE);
-
-            expand1.setBackgroundResource(R.drawable.border);
-            expand2.setBackgroundResource(R.drawable.border);
-            expand3.setBackgroundResource(R.drawable.border);
-            expand4.setBackgroundResource(R.drawable.border);
-            expand5.setBackgroundResource(R.drawable.border);
-            calculateTotalFare("Default", 0);
-        } else {
-            if (position == 1) {
-                childexpand1.setVisibility(View.VISIBLE);
-                childexpand2.setVisibility(View.GONE);
-                childexpand3.setVisibility(View.GONE);
-                childexpand4.setVisibility(View.GONE);
-                childexpand5.setVisibility(View.GONE);
-
-                codchargesHead.setVisibility(View.GONE);
-                codchargesQuote.setVisibility(View.GONE);
-                codchargesValue.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.GONE);
-
-                expand1.setBackgroundResource(R.drawable.paymentparentbackground);
-                expand2.setBackgroundResource(R.drawable.border);
-                expand3.setBackgroundResource(R.drawable.border);
-                expand4.setBackgroundResource(R.drawable.border);
-                expand5.setBackgroundResource(R.drawable.border);
-                calculateTotalFare("DEFULT", 0);
-            } else if (position == 2) {
-                childexpand1.setVisibility(View.GONE);
-                childexpand2.setVisibility(View.VISIBLE);
-                childexpand3.setVisibility(View.GONE);
-                childexpand4.setVisibility(View.GONE);
-                childexpand5.setVisibility(View.GONE);
-
-                codchargesHead.setVisibility(View.GONE);
-                codchargesQuote.setVisibility(View.GONE);
-                codchargesValue.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.GONE);
-
-                expand1.setBackgroundResource(R.drawable.border);
-                expand2.setBackgroundResource(R.drawable.paymentparentbackground);
-                expand3.setBackgroundResource(R.drawable.border);
-                expand4.setBackgroundResource(R.drawable.border);
-                expand5.setBackgroundResource(R.drawable.border);
-                calculateTotalFare("DEFULT", 0);
-            } else if (position == 3) {
-                childexpand1.setVisibility(View.GONE);
-                childexpand2.setVisibility(View.GONE);
-                childexpand3.setVisibility(View.VISIBLE);
-                childexpand4.setVisibility(View.GONE);
-                childexpand5.setVisibility(View.GONE);
-
-                codchargesHead.setVisibility(View.GONE);
-                codchargesQuote.setVisibility(View.GONE);
-                codchargesValue.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.GONE);
-
-                expand1.setBackgroundResource(R.drawable.border);
-                expand2.setBackgroundResource(R.drawable.border);
-                expand3.setBackgroundResource(R.drawable.paymentparentbackground);
-                expand4.setBackgroundResource(R.drawable.border);
-                expand5.setBackgroundResource(R.drawable.border);
-                calculateTotalFare("DEFULT", 0);
-            } else if (position == 4) {
-                fromCOD = true;
-                childexpand1.setVisibility(View.GONE);
-                childexpand2.setVisibility(View.GONE);
-                childexpand3.setVisibility(View.GONE);
-                childexpand4.setVisibility(View.VISIBLE);
-                childexpand5.setVisibility(View.GONE);
-
-                codchargesHead.setVisibility(View.VISIBLE);
-                codchargesQuote.setVisibility(View.VISIBLE);
-                codchargesValue.setVisibility(View.VISIBLE);
-                confirmorder.setVisibility(View.GONE);
-
-                expand1.setBackgroundResource(R.drawable.border);
-                expand2.setBackgroundResource(R.drawable.border);
-                expand3.setBackgroundResource(R.drawable.border);
-                expand4.setBackgroundResource(R.drawable.paymentparentbackground);
-                expand5.setBackgroundResource(R.drawable.border);
-                calculateTotalFare("COD", Integer.parseInt(codcharge));
-
-            } else if (position == 5) {
-                childexpand1.setVisibility(View.GONE);
-                childexpand2.setVisibility(View.GONE);
-                childexpand3.setVisibility(View.GONE);
-                childexpand4.setVisibility(View.GONE);
-                childexpand5.setVisibility(View.VISIBLE);
-
-                codchargesHead.setVisibility(View.GONE);
-                codchargesQuote.setVisibility(View.GONE);
-                codchargesValue.setVisibility(View.GONE);
-                confirmorder.setVisibility(View.GONE);
-
-                expand1.setBackgroundResource(R.drawable.border);
-                expand2.setBackgroundResource(R.drawable.border);
-                expand3.setBackgroundResource(R.drawable.border);
-                expand4.setBackgroundResource(R.drawable.border);
-                expand5.setBackgroundResource(R.drawable.paymentparentbackground);
-                calculateTotalFare("DEFULT", 0);
-            }
-
-        }
-    }
-
 
 }
