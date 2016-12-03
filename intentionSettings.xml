@@ -6,5 +6,6 @@
     <ignoreAction name="Java/Control Flow/Invert 'if' condition" />
     <ignoreAction name="Java/Declaration/Move assignment to field declaration" />
     <ignoreAction name="Android/Insert App Indexing API Code" />
+    <ignoreAction name="Java/Control Flow/Remove Braces" />
   </component>
 </application>
